@@ -38,8 +38,10 @@ npm install
 npm run dev
 ```
 
-라이브 페이지:
-- `http://localhost:3000/live`
+검증 페이지:
+- `http://localhost:3000/evidence`
+- `http://localhost:3000/events`
+- `http://localhost:3000/limits`
 
 검증 빌드:
 ```bash
@@ -101,5 +103,7 @@ crontab -l | grep -v "run_realtime_cycle.py" | crontab -
 ## 6) 로드맵/프로토콜
 - 로드맵: `docs/roadmap/SVC_MVP_PLAN.md`
 - 실시간 설계: `docs/roadmap/SVC_REALTIME_VALIDATION_PLAN.md`
+- 아키텍처/ERD: `docs/method/ARCHITECTURE_ERD.md`
+- 협업 실행 원칙: `docs/roadmap/COLLAB_EXECUTION_PROTOCOL.md`
 - 블라인드: `docs/protocols/blind_protocol.md`
 - 통계: `docs/protocols/stats_protocol.md`

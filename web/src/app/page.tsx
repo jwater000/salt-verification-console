@@ -34,8 +34,8 @@ export default async function Home() {
           SALT가 표준이론 대비 어디서 더 낮은 오차를 보이는지 공개 데이터로 검증합니다.
         </h1>
         <p className="mt-3 max-w-3xl text-slate-300">
-          이 사이트의 핵심은 이론 소개가 아니라 비교 검증입니다. 동일 이벤트에서 표준모형과 SALT를 동시에 평가하고,
-          잔차 차이를 시각화합니다.
+          이 사이트의 핵심은 이론 소개가 아니라 비교 검증입니다. 동일 이벤트에서 표준우주론(ΛCDM)과 SALT를
+          동시에 평가하고, 잔차 차이를 시각화합니다.
         </p>
         <div className="mt-4 flex gap-3">
           <Link href="/evidence" className="badge">
@@ -62,7 +62,7 @@ export default async function Home() {
         <article className="panel p-5">
           <h2 className="text-sm uppercase tracking-wider text-slate-400">Outcome Split</h2>
           <p className="mt-2 text-sm text-slate-300">
-            SALT 우세 {saltWins} / 표준 우세 {standardWins} / 동률 {ties}
+            SALT 우세 {saltWins} / 표준우주론(ΛCDM) 우세 {standardWins} / 동률 {ties}
           </p>
         </article>
       </section>

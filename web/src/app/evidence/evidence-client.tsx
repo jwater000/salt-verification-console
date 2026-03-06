@@ -79,7 +79,7 @@ export default function EvidenceClient({ rows }: Props) {
     <section className="space-y-6">
       <header className="panel p-5">
         <p className="text-xs uppercase tracking-[0.2em] text-cyan-300">Evidence</p>
-        <h1 className="mt-2 text-2xl font-semibold">실측 vs 표준예측 vs SALT예측</h1>
+        <h1 className="mt-2 text-2xl font-semibold">실측 vs 표준우주론(ΛCDM) 예측 vs SALT 예측</h1>
         <p className="mt-2 text-sm text-slate-300">
           같은 이벤트에 대해 세 값을 동시에 표시하고, 절대오차 기준으로 승패를 판정합니다.
         </p>
@@ -110,7 +110,7 @@ export default function EvidenceClient({ rows }: Props) {
           >
             <option value="all">All</option>
             <option value="SALT">SALT</option>
-            <option value="STANDARD">STANDARD</option>
+            <option value="STANDARD">ΛCDM</option>
             <option value="TIE">TIE</option>
           </select>
         </label>
@@ -126,7 +126,7 @@ export default function EvidenceClient({ rows }: Props) {
           <p className="mt-2 text-2xl font-semibold text-cyan-300">{summary.saltWins}</p>
         </article>
         <article className="panel p-4">
-          <p className="text-xs text-slate-400">Standard Wins</p>
+          <p className="text-xs text-slate-400">ΛCDM Wins</p>
           <p className="mt-2 text-2xl font-semibold text-rose-300">{summary.standardWins}</p>
         </article>
         <article className="panel p-4">
@@ -147,7 +147,7 @@ export default function EvidenceClient({ rows }: Props) {
         </div>
         <div className="mt-2 flex gap-3 text-xs text-slate-300">
           <span>Actual: white</span>
-          <span>Standard: rose</span>
+          <span>ΛCDM: rose</span>
           <span>SALT: cyan</span>
         </div>
       </section>
@@ -169,7 +169,7 @@ export default function EvidenceClient({ rows }: Props) {
                   <span>
                     {r.event_time_utc ?? "-"} / {r.event_id}
                   </span>
-                  <span>{winner(r)}</span>
+                  <span>{winner(r) === "STANDARD" ? "ΛCDM" : winner(r)}</span>
                 </div>
                 <div className="grid gap-1">
                   <div className="h-2 rounded bg-slate-800">

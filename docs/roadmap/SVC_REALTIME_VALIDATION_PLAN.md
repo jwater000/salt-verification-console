@@ -20,7 +20,7 @@
 - `Scoring`: Standard/SALT 동시 실행 및 오차 계산
 - `Store`: SQLite(Postgres 전환 가능)로 원본/정규화/평가 분리 저장
 - `API`: 웹 대시보드용 조회 API (`/api/live/*`)
-- `Web`: 라이브 스트림 + 이벤트 타임라인 + 모델 비교 차트
+- `Web`: `Evidence/Events/Limits` 3페이지 기반 비교·이벤트·한계 공개
 
 ## 4) 데이터 소스 계층 (MVP)
 - 영상:
@@ -47,17 +47,14 @@
 - `Coverage`: 유효 샘플 비율
 
 ## 7) 웹 화면 구성
-- `/live`:
-  - 상단: 공식 스트림 2~4개 임베드 + 소스/상태/갱신 시각
-  - 중단: 최근 이벤트 타임라인
-  - 하단: Standard vs SALT 롤링 성능(1h/24h/7d)
-- `/dashboard`:
-  - 기존 필터 유지 + `window`, `source`, `quality_flag` 추가
+- `/evidence`: 실측 vs 표준 vs SALT 비교 차트, 승패 집계
+- `/events`: 이벤트 단위 테이블(원자료/오차/판정)
+- `/limits`: 표준 우세/동률/한계 공개
 
 ## 8) 구현 단계 (2주)
 1. Day 1-2: DB 스키마 고정, 수집 스크립트 골격 추가
 2. Day 3-4: 기존 JSON/CSV를 DB로 적재하는 배치 구현
-3. Day 5-6: `/live` 페이지(스트림+기초 요약) 구현
+3. Day 5-6: `Evidence/Events/Limits` 페이지(비교/이벤트/한계) 구현
 4. Day 7-8: 롤링 집계 및 비교 API 구현
 5. Day 9-10: 대시보드 차트 연동 및 필터 확장
 6. Day 11-12: 재현성 테스트/리포트 자동 생성
@@ -73,7 +70,7 @@
 - [x] 설계 문서 작성
 - [x] DB 스키마 초안 작성
 - [x] DB 초기 적재 스크립트 추가
-- [x] `/live` 페이지 골격 추가
+- [x] `Evidence/Events/Limits` 페이지 골격 추가
 - [x] API 실시간 수집기 연동 (GWOSC/GraceDB 1차)
 - [x] 롤링 메트릭 자동 배치 (cron 설치 스크립트 제공)
 

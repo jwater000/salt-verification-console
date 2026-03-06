@@ -33,13 +33,14 @@ export default async function LimitsPage() {
         <p className="text-xs uppercase tracking-[0.2em] text-cyan-300">Limits</p>
         <h1 className="mt-2 text-2xl font-semibold">한계와 실패 사례</h1>
         <p className="mt-2 text-sm text-slate-300">
-          이 페이지는 SALT 우세 사례만이 아니라 표준이 더 나은 구간과 동률 사례를 함께 공개합니다.
+          이 페이지는 SALT 우세 사례만이 아니라 표준우주론(ΛCDM)이 더 나은 구간과 동률 사례를 함께
+          공개합니다.
         </p>
       </header>
 
       <section className="grid gap-4 md:grid-cols-3">
         <article className="panel p-4">
-          <p className="text-xs text-slate-400">표준 우세 이벤트</p>
+          <p className="text-xs text-slate-400">표준이론 우세 이벤트</p>
           <p className="mt-2 text-2xl font-semibold text-rose-300">{standardBetter.length}</p>
           <p className="mt-1 text-xs text-slate-400">{standardRate.toFixed(1)}%</p>
         </article>
@@ -59,9 +60,9 @@ export default async function LimitsPage() {
       </section>
 
       <section className="panel p-4">
-        <h2 className="text-lg font-semibold">표준 우세 사례</h2>
+        <h2 className="text-lg font-semibold">표준이론 우세 사례</h2>
         <p className="mb-3 mt-1 text-sm text-slate-300">
-          아래 이벤트는 현재 데이터 기준으로 표준 적합도가 SALT보다 높았습니다.
+          아래 이벤트는 현재 데이터 기준으로 표준우주론(ΛCDM) 적합도가 SALT보다 높았습니다.
         </p>
         <div className="overflow-x-auto">
           <table className="w-full text-left text-sm">
@@ -102,7 +103,7 @@ export default async function LimitsPage() {
       <section className="panel p-4 text-sm text-slate-300">
         <h2 className="text-lg font-semibold">해석 주의사항</h2>
         <ul className="mt-2 list-disc space-y-1 pl-5">
-          <li>특정 기간/데이터셋에서는 표준모형이 더 잘 맞을 수 있습니다.</li>
+          <li>특정 기간/데이터셋에서는 표준우주론(ΛCDM)이 더 잘 맞을 수 있습니다.</li>
           <li>현재 잔차 비교는 적재된 이벤트 표본에 의존합니다.</li>
           <li>GCN/ZTF/HEASARC는 현재 URL 환경변수 기반으로 확장 준비 상태입니다.</li>
           <li>실측(actual)이 없는 레코드는 residual_score fallback 판정을 사용합니다.</li>

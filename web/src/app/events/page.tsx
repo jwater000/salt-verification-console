@@ -31,7 +31,7 @@ export default async function EventsPage() {
         <p className="text-xs uppercase tracking-[0.2em] text-cyan-300">Events</p>
         <h1 className="mt-2 text-2xl font-semibold">이벤트별 판정 상세</h1>
         <p className="mt-2 text-sm text-slate-300">
-          각 이벤트에서 SALT/표준 중 어느 쪽이 우세한지 개별 레코드 단위로 확인합니다.
+          각 이벤트에서 SALT/표준우주론(ΛCDM) 중 어느 쪽이 우세한지 개별 레코드 단위로 확인합니다.
         </p>
       </header>
 
@@ -78,7 +78,7 @@ export default async function EventsPage() {
                             : "rounded-full border border-slate-700 bg-slate-900 px-2 py-0.5 text-xs text-slate-300"
                       }
                     >
-                      {winner}
+                      {winner === "STANDARD" ? "ΛCDM" : winner}
                     </span>
                   </td>
                   <td className="py-2">{r.flag}</td>

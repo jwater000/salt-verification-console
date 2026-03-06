@@ -2,10 +2,11 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Link from "next/link";
 import { loadLiveSnapshot } from "@/lib/data";
+import SiteStructureMap from "@/components/site-structure-map";
 
 export const metadata: Metadata = {
   title: "SALT Verification Console",
-  description: "Evidence-first comparison of Standard model vs SALT on public data.",
+  description: "Evidence-first comparison of standard cosmology (LambdaCDM) vs SALT on public data.",
 };
 
 function snapshotStatus(generatedAtUtc: string): { stale: boolean; label: string } {
@@ -57,6 +58,7 @@ export default async function RootLayout({
             <div className="mx-auto w-full max-w-6xl">{status.label}</div>
           </div>
         )}
+        <SiteStructureMap />
         <main className="mx-auto w-full max-w-6xl px-6 py-8">{children}</main>
       </body>
     </html>

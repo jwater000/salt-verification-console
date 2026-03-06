@@ -1,150 +1,288 @@
-# SALT Verification Console MVP Plan
+# SALT Verification Console MVP Plan (v2)
 
-최종 업데이트: `2026-03-06`
+최종 업데이트: `2026-03-07`
 
-## 제품 정의
-- 목적: SALT 예측, 공개 데이터, 표준 모델 대비 차이, 반증 기준을 한 콘솔에서 검증 가능 형태로 공개
+## 변경 요약
+- 기존 단일 축 계획을 `거시(Cosmic)`/`미시(Micro)` 이중 트랙 계획으로 전환
+- 웹 정보구조를 `도메인 탭 + 공통 4페이지(Evidence/Events/Method/Limits)`로 고정
+- `Standard` 용어를 도메인별로 분리 고정 (`Cosmic=ΛCDM`, `Micro=SM`)
+- 검증 파이프라인을 `수집 -> 정규화 -> 예측계산 -> 통계판정 -> 반증평가`로 통합
+- 데이터/식/버전 추적을 위한 `Audit` 운영 페이지를 필수 범위에 포함
+
+## 1) 제품 정의
+- 목적: SALT 예측을 공개 데이터와 같은 규칙으로 비교해 재현 가능하게 검증
 - 제품명: `SALT Verification Console`
-- 원칙:
+- 운영 원칙:
   - 사전예측 고정 우선
-  - 재현 가능한 사전계산 결과(JSON/CSV) 우선
-  - 표준 vs SALT 비교 시각화 우선
+  - 표준이론 대비 SALT 비교를 동일 통계기준으로 판정
+  - 성공/실패/동률을 모두 공개
 
-## MVP 범위
-- `/` 홈
-- `/evidence`
-- `/events`
-- `/method`
-- `/limits`
-- `/api/live/snapshot` (데이터 스냅샷 조회 API)
+## 2) 표준이론 범위 고정
+- `Cosmic` 트랙 표준이론: `ΛCDM (standard cosmology)`
+- `Micro` 트랙 표준이론: `SM (Standard Model)`
+- 문서/웹에서 단독 `Standard` 표기는 금지하고 도메인 라벨을 병기
 
-## 핵심 예측(초기 2개)
-- `P-001` 시간 지연-적색편이 공통 원인
-- `P-002` 고주파/고에너지 잔차 후보
+## 3) MVP 정보구조 (웹)
+- 상위 탭:
+  - `Cosmic (ΛCDM)`
+  - `Micro (SM)`
+- 공통 하위 페이지:
+  - `Evidence`
+  - `Events`
+  - `Method`
+  - `Limits`
+- 공통 운영 페이지:
+  - `Audit` (출처/버전/식/통계 기준/재현 명령)
 
-## 현재 진행 현황 요약 (2026-03-06 기준)
-- 제품 방향: 설명형 콘솔 -> `증거 중심(Evidence-first)` 검증 콘솔로 전환 완료
-- 데이터 모델: `actual_value`, `standard_fit`, `salt_fit` 3중 비교 구조 1차 반영 완료
-- 수집 파이프라인: `GWOSC/GraceDB` 기본 연동 + `GCN/ZTF/HEASARC` 확장 슬롯/파서 준비 완료
-- 자동화: `run_realtime_cycle.py` 및 cron 설치 스크립트 제공 완료
-- 프런트 핵심 화면: `Home/Evidence/Events/Method/Limits` 5페이지 체계로 정리 완료
+권장 라우트:
+- `/cosmic/evidence`, `/cosmic/events`, `/cosmic/method`, `/cosmic/limits`
+- `/micro/evidence`, `/micro/events`, `/micro/method`, `/micro/limits`
+- `/audit`
 
-### 진행률(실행 관점)
-- MVP 코어(비교 시각화/판정/재현 명령): `85%`
-- 운영 자동화(주기 수집/배포 연계): `60%`
-- 데이터 소스 완성도(5개 소스 실수집 안정화): `40%`
+## 4) 공통 데이터 계약
+- 핵심 컬럼:
+  - `measured_value`
+  - `standard_pred`
+  - `salt_pred`
+  - `standard_error = measured_value - standard_pred`
+  - `salt_error = measured_value - salt_pred`
+  - `winner = argmin(|standard_error|, |salt_error|)`
+- 공통 메타:
+  - `domain` (`cosmic`/`micro`)
+  - `channel`
+  - `formula_version`
+  - `dataset_version`
+  - `quality_flag`
 
-## 남은 핵심 작업 (우선순위)
-1. GitHub Actions 주기 수집 워크플로우 추가
-- [x] `.github/workflows/realtime-update.yml` 작성
-- [x] 주기 실행 후 결과 커밋/푸시 정책 확정
+## 5) 검증 파이프라인
+1. 데이터 수집(공개 소스 ingest)
+2. 정규화(단위/시간축/오차모델)
+3. 표준예측/SALT예측 동시 계산
+4. 통계 평가(`MAE`, `RMSE`, `chi2`, `AIC/BIC`, `FDR`)
+5. 반증 조건 평가
+6. 웹 시각화/리포트 생성
 
-2. Vercel 조회 경로 고정
-- [ ] Vercel이 최신 `live_snapshot.json`을 안정적으로 읽도록 배포 동작 검증
-- [ ] 수집 실패 시 사용자 안내 배너(데이터 지연/오류) 추가
+## 6) 도메인별 MVP 범위
 
-3. 공개 데이터 5소스 실수집 안정화
-- [ ] `GWOSC/GraceDB/GCN/ZTF/HEASARC` 실제 응답 포맷 점검 후 파서 튜닝
-- [ ] 이벤트 ID 중복/충돌 처리 규칙 고정
+### 6.1 Cosmic (즉시 운영)
+- 채널: Shapiro, 중력 적색편이, 렌즈 지연, GNSS/GPS, GW-EM
+- 현행 페이지 기반 운영: `/evidence`, `/events`, `/method`, `/limits`
+- API: `/api/live/snapshot` 및 실시간 산출물 연동 유지
 
-4. Evidence 신뢰도 고도화
-- [ ] 기간/소스 필터 추가
-- [ ] `RMSE/MAE` 수치 카드와 판정 문구 자동 요약 강화
+### 6.2 Micro (신규 구축)
+- 1차 채널:
+  - `muon_g_minus_2`
+  - `neutrino_oscillation`
+  - `collider_high_pt_tail`
+- 원천 데이터:
+  - HEPData
+  - PDG
+  - NuFIT
+  - (필요 시) CERN Open Data
+- 상태 정책:
+  - 관측량별 SALT 예측식 잠금 전: `검증대기`
+  - 잠금 후: `검증실행`
 
-5. 문서/운영 기준 고정
-- [ ] 실패 사례 공개 기준(표본 수 하한, 누락 허용치) 명문화
-- [ ] 릴리스 체크리스트(수집 성공률, 스냅샷 최신 시각, 빌드 성공) 작성
-- [x] MVP 범위에서 관리자 페이지/운영 상세(실패 소스 수·원인) 노출 제외
+## 7) 일정 (운영 전환 + 확장)
 
-## 진행 체크리스트
+### Week 1: 구조 전환
+- [ ] `Cosmic/Micro` 탭 및 라우트 분리
+- [ ] 공통 데이터 계약 필드 반영
+- [ ] `Audit` 페이지 초안 배포
 
-### Day 1-2 이관/구조화
-- [x] `.venv` 생성
-- [x] 기본 폴더 구조 생성 (`docs`, `assets`, `data`, `analysis`, `results`, `tools`, `web`)
-- [x] 책 md를 `docs/book`로 이관
-- [x] 이미지 복사 (`assets/images/public`, `assets/images/graph`)
-- [x] 그래프 재생성 코드 복사 (`tools/makegraph`)
-- [x] md 이미지 링크 호환 폴더 구성 (`docs/book/Images`)
-- [x] 중복 이미지 폴더 정리 (`docs/Images`, `assets/images/Images` 제거)
-- [x] 링크 깨짐 검사 완료 (`docs/book/*.md` 기준 missing=0)
-- [x] `docs/book/INDEX.md` 작성
+완료 기준:
+- 도메인 구분 라우트 접근 가능
+- `Standard=ΛCDM/SM` 혼동 문구 0건
+Owner:
+- Product/Web: jwater + Codex
+Deliverable:
+- 라우트 구조 반영 PR 1건
+- `Audit` 페이지 초안(출처/버전/식 버전/재현 커맨드 표시)
+Dependency:
+- 기존 `/evidence`, `/events`, `/method`, `/limits` 페이지 안정 동작
+Exit Criteria:
+- `/cosmic/*`, `/micro/*` 경로에서 404 없이 기본 렌더
+- 네비게이션에서 도메인 전환 가능
 
-### Day 3-4 Prediction Registry 고정
-- [x] `docs/predictions/P-001.md` 템플릿 생성
-- [x] `docs/predictions/P-002.md` 생성
-- [x] `docs/registry/REGISTRY.md` 생성
-- [x] P-001/P-002 실제 내용 채우기 (가설/반증/판정규칙/잠금일자)
-- [x] REGISTRY 상태 `Draft -> Locked` 전환
+### Week 2: Micro 데이터 파이프라인
+- [ ] 미시 ingest 스크립트(HEPData/PDG/NuFIT) 추가
+- [ ] 미시 스코어 테이블 구축
+- [ ] 미시 Evidence/Events 초기 시각화
 
-### Day 5-6 검증 프로토콜 고정
-- [x] `docs/protocols/blind_protocol.md` 생성
-- [x] `docs/protocols/stats_protocol.md` 생성
-- [x] 블라인드 숨김구간 규칙 확정
-- [x] 통계 파라미터 최종 고정 (`alpha`, FDR, 효과크기 기준)
+완료 기준:
+- 미시 3채널 중 최소 2채널 데이터 적재 성공
+Owner:
+- Data/Model: jwater + Codex
+Deliverable:
+- `micro_*` 스키마 SQL 파일
+- 소스별 ingest 스크립트 3종(HEPData/PDG/NuFIT)
+- 적재 검증 리포트 1건(row count, 결측률, 버전)
+Dependency:
+- 원천 데이터 접근 경로/라이선스 확정
+- 채널별 관측량 ID 고정
+Exit Criteria:
+- 미시 3채널 중 최소 2채널 `micro_observations` 적재
+- `micro_scores` 샘플 계산 성공
 
-### Day 7-8 데이터 매니페스트
-- [x] `data/manifests/ligo_manifest.csv` 생성
-- [x] `data/manifests/fermi_manifest.csv` 생성
-- [x] `docs/sources/sources.md` 생성
-- [x] 출처/버전/접근일 실제 값 채우기
+### Week 3: 통계/반증 자동화
+- [ ] 채널별 통계판정 자동 계산
+- [ ] FDR 포함 다중비교 판정
+- [ ] Limits/Audit 연결 강화
 
-### Day 9-10 분석 파이프라인 v0
-- [x] `analysis/ligo` 기준선+잔차 계산 스크립트
-- [x] `analysis/fermi` 도달시간 잔차 계산 스크립트
-- [x] 결과 산출 포맷 초안 고정 (`data/processed/*.json`, `results/reports/*.csv`)
+완료 기준:
+- 채널별 `winner`와 반증 판정 자동 산출
+Owner:
+- Data/Stats: jwater + Codex
+Deliverable:
+- 채널별 `chi2`, `RMSE`, `AIC/BIC`, `FDR` 자동 계산 배치
+- 반증 판정 규칙 자동 태깅(`verdict`)
+- `/micro/limits` 및 `/audit` 연동
+Dependency:
+- Week 2 ingest 안정화
+- SALT 보정항 파라미터 잠금
+Exit Criteria:
+- 자동 산출 결과 재실행 시 동일(동일 입력 기준)
+- 반증 규칙이 리포트에 누락 없이 표시
 
-### Day 11-12 대시보드 v0
-- [x] Next.js + TypeScript + Tailwind 초기화
-- [x] `/dashboard` 표준 vs SALT 비교 뷰
-- [x] 필터(데이터셋/예측/이벤트/기간) 구현
-- [x] 결과 다운로드(CSV/JSON) 구현
+### Week 4: 문서 동기화
+- [ ] 책 챕터 반영(16/17/18/20/24/26)
+- [ ] 운영 문서와 웹 용어 완전 동기화
 
-### Day 13 블라인드 검증
-- [x] 사전예측 잠금 후 블라인드 1회 실행
-- [x] 평가 리포트 생성 (`results/reports/blind_eval_YYYYMMDD.md`)
+완료 기준:
+- 책/웹/로드맵 간 용어/식 버전 불일치 0건
+Owner:
+- Docs/QA: jwater + Codex
+Deliverable:
+- 책 챕터 수정 커밋
+- 문서-웹 용어 매핑표
+- 최종 운영 체크리스트
+Dependency:
+- Week 1~3 산출물 확정
+Exit Criteria:
+- `Standard` 표기 충돌 0건
+- `formula_version`, `dataset_version` 참조 경로 일치
 
-### Day 14 데모 패키징
-- [x] 루트 `README.md` 실행 순서 1페이지 작성
-- [x] 주장-증거-반증 3슬라이드 요약 작성
-- [x] 외부 시연용 최소 데이터/결과셋 확정
+## 7.1) Go / No-Go 체크포인트
 
-## 운영 규칙 (지속 점검)
-- 작업 완료 시 체크박스 즉시 갱신
-- 링크/결과 파일 점검 결과를 아래 로그에 날짜로 기록
-- 체크 기준:
-  - 문서: 파일 존재 + 필수 섹션 작성
-  - 데이터: 매니페스트/출처/버전/접근일 기입
-  - 분석: 재실행 시 동일 결과 재현
+### Gate A (Week 1 종료)
+- Go: 도메인 라우트(`/cosmic/*`, `/micro/*`)와 `Audit` 기본 렌더 확인
+- No-Go 조건:
+  - 라우트 오류율 > 5%
+  - 용어 충돌(`Standard` 단독 표기) 3건 이상
 
-## Post-MVP 백로그 (우선순위 고정)
-- [ ] 로그인/권한 체계 추가
-- [ ] 관리자 페이지(수집 실패 소스 수/원인, 배치 상태, 수동 재실행) 추가
-- [ ] 사용자 게시판(글쓰기/수정/삭제) 추가
-- [ ] 댓글/신고/관리자 moderation 기능 추가
-- [ ] DB를 SQLite에서 PostgreSQL로 단계적 전환
-- [ ] 게시판 트래픽 기준 인덱스/성능 튜닝
+### Gate B (Week 2 종료)
+- Go: 미시 3채널 중 최소 2채널 ingest 성공
+- No-Go 조건:
+  - 데이터 적재 실패율 > 20%
+  - 소스 라이선스/버전 추적 누락
 
-## 점검 로그
-- `2026-03-06`: 문서/이미지 이관 완료, 이미지 링크 missing=0 확인, 핵심 템플릿 5종 생성
-- `2026-03-06`: P-002 템플릿 생성, 데이터 계약 문서(`docs/method/data_contract.md`) 추가, MVP JSON 샘플(`data/processed`) 생성
-- `2026-03-06`: P-001/P-002 잠금 완료, LIGO/FERMI 매니페스트 생성, Next.js 콘솔 라우트(`/predictions`, `/datasets`, `/dashboard`, `/method`, `/roadmap`, `/book`) 구성 및 lint 통과
-- `2026-03-06`: `web` 프로덕션 빌드 성공 (`npm run build`), 라우트 정적/동적 생성 확인
-- `2026-03-06`: `docs/makegraph` 확인 후 `tools/makegraph`로 복사(실행용 코드 기준 37개 파일)
-- `2026-03-06`: `.venv`에 `numpy`, `matplotlib` 설치 후 `tools/makegraph/run_all_graphs.py` 실행 성공(33 scripts, 출력 경로 `tools/graph`)
-- `2026-03-06`: makegraph 출력 경로를 `docs/book/graph`로 변경, 기존 `tools/graph` 파일 이동 및 재실행(33 scripts) 검증 완료
-- `2026-03-06`: 대시보드 필터(예측/데이터셋/플래그/이벤트 검색) 및 CSV/JSON 다운로드 구현, `npm run lint`/`npm run build` 통과
-- `2026-03-06`: `sources.md` 실제 출처값 반영, manifests `source_url` 실URL로 갱신, `results_p2-hf-tail.json` 추가 및 웹 빌드 재검증 통과
-- `2026-03-06`: 대시보드 기간(Date From/To) 필터 추가, `analysis/ligo/build_residual_report.py` 및 `analysis/fermi/build_residual_report.py`로 CSV/JSON 재생성 파이프라인 구성
-- `2026-03-06`: 블라인드 숨김구간 규칙(70/30, 최신 30% holdout) 및 통계 임계값(`alpha=0.05`, `q<0.10`, `|d|>=0.20`) 고정, Day 13 템플릿(`blind_setup.md`, `blind_eval_YYYYMMDD.md`) 생성
-- `2026-03-06`: 블라인드 실행 로그(`repro_run_20260306.txt`) 기록, 평가 리포트(`blind_eval_20260306.md`) 생성, 루트 `README.md`/3슬라이드 요약/데모 최소셋 문서 작성
-- `2026-03-06`: 실시간 확장 문서(`SVC_REALTIME_VALIDATION_PLAN.md`) 및 DB 스키마(`realtime_db_schema.sql`) 추가, DB 부트스트랩 스크립트(`tools/realtime/build_realtime_db.py`)와 웹 `/live` 페이지 골격 구현
-- `2026-03-06`: DB 롤링 메트릭(`metric_windows`) 재계산 로직 추가, 라이브 스냅샷 생성 스크립트(`refresh_live_snapshot.py`) 및 API(`/api/live/snapshot`) 구현, `/live` 폴링 UI와 `/dashboard` 롤링 메트릭 테이블 연동
-- `2026-03-06`: 공개 이벤트 수집기(`collect_public_events.py`, GWOSC/GraceDB 1차) 추가, `events_raw/events_normalized` DB 적재 연동, 통합 실행 스크립트(`run_realtime_cycle.py`) 및 `/live` 관측 이벤트 테이블 반영
-- `2026-03-06`: 사이트 목적 전달 강화 개편 1차 적용(메뉴 단순화: Home/Evidence/Events/Method/Limits, 신규 `/evidence` `/events` `/limits` 페이지 추가, 홈 KPI 중심 재구성)
-- `2026-03-06`: 3중 비교 준비 1차 완료(`actual_value`/오차 컬럼 DB 연동, 결과 JSON 확장, Evidence/Events/Limits에서 actual 기반 판정 fallback 적용)
-- `2026-03-06`: Evidence 페이지 차트형 개편(필터, Actual/Standard/SALT 3중 라인 비교, 이벤트별 절대오차 막대 비교) 적용
-- `2026-03-06`: 공개 수집기 2차 확장(`collect_public_events.py`)으로 `GCN/ZTF/HEASARC` 소스 슬롯 추가(환경변수 URL 기반), 실패 허용형 멀티소스 수집 구조로 전환
-- `2026-03-06`: 자동 배치 경로 추가(`tools/realtime/install_cron_cycle.sh`, 10분 주기), `README.md`에 설치/해제 절차 반영
-- `2026-03-06`: 계획안 재정렬(현재 MVP 범위를 5페이지+API 기준으로 갱신, 진행률/남은 핵심 작업/GitHub Actions+Vercel 운영 단계 명시)
-- `2026-03-06`: GitHub Actions 자동 갱신 워크플로우 추가(`.github/workflows/realtime-update.yml`, 30분 주기 + 수동실행, 결과 산출물 자동 커밋/푸시)
-- `2026-03-06`: MVP 범위 조정: 관리자 페이지/운영 상세 지표(실패 소스 수·원인) 노출은 Post-MVP로 이관
+### Gate C (Week 3 종료)
+- Go: 채널별 자동 판정 + 반증 태깅 자동화 완료
+- No-Go 조건:
+  - 동일 입력 재실행 결과 불일치
+  - FDR/통계 출력 누락
+
+### Gate D (Week 4 종료)
+- Go: 문서/웹/로드맵 동기화 완료 후 운영 전환
+- No-Go 조건:
+  - 식 버전/데이터 버전 참조 불일치
+  - 실패 사례 공개 누락
+
+## 8) 반증 기준(공통)
+- 단일 파라미터 세트로 다중 데이터셋 동시 적합 실패 시 해당 가설 기각
+- SALT 우세 판단은 효과크기 + 유의성 동시 충족이 필요
+- 유리한 구간만 선택 보고하는 행위를 금지(실패 구간 동시 공개)
+
+## 9) 리스크 및 대응
+- 데이터 라이선스/재배포 제한: 소스별 라이선스 필드 강제
+- 미시 데이터 스케일/복잡도: 원시 이벤트 대신 요약 관측치 우선
+- 과장 해석 위험: `검증됨/가설/예측` 태그 강제
+- 문서-코드 불일치: `formula_version`/`dataset_version` 추적 강제
+
+## 10) 완료 정의 (DoD)
+- `Cosmic`/`Micro` 각각에서 Evidence/Events/Method/Limits 동작
+- `Audit`에서 출처/버전/식/통계기준 추적 가능
+- 동일 규칙으로 Standard vs SALT 비교 재현 가능
+- 실패 사례 공개 포함
+
+## 11) 미시 채널 상세 범위 (고정)
+1. `muon_g_minus_2`
+2. `neutrino_oscillation` (\(\theta_{23}\), \(\Delta m^2_{32}\) 중심)
+3. `collider_high_pt_tail` (\(d\sigma/dX\), \(X=p_T\) 또는 \(m_{jj}\))
+
+## 12) 미시 원천 데이터 소스 (권장 조합)
+1. HEPData: 충돌기 분포/오차표
+2. PDG: SM 기준값/세계평균 기준 테이블
+3. NuFIT: 중성미자 글로벌 핏 값/구간
+4. (선택) CERN Open Data: 원시 이벤트가 필요할 때만
+
+## 13) 미시 DB 스키마 (핵심 테이블)
+1. `micro_sources`  
+`source_id, provider, dataset_ref, url, license, version_tag, fetched_at_utc`
+2. `micro_observations`  
+`obs_id, channel, observable_id, dataset_id, x_value, measured_value, stat_err, sys_err, cov_group, unit, observed_at_utc`
+3. `micro_sm_predictions`  
+`pred_id, observable_id, dataset_id, x_value, sm_pred, sm_pred_err, sm_model_ref`
+4. `micro_salt_predictions`  
+`salt_pred_id, observable_id, dataset_id, x_value, salt_pred, alpha_micro, beta_micro, gamma_micro, formula_version`
+5. `micro_scores`  
+`score_id, observable_id, dataset_id, x_value, res_sm, res_salt, pull_sm, pull_salt, winner, computed_at_utc`
+6. `micro_fit_runs`  
+`run_id, channel, fit_scope, params_json, chi2_sm, chi2_salt, aic_sm, aic_salt, bic_sm, bic_salt, fdr_q, verdict`
+7. `micro_artifacts`  
+`artifact_id, run_id, plot_type, path, sha256, created_at_utc`
+
+## 14) 미시 검증식 잠금 템플릿
+공통 정의:
+\[
+res_{SM}=O_{meas}-O_{SM},\quad
+res_{SALT}=O_{meas}-O_{SALT},\quad
+winner=\arg\min(|res_{SM}|,|res_{SALT}|)
+\]
+
+뮤온 g-2:
+\[
+a_\mu=(g-2)/2,\quad
+a_\mu^{SALT}=a_\mu^{SM}+\Delta a_\mu^{SALT}(\alpha_\mu,\beta_\mu,\ldots)
+\]
+
+중성미자 진동:
+\[
+P^{SALT}_{\alpha\to\beta}=P^{SM}_{\alpha\to\beta}+\Delta P_{SALT}(L,E;\alpha_\nu,\beta_\nu,\ldots)
+\]
+또는
+\[
+\theta_{23}^{SALT}=\theta_{23}^{SM}+\delta\theta_{23}^{SALT},\quad
+(\Delta m^2_{32})^{SALT}=(\Delta m^2_{32})^{SM}+\delta(\Delta m^2)^{SALT}
+\]
+
+충돌기 고-\(p_T\) 꼬리:
+\[
+\left(\frac{d\sigma}{dX}\right)_{SALT}=\left(\frac{d\sigma}{dX}\right)_{SM}\cdot\left[1+\kappa\left(\frac{X}{X_0}\right)^q\right]
+\]
+
+## 15) 미시 통계/반증/시각화 기준
+- 채널별 기본 통계: \(\chi^2\), RMSE, AIC/BIC
+- 다중비교: Benjamini-Hochberg FDR
+- 반증 조건: 단일 파라미터 세트로 3개 이상 독립 데이터셋 동시 적합 실패 시 해당 채널 기각
+- 웹 시각화 라우트:
+  - `/micro/overview`
+  - `/micro/muon-g2`
+  - `/micro/neutrino`
+  - `/micro/collider`
+
+## 16) 미시 구현 실행 순서
+1. 데이터 수집 스크립트: HEPData/PDG/NuFIT ingest
+2. 스키마 생성 + raw 적재
+3. SM 기준값 고정
+4. SALT 보정항 파라미터 잠금
+5. 채널별 피팅 + 점수 계산
+6. 시각화 아티팩트 생성
+7. 웹 페이지 연결 + 최종 판정 리포트
+
+## 17) 이번 주 실행 TODO Top 5
+1. `micro_*` SQL 스키마 파일 확정 및 커밋
+2. HEPData/PDG/NuFIT ingest 최소 동작 버전 구현
+3. `/micro/overview` 페이지 골격 + 데이터 바인딩
+4. 통계 계산 배치(`chi2`, `RMSE`, `AIC/BIC`, `FDR`) 1차 구현
+5. `Audit` 페이지에 `formula_version`/`dataset_version` 노출
