@@ -314,6 +314,47 @@ def rebuild_metric_windows(conn: sqlite3.Connection) -> int:
     return inserted
 
 
+def cleanup_old_records(conn: sqlite3.Connection) -> int:
+    """
+    Retain only the most recent N records to keep the DB size well under 100MB.
+    """
+    count = 0
+    # Keep last 10,000 raw events
+    conn.execute(
+        """
+        DELETE FROM events_raw 
+        WHERE rowid NOT IN (
+            SELECT rowid FROM events_raw ORDER BY observed_at_utc DESC LIMIT 10000
+        )
+        """
+    )
+    count += conn.execute("SELECT changes()").fetchone()[0]
+
+    # Keep last 10,000 normalized events
+    conn.execute(
+        """
+        DELETE FROM events_normalized 
+        WHERE rowid NOT IN (
+            SELECT rowid FROM events_normalized ORDER BY event_time_utc DESC LIMIT 10000
+        )
+        """
+    )
+    count += conn.execute("SELECT changes()").fetchone()[0]
+
+    # Keep last 10,000 model scores
+    conn.execute(
+        """
+        DELETE FROM model_scores 
+        WHERE rowid NOT IN (
+            SELECT rowid FROM model_scores ORDER BY event_time_utc DESC LIMIT 10000
+        )
+        """
+    )
+    count += conn.execute("SELECT changes()").fetchone()[0]
+
+    return count
+
+
 def main() -> None:
     DB_PATH.parent.mkdir(parents=True, exist_ok=True)
     conn = sqlite3.connect(DB_PATH)
@@ -323,7 +364,10 @@ def main() -> None:
         live_event_count = upsert_live_events(conn)
         score_count = upsert_scores(conn)
         metric_count = rebuild_metric_windows(conn)
+        deleted_count = cleanup_old_records(conn)
         conn.commit()
+        # Ensure optimal DB size
+        conn.execute("VACUUM")
     finally:
         conn.close()
 
@@ -332,6 +376,7 @@ def main() -> None:
     print(f"live events upserted: {live_event_count}")
     print(f"model_scores upserted: {score_count}")
     print(f"metric_windows rebuilt: {metric_count}")
+    print(f"old records cleaned: {deleted_count}")
 
 
 if __name__ == "__main__":
