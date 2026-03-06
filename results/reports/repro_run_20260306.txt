@@ -1,0 +1,46 @@
+[DATE] 2026-03-06
+[CMD] .venv/bin/python analysis/ligo/build_residual_report.py
+[DONE] wrote 3 rows to /home/jwater/Development/salt-verification-console/results/reports/p001_results.csv
+[DONE] wrote 3 rows to /home/jwater/Development/salt-verification-console/data/processed/results_p1-time-delay-redshift.json
+[CMD] .venv/bin/python analysis/fermi/build_residual_report.py
+[DONE] wrote 3 rows to /home/jwater/Development/salt-verification-console/results/reports/p002_results.csv
+[DONE] wrote 3 rows to /home/jwater/Development/salt-verification-console/data/processed/results_p2-hf-tail.json
+[CMD] cd web && npm run lint
+
+> web@0.1.0 lint
+> eslint
+
+[CMD] cd web && npm run build
+
+> web@0.1.0 build
+> next build
+
+▲ Next.js 16.1.6 (Turbopack)
+
+  Creating an optimized production build ...
+✓ Compiled successfully in 1217.3ms
+  Running TypeScript ...
+  Collecting page data using 11 workers ...
+  Generating static pages using 11 workers (0/11) ...
+  Generating static pages using 11 workers (2/11) 
+  Generating static pages using 11 workers (5/11) 
+  Generating static pages using 11 workers (8/11) 
+✓ Generating static pages using 11 workers (11/11) in 136.1ms
+  Finalizing page optimization ...
+
+Route (app)
+┌ ○ /
+├ ○ /_not-found
+├ ○ /about
+├ ○ /book
+├ ○ /dashboard
+├ ○ /datasets
+├ ○ /method
+├ ○ /predictions
+├ ƒ /predictions/[id]
+└ ○ /roadmap
+
+
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand
+

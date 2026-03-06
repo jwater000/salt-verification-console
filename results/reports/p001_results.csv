@@ -1,0 +1,4 @@
+prediction_id,event_id,event_time_utc,standard_fit,salt_fit,residual_score,flag
+p1-time-delay-redshift,GW150914,2015-09-14T09:50:45Z,0.88,0.91,0.03,candidate
+p1-time-delay-redshift,GW151226,2015-12-26T03:38:53Z,0.9,0.91,0.01,neutral
+p1-time-delay-redshift,GW170104,2017-01-04T10:11:58Z,0.92,0.95,0.03,candidate

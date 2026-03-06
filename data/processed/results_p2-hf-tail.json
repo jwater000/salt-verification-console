@@ -1,0 +1,32 @@
+[
+  {
+    "prediction_id": "p2-hf-tail",
+    "event_id": "GRB090510",
+    "event_time_utc": "2009-05-10T00:22:59Z",
+    "actual_value": 0.910,
+    "standard_fit": 0.88,
+    "salt_fit": 0.913,
+    "residual_score": 0.033,
+    "flag": "candidate"
+  },
+  {
+    "prediction_id": "p2-hf-tail",
+    "event_id": "GRB130427A",
+    "event_time_utc": "2013-04-27T07:47:06Z",
+    "actual_value": 0.898,
+    "standard_fit": 0.891,
+    "salt_fit": 0.904,
+    "residual_score": 0.013,
+    "flag": "neutral"
+  },
+  {
+    "prediction_id": "p2-hf-tail",
+    "event_id": "GRB160509A",
+    "event_time_utc": "2016-05-09T08:58:46Z",
+    "actual_value": 0.900,
+    "standard_fit": 0.902,
+    "salt_fit": 0.893,
+    "residual_score": -0.009,
+    "flag": "rejected"
+  }
+]

@@ -1,0 +1,4 @@
+dataset_id,event_id,instrument,event_time_utc,energy_band,version,source_url,quality_flag,notes
+dataset-he-001,GRB090510,FERMI,2009-05-10T00:22:59Z,high,v1,https://heasarc.gsfc.nasa.gov/W3Browse/fermi/fermigbrst.html,pass,seed sample
+dataset-he-001,GRB130427A,FERMI,2013-04-27T07:47:06Z,high,v1,https://heasarc.gsfc.nasa.gov/W3Browse/fermi/fermigbrst.html,pass,seed sample
+dataset-he-001,GRB160509A,FERMI,2016-05-09T08:58:46Z,high,v1,https://heasarc.gsfc.nasa.gov/W3Browse/fermi/fermigbrst.html,pass,seed sample

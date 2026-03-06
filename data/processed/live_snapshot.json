@@ -1,0 +1,263 @@
+{
+  "generated_at_utc": "2026-03-06T07:34:53Z",
+  "streams": [
+    {
+      "stream_id": "fermilab-official",
+      "label": "Fermilab Official",
+      "provider": "YouTube",
+      "embed_url": "https://www.youtube.com/embed/videoseries?list=UU0VjG5218gQh6GUx8WegP7w",
+      "source_url": "https://www.youtube.com/user/fermilab",
+      "status": "offline",
+      "last_checked_utc": null
+    },
+    {
+      "stream_id": "ligo-official",
+      "label": "LIGO Official",
+      "provider": "YouTube",
+      "embed_url": "https://www.youtube.com/embed/videoseries?list=UU4oFlSYpDywInX0lxpiBPwA",
+      "source_url": "https://www.youtube.com/channel/UC4oFlSYpDywInX0lxpiBPwA",
+      "status": "offline",
+      "last_checked_utc": null
+    }
+  ],
+  "recent_events": [
+    {
+      "prediction_id": "p1-time-delay-redshift",
+      "source_id": "ligo",
+      "event_id": "GW170104",
+      "event_time_utc": "2017-01-04T10:11:58Z",
+      "actual_value": 0.947,
+      "standard_fit": 0.92,
+      "salt_fit": 0.95,
+      "standard_error": 0.026999999999999913,
+      "salt_error": -0.0030000000000000027,
+      "residual_score": 0.03,
+      "flag": "candidate",
+      "computed_at_utc": "2026-03-06T04:48:16Z"
+    },
+    {
+      "prediction_id": "p2-hf-tail",
+      "source_id": "fermi",
+      "event_id": "GRB160509A",
+      "event_time_utc": "2016-05-09T08:58:46Z",
+      "actual_value": 0.9,
+      "standard_fit": 0.902,
+      "salt_fit": 0.893,
+      "standard_error": -0.0020000000000000018,
+      "salt_error": 0.007000000000000006,
+      "residual_score": -0.009,
+      "flag": "rejected",
+      "computed_at_utc": "2026-03-06T04:48:16Z"
+    },
+    {
+      "prediction_id": "p1-time-delay-redshift",
+      "source_id": "ligo",
+      "event_id": "GW151226",
+      "event_time_utc": "2015-12-26T03:38:53Z",
+      "actual_value": 0.905,
+      "standard_fit": 0.9,
+      "salt_fit": 0.91,
+      "standard_error": 0.0050000000000000044,
+      "salt_error": -0.0050000000000000044,
+      "residual_score": 0.01,
+      "flag": "neutral",
+      "computed_at_utc": "2026-03-06T04:48:16Z"
+    },
+    {
+      "prediction_id": "p1-time-delay-redshift",
+      "source_id": "ligo",
+      "event_id": "GW150914",
+      "event_time_utc": "2015-09-14T09:50:45Z",
+      "actual_value": 0.907,
+      "standard_fit": 0.88,
+      "salt_fit": 0.91,
+      "standard_error": 0.027000000000000024,
+      "salt_error": -0.0030000000000000027,
+      "residual_score": 0.03,
+      "flag": "candidate",
+      "computed_at_utc": "2026-03-06T04:48:16Z"
+    },
+    {
+      "prediction_id": "p2-hf-tail",
+      "source_id": "fermi",
+      "event_id": "GRB130427A",
+      "event_time_utc": "2013-04-27T07:47:06Z",
+      "actual_value": 0.898,
+      "standard_fit": 0.891,
+      "salt_fit": 0.904,
+      "standard_error": 0.007000000000000006,
+      "salt_error": -0.006000000000000005,
+      "residual_score": 0.013,
+      "flag": "neutral",
+      "computed_at_utc": "2026-03-06T04:48:16Z"
+    },
+    {
+      "prediction_id": "p2-hf-tail",
+      "source_id": "fermi",
+      "event_id": "GRB090510",
+      "event_time_utc": "2009-05-10T00:22:59Z",
+      "actual_value": 0.91,
+      "standard_fit": 0.88,
+      "salt_fit": 0.913,
+      "standard_error": 0.030000000000000027,
+      "salt_error": -0.0030000000000000027,
+      "residual_score": 0.033,
+      "flag": "candidate",
+      "computed_at_utc": "2026-03-06T04:48:16Z"
+    }
+  ],
+  "recent_observations": [
+    {
+      "source_id": "gracedb",
+      "event_id": "MS260306e",
+      "event_time_utc": "2026-03-06 04:57:09 UTC",
+      "quality_flag": "unknown"
+    },
+    {
+      "source_id": "gracedb",
+      "event_id": "MS260306d",
+      "event_time_utc": "2026-03-06 03:57:12 UTC",
+      "quality_flag": "unknown"
+    },
+    {
+      "source_id": "gracedb",
+      "event_id": "MS260306c",
+      "event_time_utc": "2026-03-06 02:57:09 UTC",
+      "quality_flag": "unknown"
+    },
+    {
+      "source_id": "gracedb",
+      "event_id": "MS260306b",
+      "event_time_utc": "2026-03-06 01:57:09 UTC",
+      "quality_flag": "unknown"
+    },
+    {
+      "source_id": "gracedb",
+      "event_id": "MS260306a",
+      "event_time_utc": "2026-03-06 00:57:09 UTC",
+      "quality_flag": "unknown"
+    },
+    {
+      "source_id": "gracedb",
+      "event_id": "MS260305x",
+      "event_time_utc": "2026-03-05 23:57:09 UTC",
+      "quality_flag": "unknown"
+    },
+    {
+      "source_id": "gracedb",
+      "event_id": "MS260305w",
+      "event_time_utc": "2026-03-05 22:57:09 UTC",
+      "quality_flag": "unknown"
+    },
+    {
+      "source_id": "gracedb",
+      "event_id": "MS260305v",
+      "event_time_utc": "2026-03-05 21:57:09 UTC",
+      "quality_flag": "unknown"
+    },
+    {
+      "source_id": "gracedb",
+      "event_id": "MS260305u",
+      "event_time_utc": "2026-03-05 20:59:09 UTC",
+      "quality_flag": "unknown"
+    },
+    {
+      "source_id": "gracedb",
+      "event_id": "MS260305t",
+      "event_time_utc": "2026-03-05 19:57:09 UTC",
+      "quality_flag": "unknown"
+    },
+    {
+      "source_id": "gracedb",
+      "event_id": "MS260305s",
+      "event_time_utc": "2026-03-05 18:57:09 UTC",
+      "quality_flag": "unknown"
+    },
+    {
+      "source_id": "gracedb",
+      "event_id": "MS260305r",
+      "event_time_utc": "2026-03-05 17:57:09 UTC",
+      "quality_flag": "unknown"
+    },
+    {
+      "source_id": "gracedb",
+      "event_id": "MS260305q",
+      "event_time_utc": "2026-03-05 16:57:09 UTC",
+      "quality_flag": "unknown"
+    },
+    {
+      "source_id": "gracedb",
+      "event_id": "MS260305p",
+      "event_time_utc": "2026-03-05 15:57:09 UTC",
+      "quality_flag": "unknown"
+    },
+    {
+      "source_id": "gracedb",
+      "event_id": "MS260305o",
+      "event_time_utc": "2026-03-05 14:57:09 UTC",
+      "quality_flag": "unknown"
+    },
+    {
+      "source_id": "gracedb",
+      "event_id": "MS260305n",
+      "event_time_utc": "2026-03-05 13:57:09 UTC",
+      "quality_flag": "unknown"
+    },
+    {
+      "source_id": "gracedb",
+      "event_id": "MS260305m",
+      "event_time_utc": "2026-03-05 12:57:09 UTC",
+      "quality_flag": "unknown"
+    },
+    {
+      "source_id": "gracedb",
+      "event_id": "MS260305l",
+      "event_time_utc": "2026-03-05 11:57:09 UTC",
+      "quality_flag": "unknown"
+    },
+    {
+      "source_id": "gracedb",
+      "event_id": "MS260305k",
+      "event_time_utc": "2026-03-05 10:57:09 UTC",
+      "quality_flag": "unknown"
+    },
+    {
+      "source_id": "gracedb",
+      "event_id": "MS260305j",
+      "event_time_utc": "2026-03-05 09:57:09 UTC",
+      "quality_flag": "unknown"
+    }
+  ],
+  "metric_windows": [
+    {
+      "source_id": "ligo",
+      "prediction_id": "p1-time-delay-redshift",
+      "window_label": "1h",
+      "window_end_utc": "2017-01-04T10:11:58Z",
+      "mae": 0.0030000000000000027,
+      "rmse": 0.0030000000000000027,
+      "avg_delta_fit": 0.029999999999999916,
+      "sample_count": 1
+    },
+    {
+      "source_id": "ligo",
+      "prediction_id": "p1-time-delay-redshift",
+      "window_label": "24h",
+      "window_end_utc": "2017-01-04T10:11:58Z",
+      "mae": 0.0030000000000000027,
+      "rmse": 0.0030000000000000027,
+      "avg_delta_fit": 0.029999999999999916,
+      "sample_count": 1
+    },
+    {
+      "source_id": "ligo",
+      "prediction_id": "p1-time-delay-redshift",
+      "window_label": "7d",
+      "window_end_utc": "2017-01-04T10:11:58Z",
+      "mae": 0.0030000000000000027,
+      "rmse": 0.0030000000000000027,
+      "avg_delta_fit": 0.029999999999999916,
+      "sample_count": 1
+    }
+  ]
+}

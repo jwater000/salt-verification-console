@@ -1,0 +1,49 @@
+{
+  "generated_at_utc": "2026-03-06T07:34:53Z",
+  "sources": [
+    {
+      "source_id": "gwosc",
+      "url": "https://gwosc.org/api/v2/event-versions/"
+    },
+    {
+      "source_id": "gracedb",
+      "url": "https://gracedb.ligo.org/apiweb/superevents/"
+    },
+    {
+      "source_id": "gcn",
+      "url": "https://gcn.nasa.gov/circulars/archive.json.tar.gz"
+    },
+    {
+      "source_id": "ztf",
+      "url": "https://irsa.ipac.caltech.edu/cgi-bin/ZTF/nph_light_curves?POS=CIRCLE+298.0025+29.87147+0.0014&BANDNAME=g&FORMAT=CSV"
+    },
+    {
+      "source_id": "heasarc",
+      "url": "https://heasarc.gsfc.nasa.gov/xamin/query?table=fermigbrst&ResultMax=200&format=stream"
+    }
+  ],
+  "event_count": 0,
+  "events": [],
+  "errors": [
+    {
+      "source_id": "gwosc",
+      "error": "<urlopen error [Errno -3] Temporary failure in name resolution>"
+    },
+    {
+      "source_id": "gracedb",
+      "error": "<urlopen error [Errno -3] Temporary failure in name resolution>"
+    },
+    {
+      "source_id": "gcn",
+      "error": "<urlopen error [Errno -3] Temporary failure in name resolution>"
+    },
+    {
+      "source_id": "ztf",
+      "error": "<urlopen error [Errno -3] Temporary failure in name resolution>"
+    },
+    {
+      "source_id": "heasarc",
+      "error": "<urlopen error [Errno -3] Temporary failure in name resolution>"
+    }
+  ]
+}

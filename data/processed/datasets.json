@@ -1,0 +1,23 @@
+[
+  {
+    "id": "dataset-gw-001",
+    "title": "중력파 공개 이벤트 묶음",
+    "source": "public archive",
+    "updated_at": "2026-03-06",
+    "events": 42
+  },
+  {
+    "id": "dataset-he-001",
+    "title": "고에너지 광자 이벤트 묶음",
+    "source": "public archive",
+    "updated_at": "2026-03-06",
+    "events": 18
+  },
+  {
+    "id": "dataset-z-001",
+    "title": "렌즈/적색편이 비교 데이터",
+    "source": "public archive",
+    "updated_at": "2026-03-06",
+    "events": 30
+  }
+]

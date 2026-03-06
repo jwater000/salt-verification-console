@@ -1,0 +1,4 @@
+dataset_id,event_id,run,detector,event_time_utc,version,source_url,quality_flag,notes
+dataset-gw-001,GW150914,O1,H1L1,2015-09-14T09:50:45Z,v1,https://gwosc.org/eventapi/html/GWTC-1-confident/GW150914/v3,pass,seed sample
+dataset-gw-001,GW151226,O1,H1L1,2015-12-26T03:38:53Z,v1,https://gwosc.org/eventapi/html/GWTC-1-confident/GW151226/v3,pass,seed sample
+dataset-gw-001,GW170104,O2,H1L1,2017-01-04T10:11:58Z,v1,https://gwosc.org/eventapi/html/GWTC-1-confident/GW170104/v3,pass,seed sample

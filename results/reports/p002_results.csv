@@ -1,0 +1,4 @@
+prediction_id,event_id,event_time_utc,standard_fit,salt_fit,residual_score,flag
+p2-hf-tail,GRB090510,2009-05-10T00:22:59Z,0.88,0.913,0.033,candidate
+p2-hf-tail,GRB130427A,2013-04-27T07:47:06Z,0.891,0.904,0.013,neutral
+p2-hf-tail,GRB160509A,2016-05-09T08:58:46Z,0.902,0.893,-0.009,rejected

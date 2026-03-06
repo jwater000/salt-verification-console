@@ -1,0 +1,18 @@
+[
+  {
+    "id": "p1-time-delay-redshift",
+    "title": "시간 지연과 적색편이의 공통 원인",
+    "summary": "SALT는 두 현상을 동일한 자원 배분식으로 연결한다.",
+    "status": "locked",
+    "datasets": ["dataset-gw-001", "dataset-z-001"],
+    "falsification": "두 값이 동일 밀도 지표에서 체계적으로 분리되면 반증"
+  },
+  {
+    "id": "p2-hf-tail",
+    "title": "고주파/고에너지 잔차 후보",
+    "summary": "고주파 또는 고에너지 영역에서 SALT 잔차 후보를 탐색한다.",
+    "status": "locked",
+    "datasets": ["dataset-gw-001", "dataset-he-001"],
+    "falsification": "고에너지 구간에서 잔차 개선이 재현되지 않으면 반증"
+  }
+]
