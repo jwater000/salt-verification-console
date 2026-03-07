@@ -105,6 +105,7 @@ def _ingest(
                 channel="muon_g_minus_2",
                 observable_id="muon_g_minus_2",
                 dataset_id=dataset_id,
+                dataset_group="pdg-muon-g2",
                 x_value=None,
                 measured_value=measured,
                 stat_err=stat_err,

@@ -86,6 +86,7 @@ export type MicroObservation = {
   channel: string;
   observable_id: string;
   dataset_id: string;
+  dataset_group?: string | null;
   x_value?: number | null;
   measured_value: number;
   stat_err?: number | null;
@@ -151,7 +152,16 @@ export type AuditManifest = {
   rerun_commands: string[];
 };
 
+export type FrozenManifest = {
+  dataset_version: string;
+  created_at_utc: string;
+  source_base: string;
+  notes?: string;
+  files: Array<{ name: string; sha256: string; bytes: number }>;
+};
+
 const root = path.resolve(process.cwd(), "..");
+const frozenCurrentDir = path.join(root, "data", "frozen", "current");
 
 async function readJson<T>(relativePath: string, fallback: T): Promise<T> {
   try {
@@ -193,35 +203,56 @@ export function loadLiveSnapshot(): Promise<LiveSnapshot> {
 }
 
 export function loadMicroSnapshot(): Promise<MicroSnapshot> {
-  return readJson<MicroSnapshot>("data/processed/micro_snapshot.json", {
+  const fallback: MicroSnapshot = {
     generated_at_utc: "",
     decision_rule_version: "",
     sources: [],
     observations: [],
     scores: [],
     fit_runs: [],
+  };
+  return readJson<MicroSnapshot>("data/frozen/current/micro_snapshot.json", fallback).then((v) => {
+    if (!v.generated_at_utc && v.sources.length === 0 && v.observations.length === 0) {
+      return readJson<MicroSnapshot>("data/processed/micro_snapshot.json", fallback);
+    }
+    return v;
   });
 }
 
 export function loadAuditManifest(): Promise<AuditManifest> {
-  return readJson<AuditManifest>("data/processed/audit_manifest.json", {
+  const fallback: AuditManifest = {
     generated_at_utc: "",
     formula_version: [],
     dataset_version: [],
     decision_rule_version: "",
     rerun_commands: [],
+  };
+  return readJson<AuditManifest>("data/frozen/current/audit_manifest.json", fallback).then((v) => {
+    if (!v.generated_at_utc && v.dataset_version.length === 0) {
+      return readJson<AuditManifest>("data/processed/audit_manifest.json", fallback);
+    }
+    return v;
   });
 }
 
 export async function loadAllResults(): Promise<ResultRow[]> {
-  const dir = path.join(root, "data/processed");
+  let dir = path.join(root, "data/processed");
+  let relativeBase = path.join("data", "processed");
+  try {
+    await fs.access(frozenCurrentDir);
+    dir = frozenCurrentDir;
+    relativeBase = path.join("data", "frozen", "current");
+  } catch {
+    dir = path.join(root, "data/processed");
+    relativeBase = path.join("data", "processed");
+  }
   try {
     const files = await fs.readdir(dir);
     const targets = files
       .filter((f) => f.startsWith("results_") && f.endsWith(".json"))
       .sort();
     const chunks = await Promise.all(
-      targets.map((f) => readJson<ResultRow[]>(path.join("data/processed", f), [])),
+      targets.map((f) => readJson<ResultRow[]>(path.join(relativeBase, f), [])),
     );
     return chunks.flat();
   } catch {
@@ -237,4 +268,13 @@ export async function loadBookIndexPath(): Promise<string> {
   } catch {
     return "docs/book/INDEX.md (not found)";
   }
+}
+
+export function loadFrozenManifest(): Promise<FrozenManifest> {
+  return readJson<FrozenManifest>("data/frozen/current/manifest.json", {
+    dataset_version: "",
+    created_at_utc: "",
+    source_base: "",
+    files: [],
+  });
 }

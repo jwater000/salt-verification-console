@@ -17,6 +17,7 @@ CREATE TABLE IF NOT EXISTS micro_observations (
   channel TEXT NOT NULL,
   observable_id TEXT NOT NULL,
   dataset_id TEXT NOT NULL,
+  dataset_group TEXT,
   x_value REAL,
   measured_value REAL NOT NULL,
   stat_err REAL,

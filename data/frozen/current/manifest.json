@@ -1,0 +1,28 @@
+{
+  "dataset_version": "frozen-20260307",
+  "created_at_utc": "2026-03-07T18:10:27Z",
+  "source_base": "data/processed",
+  "notes": "Evaluation uses frozen/current only. Monitoring uses live snapshot.",
+  "files": [
+    {
+      "name": "audit_manifest.json",
+      "sha256": "d556d30798814082b64da7f75721711511cfabf402beb1ae6b18e225c8e58356",
+      "bytes": 371
+    },
+    {
+      "name": "micro_snapshot.json",
+      "sha256": "193096c28c66827d9010ef63a7545975d55c0dcab87a49da5397905d03f9c4d5",
+      "bytes": 11267
+    },
+    {
+      "name": "results_p1-time-delay-redshift.json",
+      "sha256": "efc0874e59322eaa1156f35f825f08f63cf7c5813ff1aa6fac51e61cf54a892f",
+      "bytes": 771
+    },
+    {
+      "name": "results_p2-hf-tail.json",
+      "sha256": "94cf318ae43dfbf2ecc30bdd92957b9efcc01da271908a8d200a0171567374d7",
+      "bytes": 749
+    }
+  ]
+}

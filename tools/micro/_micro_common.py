@@ -39,12 +39,19 @@ def ensure_micro_schema(conn: sqlite3.Connection) -> None:
     schema = SCHEMA_PATH.read_text(encoding="utf-8")
     conn.executescript(schema)
     ensure_micro_fit_runs_columns(conn)
+    ensure_micro_observation_columns(conn)
 
 
 def ensure_micro_fit_runs_columns(conn: sqlite3.Connection) -> None:
     existing = {row[1] for row in conn.execute("PRAGMA table_info(micro_fit_runs)").fetchall()}
     if "verdict_reason" not in existing:
         conn.execute("ALTER TABLE micro_fit_runs ADD COLUMN verdict_reason TEXT")
+
+
+def ensure_micro_observation_columns(conn: sqlite3.Connection) -> None:
+    existing = {row[1] for row in conn.execute("PRAGMA table_info(micro_observations)").fetchall()}
+    if "dataset_group" not in existing:
+        conn.execute("ALTER TABLE micro_observations ADD COLUMN dataset_group TEXT")
 
 
 def dedupe_micro_tables(conn: sqlite3.Connection) -> None:
@@ -125,6 +132,7 @@ class ObservationRecord:
     channel: str
     observable_id: str
     dataset_id: str
+    dataset_group: str | None
     x_value: float | None
     measured_value: float
     stat_err: float | None
@@ -191,6 +199,7 @@ def upsert_observation(conn: sqlite3.Connection, row: ObservationRecord) -> None
                 """
                 UPDATE micro_observations
                 SET channel=?,
+                    dataset_group=?,
                     measured_value=?,
                     stat_err=?,
                     sys_err=?,
@@ -204,6 +213,7 @@ def upsert_observation(conn: sqlite3.Connection, row: ObservationRecord) -> None
                 """,
                 (
                     row.channel,
+                    row.dataset_group,
                     row.measured_value,
                     row.stat_err,
                     row.sys_err,
@@ -220,13 +230,14 @@ def upsert_observation(conn: sqlite3.Connection, row: ObservationRecord) -> None
     conn.execute(
         """
         INSERT INTO micro_observations (
-          channel, observable_id, dataset_id, x_value,
+          channel, observable_id, dataset_id, dataset_group, x_value,
           measured_value, stat_err, sys_err, cov_group, unit,
           observed_at_utc, quality_flag, source_url
         )
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         ON CONFLICT(observable_id, dataset_id, x_value) DO UPDATE SET
           channel=excluded.channel,
+          dataset_group=excluded.dataset_group,
           measured_value=excluded.measured_value,
           stat_err=excluded.stat_err,
           sys_err=excluded.sys_err,
@@ -241,6 +252,7 @@ def upsert_observation(conn: sqlite3.Connection, row: ObservationRecord) -> None
             row.channel,
             row.observable_id,
             row.dataset_id,
+            row.dataset_group,
             row.x_value,
             row.measured_value,
             row.stat_err,

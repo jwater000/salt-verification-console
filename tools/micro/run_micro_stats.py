@@ -256,7 +256,7 @@ def main() -> None:
             for r in conn.execute(
                 """
                 SELECT channel, observable_id, dataset_id, x_value, measured_value,
-                       stat_err, sys_err, unit, quality_flag, observed_at_utc, source_url
+                       dataset_group, stat_err, sys_err, unit, quality_flag, observed_at_utc, source_url
                 FROM micro_observations
                 ORDER BY channel, observable_id, dataset_id, COALESCE(x_value, -1)
                 """

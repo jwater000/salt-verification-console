@@ -146,6 +146,7 @@ def _ingest(
                     channel="collider_high_pt_tail",
                     observable_id="collider_high_pt_tail",
                     dataset_id=dataset_id,
+                    dataset_group="hepdata-jet",
                     x_value=x_value,
                     measured_value=measured,
                     stat_err=stat_err,

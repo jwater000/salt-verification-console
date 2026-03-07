@@ -107,6 +107,7 @@ def _ingest(
                     channel="neutrino_oscillation",
                     observable_id=observable_id,
                     dataset_id=dataset_id,
+                    dataset_group="nufit-global",
                     x_value=None,
                     measured_value=measured,
                     stat_err=stat_err,

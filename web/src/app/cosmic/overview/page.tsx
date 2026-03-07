@@ -1,9 +1,9 @@
 import Link from "next/link";
-import { loadAllResults, loadLiveSnapshot } from "@/lib/data";
+import { loadAllResults, loadAuditManifest } from "@/lib/data";
 
 export default async function CosmicOverviewPage() {
   const rows = await loadAllResults();
-  const snapshot = await loadLiveSnapshot();
+  const audit = await loadAuditManifest();
   const withActual = rows.filter((r) => r.actual_value != null).length;
 
   return (
@@ -28,8 +28,8 @@ export default async function CosmicOverviewPage() {
           </p>
         </article>
         <article className="panel p-4">
-          <p className="text-xs text-slate-400">Snapshot</p>
-          <p className="mt-2 text-sm">{snapshot.generated_at_utc || "missing"}</p>
+          <p className="text-xs text-slate-400">Evaluation Manifest</p>
+          <p className="mt-2 text-sm">{audit.generated_at_utc || "missing"}</p>
         </article>
       </section>
 
