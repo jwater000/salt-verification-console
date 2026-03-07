@@ -8,8 +8,12 @@ export default async function AuditSourcesPage() {
     <section className="space-y-6">
       <header className="panel p-5">
         <h1 className="text-2xl font-semibold">Audit / Sources</h1>
+        <p className="mt-2 text-sm text-slate-300">
+          Evaluation 입력 소스와 Monitoring 레퍼런스 채널을 분리 표기합니다.
+        </p>
       </header>
       <div className="panel overflow-x-auto p-4">
+        <p className="mb-3 text-sm text-slate-300">Reference Channels (monitoring only, not evaluation input)</p>
         <table className="w-full text-left text-sm">
           <thead className="text-slate-400">
             <tr>
@@ -32,7 +36,7 @@ export default async function AuditSourcesPage() {
         </table>
       </div>
       <div className="panel overflow-x-auto p-4">
-        <p className="mb-3 text-sm text-slate-300">Micro Sources</p>
+        <p className="mb-3 text-sm text-slate-300">Micro Evaluation Sources</p>
         <table className="w-full text-left text-sm">
           <thead className="text-slate-400">
             <tr>

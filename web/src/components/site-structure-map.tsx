@@ -3,6 +3,8 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 const TOP_LEVEL = [
+  { path: "/evaluation", title: "Evaluation", subtitle: "Frozen dataset 기반 판정" },
+  { path: "/monitoring", title: "Monitoring", subtitle: "GraceDB 실시간 후속 모니터" },
   { path: "/cosmic/overview", title: "Cosmic", subtitle: "LambdaCDM 기준 검증" },
   { path: "/micro/overview", title: "Micro", subtitle: "SM 기준 검증" },
   { path: "/audit", title: "Audit", subtitle: "출처/버전/재현성" },
@@ -21,7 +23,7 @@ export default function SiteStructureMap() {
           <p className="text-xs text-cyan-300">현재 경로: {pathname}</p>
         </div>
         <p className="mb-2 text-[11px] text-slate-400">
-          표준이론 범위: 거시 `LambdaCDM`, 미시 `SM`. `Standard` 단독 표기는 거시 문맥에서만 사용합니다.
+          표준이론 범위: 거시 `ΛCDM`, 미시 `SM`. `Standard` 단독 표기는 거시 문맥에서만 사용합니다.
         </p>
 
         <div className="hidden items-center gap-2 md:flex">
@@ -80,7 +82,7 @@ export default function SiteStructureMap() {
         </div>
 
         <div className="mt-2 text-[11px] text-slate-400">
-          도메인 하위 고정 페이지: Evidence / Events / Method / Limits
+          분리 원칙: Evaluation(고정 데이터셋) / Monitoring(실시간 피드) / Audit(재현성)
         </div>
       </div>
     </section>

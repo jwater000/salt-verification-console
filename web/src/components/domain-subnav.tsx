@@ -3,7 +3,7 @@ import Link from "next/link";
 type Domain = "cosmic" | "micro";
 
 const LABELS: Record<Domain, string> = {
-  cosmic: "Cosmic (LambdaCDM)",
+  cosmic: "Cosmic (ΛCDM)",
   micro: "Micro (SM)",
 };
 

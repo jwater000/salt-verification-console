@@ -6,7 +6,7 @@ import SiteStructureMap from "@/components/site-structure-map";
 
 export const metadata: Metadata = {
   title: "SALT Verification Console",
-  description: "Evidence-first comparison of standard cosmology (LambdaCDM) vs SALT on public data.",
+  description: "Evaluation (frozen dataset) and monitoring (live feed) for SALT verification.",
 };
 
 function snapshotStatus(generatedAtUtc: string): { stale: boolean; label: string } {
@@ -41,7 +41,9 @@ export default async function RootLayout({
             <Link href="/" className="font-semibold tracking-wide text-cyan-300">
               SALT Verification Console
             </Link>
-            <Link href="/cosmic/overview">Cosmic (LambdaCDM)</Link>
+            <Link href="/evaluation">Evaluation</Link>
+            <Link href="/monitoring">Monitoring</Link>
+            <Link href="/cosmic/overview">Cosmic (ΛCDM)</Link>
             <Link href="/micro/overview">Micro (SM)</Link>
             <Link href="/audit">Audit</Link>
           </nav>
