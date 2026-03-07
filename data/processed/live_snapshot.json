@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-03-07T08:56:20Z",
+  "generated_at_utc": "2026-03-07T09:26:51Z",
   "streams": [
     {
       "stream_id": "fermilab-official",
@@ -107,6 +107,12 @@
     }
   ],
   "recent_observations": [
+    {
+      "source_id": "gracedb",
+      "event_id": "MS260307i",
+      "event_time_utc": "2026-03-07 08:57:09 UTC",
+      "quality_flag": "unknown"
+    },
     {
       "source_id": "gracedb",
       "event_id": "MS260307h",
@@ -219,12 +225,6 @@
       "source_id": "gracedb",
       "event_id": "MS260306n",
       "event_time_utc": "2026-03-06 13:57:09 UTC",
-      "quality_flag": "unknown"
-    },
-    {
-      "source_id": "gracedb",
-      "event_id": "MS260306m",
-      "event_time_utc": "2026-03-06 12:57:09 UTC",
       "quality_flag": "unknown"
     }
   ],
