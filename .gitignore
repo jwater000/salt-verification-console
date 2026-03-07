@@ -1,0 +1,2 @@
+# Runtime SQLite artifacts (managed outside Git)
+data/processed/svc_realtime.db
