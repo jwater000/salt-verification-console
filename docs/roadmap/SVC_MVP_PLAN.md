@@ -1,6 +1,6 @@
 # SALT Verification Console MVP Plan (v2)
 
-최종 업데이트: `2026-03-07`
+최종 업데이트: `2026-03-08`
 
 ## 변경 요약
 - 기존 단일 축 계획을 `거시(Cosmic)`/`미시(Micro)` 이중 트랙 계획으로 전환
@@ -166,6 +166,34 @@ Exit Criteria:
 - `Standard` 표기 충돌 0건
 - `formula_version`, `dataset_version` 참조 경로 일치
 
+### Week 5: 평가/모니터링 분리 + Frozen 평가기반 확정
+- [x] Evaluation/Monitoring 라우트 분리
+- [x] frozen dataset 워크플로우(`data/frozen/current`) 연결
+- [x] 미시 판정 규칙 v2(`min_n_obs`, `verdict_reason`) 반영
+- [ ] 거시 frozen 표본 확장(평가용 이벤트 수 증대)
+- [ ] 미시 채널별 독립 표본 확장(`muon>=3`, `neutrino>=3`, `collider>=20`)
+- [ ] real-only 평가 모드 도입(`quality_flag=real` 기본 집계)
+- [ ] Vercel 프로덕션 도메인 `salt.numverse.org` 연결 및 DNS 검증
+- [ ] 책/부록의 관련 페이지에 공식 도메인(`salt.numverse.org`) 안내 문구 반영
+- [ ] 웹사이트 개편(Evaluation/Monitoring 분리) 기준으로 책 원고 `00~28` 전수 점검 및 동기화 수정
+
+완료 기준:
+- Evaluation 페이지는 frozen 입력만 사용
+- Monitoring 페이지는 실시간 후속검증만 담당
+- 미시 채널 `insufficient_data` 비율을 단계적으로 축소
+Owner:
+- Data/Web: jwater + Codex
+Deliverable:
+- frozen manifest + 해시 추적 리포트
+- 표본 확장 ingest 결과 리포트(채널별 n_obs, 결측률, 독립성)
+- real-only 집계 옵션/기본값 반영
+Dependency:
+- 소스 접근성/라이선스 점검(HEPData/PDG/NuFIT)
+- 채널별 독립성 메타(`dataset_group`, 실험/기간 구분)
+Exit Criteria:
+- 거시/미시 모두 frozen 입력 기준 재현성 100%
+- 미시 채널 최소 표본 기준 충족(`n_obs` gate 통과)
+
 ## 7.1) Go / No-Go 체크포인트
 
 ### Gate A (Week 1 종료)
@@ -311,8 +339,26 @@ P^{SALT}_{\alpha\to\beta}=P^{SM}_{\alpha\to\beta}+\Delta P_{SALT}(L,E;\alpha_\nu
 7. 웹 페이지 연결 + 최종 판정 리포트
 
 ## 17) 이번 주 실행 TODO Top 5
-1. `micro_*` SQL 스키마 파일 확정 및 커밋
-2. HEPData/PDG/NuFIT ingest 최소 동작 버전 구현
-3. `/micro/overview` 페이지 골격 + 데이터 바인딩
-4. 통계 계산 배치(`chi2`, `RMSE`, `AIC/BIC`, `FDR`) 1차 구현
-5. `Audit` 페이지에 `formula_version`/`dataset_version` 노출
+1. 거시 frozen 평가 표본 확장(현 6건 -> 목표 50+)
+2. 미시 `muon_g_minus_2`/`neutrino_oscillation` 독립 표본 3건 이상 확보
+3. `quality_flag=real` 전용 평가 집계 경로 추가(기본 ON)
+4. frozen manifest 검증 스크립트(해시/파일 누락 검사) 추가
+5. Evaluation 최종 리포트 페이지에 `insufficient_data/inconclusive/decisive` 상태 배지 반영
+
+## 17.1) 배포/도메인 TODO
+1. Vercel 프로젝트에 `salt.numverse.org` 도메인 추가
+2. DNS 레코드(CNAME/A) 검증 및 SSL 발급 확인
+3. 기본 리디렉션 정책(`www`/non-`www`) 확정
+4. 책의 검증콘솔 안내 섹션(예: 28장 부록)에 공식 접속 도메인 명시
+
+## 17.2) 책 동기화 TODO (00~28)
+1. 웹 IA 변경(Evaluation/Monitoring/Audit) 반영 문구를 관련 장(특히 16, 17, 18, 20, 24, 26, 28)에 동기화
+2. 기존 `Cosmic/Micro` 설명과 신규 상위 구조(`Evaluation`, `Monitoring`) 관계를 명시
+3. 실시간 피드(GraceDB)는 후속검증용, 평가판정은 frozen dataset 기준이라는 정책을 본문에 통일
+4. 장별 링크/경로 표기(`/evaluation`, `/monitoring`, `/audit`) 점검 및 업데이트
+
+## 18) 진행 로그 (2026-03-08 기준)
+- 완료: Evaluation vs Monitoring 분리 라우트 반영
+- 완료: frozen snapshot 생성/로더 우선순위 연결(`data/frozen/current`)
+- 완료: 미시 판정 `micro-decision-v2` 적용(`verdict_reason`, `min_n_obs`)
+- 진행중: 표본 자체 확장(거시/미시 n_obs 증대)
