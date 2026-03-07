@@ -38,14 +38,14 @@ export default async function Home() {
           동시에 평가하고, 잔차 차이를 시각화합니다.
         </p>
         <div className="mt-4 flex gap-3">
-          <Link href="/evidence" className="badge">
-            Evidence 바로 보기
+          <Link href="/cosmic/overview" className="badge">
+            Cosmic Overview
           </Link>
-          <Link href="/events" className="badge">
-            이벤트 상세 보기
+          <Link href="/micro/overview" className="badge">
+            Micro Overview
           </Link>
-          <Link href="/limits" className="badge">
-            한계/실패 사례 보기
+          <Link href="/audit" className="badge">
+            Audit 보기
           </Link>
         </div>
       </section>

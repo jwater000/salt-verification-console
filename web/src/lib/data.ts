@@ -72,6 +72,84 @@ export type LiveSnapshot = {
   metric_windows: LiveMetricWindow[];
 };
 
+export type MicroSource = {
+  source_id: string;
+  provider: string;
+  dataset_ref: string;
+  url: string;
+  license?: string | null;
+  version_tag: string;
+  fetched_at_utc: string;
+};
+
+export type MicroObservation = {
+  channel: string;
+  observable_id: string;
+  dataset_id: string;
+  x_value?: number | null;
+  measured_value: number;
+  stat_err?: number | null;
+  sys_err?: number | null;
+  unit?: string | null;
+  quality_flag: string;
+  observed_at_utc?: string | null;
+  source_url?: string | null;
+};
+
+export type MicroScore = {
+  channel: string;
+  observable_id: string;
+  dataset_id: string;
+  x_value?: number | null;
+  total_err: number;
+  res_sm: number;
+  res_salt: number;
+  pull_sm: number;
+  pull_salt: number;
+  winner: string;
+  winner_tie: number;
+  p_improve?: number | null;
+  q_improve?: number | null;
+  decision_rule_version: string;
+  computed_at_utc: string;
+};
+
+export type MicroFitRun = {
+  run_id: number;
+  channel: string;
+  fit_scope: string;
+  params_json: string;
+  n_obs: number;
+  chi2_sm?: number | null;
+  chi2_salt?: number | null;
+  rmse_sm?: number | null;
+  rmse_salt?: number | null;
+  aic_sm?: number | null;
+  aic_salt?: number | null;
+  bic_sm?: number | null;
+  bic_salt?: number | null;
+  fdr_q?: number | null;
+  verdict: string;
+  computed_at_utc: string;
+};
+
+export type MicroSnapshot = {
+  generated_at_utc: string;
+  decision_rule_version: string;
+  sources: MicroSource[];
+  observations: MicroObservation[];
+  scores: MicroScore[];
+  fit_runs: MicroFitRun[];
+};
+
+export type AuditManifest = {
+  generated_at_utc: string;
+  formula_version: string[];
+  dataset_version: string[];
+  decision_rule_version: string;
+  rerun_commands: string[];
+};
+
 const root = path.resolve(process.cwd(), "..");
 
 async function readJson<T>(relativePath: string, fallback: T): Promise<T> {
@@ -110,6 +188,27 @@ export function loadLiveSnapshot(): Promise<LiveSnapshot> {
     recent_events: [],
     recent_observations: [],
     metric_windows: [],
+  });
+}
+
+export function loadMicroSnapshot(): Promise<MicroSnapshot> {
+  return readJson<MicroSnapshot>("data/processed/micro_snapshot.json", {
+    generated_at_utc: "",
+    decision_rule_version: "",
+    sources: [],
+    observations: [],
+    scores: [],
+    fit_runs: [],
+  });
+}
+
+export function loadAuditManifest(): Promise<AuditManifest> {
+  return readJson<AuditManifest>("data/processed/audit_manifest.json", {
+    generated_at_utc: "",
+    formula_version: [],
+    dataset_version: [],
+    decision_rule_version: "",
+    rerun_commands: [],
   });
 }
 

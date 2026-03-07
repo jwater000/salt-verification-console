@@ -2,42 +2,31 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { PAGE_INDEX, SITE_PAGES, type SitePage } from "@/lib/page-map";
-
-function edgeLabel(from: SitePage["path"], to: SitePage["path"]) {
-  if (to === "/method") return "규칙 고정";
-  if (to === "/events") return "원자료 조회";
-  if (to === "/evidence") return "정량 비교";
-  if (to === "/limits") return "반증/한계";
-  return `${from} -> ${to}`;
-}
-
-const FLOW_ORDER: SitePage["path"][] = ["/", "/method", "/events", "/evidence", "/limits"];
+const TOP_LEVEL = [
+  { path: "/cosmic/overview", title: "Cosmic", subtitle: "LambdaCDM 기준 검증" },
+  { path: "/micro/overview", title: "Micro", subtitle: "SM 기준 검증" },
+  { path: "/audit", title: "Audit", subtitle: "출처/버전/재현성" },
+];
 
 export default function SiteStructureMap() {
   const pathname = usePathname();
-  const current = (pathname in PAGE_INDEX ? pathname : "/") as SitePage["path"];
 
   return (
     <section className="border-b border-slate-800 bg-slate-950/85 px-6 py-3">
       <div className="mx-auto w-full max-w-6xl">
         <div className="mb-2 flex items-center justify-between">
           <p className="text-[11px] uppercase tracking-[0.2em] text-slate-400">
-            Site Structure / Chapter Mapping
+            Site Structure
           </p>
-          <p className="text-xs text-cyan-300">
-            현재 페이지: {PAGE_INDEX[current].title} · {PAGE_INDEX[current].chapters.join(", ")}
-          </p>
+          <p className="text-xs text-cyan-300">현재 경로: {pathname}</p>
         </div>
         <p className="mb-2 text-[11px] text-slate-400">
-          표준이론 범위: 미시(입자물리) Standard Model(SM), 거시(우주론) standard cosmology(ΛCDM). 현재
-          웹 페이지의 Standard는 모두 ΛCDM을 의미합니다.
+          표준이론 범위: 거시 `LambdaCDM`, 미시 `SM`. `Standard` 단독 표기는 거시 문맥에서만 사용합니다.
         </p>
 
         <div className="hidden items-center gap-2 md:flex">
-          {FLOW_ORDER.map((path, i) => {
-            const page = PAGE_INDEX[path];
-            const active = page.path === current;
+          {TOP_LEVEL.map((page, i) => {
+            const active = pathname.startsWith(page.path.split("/")[1] ? `/${page.path.split("/")[1]}` : page.path);
             return (
               <div key={page.path} className="flex min-w-0 flex-1 items-center gap-2">
                 <Link
@@ -50,9 +39,8 @@ export default function SiteStructureMap() {
                 >
                   <p className="font-semibold text-slate-100">{page.title}</p>
                   <p className="mt-1 text-slate-400">{page.subtitle}</p>
-                  <p className="mt-2 text-[11px] text-cyan-200">책 매핑: {page.chapters.join(", ")}</p>
                 </Link>
-                {i < FLOW_ORDER.length - 1 ? (
+                {i < TOP_LEVEL.length - 1 ? (
                   <div className="shrink-0 text-slate-500" aria-hidden="true">
                     <svg viewBox="0 0 60 20" className="h-5 w-12">
                       <line x1="2" y1="10" x2="52" y2="10" stroke="currentColor" strokeWidth="1.5" />
@@ -66,9 +54,8 @@ export default function SiteStructureMap() {
         </div>
 
         <div className="grid gap-2 md:hidden">
-          {FLOW_ORDER.map((path, i) => {
-            const page = PAGE_INDEX[path];
-            const active = page.path === current;
+          {TOP_LEVEL.map((page, i) => {
+            const active = pathname.startsWith(page.path.split("/")[1] ? `/${page.path.split("/")[1]}` : page.path);
             return (
               <div key={page.path}>
                 <Link
@@ -81,9 +68,8 @@ export default function SiteStructureMap() {
                 >
                   <p className="font-semibold text-slate-100">{page.title}</p>
                   <p className="mt-1 text-slate-400">{page.subtitle}</p>
-                  <p className="mt-2 text-[11px] text-cyan-200">책 매핑: {page.chapters.join(", ")}</p>
                 </Link>
-                {i < FLOW_ORDER.length - 1 ? (
+                {i < TOP_LEVEL.length - 1 ? (
                   <p className="py-1 text-center text-xs text-slate-500" aria-hidden="true">
                     ↓
                   </p>
@@ -93,14 +79,8 @@ export default function SiteStructureMap() {
           })}
         </div>
 
-        <div className="mt-2 grid gap-1 text-[11px] text-slate-400 md:grid-cols-2">
-          {SITE_PAGES.flatMap((to) =>
-            to.dependsOn.map((from) => (
-              <p key={`${from}-${to.path}`}>
-                {PAGE_INDEX[from].title} → {to.title}: {edgeLabel(from, to.path)}
-              </p>
-            )),
-          )}
+        <div className="mt-2 text-[11px] text-slate-400">
+          도메인 하위 고정 페이지: Evidence / Events / Method / Limits
         </div>
       </div>
     </section>

@@ -37,6 +37,7 @@
 권장 라우트:
 - `/cosmic/evidence`, `/cosmic/events`, `/cosmic/method`, `/cosmic/limits`
 - `/micro/evidence`, `/micro/events`, `/micro/method`, `/micro/limits`
+- `/micro/overview`, `/micro/muon-g2`, `/micro/neutrino`, `/micro/collider` (세부 페이지)
 - `/audit`
 
 ## 4) 공통 데이터 계약
@@ -44,15 +45,18 @@
   - `measured_value`
   - `standard_pred`
   - `salt_pred`
+  - `total_err = sqrt(stat_err^2 + sys_err^2)` (없으면 `stat_err` 우선)
   - `standard_error = measured_value - standard_pred`
   - `salt_error = measured_value - salt_pred`
-  - `winner = argmin(|standard_error|, |salt_error|)`
+  - `winner = argmin(|standard_error/total_err|, |salt_error/total_err|)`
+  - `winner_tie = 1 if ||standard_error|-|salt_error|| <= tie_eps`
 - 공통 메타:
   - `domain` (`cosmic`/`micro`)
   - `channel`
   - `formula_version`
   - `dataset_version`
   - `quality_flag`
+  - `decision_rule_version`
 
 ## 5) 검증 파이프라인
 1. 데이터 수집(공개 소스 ingest)
@@ -86,9 +90,9 @@
 ## 7) 일정 (운영 전환 + 확장)
 
 ### Week 1: 구조 전환
-- [ ] `Cosmic/Micro` 탭 및 라우트 분리
-- [ ] 공통 데이터 계약 필드 반영
-- [ ] `Audit` 페이지 초안 배포
+- [x] `Cosmic/Micro` 탭 및 라우트 분리
+- [x] 공통 데이터 계약 필드 반영
+- [x] `Audit` 페이지 초안 배포
 
 완료 기준:
 - 도메인 구분 라우트 접근 가능
@@ -105,9 +109,9 @@ Exit Criteria:
 - 네비게이션에서 도메인 전환 가능
 
 ### Week 2: Micro 데이터 파이프라인
-- [ ] 미시 ingest 스크립트(HEPData/PDG/NuFIT) 추가
-- [ ] 미시 스코어 테이블 구축
-- [ ] 미시 Evidence/Events 초기 시각화
+- [x] 미시 ingest 스크립트(HEPData/PDG/NuFIT) 추가
+- [x] 미시 스코어 테이블 구축
+- [x] 미시 Evidence/Events 초기 시각화
 
 완료 기준:
 - 미시 3채널 중 최소 2채널 데이터 적재 성공
@@ -125,9 +129,9 @@ Exit Criteria:
 - `micro_scores` 샘플 계산 성공
 
 ### Week 3: 통계/반증 자동화
-- [ ] 채널별 통계판정 자동 계산
-- [ ] FDR 포함 다중비교 판정
-- [ ] Limits/Audit 연결 강화
+- [x] 채널별 통계판정 자동 계산
+- [x] FDR 포함 다중비교 판정
+- [x] Limits/Audit 연결 강화
 
 완료 기준:
 - 채널별 `winner`와 반증 판정 자동 산출
@@ -145,8 +149,8 @@ Exit Criteria:
 - 반증 규칙이 리포트에 누락 없이 표시
 
 ### Week 4: 문서 동기화
-- [ ] 책 챕터 반영(16/17/18/20/24/26)
-- [ ] 운영 문서와 웹 용어 완전 동기화
+- [x] 책 챕터 반영(16/17/18/20/24/26)
+- [x] 운영 문서와 웹 용어 완전 동기화
 
 완료 기준:
 - 책/웹/로드맵 간 용어/식 버전 불일치 0건
@@ -192,18 +196,41 @@ Exit Criteria:
 - 단일 파라미터 세트로 다중 데이터셋 동시 적합 실패 시 해당 가설 기각
 - SALT 우세 판단은 효과크기 + 유의성 동시 충족이 필요
 - 유리한 구간만 선택 보고하는 행위를 금지(실패 구간 동시 공개)
+- 기본 판정 임계값(초기 고정):
+  - `alpha = 0.05` (양측)
+  - `FDR q <= 0.10` 통과
+  - 효과크기: `delta_rmse = (RMSE_SM - RMSE_SALT) / RMSE_SM >= 0.05`
+  - 동률 기준: `tie_eps = 0.1` (정규화 잔차 단위)
+- 최종 `winner` 규칙:
+  - 유의성 미충족 또는 `delta_rmse < 0.05`면 `tie`
+  - 조건 충족 시에만 `SALT` 또는 `SM` 승리 태깅
 
 ## 9) 리스크 및 대응
 - 데이터 라이선스/재배포 제한: 소스별 라이선스 필드 강제
 - 미시 데이터 스케일/복잡도: 원시 이벤트 대신 요약 관측치 우선
 - 과장 해석 위험: `검증됨/가설/예측` 태그 강제
 - 문서-코드 불일치: `formula_version`/`dataset_version` 추적 강제
+- 라이선스/접근 실패 대응:
+  - 소스 unusable 시 `blocked_by_license` 상태로 즉시 전환
+  - 동일 관측량 대체 소스가 있으면 1회 대체 시도 후 기록
+  - 48시간 내 대체 불가 시 해당 채널은 `No-Go` 후보로 승격
 
 ## 10) 완료 정의 (DoD)
 - `Cosmic`/`Micro` 각각에서 Evidence/Events/Method/Limits 동작
 - `Audit`에서 출처/버전/식/통계기준 추적 가능
 - 동일 규칙으로 Standard vs SALT 비교 재현 가능
 - 실패 사례 공개 포함
+- 재현성 체크리스트 통과:
+  - 컨테이너/런타임 이미지 태그 고정
+  - 의존성 lock 파일 해시 고정
+  - 입력 데이터 스냅샷 해시(`sha256`) 저장
+  - 랜덤 시드(`seed`) 및 실행 명령 기록
+
+## 10.1) Gate 측정식(고정)
+- Gate A 라우트 오류율 = `5xx_or_404_count / route_request_count`
+- Gate B 적재 실패율 = `failed_rows / attempted_rows`
+- Gate C 재현 불일치율 = `mismatched_outputs / rerun_outputs`
+- 측정 윈도우: 각 주차 종료 전 최근 7일 로그
 
 ## 11) 미시 채널 상세 범위 (고정)
 1. `muon_g_minus_2`
@@ -237,7 +264,12 @@ Exit Criteria:
 \[
 res_{SM}=O_{meas}-O_{SM},\quad
 res_{SALT}=O_{meas}-O_{SALT},\quad
-winner=\arg\min(|res_{SM}|,|res_{SALT}|)
+z_{SM}=res_{SM}/\sigma_{tot},\quad
+z_{SALT}=res_{SALT}/\sigma_{tot}
+\]
+\[
+winner=\arg\min(|z_{SM}|,|z_{SALT}|),\quad
+tie\ if\ ||z_{SM}|-|z_{SALT}||\le tie\_eps
 \]
 
 뮤온 g-2:
@@ -266,10 +298,8 @@ P^{SALT}_{\alpha\to\beta}=P^{SM}_{\alpha\to\beta}+\Delta P_{SALT}(L,E;\alpha_\nu
 - 다중비교: Benjamini-Hochberg FDR
 - 반증 조건: 단일 파라미터 세트로 3개 이상 독립 데이터셋 동시 적합 실패 시 해당 채널 기각
 - 웹 시각화 라우트:
-  - `/micro/overview`
-  - `/micro/muon-g2`
-  - `/micro/neutrino`
-  - `/micro/collider`
+  - 요약 허브: `/micro/evidence`, `/micro/events`
+  - 세부 페이지: `/micro/overview`, `/micro/muon-g2`, `/micro/neutrino`, `/micro/collider`
 
 ## 16) 미시 구현 실행 순서
 1. 데이터 수집 스크립트: HEPData/PDG/NuFIT ingest

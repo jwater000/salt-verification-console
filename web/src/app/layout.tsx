@@ -41,10 +41,9 @@ export default async function RootLayout({
             <Link href="/" className="font-semibold tracking-wide text-cyan-300">
               SALT Verification Console
             </Link>
-            <Link href="/evidence">Evidence</Link>
-            <Link href="/events">Events</Link>
-            <Link href="/method">Method</Link>
-            <Link href="/limits">Limits</Link>
+            <Link href="/cosmic/overview">Cosmic (LambdaCDM)</Link>
+            <Link href="/micro/overview">Micro (SM)</Link>
+            <Link href="/audit">Audit</Link>
           </nav>
         </header>
         {status.stale ? (
