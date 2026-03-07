@@ -38,6 +38,62 @@ def connect_db() -> sqlite3.Connection:
 def ensure_micro_schema(conn: sqlite3.Connection) -> None:
     schema = SCHEMA_PATH.read_text(encoding="utf-8")
     conn.executescript(schema)
+    ensure_micro_fit_runs_columns(conn)
+
+
+def ensure_micro_fit_runs_columns(conn: sqlite3.Connection) -> None:
+    existing = {row[1] for row in conn.execute("PRAGMA table_info(micro_fit_runs)").fetchall()}
+    if "verdict_reason" not in existing:
+        conn.execute("ALTER TABLE micro_fit_runs ADD COLUMN verdict_reason TEXT")
+
+
+def dedupe_micro_tables(conn: sqlite3.Connection) -> None:
+    # SQLite UNIQUE does not collapse NULL keys, so keep latest row per NULL-x key.
+    conn.execute(
+        """
+        DELETE FROM micro_observations
+        WHERE obs_id IN (
+          SELECT o1.obs_id
+          FROM micro_observations o1
+          JOIN micro_observations o2
+            ON o1.observable_id = o2.observable_id
+           AND o1.dataset_id = o2.dataset_id
+           AND o1.x_value IS NULL
+           AND o2.x_value IS NULL
+           AND o1.obs_id < o2.obs_id
+        )
+        """
+    )
+    conn.execute(
+        """
+        DELETE FROM micro_sm_predictions
+        WHERE pred_id IN (
+          SELECT s1.pred_id
+          FROM micro_sm_predictions s1
+          JOIN micro_sm_predictions s2
+            ON s1.observable_id = s2.observable_id
+           AND s1.dataset_id = s2.dataset_id
+           AND s1.x_value IS NULL
+           AND s2.x_value IS NULL
+           AND s1.pred_id < s2.pred_id
+        )
+        """
+    )
+    conn.execute(
+        """
+        DELETE FROM micro_salt_predictions
+        WHERE salt_pred_id IN (
+          SELECT s1.salt_pred_id
+          FROM micro_salt_predictions s1
+          JOIN micro_salt_predictions s2
+            ON s1.observable_id = s2.observable_id
+           AND s1.dataset_id = s2.dataset_id
+           AND s1.x_value IS NULL
+           AND s2.x_value IS NULL
+           AND s1.salt_pred_id < s2.salt_pred_id
+        )
+        """
+    )
 
 
 def read_json_file(path: str | Path) -> dict | list:
@@ -119,6 +175,48 @@ def upsert_source(
 
 
 def upsert_observation(conn: sqlite3.Connection, row: ObservationRecord) -> None:
+    if row.x_value is None:
+        existing = conn.execute(
+            """
+            SELECT obs_id
+            FROM micro_observations
+            WHERE observable_id=? AND dataset_id=? AND x_value IS NULL
+            ORDER BY obs_id DESC
+            LIMIT 1
+            """,
+            (row.observable_id, row.dataset_id),
+        ).fetchone()
+        if existing is not None:
+            conn.execute(
+                """
+                UPDATE micro_observations
+                SET channel=?,
+                    measured_value=?,
+                    stat_err=?,
+                    sys_err=?,
+                    cov_group=?,
+                    unit=?,
+                    observed_at_utc=?,
+                    quality_flag=?,
+                    source_url=?,
+                    ingested_at_utc=(strftime('%Y-%m-%dT%H:%M:%SZ', 'now'))
+                WHERE obs_id=?
+                """,
+                (
+                    row.channel,
+                    row.measured_value,
+                    row.stat_err,
+                    row.sys_err,
+                    row.cov_group,
+                    row.unit,
+                    row.observed_at_utc,
+                    row.quality_flag,
+                    row.source_url,
+                    existing["obs_id"],
+                ),
+            )
+            return
+
     conn.execute(
         """
         INSERT INTO micro_observations (
@@ -157,6 +255,30 @@ def upsert_observation(conn: sqlite3.Connection, row: ObservationRecord) -> None
 
 
 def upsert_sm_prediction(conn: sqlite3.Connection, row: PredictionRecord) -> None:
+    if row.x_value is None:
+        existing = conn.execute(
+            """
+            SELECT pred_id
+            FROM micro_sm_predictions
+            WHERE observable_id=? AND dataset_id=? AND x_value IS NULL
+            ORDER BY pred_id DESC
+            LIMIT 1
+            """,
+            (row.observable_id, row.dataset_id),
+        ).fetchone()
+        if existing is not None:
+            conn.execute(
+                """
+                UPDATE micro_sm_predictions
+                SET sm_pred=?,
+                    sm_pred_err=?,
+                    sm_model_ref=?
+                WHERE pred_id=?
+                """,
+                (row.value, row.value_err, row.model_ref, existing["pred_id"]),
+            )
+            return
+
     conn.execute(
         """
         INSERT INTO micro_sm_predictions (
@@ -181,6 +303,32 @@ def upsert_salt_prediction(
     gamma: float | None,
     formula_version: str,
 ) -> None:
+    if row.x_value is None:
+        existing = conn.execute(
+            """
+            SELECT salt_pred_id
+            FROM micro_salt_predictions
+            WHERE observable_id=? AND dataset_id=? AND x_value IS NULL
+            ORDER BY salt_pred_id DESC
+            LIMIT 1
+            """,
+            (row.observable_id, row.dataset_id),
+        ).fetchone()
+        if existing is not None:
+            conn.execute(
+                """
+                UPDATE micro_salt_predictions
+                SET salt_pred=?,
+                    alpha_micro=?,
+                    beta_micro=?,
+                    gamma_micro=?,
+                    formula_version=?
+                WHERE salt_pred_id=?
+                """,
+                (row.value, alpha, beta, gamma, formula_version, existing["salt_pred_id"]),
+            )
+            return
+
     conn.execute(
         """
         INSERT INTO micro_salt_predictions (

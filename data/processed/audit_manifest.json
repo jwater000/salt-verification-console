@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-03-07T16:41:10Z",
+  "generated_at_utc": "2026-03-07T17:26:11Z",
   "formula_version": [
     "micro-v0-template"
   ],
@@ -8,7 +8,7 @@
     "5.2-seed-v1",
     "seed-v1"
   ],
-  "decision_rule_version": "micro-decision-v1",
+  "decision_rule_version": "micro-decision-v2",
   "rerun_commands": [
     ".venv/bin/python tools/micro/run_micro_cycle.py",
     ".venv/bin/python tools/realtime/run_realtime_cycle.py"

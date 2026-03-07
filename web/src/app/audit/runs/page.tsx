@@ -24,6 +24,7 @@ export default async function AuditRunsPage() {
               <th className="py-2">n_obs</th>
               <th className="py-2">fdr_q</th>
               <th className="py-2">verdict</th>
+              <th className="py-2">reason</th>
               <th className="py-2">computed_at_utc</th>
             </tr>
           </thead>
@@ -34,6 +35,7 @@ export default async function AuditRunsPage() {
                 <td className="py-2">{run.n_obs}</td>
                 <td className="py-2">{run.fdr_q?.toFixed(4) ?? "-"}</td>
                 <td className="py-2">{run.verdict}</td>
+                <td className="py-2">{run.verdict_reason ?? "-"}</td>
                 <td className="py-2">{run.computed_at_utc}</td>
               </tr>
             ))}

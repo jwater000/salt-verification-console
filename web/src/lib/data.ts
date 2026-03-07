@@ -130,6 +130,7 @@ export type MicroFitRun = {
   bic_salt?: number | null;
   fdr_q?: number | null;
   verdict: string;
+  verdict_reason?: string | null;
   computed_at_utc: string;
 };
 

@@ -18,11 +18,12 @@ ROOT = Path(__file__).resolve().parents[2]
 OUT_PATH = ROOT / "data" / "processed" / "micro_snapshot.json"
 AUDIT_PATH = ROOT / "data" / "processed" / "audit_manifest.json"
 
-DECISION_RULE_VERSION = "micro-decision-v1"
+DECISION_RULE_VERSION = "micro-decision-v2"
 TIE_EPS = 0.1
 ALPHA = 0.05
 FDR_Q = 0.10
 EFFECT_SIZE_MIN = 0.05
+MIN_N_OBS = 3
 
 
 def now_utc() -> str:
@@ -193,16 +194,29 @@ def main() -> None:
             stat_pass = channel_fdr_q <= FDR_Q
             effect_pass = delta_rmse >= EFFECT_SIZE_MIN
             verdict = "tie"
-            if salt_better and stat_pass and effect_pass:
+            verdict_reason = "insufficient_statistical_evidence"
+            if n < MIN_N_OBS:
+                verdict = "insufficient_data"
+                verdict_reason = f"n_obs<{MIN_N_OBS}"
+            elif not stat_pass:
+                verdict = "tie"
+                verdict_reason = f"fdr_q>{FDR_Q:.2f}"
+            elif not effect_pass:
+                verdict = "tie"
+                verdict_reason = f"delta_rmse<{EFFECT_SIZE_MIN:.2f}"
+            elif salt_better:
                 verdict = "salt_better"
-            elif (not salt_better) and stat_pass and effect_pass:
+                verdict_reason = "fdr_pass+effect_pass+rmse_salt<rmse_sm"
+            else:
                 verdict = "sm_better"
+                verdict_reason = "fdr_pass+effect_pass+rmse_sm<=rmse_salt"
 
             params = {
                 "alpha": ALPHA,
                 "fdr_q_threshold": FDR_Q,
                 "effect_size_min": EFFECT_SIZE_MIN,
                 "tie_eps": TIE_EPS,
+                "min_n_obs": MIN_N_OBS,
             }
             conn.execute(
                 """
@@ -210,9 +224,9 @@ def main() -> None:
                   channel, fit_scope, params_json, n_obs,
                   chi2_sm, chi2_salt, rmse_sm, rmse_salt,
                   aic_sm, aic_salt, bic_sm, bic_salt,
-                  fdr_q, verdict, computed_at_utc
+                  fdr_q, verdict, verdict_reason, computed_at_utc
                 )
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
                 """,
                 (
                     channel,
@@ -229,6 +243,7 @@ def main() -> None:
                     bic(rss_salt, n, 3),
                     channel_fdr_q,
                     verdict,
+                    verdict_reason,
                     ts,
                 ),
             )
@@ -265,7 +280,7 @@ def main() -> None:
                 """
                 SELECT run_id, channel, fit_scope, params_json, n_obs,
                        chi2_sm, chi2_salt, rmse_sm, rmse_salt,
-                       aic_sm, aic_salt, bic_sm, bic_salt, fdr_q, verdict, computed_at_utc
+                       aic_sm, aic_salt, bic_sm, bic_salt, fdr_q, verdict, verdict_reason, computed_at_utc
                 FROM micro_fit_runs
                 ORDER BY channel, run_id
                 """

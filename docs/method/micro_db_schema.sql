@@ -90,6 +90,7 @@ CREATE TABLE IF NOT EXISTS micro_fit_runs (
   bic_salt REAL,
   fdr_q REAL,
   verdict TEXT NOT NULL,
+  verdict_reason TEXT,
   computed_at_utc TEXT NOT NULL
 );
 

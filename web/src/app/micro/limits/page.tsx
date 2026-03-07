@@ -12,6 +12,7 @@ export default async function MicroLimitsPage() {
       <article className="panel p-5 text-sm text-slate-300">
         <p>기각 규칙: 단일 파라미터 세트로 독립 3개 이상 데이터셋 동시 적합 실패 시 채널 기각</p>
         <p className="mt-2">현재는 운영잠금 기준으로 통계 재현을 우선 평가합니다.</p>
+        <p className="mt-1">micro-decision-v2: 최소 표본(min_n_obs) 미달 채널은 `insufficient_data`로 분류합니다.</p>
       </article>
 
       <div className="panel overflow-x-auto p-4">
@@ -24,6 +25,7 @@ export default async function MicroLimitsPage() {
               <th className="py-2">rmse_salt</th>
               <th className="py-2">fdr_q</th>
               <th className="py-2">verdict</th>
+              <th className="py-2">reason</th>
             </tr>
           </thead>
           <tbody>
@@ -35,6 +37,7 @@ export default async function MicroLimitsPage() {
                 <td className="py-2">{r.rmse_salt?.toFixed(6) ?? "-"}</td>
                 <td className="py-2">{r.fdr_q?.toFixed(4) ?? "-"}</td>
                 <td className="py-2">{r.verdict}</td>
+                <td className="py-2">{r.verdict_reason ?? "-"}</td>
               </tr>
             ))}
           </tbody>
