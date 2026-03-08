@@ -16,6 +16,7 @@ SCRIPTS = [
     ROOT / "tools" / "micro" / "ingest_hepdata.py",
     ROOT / "tools" / "micro" / "ingest_pdg.py",
     ROOT / "tools" / "micro" / "ingest_nufit.py",
+    ROOT / "tools" / "micro" / "run_micro_predictors.py",
     ROOT / "tools" / "micro" / "run_micro_stats.py",
 ]
 

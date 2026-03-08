@@ -1,9 +1,10 @@
 import { loadLiveSnapshot } from "@/lib/data";
-import { loadMicroSnapshot } from "@/lib/data";
+import { loadMicroSnapshot, loadModelEvalManifest } from "@/lib/data";
 
 export default async function AuditRunsPage() {
   const snapshot = await loadLiveSnapshot();
   const micro = await loadMicroSnapshot();
+  const evalManifest = await loadModelEvalManifest();
   return (
     <section className="space-y-6">
       <header className="panel p-5">
@@ -14,6 +15,8 @@ export default async function AuditRunsPage() {
         <p className="mt-2">
           최근 observations: {snapshot.recent_observations.length}, metric windows: {snapshot.metric_windows.length}
         </p>
+        <p className="mt-3">model_eval_pipeline: {evalManifest.pipeline || "-"}</p>
+        <p className="mt-1">model_eval_generated_at_utc: {evalManifest.generated_at_utc || "-"}</p>
       </article>
       <div className="panel overflow-x-auto p-4">
         <p className="mb-3 text-sm text-slate-300">Micro Fit Runs</p>

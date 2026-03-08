@@ -15,6 +15,8 @@
 
 - 이벤트 비교 구조: `actual_value`, `standard_fit`, `salt_fit`
 - 판정/통계의 상세 정의: 24장 13.4A 규격을 따른다.
+- 예측값 생성 규칙: `standard_fit`/`salt_fit`는 입력 payload에서 직접 받지 않고, 독립 예측 엔진(`*_sm_predict.py`, `*_salt_predict.py`)이 산출한다.
+- 감사 규칙: `engine_version`, `formula_version`, `prediction_lock_sha256`, frozen manifest hash를 `/audit`에서 함께 추적한다.
 
 미시(입자물리, SM) 채널은 별도 검증 트랙으로 분리하며, 관측량/비교식 형태/판정규칙의 **운영잠금** 후 동일 규격으로 통합한다. 미시 문맥의 기준 이론 표기는 `SM`을 사용한다.
 

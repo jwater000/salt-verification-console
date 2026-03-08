@@ -46,6 +46,12 @@ def ensure_micro_fit_runs_columns(conn: sqlite3.Connection) -> None:
     existing = {row[1] for row in conn.execute("PRAGMA table_info(micro_fit_runs)").fetchall()}
     if "verdict_reason" not in existing:
         conn.execute("ALTER TABLE micro_fit_runs ADD COLUMN verdict_reason TEXT")
+    if "exploratory_verdict" not in existing:
+        conn.execute("ALTER TABLE micro_fit_runs ADD COLUMN exploratory_verdict TEXT")
+    if "exploratory_reason" not in existing:
+        conn.execute("ALTER TABLE micro_fit_runs ADD COLUMN exploratory_reason TEXT")
+    if "neutrino_family_q" not in existing:
+        conn.execute("ALTER TABLE micro_fit_runs ADD COLUMN neutrino_family_q REAL")
 
 
 def ensure_micro_observation_columns(conn: sqlite3.Connection) -> None:

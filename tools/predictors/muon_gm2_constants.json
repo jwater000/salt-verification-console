@@ -1,0 +1,20 @@
+{
+  "version": "gm2-constants-scaffold-v1",
+  "unit": "1e-11",
+  "sm_components": {
+    "a_mu_qed": 116584718.93,
+    "a_mu_ew": 153.6,
+    "a_mu_hvp_lo": 6931.0,
+    "a_mu_hvp_nlo": -98.3,
+    "a_mu_hvp_nnlo": 12.4,
+    "a_mu_hlbl": 92.0
+  },
+  "salt_delta": {
+    "delta_a_mu_salt": 84.0
+  },
+  "references": [
+    "Aoyama et al., Phys. Rept. 887 (2020) 1-166, doi:10.1016/j.physrep.2020.07.006",
+    "PDG review entries for muon anomalous magnetic moment (version lock required for submission)"
+  ],
+  "notes": "Scaffold constants. Replace with submission-grade frozen constants + uncertainty decomposition."
+}

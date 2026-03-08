@@ -1,0 +1,16 @@
+[
+  {
+    "path": "results_p1-time-delay-redshift.json",
+    "input_rows": 25,
+    "used_rows": 25,
+    "excluded_rows": 0,
+    "excluded": []
+  },
+  {
+    "path": "results_p2-hf-tail.json",
+    "input_rows": 25,
+    "used_rows": 25,
+    "excluded_rows": 0,
+    "excluded": []
+  }
+]

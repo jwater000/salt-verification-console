@@ -1,32 +1,252 @@
 [
   {
     "prediction_id": "p2-hf-tail",
-    "event_id": "GRB090510",
-    "event_time_utc": "2009-05-10T00:22:59Z",
-    "actual_value": 0.910,
-    "standard_fit": 0.88,
-    "salt_fit": 0.913,
-    "residual_score": 0.033,
-    "flag": "candidate"
-  },
-  {
-    "prediction_id": "p2-hf-tail",
-    "event_id": "GRB130427A",
-    "event_time_utc": "2013-04-27T07:47:06Z",
-    "actual_value": 0.898,
-    "standard_fit": 0.891,
-    "salt_fit": 0.904,
-    "residual_score": 0.013,
+    "event_id": "9279",
+    "event_time_utc": null,
+    "actual_value": 0.787953,
+    "standard_fit": 0.882286,
+    "salt_fit": 0.882997,
+    "residual_score": -0.095044,
     "flag": "neutral"
   },
   {
     "prediction_id": "p2-hf-tail",
-    "event_id": "GRB160509A",
-    "event_time_utc": "2016-05-09T08:58:46Z",
-    "actual_value": 0.900,
-    "standard_fit": 0.902,
-    "salt_fit": 0.893,
-    "residual_score": -0.009,
-    "flag": "rejected"
+    "event_id": "8994",
+    "event_time_utc": null,
+    "actual_value": 0.947609,
+    "standard_fit": 1.098035,
+    "salt_fit": 1.081167,
+    "residual_score": -0.133558,
+    "flag": "candidate"
+  },
+  {
+    "prediction_id": "p2-hf-tail",
+    "event_id": "8223",
+    "event_time_utc": null,
+    "actual_value": 0.975217,
+    "standard_fit": 1.374257,
+    "salt_fit": 1.267738,
+    "residual_score": -0.292521,
+    "flag": "candidate"
+  },
+  {
+    "prediction_id": "p2-hf-tail",
+    "event_id": "43752",
+    "event_time_utc": null,
+    "actual_value": 0.810147,
+    "standard_fit": 0.901486,
+    "salt_fit": 0.902507,
+    "residual_score": -0.09236,
+    "flag": "neutral"
+  },
+  {
+    "prediction_id": "p2-hf-tail",
+    "event_id": "43429",
+    "event_time_utc": null,
+    "actual_value": 0.735291,
+    "standard_fit": 0.836866,
+    "salt_fit": 0.835285,
+    "residual_score": -0.099994,
+    "flag": "neutral"
+  },
+  {
+    "prediction_id": "p2-hf-tail",
+    "event_id": "42999",
+    "event_time_utc": null,
+    "actual_value": 0.92824,
+    "standard_fit": 1.044761,
+    "salt_fit": 1.036515,
+    "residual_score": -0.108275,
+    "flag": "candidate"
+  },
+  {
+    "prediction_id": "p2-hf-tail",
+    "event_id": "42918",
+    "event_time_utc": null,
+    "actual_value": 0.95999,
+    "standard_fit": 1.157566,
+    "salt_fit": 1.127748,
+    "residual_score": -0.167758,
+    "flag": "candidate"
+  },
+  {
+    "prediction_id": "p2-hf-tail",
+    "event_id": "41414",
+    "event_time_utc": null,
+    "actual_value": 0.686857,
+    "standard_fit": 0.791534,
+    "salt_fit": 0.784347,
+    "residual_score": -0.09749,
+    "flag": "neutral"
+  },
+  {
+    "prediction_id": "p2-hf-tail",
+    "event_id": "39413",
+    "event_time_utc": null,
+    "actual_value": 0.715389,
+    "standard_fit": 0.818888,
+    "salt_fit": 0.815675,
+    "residual_score": -0.100286,
+    "flag": "neutral"
+  },
+  {
+    "prediction_id": "p2-hf-tail",
+    "event_id": "35093",
+    "event_time_utc": null,
+    "actual_value": 0.706103,
+    "standard_fit": 0.810215,
+    "salt_fit": 0.805997,
+    "residual_score": -0.099894,
+    "flag": "neutral"
+  },
+  {
+    "prediction_id": "p2-hf-tail",
+    "event_id": "31429",
+    "event_time_utc": null,
+    "actual_value": 0.814112,
+    "standard_fit": 0.904978,
+    "salt_fit": 0.906015,
+    "residual_score": -0.091903,
+    "flag": "neutral"
+  },
+  {
+    "prediction_id": "p2-hf-tail",
+    "event_id": "30383",
+    "event_time_utc": null,
+    "actual_value": 0.699632,
+    "standard_fit": 0.804044,
+    "salt_fit": 0.798992,
+    "residual_score": -0.09936,
+    "flag": "neutral"
+  },
+  {
+    "prediction_id": "p2-hf-tail",
+    "event_id": "29696",
+    "event_time_utc": null,
+    "actual_value": 0.838342,
+    "standard_fit": 0.927041,
+    "salt_fit": 0.9279,
+    "residual_score": -0.089558,
+    "flag": "neutral"
+  },
+  {
+    "prediction_id": "p2-hf-tail",
+    "event_id": "28649",
+    "event_time_utc": null,
+    "actual_value": 0.72492,
+    "standard_fit": 0.82759,
+    "salt_fit": 0.825232,
+    "residual_score": -0.100312,
+    "flag": "neutral"
+  },
+  {
+    "prediction_id": "p2-hf-tail",
+    "event_id": "2212",
+    "event_time_utc": null,
+    "actual_value": 0.69601,
+    "standard_fit": 0.800543,
+    "salt_fit": 0.794961,
+    "residual_score": -0.098951,
+    "flag": "neutral"
+  },
+  {
+    "prediction_id": "p2-hf-tail",
+    "event_id": "20382",
+    "event_time_utc": null,
+    "actual_value": 0.699517,
+    "standard_fit": 0.803934,
+    "salt_fit": 0.798865,
+    "residual_score": -0.099348,
+    "flag": "neutral"
+  },
+  {
+    "prediction_id": "p2-hf-tail",
+    "event_id": "20185",
+    "event_time_utc": null,
+    "actual_value": 0.844274,
+    "standard_fit": 0.932698,
+    "salt_fit": 0.933434,
+    "residual_score": -0.08916,
+    "flag": "neutral"
+  },
+  {
+    "prediction_id": "p2-hf-tail",
+    "event_id": "19160",
+    "event_time_utc": null,
+    "actual_value": 0.679306,
+    "standard_fit": 0.783947,
+    "salt_fit": 0.775032,
+    "residual_score": -0.095726,
+    "flag": "candidate"
+  },
+  {
+    "prediction_id": "p2-hf-tail",
+    "event_id": "18490",
+    "event_time_utc": null,
+    "actual_value": 0.767213,
+    "standard_fit": 0.864563,
+    "salt_fit": 0.86465,
+    "residual_score": -0.097437,
+    "flag": "neutral"
+  },
+  {
+    "prediction_id": "p2-hf-tail",
+    "event_id": "16181",
+    "event_time_utc": null,
+    "actual_value": 0.966976,
+    "standard_fit": 1.217509,
+    "salt_fit": 1.171113,
+    "residual_score": -0.204137,
+    "flag": "candidate"
+  },
+  {
+    "prediction_id": "p2-hf-tail",
+    "event_id": "13992",
+    "event_time_utc": null,
+    "actual_value": 0.924538,
+    "standard_fit": 1.037079,
+    "salt_fit": 1.029845,
+    "residual_score": -0.105307,
+    "flag": "neutral"
+  },
+  {
+    "prediction_id": "p2-hf-tail",
+    "event_id": "13862",
+    "event_time_utc": null,
+    "actual_value": 0.741902,
+    "standard_fit": 0.842691,
+    "salt_fit": 0.841537,
+    "residual_score": -0.099635,
+    "flag": "neutral"
+  },
+  {
+    "prediction_id": "p2-hf-tail",
+    "event_id": "1215",
+    "event_time_utc": null,
+    "actual_value": 0.89283,
+    "standard_fit": 0.986403,
+    "salt_fit": 0.984384,
+    "residual_score": -0.091554,
+    "flag": "neutral"
+  },
+  {
+    "prediction_id": "p2-hf-tail",
+    "event_id": "11638",
+    "event_time_utc": null,
+    "actual_value": 0.898197,
+    "standard_fit": 0.993651,
+    "salt_fit": 0.991042,
+    "residual_score": -0.092845,
+    "flag": "neutral"
+  },
+  {
+    "prediction_id": "p2-hf-tail",
+    "event_id": "11091",
+    "event_time_utc": null,
+    "actual_value": 0.833756,
+    "standard_fit": 0.922747,
+    "salt_fit": 0.92368,
+    "residual_score": -0.089924,
+    "flag": "neutral"
   }
 ]

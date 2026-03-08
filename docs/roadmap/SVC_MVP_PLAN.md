@@ -170,12 +170,12 @@ Exit Criteria:
 - [x] Evaluation/Monitoring 라우트 분리
 - [x] frozen dataset 워크플로우(`data/frozen/current`) 연결
 - [x] 미시 판정 규칙 v2(`min_n_obs`, `verdict_reason`) 반영
-- [ ] 거시 frozen 표본 확장(평가용 이벤트 수 증대)
-- [ ] 미시 채널별 독립 표본 확장(`muon>=3`, `neutrino>=3`, `collider>=20`)
-- [ ] real-only 평가 모드 도입(`quality_flag=real` 기본 집계)
+- [x] 거시 frozen 표본 확장(평가용 이벤트 수 증대)
+- [x] 미시 채널별 독립 표본 확장(`muon>=3`, `neutrino>=3`, `collider>=20`)
+- [x] real-only 평가 모드 도입(`quality_flag=real` 기본 집계)
 - [ ] Vercel 프로덕션 도메인 `salt.numverse.org` 연결 및 DNS 검증
-- [ ] 책/부록의 관련 페이지에 공식 도메인(`salt.numverse.org`) 안내 문구 반영
-- [ ] 웹사이트 개편(Evaluation/Monitoring 분리) 기준으로 책 원고 `00~28` 전수 점검 및 동기화 수정
+- [x] 책/부록의 관련 페이지에 공식 도메인(`salt.numverse.org`) 안내 문구 반영
+- [x] 웹사이트 개편(Evaluation/Monitoring 분리) 기준으로 책 원고 `00~28` 전수 점검 및 동기화 수정
 
 완료 기준:
 - Evaluation 페이지는 frozen 입력만 사용
@@ -357,8 +357,105 @@ P^{SALT}_{\alpha\to\beta}=P^{SM}_{\alpha\to\beta}+\Delta P_{SALT}(L,E;\alpha_\nu
 3. 실시간 피드(GraceDB)는 후속검증용, 평가판정은 frozen dataset 기준이라는 정책을 본문에 통일
 4. 장별 링크/경로 표기(`/evaluation`, `/monitoring`, `/audit`) 점검 및 업데이트
 
-## 18) 진행 로그 (2026-03-08 기준)
+## 18) 실행 백로그 (재배열, 실행 순서형)
+
+### 18.1) 평가 데이터 기반 강화 (최우선)
+- [x] 거시 frozen 평가 표본 확장(현 6건 -> 목표 50+)
+- [x] 미시 독립 표본 확장(`muon>=3`, `neutrino>=3`, `collider>=20`)
+- [x] frozen manifest 검증 스크립트(해시/파일 누락 검사) 추가
+완료 기준:
+- 거시/미시 모두 frozen 입력 기준 재현성 100%
+- 미시 채널 최소 표본 기준(`n_obs`) gate 통과
+
+### 18.2) 평가 규칙 고정
+- [x] `quality_flag=real` 전용 평가 집계 경로 추가(기본 ON)
+- [x] Evaluation 최종 리포트 상태 배지 반영(`insufficient_data`, `inconclusive`, `decisive`)
+완료 기준:
+- Evaluation 기본 집계가 real-only로 동작
+- 상태 분류가 최종 리포트에 누락 없이 노출
+
+### 18.3) 배포/도메인 운영 마감
+- [ ] Vercel 프로젝트에 `salt.numverse.org` 도메인 추가
+- [ ] DNS 레코드(CNAME/A) 검증 및 SSL 발급 확인
+- [ ] 기본 리디렉션 정책(`www`/non-`www`) 확정
+완료 기준:
+- 공식 도메인 단일 진입점 확정
+- HTTPS 정상 동작 및 인증서 유효
+
+### 18.4) 문서/책 동기화 (웹 개편 반영)
+- [x] 책 원고 `00~28` 전수 점검 및 동기화 수정
+- [x] 핵심 장(16, 17, 18, 20, 24, 26, 28) 우선 반영
+- [x] 경로 표기(`/evaluation`, `/monitoring`, `/audit`) 점검 및 업데이트
+- [x] 실시간 피드(후속검증) vs frozen 기반 평가판정 정책 문구 통일
+- [x] 공식 도메인(`salt.numverse.org`) 안내 문구 반영
+완료 기준:
+- 책/웹/로드맵 간 용어/정책/경로 불일치 0건
+
+### 18.5) 최종 검수
+- [x] Evaluation/Monitoring 역할 분리 검수
+- [ ] 도메인 링크/리디렉션/SSL/문서 링크 종합 점검
+완료 기준:
+- 운영 체크리스트 All Pass
+
+## 19) 진행 로그 (2026-03-08 기준)
 - 완료: Evaluation vs Monitoring 분리 라우트 반영
 - 완료: frozen snapshot 생성/로더 우선순위 연결(`data/frozen/current`)
 - 완료: 미시 판정 `micro-decision-v2` 적용(`verdict_reason`, `min_n_obs`)
-- 진행중: 표본 자체 확장(거시/미시 n_obs 증대)
+- 완료: 거시 frozen 표본 50건 확장(p1=25, p2=25)
+- 완료: 미시 real-only 표본 기준 충족(`muon=3`, `neutrino=3`, `collider=24`)
+- 완료: 책 00~28 라우트/도메인 전수 점검 리포트 생성(`results/reports/book_route_sync_report_20260308.md`)
+
+## 20) 예측 엔진 분리 구축 계획 (거시/미시 4엔진)
+
+목표:
+- 관측값 수집과 예측값 생성을 완전 분리
+- `payload` 입력의 `sm_pred/salt_pred` 의존 제거
+- 거시/미시 공통 잔차판정 파이프라인 재사용
+
+엔진 범위:
+1. `cosmic_sm_predict.py`
+2. `cosmic_salt_predict.py`
+3. `micro_sm_predict.py`
+4. `micro_salt_predict.py`
+
+정책 고정:
+- [x] 예측값은 엔진 출력만 허용(입력 payload의 `sm_pred/salt_pred`는 무시 또는 실패)
+- [x] real 모드에서 seed fallback 금지 유지(PDG/NuFIT)
+- [x] 예측 잠금 해시(`prediction_lock_sha256`)를 audit/frozen manifest에 필수 포함
+
+### 20.1) Phase A - 데이터 계약/인터페이스 고정
+- [x] `docs/method/prediction_contract.json` 신설(입력/출력 스키마 고정)
+- [x] 엔진 공통 CLI 규약 고정(`--input`, `--output`, `--engine-version`, `--formula-version`)
+- [x] 계약 위반 시 즉시 실패(자동 보정 금지)
+완료 기준:
+- 동일 입력이면 엔진 출력 JSON 스키마가 100% 동일
+
+### 20.2) Phase B - 거시 엔진 분리
+- [x] `tools/predictors/cosmic_sm_predict.py` 구현
+- [x] `tools/predictors/cosmic_salt_predict.py` 구현
+- [x] `results_p1/p2` 생성 경로를 "관측값 -> 엔진 출력 -> 평가"로 교체
+- [x] 합성/추정 기반 행 생성 로직 금지 유지
+완료 기준:
+- 거시 잔차가 엔진 산출 예측값 기준으로만 계산
+
+### 20.3) Phase C - 미시 엔진 분리
+- [x] `tools/predictors/micro_sm_predict.py` 구현
+- [x] `tools/predictors/micro_salt_predict.py` 구현
+- [x] `tools/micro/expand_micro_samples.py`에서 예측 상수 주입 제거(관측값 전용)
+- [x] 미시 ingest 스크립트에서 `sm_pred/salt_pred` 입력 의존 제거
+완료 기준:
+- 미시 잔차 계산 경로에서 하드코딩 예측값 0건
+
+### 20.4) Phase D - 공통 평가기/감사 연결
+- [x] 공통 평가 실행기(`tools/evaluation/run_model_eval.py`) 도입
+- [x] official/exploratory 판정을 동일 입력-동일 규칙으로 재산출
+- [x] `/audit`에 엔진 버전, formula 버전, prediction lock hash 노출
+완료 기준:
+- 재실행 시 판정 결과 재현성 100%(동일 입력/동일 엔진 해시)
+
+### 20.5) Phase E - 검증/배포 게이트
+- [x] frozen manifest 필수 파일에 엔진 lock 파일 포함
+- [x] CI에서 prediction lock mismatch 시 배포 차단
+- [x] 문서(16/17/18/20/24/26/28)에 엔진 분리 원칙 반영
+완료 기준:
+- 운영체계에서 입력 튜닝으로 판정 변경 불가(잠금 위반 시 실패)

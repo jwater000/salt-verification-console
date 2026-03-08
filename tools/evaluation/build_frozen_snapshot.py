@@ -25,6 +25,10 @@ CURRENT_DIR = FROZEN_DIR / "current"
 
 FROZEN_FILES = [
     "audit_manifest.json",
+    "model_eval_manifest.json",
+    "cosmic_predictor_manifest.json",
+    "micro_predictor_manifest.json",
+    "micro_prediction_lock.json",
     "micro_snapshot.json",
     "results_p1-time-delay-redshift.json",
     "results_p2-hf-tail.json",

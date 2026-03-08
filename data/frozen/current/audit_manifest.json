@@ -1,14 +1,22 @@
 {
-  "generated_at_utc": "2026-03-07T18:10:27Z",
+  "generated_at_utc": "2026-03-08T16:02:02Z",
   "formula_version": [
+    "micro-salt-submission-candidate-v1",
     "micro-v0-template"
   ],
   "dataset_version": [
-    "2024-seed-v1",
-    "5.2-seed-v1",
-    "seed-v1"
+    "dayabay-2022",
+    "doublechooz-2020",
+    "fermilab-combined-2025",
+    "icecube-2021",
+    "nova-2024",
+    "nufit-5.2-with-sk-no",
+    "reno-2018",
+    "superk-2023",
+    "t2k-2023"
   ],
-  "decision_rule_version": "micro-decision-v2",
+  "decision_rule_version": "micro-decision-v3",
+  "prediction_lock_sha256": "327bafd8582b8de649b471c6751891691e3836160f19009bde644c901e3d89f2",
   "rerun_commands": [
     ".venv/bin/python tools/micro/run_micro_cycle.py",
     ".venv/bin/python tools/realtime/run_realtime_cycle.py"

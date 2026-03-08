@@ -1,0 +1,18 @@
+{
+  "domain": "cosmic",
+  "engine_version": "cosmic-predictor-v1",
+  "sm_formula_version": "cosmic-sm-submission-candidate-v1",
+  "salt_formula_version": "cosmic-salt-submission-candidate-v1",
+  "outputs": [
+    {
+      "path": "data/processed/results_p1-time-delay-redshift.json",
+      "sha256": "7bb89d7e1f45604cef74d3fe64a7b4b45d8e4569835c77c5cf3f6e1d72de14af",
+      "rows": 25
+    },
+    {
+      "path": "data/processed/results_p2-hf-tail.json",
+      "sha256": "de16807de7e1f2052307363c116f8c00ce835cd98dbb3e6b59ebf6e669999bd5",
+      "rows": 25
+    }
+  ]
+}

@@ -6,7 +6,9 @@ Compute micro_scores and micro_fit_runs from ingested observations/predictions.
 from __future__ import annotations
 
 import json
+import hashlib
 import math
+import os
 from collections import defaultdict
 from datetime import UTC, datetime
 from pathlib import Path
@@ -17,13 +19,21 @@ from _micro_common import connect_db, ensure_micro_schema
 ROOT = Path(__file__).resolve().parents[2]
 OUT_PATH = ROOT / "data" / "processed" / "micro_snapshot.json"
 AUDIT_PATH = ROOT / "data" / "processed" / "audit_manifest.json"
+PREDICTION_LOCK_PATH = ROOT / "data" / "processed" / "micro_prediction_lock.json"
 
-DECISION_RULE_VERSION = "micro-decision-v2"
+DECISION_RULE_VERSION = "micro-decision-v3"
 TIE_EPS = 0.1
 ALPHA = 0.05
 FDR_Q = 0.10
 EFFECT_SIZE_MIN = 0.05
 MIN_N_OBS = 3
+WIN_RATE_MIN = 0.60
+EXPLORE_FDR_Q = 0.25
+EXPLORE_EFFECT_SIZE_MIN = 0.02
+EXPLORE_WIN_RATE_MIN = 0.55
+NEUTRINO_FAMILY_Q = 0.10
+QUALITY_MODE = os.environ.get("MICRO_QUALITY_MODE", "real").strip().lower() or "real"
+ALLOW_LOCK_UPDATE = os.environ.get("MICRO_PREDICTION_LOCK_ALLOW_UPDATE", "").strip().lower() in {"1", "true", "yes"}
 
 
 def now_utc() -> str:
@@ -63,12 +73,50 @@ def bic(rss: float, n: int, k: int) -> float:
     return n * math.log(safe_rss / n) + k * math.log(n)
 
 
+def one_sided_binomial_p(win: int, loss: int) -> float:
+    m = win + loss
+    if m <= 0:
+        return 1.0
+    tail = 0
+    for k in range(win, m + 1):
+        tail += math.comb(m, k)
+    return tail / float(2**m)
+
+
+def build_prediction_lock(rows: list) -> tuple[str, int]:
+    canonical: list[str] = []
+    for r in rows:
+        x_raw = r["x_value"]
+        x = "null" if x_raw is None else f"{float(x_raw):.12g}"
+        line = "|".join(
+            [
+                str(r["channel"]),
+                str(r["observable_id"]),
+                str(r["dataset_id"]),
+                x,
+                f"{float(r['sm_pred']):.16g}",
+                f"{float(r['salt_pred']):.16g}",
+                str(r["formula_version"]),
+            ]
+        )
+        canonical.append(line)
+    canonical.sort()
+    payload = "\n".join(canonical).encode("utf-8")
+    return hashlib.sha256(payload).hexdigest(), len(canonical)
+
+
 def main() -> None:
+    if QUALITY_MODE not in {"real", "all"}:
+        raise SystemExit("MICRO_QUALITY_MODE must be 'real' or 'all'")
+
+    where_clause = "WHERE o.quality_flag = 'real'" if QUALITY_MODE == "real" else ""
+    observations_where_clause = "WHERE quality_flag = 'real'" if QUALITY_MODE == "real" else ""
+
     conn = connect_db()
     try:
         ensure_micro_schema(conn)
         rows = conn.execute(
-            """
+            f"""
             SELECT
               o.channel, o.observable_id, o.dataset_id, o.x_value,
               o.measured_value, o.stat_err, o.sys_err,
@@ -88,9 +136,33 @@ def main() -> None:
                (sa.x_value IS NULL AND o.x_value IS NULL) OR
                (sa.x_value = o.x_value)
              )
+            {where_clause}
             ORDER BY o.channel, o.observable_id, o.dataset_id, COALESCE(o.x_value, -1)
             """
         ).fetchall()
+
+        prediction_lock_sha256, prediction_pair_count = build_prediction_lock(rows)
+        previous_lock: dict | None = None
+        if PREDICTION_LOCK_PATH.exists():
+            try:
+                previous_lock = json.loads(PREDICTION_LOCK_PATH.read_text(encoding="utf-8"))
+            except Exception:
+                previous_lock = None
+        if previous_lock:
+            prev_hash = str(previous_lock.get("prediction_lock_sha256", "")).strip()
+            if prev_hash and prev_hash != prediction_lock_sha256 and not ALLOW_LOCK_UPDATE:
+                raise SystemExit(
+                    "micro prediction lock mismatch: "
+                    f"prev={prev_hash} current={prediction_lock_sha256}. "
+                    "Set MICRO_PREDICTION_LOCK_ALLOW_UPDATE=1 to accept update."
+                )
+        lock_payload = {
+            "generated_at_utc": now_utc(),
+            "quality_mode": QUALITY_MODE,
+            "prediction_pair_count": prediction_pair_count,
+            "prediction_lock_sha256": prediction_lock_sha256,
+        }
+        PREDICTION_LOCK_PATH.write_text(json.dumps(lock_payload, ensure_ascii=False, indent=2), encoding="utf-8")
 
         conn.execute("DELETE FROM micro_scores")
         conn.execute("DELETE FROM micro_fit_runs")
@@ -180,6 +252,9 @@ def main() -> None:
             row["q_improve"] = qvals[idx]
             grouped[row["channel"]].append(row)
 
+        channel_stats: dict[str, dict] = {}
+        channel_pvals: list[float] = []
+        channel_order: list[str] = []
         for channel, items in grouped.items():
             n = len(items)
             rss_sm = sum(x["res_sm"] ** 2 for x in items)
@@ -189,10 +264,48 @@ def main() -> None:
             rmse_sm = math.sqrt(rss_sm / n) if n else float("nan")
             rmse_salt = math.sqrt(rss_salt / n) if n else float("nan")
             delta_rmse = 0.0 if rmse_sm == 0 else (rmse_sm - rmse_salt) / rmse_sm
-            channel_fdr_q = min((x["q_improve"] for x in items), default=1.0)
+            win = sum(1 for x in items if (abs(x["pull_sm"]) - abs(x["pull_salt"])) > 1e-12)
+            loss = sum(1 for x in items if (abs(x["pull_sm"]) - abs(x["pull_salt"])) < -1e-12)
+            decisive = win + loss
+            win_rate = 0.0 if decisive == 0 else win / decisive
+            channel_p = one_sided_binomial_p(win, loss)
+            channel_order.append(channel)
+            channel_pvals.append(channel_p)
+            channel_stats[channel] = {
+                "n": n,
+                "rss_sm": rss_sm,
+                "rss_salt": rss_salt,
+                "chi2_sm": chi2_sm,
+                "chi2_salt": chi2_salt,
+                "rmse_sm": rmse_sm,
+                "rmse_salt": rmse_salt,
+                "delta_rmse": delta_rmse,
+                "win_rate": win_rate,
+                "channel_p": channel_p,
+            }
+
+        channel_qvals = bh_adjust(channel_pvals)
+        channel_q_map = {channel_order[i]: channel_qvals[i] for i in range(len(channel_order))}
+        neutrino_channels = [c for c in channel_order if c.startswith("neutrino_")]
+        neutrino_pvals = [channel_stats[c]["channel_p"] for c in neutrino_channels]
+        neutrino_qvals = bh_adjust(neutrino_pvals)
+        neutrino_q_map = {neutrino_channels[i]: neutrino_qvals[i] for i in range(len(neutrino_channels))}
+
+        for channel in channel_order:
+            stat = channel_stats[channel]
+            n = stat["n"]
+            rmse_sm = stat["rmse_sm"]
+            rmse_salt = stat["rmse_salt"]
+            delta_rmse = stat["delta_rmse"]
+            win_rate = stat["win_rate"]
+            channel_fdr_q = channel_q_map[channel]
+            neutrino_family_q = neutrino_q_map.get(channel)
+
             salt_better = rmse_salt < rmse_sm
             stat_pass = channel_fdr_q <= FDR_Q
             effect_pass = delta_rmse >= EFFECT_SIZE_MIN
+            consistency_pass = win_rate >= WIN_RATE_MIN
+
             verdict = "tie"
             verdict_reason = "insufficient_statistical_evidence"
             if n < MIN_N_OBS:
@@ -204,12 +317,46 @@ def main() -> None:
             elif not effect_pass:
                 verdict = "tie"
                 verdict_reason = f"delta_rmse<{EFFECT_SIZE_MIN:.2f}"
+            elif not consistency_pass:
+                verdict = "tie"
+                verdict_reason = f"win_rate<{WIN_RATE_MIN:.2f}"
             elif salt_better:
                 verdict = "salt_better"
-                verdict_reason = "fdr_pass+effect_pass+rmse_salt<rmse_sm"
+                verdict_reason = "fdr_pass+effect_pass+consistency_pass+rmse_salt<rmse_sm"
             else:
                 verdict = "sm_better"
-                verdict_reason = "fdr_pass+effect_pass+rmse_sm<=rmse_salt"
+                verdict_reason = "fdr_pass+effect_pass+consistency_pass+rmse_sm<=rmse_salt"
+
+            exploratory_stat_pass = channel_fdr_q <= EXPLORE_FDR_Q
+            if channel.startswith("neutrino_") and neutrino_family_q is not None:
+                exploratory_stat_pass = exploratory_stat_pass or (neutrino_family_q <= NEUTRINO_FAMILY_Q)
+            exploratory_effect_pass = delta_rmse >= EXPLORE_EFFECT_SIZE_MIN
+            exploratory_consistency_pass = win_rate >= EXPLORE_WIN_RATE_MIN
+
+            exploratory_verdict = "tie"
+            exploratory_reason = "insufficient_statistical_evidence"
+            if n < MIN_N_OBS:
+                exploratory_verdict = "insufficient_data"
+                exploratory_reason = f"n_obs<{MIN_N_OBS}"
+            elif not exploratory_stat_pass:
+                exploratory_verdict = "tie"
+                exploratory_reason = (
+                    f"fdr_q>{EXPLORE_FDR_Q:.2f}"
+                    if neutrino_family_q is None
+                    else f"fdr_q>{EXPLORE_FDR_Q:.2f} and family_q>{NEUTRINO_FAMILY_Q:.2f}"
+                )
+            elif not exploratory_effect_pass:
+                exploratory_verdict = "tie"
+                exploratory_reason = f"delta_rmse<{EXPLORE_EFFECT_SIZE_MIN:.2f}"
+            elif not exploratory_consistency_pass:
+                exploratory_verdict = "tie"
+                exploratory_reason = f"win_rate<{EXPLORE_WIN_RATE_MIN:.2f}"
+            elif salt_better:
+                exploratory_verdict = "salt_better"
+                exploratory_reason = "explore_pass+rmse_salt<rmse_sm"
+            else:
+                exploratory_verdict = "sm_better"
+                exploratory_reason = "explore_pass+rmse_sm<=rmse_salt"
 
             params = {
                 "alpha": ALPHA,
@@ -217,6 +364,13 @@ def main() -> None:
                 "effect_size_min": EFFECT_SIZE_MIN,
                 "tie_eps": TIE_EPS,
                 "min_n_obs": MIN_N_OBS,
+                "win_rate_min": WIN_RATE_MIN,
+                "explore_fdr_q_threshold": EXPLORE_FDR_Q,
+                "explore_effect_size_min": EXPLORE_EFFECT_SIZE_MIN,
+                "explore_win_rate_min": EXPLORE_WIN_RATE_MIN,
+                "neutrino_family_q_threshold": NEUTRINO_FAMILY_Q,
+                "stat_test": "one_sided_binomial_on_winner_direction",
+                "quality_mode": QUALITY_MODE,
             }
             conn.execute(
                 """
@@ -224,26 +378,29 @@ def main() -> None:
                   channel, fit_scope, params_json, n_obs,
                   chi2_sm, chi2_salt, rmse_sm, rmse_salt,
                   aic_sm, aic_salt, bic_sm, bic_salt,
-                  fdr_q, verdict, verdict_reason, computed_at_utc
+                  fdr_q, verdict, verdict_reason, exploratory_verdict, exploratory_reason, neutrino_family_q, computed_at_utc
                 )
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
                 """,
                 (
                     channel,
                     "channel",
                     json.dumps(params, ensure_ascii=False),
                     n,
-                    chi2_sm,
-                    chi2_salt,
+                    stat["chi2_sm"],
+                    stat["chi2_salt"],
                     rmse_sm,
                     rmse_salt,
-                    aic(rss_sm, n, 1),
-                    aic(rss_salt, n, 3),
-                    bic(rss_sm, n, 1),
-                    bic(rss_salt, n, 3),
+                    aic(stat["rss_sm"], n, 1),
+                    aic(stat["rss_salt"], n, 3),
+                    bic(stat["rss_sm"], n, 1),
+                    bic(stat["rss_salt"], n, 3),
                     channel_fdr_q,
                     verdict,
                     verdict_reason,
+                    exploratory_verdict,
+                    exploratory_reason,
+                    neutrino_family_q,
                     ts,
                 ),
             )
@@ -254,10 +411,11 @@ def main() -> None:
         micro_observations = [
             dict(r)
             for r in conn.execute(
-                """
+                f"""
                 SELECT channel, observable_id, dataset_id, x_value, measured_value,
                        dataset_group, stat_err, sys_err, unit, quality_flag, observed_at_utc, source_url
                 FROM micro_observations
+                {observations_where_clause}
                 ORDER BY channel, observable_id, dataset_id, COALESCE(x_value, -1)
                 """
             ).fetchall()
@@ -280,7 +438,8 @@ def main() -> None:
                 """
                 SELECT run_id, channel, fit_scope, params_json, n_obs,
                        chi2_sm, chi2_salt, rmse_sm, rmse_salt,
-                       aic_sm, aic_salt, bic_sm, bic_salt, fdr_q, verdict, verdict_reason, computed_at_utc
+                       aic_sm, aic_salt, bic_sm, bic_salt, fdr_q, verdict, verdict_reason,
+                       exploratory_verdict, exploratory_reason, neutrino_family_q, computed_at_utc
                 FROM micro_fit_runs
                 ORDER BY channel, run_id
                 """
@@ -292,6 +451,7 @@ def main() -> None:
                 {
                     "generated_at_utc": ts,
                     "decision_rule_version": DECISION_RULE_VERSION,
+                    "prediction_lock_sha256": prediction_lock_sha256,
                     "sources": micro_sources,
                     "observations": micro_observations,
                     "scores": micro_scores,
@@ -316,6 +476,7 @@ def main() -> None:
             "formula_version": formula_versions,
             "dataset_version": dataset_versions,
             "decision_rule_version": DECISION_RULE_VERSION,
+            "prediction_lock_sha256": prediction_lock_sha256,
             "rerun_commands": [
                 ".venv/bin/python tools/micro/run_micro_cycle.py",
                 ".venv/bin/python tools/realtime/run_realtime_cycle.py",
@@ -326,6 +487,7 @@ def main() -> None:
     finally:
         conn.close()
 
+    print(f"quality_mode: {QUALITY_MODE}")
     print(f"micro stats computed: {OUT_PATH}")
     print(f"audit manifest refreshed: {AUDIT_PATH}")
 

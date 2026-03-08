@@ -1,0 +1,802 @@
+{
+  "MS260307q": {
+    "redshift_z": null,
+    "luminosity_distance_mpc": null,
+    "lookback_time_gyr": null,
+    "notes": "fill from source catalog before submission-grade run",
+    "source_id": "gracedb",
+    "source_url": "https://gracedb.ligo.org/api/superevents/MS260307q/"
+  },
+  "9999": {
+    "redshift_z": null,
+    "luminosity_distance_mpc": null,
+    "lookback_time_gyr": null,
+    "notes": "placeholder",
+    "source_id": "gcn",
+    "source_url": "https://gcn.nasa.gov/circulars/9999"
+  },
+  "9977": {
+    "redshift_z": null,
+    "luminosity_distance_mpc": null,
+    "lookback_time_gyr": null,
+    "source_url": "https://gcn.nasa.gov/circulars/9977",
+    "notes": "fill before COSMIC_SUBMISSION_MODE=1 run",
+    "source_id": "gcn"
+  },
+  "9978": {
+    "redshift_z": null,
+    "luminosity_distance_mpc": null,
+    "lookback_time_gyr": null,
+    "source_url": "https://gcn.nasa.gov/circulars/9978",
+    "notes": "fill before COSMIC_SUBMISSION_MODE=1 run",
+    "source_id": "gcn"
+  },
+  "9979": {
+    "redshift_z": null,
+    "luminosity_distance_mpc": null,
+    "lookback_time_gyr": null,
+    "source_url": "https://gcn.nasa.gov/circulars/9979",
+    "notes": "fill before COSMIC_SUBMISSION_MODE=1 run",
+    "source_id": "gcn"
+  },
+  "998": {
+    "redshift_z": null,
+    "luminosity_distance_mpc": null,
+    "lookback_time_gyr": null,
+    "source_url": "https://gcn.nasa.gov/circulars/998",
+    "notes": "fill before COSMIC_SUBMISSION_MODE=1 run",
+    "source_id": "gcn"
+  },
+  "9980": {
+    "redshift_z": null,
+    "luminosity_distance_mpc": null,
+    "lookback_time_gyr": null,
+    "source_url": "https://gcn.nasa.gov/circulars/9980",
+    "notes": "fill before COSMIC_SUBMISSION_MODE=1 run",
+    "source_id": "gcn"
+  },
+  "9981": {
+    "redshift_z": null,
+    "luminosity_distance_mpc": null,
+    "lookback_time_gyr": null,
+    "source_url": "https://gcn.nasa.gov/circulars/9981",
+    "notes": "fill before COSMIC_SUBMISSION_MODE=1 run",
+    "source_id": "gcn"
+  },
+  "9982": {
+    "redshift_z": null,
+    "luminosity_distance_mpc": null,
+    "lookback_time_gyr": null,
+    "source_url": "https://gcn.nasa.gov/circulars/9982",
+    "notes": "fill before COSMIC_SUBMISSION_MODE=1 run",
+    "source_id": "gcn"
+  },
+  "9983": {
+    "redshift_z": null,
+    "luminosity_distance_mpc": null,
+    "lookback_time_gyr": null,
+    "source_url": "https://gcn.nasa.gov/circulars/9983",
+    "notes": "fill before COSMIC_SUBMISSION_MODE=1 run",
+    "source_id": "gcn"
+  },
+  "9984": {
+    "redshift_z": null,
+    "luminosity_distance_mpc": null,
+    "lookback_time_gyr": null,
+    "source_url": "https://gcn.nasa.gov/circulars/9984",
+    "notes": "fill before COSMIC_SUBMISSION_MODE=1 run",
+    "source_id": "gcn"
+  },
+  "9985": {
+    "redshift_z": null,
+    "luminosity_distance_mpc": null,
+    "lookback_time_gyr": null,
+    "source_url": "https://gcn.nasa.gov/circulars/9985",
+    "notes": "fill before COSMIC_SUBMISSION_MODE=1 run",
+    "source_id": "gcn"
+  },
+  "9986": {
+    "redshift_z": null,
+    "luminosity_distance_mpc": null,
+    "lookback_time_gyr": null,
+    "source_url": "https://gcn.nasa.gov/circulars/9986",
+    "notes": "fill before COSMIC_SUBMISSION_MODE=1 run",
+    "source_id": "gcn"
+  },
+  "9987": {
+    "redshift_z": null,
+    "luminosity_distance_mpc": null,
+    "lookback_time_gyr": null,
+    "source_url": "https://gcn.nasa.gov/circulars/9987",
+    "notes": "fill before COSMIC_SUBMISSION_MODE=1 run",
+    "source_id": "gcn"
+  },
+  "9988": {
+    "redshift_z": null,
+    "luminosity_distance_mpc": null,
+    "lookback_time_gyr": null,
+    "source_url": "https://gcn.nasa.gov/circulars/9988",
+    "notes": "fill before COSMIC_SUBMISSION_MODE=1 run",
+    "source_id": "gcn"
+  },
+  "9989": {
+    "redshift_z": null,
+    "luminosity_distance_mpc": null,
+    "lookback_time_gyr": null,
+    "source_url": "https://gcn.nasa.gov/circulars/9989",
+    "notes": "fill before COSMIC_SUBMISSION_MODE=1 run",
+    "source_id": "gcn"
+  },
+  "999": {
+    "redshift_z": null,
+    "luminosity_distance_mpc": null,
+    "lookback_time_gyr": null,
+    "source_url": "https://gcn.nasa.gov/circulars/999",
+    "notes": "fill before COSMIC_SUBMISSION_MODE=1 run",
+    "source_id": "gcn"
+  },
+  "9990": {
+    "redshift_z": null,
+    "luminosity_distance_mpc": null,
+    "lookback_time_gyr": null,
+    "source_url": "https://gcn.nasa.gov/circulars/9990",
+    "notes": "fill before COSMIC_SUBMISSION_MODE=1 run",
+    "source_id": "gcn"
+  },
+  "9991": {
+    "redshift_z": null,
+    "luminosity_distance_mpc": null,
+    "lookback_time_gyr": null,
+    "source_url": "https://gcn.nasa.gov/circulars/9991",
+    "notes": "fill before COSMIC_SUBMISSION_MODE=1 run",
+    "source_id": "gcn"
+  },
+  "9992": {
+    "redshift_z": null,
+    "luminosity_distance_mpc": null,
+    "lookback_time_gyr": null,
+    "source_url": "https://gcn.nasa.gov/circulars/9992",
+    "notes": "fill before COSMIC_SUBMISSION_MODE=1 run",
+    "source_id": "gcn"
+  },
+  "9993": {
+    "redshift_z": null,
+    "luminosity_distance_mpc": null,
+    "lookback_time_gyr": null,
+    "source_url": "https://gcn.nasa.gov/circulars/9993",
+    "notes": "fill before COSMIC_SUBMISSION_MODE=1 run",
+    "source_id": "gcn"
+  },
+  "9994": {
+    "redshift_z": null,
+    "luminosity_distance_mpc": null,
+    "lookback_time_gyr": null,
+    "source_url": "https://gcn.nasa.gov/circulars/9994",
+    "notes": "fill before COSMIC_SUBMISSION_MODE=1 run",
+    "source_id": "gcn"
+  },
+  "9995": {
+    "redshift_z": 2.3,
+    "luminosity_distance_mpc": 18880.223799,
+    "lookback_time_gyr": 10.938908362,
+    "source_url": "https://gcn.nasa.gov/circulars/9995",
+    "notes": "fill before COSMIC_SUBMISSION_MODE=1 run; z from GCN 9995.json, distance/lookback computed with Planck18 flat LCDM (H0=67.66, Om=0.3111)",
+    "source_id": "gcn"
+  },
+  "9996": {
+    "redshift_z": null,
+    "luminosity_distance_mpc": null,
+    "lookback_time_gyr": null,
+    "source_url": "https://gcn.nasa.gov/circulars/9996",
+    "notes": "fill before COSMIC_SUBMISSION_MODE=1 run",
+    "source_id": "gcn"
+  },
+  "9997": {
+    "redshift_z": null,
+    "luminosity_distance_mpc": null,
+    "lookback_time_gyr": null,
+    "source_url": "https://gcn.nasa.gov/circulars/9997",
+    "notes": "fill before COSMIC_SUBMISSION_MODE=1 run",
+    "source_id": "gcn"
+  },
+  "9998": {
+    "redshift_z": null,
+    "luminosity_distance_mpc": null,
+    "lookback_time_gyr": null,
+    "source_url": "https://gcn.nasa.gov/circulars/9998",
+    "notes": "fill before COSMIC_SUBMISSION_MODE=1 run",
+    "source_id": "gcn"
+  },
+  "MS260306q": {
+    "redshift_z": null,
+    "luminosity_distance_mpc": null,
+    "lookback_time_gyr": null,
+    "source_url": "https://gracedb.ligo.org/api/superevents/MS260306q/",
+    "notes": "fill before COSMIC_SUBMISSION_MODE=1 run",
+    "source_id": "gracedb"
+  },
+  "MS260306r": {
+    "redshift_z": null,
+    "luminosity_distance_mpc": null,
+    "lookback_time_gyr": null,
+    "source_url": "https://gracedb.ligo.org/api/superevents/MS260306r/",
+    "notes": "fill before COSMIC_SUBMISSION_MODE=1 run",
+    "source_id": "gracedb"
+  },
+  "MS260306s": {
+    "redshift_z": null,
+    "luminosity_distance_mpc": null,
+    "lookback_time_gyr": null,
+    "source_url": "https://gracedb.ligo.org/api/superevents/MS260306s/",
+    "notes": "fill before COSMIC_SUBMISSION_MODE=1 run",
+    "source_id": "gracedb"
+  },
+  "MS260306t": {
+    "redshift_z": null,
+    "luminosity_distance_mpc": null,
+    "lookback_time_gyr": null,
+    "source_url": "https://gracedb.ligo.org/api/superevents/MS260306t/",
+    "notes": "fill before COSMIC_SUBMISSION_MODE=1 run",
+    "source_id": "gracedb"
+  },
+  "MS260306u": {
+    "redshift_z": null,
+    "luminosity_distance_mpc": null,
+    "lookback_time_gyr": null,
+    "source_url": "https://gracedb.ligo.org/api/superevents/MS260306u/",
+    "notes": "fill before COSMIC_SUBMISSION_MODE=1 run",
+    "source_id": "gracedb"
+  },
+  "MS260306v": {
+    "redshift_z": null,
+    "luminosity_distance_mpc": null,
+    "lookback_time_gyr": null,
+    "source_url": "https://gracedb.ligo.org/api/superevents/MS260306v/",
+    "notes": "fill before COSMIC_SUBMISSION_MODE=1 run",
+    "source_id": "gracedb"
+  },
+  "MS260306w": {
+    "redshift_z": null,
+    "luminosity_distance_mpc": null,
+    "lookback_time_gyr": null,
+    "source_url": "https://gracedb.ligo.org/api/superevents/MS260306w/",
+    "notes": "fill before COSMIC_SUBMISSION_MODE=1 run",
+    "source_id": "gracedb"
+  },
+  "MS260306x": {
+    "redshift_z": null,
+    "luminosity_distance_mpc": null,
+    "lookback_time_gyr": null,
+    "source_url": "https://gracedb.ligo.org/api/superevents/MS260306x/",
+    "notes": "fill before COSMIC_SUBMISSION_MODE=1 run",
+    "source_id": "gracedb"
+  },
+  "MS260307a": {
+    "redshift_z": null,
+    "luminosity_distance_mpc": null,
+    "lookback_time_gyr": null,
+    "source_url": "https://gracedb.ligo.org/api/superevents/MS260307a/",
+    "notes": "fill before COSMIC_SUBMISSION_MODE=1 run",
+    "source_id": "gracedb"
+  },
+  "MS260307b": {
+    "redshift_z": null,
+    "luminosity_distance_mpc": null,
+    "lookback_time_gyr": null,
+    "source_url": "https://gracedb.ligo.org/api/superevents/MS260307b/",
+    "notes": "fill before COSMIC_SUBMISSION_MODE=1 run",
+    "source_id": "gracedb"
+  },
+  "MS260307c": {
+    "redshift_z": null,
+    "luminosity_distance_mpc": null,
+    "lookback_time_gyr": null,
+    "source_url": "https://gracedb.ligo.org/api/superevents/MS260307c/",
+    "notes": "fill before COSMIC_SUBMISSION_MODE=1 run",
+    "source_id": "gracedb"
+  },
+  "MS260307d": {
+    "redshift_z": null,
+    "luminosity_distance_mpc": null,
+    "lookback_time_gyr": null,
+    "source_url": "https://gracedb.ligo.org/api/superevents/MS260307d/",
+    "notes": "fill before COSMIC_SUBMISSION_MODE=1 run",
+    "source_id": "gracedb"
+  },
+  "MS260307e": {
+    "redshift_z": null,
+    "luminosity_distance_mpc": null,
+    "lookback_time_gyr": null,
+    "source_url": "https://gracedb.ligo.org/api/superevents/MS260307e/",
+    "notes": "fill before COSMIC_SUBMISSION_MODE=1 run",
+    "source_id": "gracedb"
+  },
+  "MS260307f": {
+    "redshift_z": null,
+    "luminosity_distance_mpc": null,
+    "lookback_time_gyr": null,
+    "source_url": "https://gracedb.ligo.org/api/superevents/MS260307f/",
+    "notes": "fill before COSMIC_SUBMISSION_MODE=1 run",
+    "source_id": "gracedb"
+  },
+  "MS260307g": {
+    "redshift_z": null,
+    "luminosity_distance_mpc": null,
+    "lookback_time_gyr": null,
+    "source_url": "https://gracedb.ligo.org/api/superevents/MS260307g/",
+    "notes": "fill before COSMIC_SUBMISSION_MODE=1 run",
+    "source_id": "gracedb"
+  },
+  "MS260307h": {
+    "redshift_z": null,
+    "luminosity_distance_mpc": null,
+    "lookback_time_gyr": null,
+    "source_url": "https://gracedb.ligo.org/api/superevents/MS260307h/",
+    "notes": "fill before COSMIC_SUBMISSION_MODE=1 run",
+    "source_id": "gracedb"
+  },
+  "MS260307i": {
+    "redshift_z": null,
+    "luminosity_distance_mpc": null,
+    "lookback_time_gyr": null,
+    "source_url": "https://gracedb.ligo.org/api/superevents/MS260307i/",
+    "notes": "fill before COSMIC_SUBMISSION_MODE=1 run",
+    "source_id": "gracedb"
+  },
+  "MS260307j": {
+    "redshift_z": null,
+    "luminosity_distance_mpc": null,
+    "lookback_time_gyr": null,
+    "source_url": "https://gracedb.ligo.org/api/superevents/MS260307j/",
+    "notes": "fill before COSMIC_SUBMISSION_MODE=1 run",
+    "source_id": "gracedb"
+  },
+  "MS260307k": {
+    "redshift_z": null,
+    "luminosity_distance_mpc": null,
+    "lookback_time_gyr": null,
+    "source_url": "https://gracedb.ligo.org/api/superevents/MS260307k/",
+    "notes": "fill before COSMIC_SUBMISSION_MODE=1 run",
+    "source_id": "gracedb"
+  },
+  "MS260307l": {
+    "redshift_z": null,
+    "luminosity_distance_mpc": null,
+    "lookback_time_gyr": null,
+    "source_url": "https://gracedb.ligo.org/api/superevents/MS260307l/",
+    "notes": "fill before COSMIC_SUBMISSION_MODE=1 run",
+    "source_id": "gracedb"
+  },
+  "MS260307m": {
+    "redshift_z": null,
+    "luminosity_distance_mpc": null,
+    "lookback_time_gyr": null,
+    "source_url": "https://gracedb.ligo.org/api/superevents/MS260307m/",
+    "notes": "fill before COSMIC_SUBMISSION_MODE=1 run",
+    "source_id": "gracedb"
+  },
+  "MS260307n": {
+    "redshift_z": null,
+    "luminosity_distance_mpc": null,
+    "lookback_time_gyr": null,
+    "source_url": "https://gracedb.ligo.org/api/superevents/MS260307n/",
+    "notes": "fill before COSMIC_SUBMISSION_MODE=1 run",
+    "source_id": "gracedb"
+  },
+  "MS260307o": {
+    "redshift_z": null,
+    "luminosity_distance_mpc": null,
+    "lookback_time_gyr": null,
+    "source_url": "https://gracedb.ligo.org/api/superevents/MS260307o/",
+    "notes": "fill before COSMIC_SUBMISSION_MODE=1 run",
+    "source_id": "gracedb"
+  },
+  "MS260307p": {
+    "redshift_z": null,
+    "luminosity_distance_mpc": null,
+    "lookback_time_gyr": null,
+    "source_url": "https://gracedb.ligo.org/api/superevents/MS260307p/",
+    "notes": "fill before COSMIC_SUBMISSION_MODE=1 run",
+    "source_id": "gracedb"
+  },
+  "11848": {
+    "redshift_z": 0.35,
+    "luminosity_distance_mpc": 1915.83379,
+    "lookback_time_gyr": 3.987338874,
+    "source_id": "gcn",
+    "source_url": "https://gcn.nasa.gov/circulars/11848",
+    "notes": "rebuilt from cosmic_submission_candidates_top50.csv"
+  },
+  "251": {
+    "redshift_z": 1.6004,
+    "luminosity_distance_mpc": 12122.086304,
+    "lookback_time_gyr": 9.754194568,
+    "source_id": "gcn",
+    "source_url": "https://gcn.nasa.gov/circulars/251",
+    "notes": "rebuilt from cosmic_submission_candidates_top50.csv"
+  },
+  "23633": {
+    "redshift_z": 1.86,
+    "luminosity_distance_mpc": 14575.16788,
+    "lookback_time_gyr": 10.274286973,
+    "source_id": "gcn",
+    "source_url": "https://gcn.nasa.gov/circulars/23633",
+    "notes": "rebuilt from cosmic_submission_candidates_top50.csv"
+  },
+  "22840": {
+    "redshift_z": 3.75,
+    "luminosity_distance_mpc": 33964.976114,
+    "lookback_time_gyr": 12.128668415,
+    "source_id": "gcn",
+    "source_url": "https://gcn.nasa.gov/circulars/22840",
+    "notes": "rebuilt from cosmic_submission_candidates_top50.csv"
+  },
+  "40071": {
+    "redshift_z": 2.63,
+    "luminosity_distance_mpc": 22207.623261,
+    "lookback_time_gyr": 11.312835681,
+    "source_id": "gcn",
+    "source_url": "https://gcn.nasa.gov/circulars/40071",
+    "notes": "rebuilt from cosmic_submission_candidates_top50.csv"
+  },
+  "33791": {
+    "redshift_z": 0.44,
+    "luminosity_distance_mpc": 2507.311863,
+    "lookback_time_gyr": 4.740787571,
+    "source_id": "gcn",
+    "source_url": "https://gcn.nasa.gov/circulars/33791",
+    "notes": "rebuilt from cosmic_submission_candidates_top50.csv"
+  },
+  "39887": {
+    "redshift_z": 0.0065,
+    "luminosity_distance_mpc": 28.943819,
+    "lookback_time_gyr": 0.093489104,
+    "source_id": "gcn",
+    "source_url": "https://gcn.nasa.gov/circulars/39887",
+    "notes": "rebuilt from cosmic_submission_candidates_top50.csv"
+  },
+  "41641": {
+    "redshift_z": 0.12,
+    "luminosity_distance_mpc": 578.49678,
+    "lookback_time_gyr": 1.591880993,
+    "source_id": "gcn",
+    "source_url": "https://gcn.nasa.gov/circulars/41641",
+    "notes": "rebuilt from cosmic_submission_candidates_top50.csv"
+  },
+  "29033": {
+    "redshift_z": 0.426,
+    "luminosity_distance_mpc": 2413.098083,
+    "lookback_time_gyr": 4.629318856,
+    "source_id": "gcn",
+    "source_url": "https://gcn.nasa.gov/circulars/29033",
+    "notes": "rebuilt from cosmic_submission_candidates_top50.csv"
+  },
+  "12642": {
+    "redshift_z": 1.6,
+    "luminosity_distance_mpc": 12118.364704,
+    "lookback_time_gyr": 9.753298696,
+    "source_id": "gcn",
+    "source_url": "https://gcn.nasa.gov/circulars/12642",
+    "notes": "rebuilt from cosmic_submission_candidates_top50.csv"
+  },
+  "2544": {
+    "redshift_z": 0.105,
+    "luminosity_distance_mpc": 501.268017,
+    "lookback_time_gyr": 1.407532226,
+    "source_id": "gcn",
+    "source_url": "https://gcn.nasa.gov/circulars/2544",
+    "notes": "rebuilt from cosmic_submission_candidates_top50.csv"
+  },
+  "43499": {
+    "redshift_z": 5.47,
+    "luminosity_distance_mpc": 52971.071803,
+    "lookback_time_gyr": 12.743342761,
+    "source_id": "gcn",
+    "source_url": "https://gcn.nasa.gov/circulars/43499",
+    "notes": "rebuilt from cosmic_submission_candidates_top50.csv"
+  },
+  "15452": {
+    "redshift_z": 1.686,
+    "luminosity_distance_mpc": 12922.803511,
+    "lookback_time_gyr": 9.938764628,
+    "source_id": "gcn",
+    "source_url": "https://gcn.nasa.gov/circulars/15452",
+    "notes": "rebuilt from cosmic_submission_candidates_top50.csv"
+  },
+  "7332": {
+    "redshift_z": 4.0,
+    "luminosity_distance_mpc": 36666.814034,
+    "lookback_time_gyr": 12.25106278,
+    "source_id": "gcn",
+    "source_url": "https://gcn.nasa.gov/circulars/7332",
+    "notes": "rebuilt from cosmic_submission_candidates_top50.csv"
+  },
+  "8420": {
+    "redshift_z": 0.3903,
+    "luminosity_distance_mpc": 2176.46859,
+    "lookback_time_gyr": 4.335716173,
+    "source_id": "gcn",
+    "source_url": "https://gcn.nasa.gov/circulars/8420",
+    "notes": "rebuilt from cosmic_submission_candidates_top50.csv"
+  },
+  "30037": {
+    "redshift_z": 2.486,
+    "luminosity_distance_mpc": 20746.436348,
+    "lookback_time_gyr": 11.160208526,
+    "source_id": "gcn",
+    "source_url": "https://gcn.nasa.gov/circulars/30037",
+    "notes": "rebuilt from cosmic_submission_candidates_top50.csv"
+  },
+  "14478": {
+    "redshift_z": 0.338,
+    "luminosity_distance_mpc": 1839.604598,
+    "lookback_time_gyr": 3.879966117,
+    "source_id": "gcn",
+    "source_url": "https://gcn.nasa.gov/circulars/14478",
+    "notes": "rebuilt from cosmic_submission_candidates_top50.csv"
+  },
+  "2485": {
+    "redshift_z": 1.0,
+    "luminosity_distance_mpc": 6791.734247,
+    "lookback_time_gyr": 7.936014583,
+    "source_id": "gcn",
+    "source_url": "https://gcn.nasa.gov/circulars/2485",
+    "notes": "rebuilt from cosmic_submission_candidates_top50.csv"
+  },
+  "24275": {
+    "redshift_z": 0.04,
+    "luminosity_distance_mpc": 182.590722,
+    "lookback_time_gyr": 0.561505201,
+    "source_id": "gcn",
+    "source_url": "https://gcn.nasa.gov/circulars/24275",
+    "notes": "rebuilt from cosmic_submission_candidates_top50.csv"
+  },
+  "13477": {
+    "redshift_z": 0.3984,
+    "luminosity_distance_mpc": 2229.693982,
+    "lookback_time_gyr": 4.403537046,
+    "source_id": "gcn",
+    "source_url": "https://gcn.nasa.gov/circulars/13477",
+    "notes": "rebuilt from cosmic_submission_candidates_top50.csv"
+  },
+  "1259": {
+    "redshift_z": 0.451,
+    "luminosity_distance_mpc": 2581.883113,
+    "lookback_time_gyr": 4.826965586,
+    "source_id": "gcn",
+    "source_url": "https://gcn.nasa.gov/circulars/1259",
+    "notes": "rebuilt from cosmic_submission_candidates_top50.csv"
+  },
+  "4545": {
+    "redshift_z": 6.7,
+    "luminosity_distance_mpc": 67037.013188,
+    "lookback_time_gyr": 12.9837328,
+    "source_id": "gcn",
+    "source_url": "https://gcn.nasa.gov/circulars/4545",
+    "notes": "rebuilt from cosmic_submission_candidates_top50.csv"
+  },
+  "41691": {
+    "redshift_z": 1.59,
+    "luminosity_distance_mpc": 12025.38688,
+    "lookback_time_gyr": 9.730797003,
+    "source_id": "gcn",
+    "source_url": "https://gcn.nasa.gov/circulars/41691",
+    "notes": "rebuilt from cosmic_submission_candidates_top50.csv"
+  },
+  "24715": {
+    "redshift_z": 2.2,
+    "luminosity_distance_mpc": 17887.521076,
+    "lookback_time_gyr": 10.806986047,
+    "source_id": "gcn",
+    "source_url": "https://gcn.nasa.gov/circulars/24715",
+    "notes": "rebuilt from cosmic_submission_candidates_top50.csv"
+  },
+  "1091": {
+    "redshift_z": 2.0369,
+    "luminosity_distance_mpc": 16285.794451,
+    "lookback_time_gyr": 10.569216067,
+    "source_id": "gcn",
+    "source_url": "https://gcn.nasa.gov/circulars/1091",
+    "notes": "rebuilt from cosmic_submission_candidates_top50.csv"
+  },
+  "8994": {
+    "redshift_z": 3.375,
+    "luminosity_distance_mpc": 29960.198751,
+    "lookback_time_gyr": 11.912138907,
+    "source_id": "gcn",
+    "source_url": "https://gcn.nasa.gov/circulars/8994",
+    "notes": "rebuilt from cosmic_submission_candidates_top50.csv"
+  },
+  "31429": {
+    "redshift_z": 1.246,
+    "luminosity_distance_mpc": 8907.21812,
+    "lookback_time_gyr": 8.813801546,
+    "source_id": "gcn",
+    "source_url": "https://gcn.nasa.gov/circulars/31429",
+    "notes": "rebuilt from cosmic_submission_candidates_top50.csv"
+  },
+  "9279": {
+    "redshift_z": 1.0,
+    "luminosity_distance_mpc": 6791.734247,
+    "lookback_time_gyr": 7.936014583,
+    "source_id": "gcn",
+    "source_url": "https://gcn.nasa.gov/circulars/9279",
+    "notes": "rebuilt from cosmic_submission_candidates_top50.csv"
+  },
+  "35093": {
+    "redshift_z": 0.257,
+    "luminosity_distance_mpc": 1342.576567,
+    "lookback_time_gyr": 3.108288254,
+    "source_id": "gcn",
+    "source_url": "https://gcn.nasa.gov/circulars/35093",
+    "notes": "rebuilt from cosmic_submission_candidates_top50.csv"
+  },
+  "13862": {
+    "redshift_z": 0.58,
+    "luminosity_distance_mpc": 3490.039908,
+    "lookback_time_gyr": 5.752388116,
+    "source_id": "gcn",
+    "source_url": "https://gcn.nasa.gov/circulars/13862",
+    "notes": "rebuilt from cosmic_submission_candidates_top50.csv"
+  },
+  "42918": {
+    "redshift_z": 4.035,
+    "luminosity_distance_mpc": 37046.963995,
+    "lookback_time_gyr": 12.267004969,
+    "source_id": "gcn",
+    "source_url": "https://gcn.nasa.gov/circulars/42918",
+    "notes": "rebuilt from cosmic_submission_candidates_top50.csv"
+  },
+  "42999": {
+    "redshift_z": 2.785,
+    "luminosity_distance_mpc": 23795.151308,
+    "lookback_time_gyr": 11.461469098,
+    "source_id": "gcn",
+    "source_url": "https://gcn.nasa.gov/circulars/42999",
+    "notes": "rebuilt from cosmic_submission_candidates_top50.csv"
+  },
+  "39413": {
+    "redshift_z": 0.34,
+    "luminosity_distance_mpc": 1852.26457,
+    "lookback_time_gyr": 3.897980632,
+    "source_id": "gcn",
+    "source_url": "https://gcn.nasa.gov/circulars/39413",
+    "notes": "rebuilt from cosmic_submission_candidates_top50.csv"
+  },
+  "29696": {
+    "redshift_z": 1.487,
+    "luminosity_distance_mpc": 11074.882813,
+    "lookback_time_gyr": 9.486731924,
+    "source_id": "gcn",
+    "source_url": "https://gcn.nasa.gov/circulars/29696",
+    "notes": "rebuilt from cosmic_submission_candidates_top50.csv"
+  },
+  "30383": {
+    "redshift_z": 0.2,
+    "luminosity_distance_mpc": 1012.306478,
+    "lookback_time_gyr": 2.512102819,
+    "source_id": "gcn",
+    "source_url": "https://gcn.nasa.gov/circulars/30383",
+    "notes": "rebuilt from cosmic_submission_candidates_top50.csv"
+  },
+  "43429": {
+    "redshift_z": 0.52,
+    "luminosity_distance_mpc": 3060.186608,
+    "lookback_time_gyr": 5.340688782,
+    "source_id": "gcn",
+    "source_url": "https://gcn.nasa.gov/circulars/43429",
+    "notes": "rebuilt from cosmic_submission_candidates_top50.csv"
+  },
+  "2212": {
+    "redshift_z": 0.168541,
+    "luminosity_distance_mpc": 837.423226,
+    "lookback_time_gyr": 2.162443363,
+    "source_id": "gcn",
+    "source_url": "https://gcn.nasa.gov/circulars/2212",
+    "notes": "rebuilt from cosmic_submission_candidates_top50.csv"
+  },
+  "19160": {
+    "redshift_z": 0.03,
+    "luminosity_distance_mpc": 135.949901,
+    "lookback_time_gyr": 0.424178189,
+    "source_id": "gcn",
+    "source_url": "https://gcn.nasa.gov/circulars/19160",
+    "notes": "rebuilt from cosmic_submission_candidates_top50.csv"
+  },
+  "1215": {
+    "redshift_z": 2.14,
+    "luminosity_distance_mpc": 17295.706838,
+    "lookback_time_gyr": 10.72295777,
+    "source_id": "gcn",
+    "source_url": "https://gcn.nasa.gov/circulars/1215",
+    "notes": "rebuilt from cosmic_submission_candidates_top50.csv"
+  },
+  "11638": {
+    "redshift_z": 2.22,
+    "luminosity_distance_mpc": 18085.436785,
+    "lookback_time_gyr": 10.834160814,
+    "source_id": "gcn",
+    "source_url": "https://gcn.nasa.gov/circulars/11638",
+    "notes": "rebuilt from cosmic_submission_candidates_top50.csv"
+  },
+  "20185": {
+    "redshift_z": 1.549,
+    "luminosity_distance_mpc": 11645.444483,
+    "lookback_time_gyr": 9.636386701,
+    "source_id": "gcn",
+    "source_url": "https://gcn.nasa.gov/circulars/20185",
+    "notes": "rebuilt from cosmic_submission_candidates_top50.csv"
+  },
+  "13992": {
+    "redshift_z": 2.7,
+    "luminosity_distance_mpc": 22922.745988,
+    "lookback_time_gyr": 11.381840175,
+    "source_id": "gcn",
+    "source_url": "https://gcn.nasa.gov/circulars/13992",
+    "notes": "rebuilt from cosmic_submission_candidates_top50.csv"
+  },
+  "41414": {
+    "redshift_z": 0.091,
+    "luminosity_distance_mpc": 430.410738,
+    "lookback_time_gyr": 1.231897418,
+    "source_id": "gcn",
+    "source_url": "https://gcn.nasa.gov/circulars/41414",
+    "notes": "rebuilt from cosmic_submission_candidates_top50.csv"
+  },
+  "11091": {
+    "redshift_z": 1.44,
+    "luminosity_distance_mpc": 10645.688617,
+    "lookback_time_gyr": 9.367405874,
+    "source_id": "gcn",
+    "source_url": "https://gcn.nasa.gov/circulars/11091",
+    "notes": "rebuilt from cosmic_submission_candidates_top50.csv"
+  },
+  "43752": {
+    "redshift_z": 1.208,
+    "luminosity_distance_mpc": 8573.465793,
+    "lookback_time_gyr": 8.69237788,
+    "source_id": "gcn",
+    "source_url": "https://gcn.nasa.gov/circulars/43752",
+    "notes": "rebuilt from cosmic_submission_candidates_top50.csv"
+  },
+  "28649": {
+    "redshift_z": 0.426,
+    "luminosity_distance_mpc": 2413.098083,
+    "lookback_time_gyr": 4.629318856,
+    "source_id": "gcn",
+    "source_url": "https://gcn.nasa.gov/circulars/28649",
+    "notes": "rebuilt from cosmic_submission_candidates_top50.csv"
+  },
+  "16181": {
+    "redshift_z": 4.7,
+    "luminosity_distance_mpc": 44349.820492,
+    "lookback_time_gyr": 12.52472653,
+    "source_id": "gcn",
+    "source_url": "https://gcn.nasa.gov/circulars/16181",
+    "notes": "rebuilt from cosmic_submission_candidates_top50.csv"
+  },
+  "20382": {
+    "redshift_z": 0.199,
+    "luminosity_distance_mpc": 1006.664489,
+    "lookback_time_gyr": 2.501220964,
+    "source_id": "gcn",
+    "source_url": "https://gcn.nasa.gov/circulars/20382",
+    "notes": "rebuilt from cosmic_submission_candidates_top50.csv"
+  },
+  "18490": {
+    "redshift_z": 0.81,
+    "luminosity_distance_mpc": 5241.666533,
+    "lookback_time_gyr": 7.078582287,
+    "source_id": "gcn",
+    "source_url": "https://gcn.nasa.gov/circulars/18490",
+    "notes": "rebuilt from cosmic_submission_candidates_top50.csv"
+  },
+  "8223": {
+    "redshift_z": 6.44,
+    "luminosity_distance_mpc": 64037.363647,
+    "lookback_time_gyr": 12.941096655,
+    "source_id": "gcn",
+    "source_url": "https://gcn.nasa.gov/circulars/8223",
+    "notes": "rebuilt from cosmic_submission_candidates_top50.csv"
+  }
+}

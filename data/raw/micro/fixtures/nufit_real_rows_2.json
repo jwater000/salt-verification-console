@@ -1,0 +1,28 @@
+{
+  "rows": [
+    {
+      "observable_id": "nu_theta23",
+      "measured_value": 0.861,
+      "stat_err": 0.019,
+      "sys_err": 0.01,
+      "sm_pred": 0.854,
+      "salt_pred": 0.859
+    },
+    {
+      "observable_id": "nu_dm2_32",
+      "measured_value": 0.002462,
+      "stat_err": 3.4e-05,
+      "sys_err": 1.5e-05,
+      "sm_pred": 0.002458,
+      "salt_pred": 0.002461
+    },
+    {
+      "observable_id": "nu_theta13",
+      "measured_value": 0.151,
+      "stat_err": 0.004,
+      "sys_err": 0.002,
+      "sm_pred": 0.147,
+      "salt_pred": 0.15
+    }
+  ]
+}

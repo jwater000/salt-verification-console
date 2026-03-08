@@ -3,6 +3,9 @@ import { notFound } from "next/navigation";
 const TITLES: Record<string, string> = {
   "muon-g2": "muon_g_minus_2",
   "neutrino-oscillation": "neutrino_oscillation",
+  "neutrino-reactor-disappearance": "neutrino_reactor_disappearance",
+  "neutrino-accelerator-long-baseline": "neutrino_accelerator_long_baseline",
+  "neutrino-atmospheric": "neutrino_atmospheric",
   "collider-high-pt-tail": "collider_high_pt_tail",
 };
 

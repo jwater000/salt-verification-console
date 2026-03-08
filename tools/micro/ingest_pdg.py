@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Ingest PDG-based micro dataset (real mode with seed fallback).
+Ingest PDG-based micro dataset.
 """
 
 from __future__ import annotations
@@ -10,14 +10,11 @@ from typing import Any
 
 from _micro_common import (
     ObservationRecord,
-    PredictionRecord,
     connect_db,
     ensure_micro_schema,
     fetch_json_url,
     read_json_file,
     upsert_observation,
-    upsert_salt_prediction,
-    upsert_sm_prediction,
     upsert_source,
     want_real_ingest,
 )
@@ -32,11 +29,11 @@ def _f(value: Any) -> float | None:
         return None
 
 
-def _seed_row() -> tuple[float, float, float, float, float]:
-    return (116592061e-11, 41e-11, 43e-11, 116591810e-11, 116591890e-11)
+def _seed_row() -> tuple[float, float, float]:
+    return (116592061e-11, 41e-11, 43e-11)
 
 
-def _real_row() -> tuple[str, str, str, float, float, float, float, float]:
+def _real_row() -> tuple[str, str, str, float, float, float]:
     local_json = os.environ.get("PDG_LOCAL_JSON", "").strip()
     url = os.environ.get("PDG_URL", "").strip()
     dataset_id = os.environ.get("PDG_DATASET_ID", "pdg-amu-live")
@@ -57,20 +54,9 @@ def _real_row() -> tuple[str, str, str, float, float, float, float, float]:
     measured = _f(payload.get("measured_value"))
     stat_err = _f(payload.get("stat_err"))
     sys_err = _f(payload.get("sys_err"))
-    sm_pred = _f(payload.get("sm_pred"))
-    salt_pred = _f(payload.get("salt_pred"))
-    if None in (measured, stat_err, sys_err, sm_pred, salt_pred):
+    if None in (measured, stat_err, sys_err):
         raise RuntimeError("PDG real payload missing required numeric keys")
-    return (
-        dataset_id,
-        source_url,
-        version_tag,
-        measured,
-        stat_err,
-        sys_err,
-        sm_pred,
-        salt_pred,
-    )
+    return (dataset_id, source_url, version_tag, measured, stat_err, sys_err)
 
 
 def _ingest(
@@ -83,8 +69,6 @@ def _ingest(
     measured: float,
     stat_err: float,
     sys_err: float,
-    sm_pred: float,
-    salt_pred: float,
 ) -> None:
     conn = connect_db()
     try:
@@ -117,32 +101,6 @@ def _ingest(
                 source_url=source_url,
             ),
         )
-        upsert_sm_prediction(
-            conn,
-            PredictionRecord(
-                observable_id="muon_g_minus_2",
-                dataset_id=dataset_id,
-                x_value=None,
-                value=sm_pred,
-                value_err=stat_err,
-                model_ref="PDG-SM-baseline",
-            ),
-        )
-        upsert_salt_prediction(
-            conn,
-            PredictionRecord(
-                observable_id="muon_g_minus_2",
-                dataset_id=dataset_id,
-                x_value=None,
-                value=salt_pred,
-                value_err=stat_err,
-                model_ref="SALT-micro-template",
-            ),
-            alpha=0.002,
-            beta=0.0,
-            gamma=0.0,
-            formula_version="micro-v0-template",
-        )
         conn.commit()
     finally:
         conn.close()
@@ -151,7 +109,7 @@ def _ingest(
 def main() -> None:
     if want_real_ingest():
         try:
-            dataset_id, source_url, version_tag, measured, stat_err, sys_err, sm_pred, salt_pred = _real_row()
+            dataset_id, source_url, version_tag, measured, stat_err, sys_err = _real_row()
             _ingest(
                 source_id="pdg-amu-live",
                 dataset_id=dataset_id,
@@ -161,15 +119,13 @@ def main() -> None:
                 measured=measured,
                 stat_err=stat_err,
                 sys_err=sys_err,
-                sm_pred=sm_pred,
-                salt_pred=salt_pred,
             )
             print(f"ingested: pdg real ({dataset_id})")
             return
         except Exception as exc:
-            print(f"[warn] pdg real ingest failed; fallback to seed ({exc})")
+            raise SystemExit(f"pdg real ingest failed (no seed fallback in real mode): {exc}") from exc
 
-    measured, stat_err, sys_err, sm_pred, salt_pred = _seed_row()
+    measured, stat_err, sys_err = _seed_row()
     _ingest(
         source_id="pdg-amu-2024",
         dataset_id="pdg-amu-2024",
@@ -179,8 +135,6 @@ def main() -> None:
         measured=measured,
         stat_err=stat_err,
         sys_err=sys_err,
-        sm_pred=sm_pred,
-        salt_pred=salt_pred,
     )
     print("ingested: pdg seed (muon_g_minus_2)")
 

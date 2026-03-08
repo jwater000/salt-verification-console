@@ -2,6 +2,14 @@
 
 검증 목적 웹 콘솔(MVP)입니다. 핵심은 예측-데이터-판정을 재현 가능하게 공개하는 것입니다.
 
+## 기준 데이터셋 메타데이터 (현재)
+| 항목 | 내용 |
+|---|---|
+| dataset 버전/생성시각 | `frozen-20260308`, `2026-03-08T16:02:02Z` |
+| 거시 출처 | GraceDB, GCN, HEASARC |
+| 미시 출처 | HEPData, PDG, NuFIT |
+| 참조 파일 경로 | `data/frozen/current/manifest.json`, `data/frozen/current/audit_manifest.json`, `docs/sources/CONFIRMED_EVENT_ENDPOINTS.md`, `docs/sources/OPEN_DATASETS_API_LIST.md` |
+
 ## 1) 환경 준비
 ```bash
 cd /home/jwater/Development/salt-verification-console
@@ -107,3 +115,41 @@ crontab -l | grep -v "run_realtime_cycle.py" | crontab -
 - 협업 실행 원칙: `docs/roadmap/COLLAB_EXECUTION_PROTOCOL.md`
 - 블라인드: `docs/protocols/blind_protocol.md`
 - 통계: `docs/protocols/stats_protocol.md`
+- 예측식 사전고정: `docs/protocols/prereg_prediction_protocol.md`
+- 채널별 식 도출 템플릿: `docs/method/formula_derivation_template.md`
+- 채널별 식 도출 샘플:
+  - `docs/method/formulas/cosmic_time_delay_redshift.md`
+  - `docs/method/formulas/micro_muon_g_minus_2.md`
+- 논문 제출 점검표: `docs/roadmap/paper_submission_readiness_checklist.md`
+
+## 7) Cosmic 제출 모드 준비 (feature sidecar 필수)
+0. 대체 cosmic 후보셋 생성(권장)
+```bash
+.venv/bin/python tools/evaluation/build_cosmic_submission_candidates.py
+```
+- 출력:
+  - `results/reports/cosmic_submission_candidates.csv`
+  - `results/reports/cosmic_submission_candidates_top50.csv`
+
+1. sidecar 템플릿 생성/병합
+```bash
+.venv/bin/python tools/evaluation/cosmic_feature_sidecar.py --write
+```
+
+2. 이벤트별 `redshift_z`, `luminosity_distance_mpc` 채우기
+- 파일: `data/processed/cosmic_observation_features.json`
+- 자동 보강(가능한 항목만):
+```bash
+.venv/bin/python tools/evaluation/enrich_cosmic_features.py
+```
+- 또는 큐 CSV 편집 후 자동 반영:
+```bash
+# edit results/reports/cosmic_feature_fill_queue.csv
+.venv/bin/python tools/evaluation/apply_cosmic_feature_queue.py
+```
+
+3. 제출 모드 검증 + 실행
+```bash
+.venv/bin/python tools/evaluation/cosmic_feature_sidecar.py --check
+COSMIC_SUBMISSION_MODE=1 MICRO_SUBMISSION_MODE=1 .venv/bin/python tools/evaluation/run_model_eval.py
+```

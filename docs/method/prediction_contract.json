@@ -1,0 +1,63 @@
+{
+  "version": "prediction-contract-v1",
+  "description": "Canonical input/output contract for all SM/SALT predictor engines.",
+  "cli_contract": {
+    "required_args": [
+      "--input",
+      "--output",
+      "--engine-version",
+      "--formula-version"
+    ],
+    "optional_args": [
+      "--strict"
+    ]
+  },
+  "input_observation": {
+    "type": "object",
+    "required": [
+      "domain",
+      "channel",
+      "observable_id",
+      "dataset_id",
+      "measured_value"
+    ],
+    "optional": [
+      "x_value",
+      "stat_err",
+      "sys_err",
+      "unit",
+      "observed_at_utc",
+      "source_url",
+      "redshift_z",
+      "luminosity_distance_mpc",
+      "lookback_time_gyr",
+      "channel_meta"
+    ],
+    "forbidden": [
+      "sm_pred",
+      "salt_pred",
+      "standard_fit",
+      "salt_fit"
+    ]
+  },
+  "output_prediction": {
+    "type": "object",
+    "required": [
+      "domain",
+      "channel",
+      "observable_id",
+      "dataset_id",
+      "x_value",
+      "model",
+      "pred_value",
+      "pred_err",
+      "engine_version",
+      "formula_version",
+      "computed_at_utc"
+    ],
+    "model_enum": [
+      "SM",
+      "SALT"
+    ]
+  }
+}

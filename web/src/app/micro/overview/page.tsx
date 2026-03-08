@@ -3,6 +3,16 @@ import { loadMicroSnapshot } from "@/lib/data";
 
 export default async function MicroOverviewPage() {
   const snapshot = await loadMicroSnapshot();
+  const presentChannels = new Set(snapshot.observations.map((o) => o.channel));
+  const channelLinks = [
+    { key: "muon_g_minus_2", href: "/micro/channels/muon-g2", label: "muon-g2" },
+    { key: "neutrino_oscillation", href: "/micro/channels/neutrino-oscillation", label: "neutrino(global)" },
+    { key: "neutrino_reactor_disappearance", href: "/micro/channels/neutrino-reactor-disappearance", label: "neutrino(reactor)" },
+    { key: "neutrino_accelerator_long_baseline", href: "/micro/channels/neutrino-accelerator-long-baseline", label: "neutrino(accelerator)" },
+    { key: "neutrino_atmospheric", href: "/micro/channels/neutrino-atmospheric", label: "neutrino(atmospheric)" },
+    { key: "collider_high_pt_tail", href: "/micro/channels/collider-high-pt-tail", label: "collider" },
+  ].filter((x) => presentChannels.has(x.key));
+
   return (
     <section className="space-y-4">
       <header className="panel p-5">
@@ -33,19 +43,19 @@ export default async function MicroOverviewPage() {
       </section>
 
       <section className="panel p-4 text-sm text-slate-300">
-        <p>채널: muon_g_minus_2 / neutrino_oscillation / collider_high_pt_tail</p>
+        <p>채널: {Array.from(presentChannels).sort().join(" / ") || "available data 없음"}</p>
         <p className="mt-2">기준 이론: SM</p>
         <p className="mt-1">Decision Rule: {snapshot.decision_rule_version || "-"}</p>
+        <p className="mt-2">Sources: PDG / NuFIT / HEPData</p>
+        <p className="mt-1 text-xs text-slate-400">
+          출처/버전 세부는 <Link href="/audit/sources" className="text-cyan-300 underline">/audit/sources</Link> 참고
+        </p>
         <div className="mt-3 flex flex-wrap gap-2">
-          <Link href="/micro/channels/muon-g2" className="badge">
-            muon-g2
-          </Link>
-          <Link href="/micro/channels/neutrino-oscillation" className="badge">
-            neutrino
-          </Link>
-          <Link href="/micro/channels/collider-high-pt-tail" className="badge">
-            collider
-          </Link>
+          {channelLinks.map((c) => (
+            <Link key={c.key} href={c.href} className="badge">
+              {c.label}
+            </Link>
+          ))}
         </div>
       </section>
     </section>

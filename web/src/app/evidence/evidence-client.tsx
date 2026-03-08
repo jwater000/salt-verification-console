@@ -22,10 +22,8 @@ function winner(row: ResultRow): Winner {
   return "TIE";
 }
 
-function toPoints(values: number[], width: number, height: number): string {
+function toPoints(values: number[], width: number, height: number, min: number, max: number): string {
   if (!values.length) return "";
-  const min = Math.min(...values);
-  const max = Math.max(...values);
   const span = Math.max(max - min, 1e-9);
   return values
     .map((v, i) => {
@@ -63,9 +61,12 @@ export default function EvidenceClient({ rows }: Props) {
   const saltSeries = series.map((r) => r.salt_fit);
   const lineWidth = 700;
   const lineHeight = 230;
-  const actualPts = toPoints(actualSeries, lineWidth, lineHeight);
-  const standardPts = toPoints(standardSeries, lineWidth, lineHeight);
-  const saltPts = toPoints(saltSeries, lineWidth, lineHeight);
+  const allForScale = [...actualSeries, ...standardSeries, ...saltSeries];
+  const yMin = allForScale.length ? Math.min(...allForScale) : 0;
+  const yMax = allForScale.length ? Math.max(...allForScale) : 1;
+  const actualPts = toPoints(actualSeries, lineWidth, lineHeight, yMin, yMax);
+  const standardPts = toPoints(standardSeries, lineWidth, lineHeight, yMin, yMax);
+  const saltPts = toPoints(saltSeries, lineWidth, lineHeight, yMin, yMax);
 
   const summary = useMemo(() => {
     const total = filtered.length;
@@ -137,6 +138,9 @@ export default function EvidenceClient({ rows }: Props) {
 
       <section className="panel p-4">
         <h2 className="mb-3 text-lg font-semibold">Triple-Line Comparison</h2>
+        <p className="mb-2 text-xs text-slate-400">
+          동일 y축 스케일로 표시합니다 (시리즈별 개별 정규화 미사용).
+        </p>
         <div className="overflow-x-auto">
           <svg width={lineWidth} height={lineHeight} viewBox={`0 0 ${lineWidth} ${lineHeight}`}>
             <rect x="0" y="0" width={lineWidth} height={lineHeight} fill="#0b1324" />

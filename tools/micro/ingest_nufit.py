@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Ingest NuFIT-based micro dataset (real mode with seed fallback).
+Ingest NuFIT-based micro dataset.
 """
 
 from __future__ import annotations
@@ -10,14 +10,11 @@ from typing import Any
 
 from _micro_common import (
     ObservationRecord,
-    PredictionRecord,
     connect_db,
     ensure_micro_schema,
     fetch_json_url,
     read_json_file,
     upsert_observation,
-    upsert_salt_prediction,
-    upsert_sm_prediction,
     upsert_source,
     want_real_ingest,
 )
@@ -32,15 +29,15 @@ def _f(value: Any) -> float | None:
         return None
 
 
-def _seed_rows() -> list[tuple[str, float, float, float, float, float]]:
+def _seed_rows() -> list[tuple[str, float, float, float]]:
     return [
-        ("nu_theta23", 0.866, 0.020, 0.010, 0.858, 0.862),
-        ("nu_dm2_32", 2.455e-3, 0.035e-3, 0.015e-3, 2.453e-3, 2.454e-3),
+        ("nu_theta23", 0.866, 0.020, 0.010),
+        ("nu_dm2_32", 2.455e-3, 0.035e-3, 0.015e-3),
     ]
 
 
-def _extract_rows(payload: Any) -> list[tuple[str, float, float, float, float, float]]:
-    rows: list[tuple[str, float, float, float, float, float]] = []
+def _extract_rows(payload: Any) -> list[tuple[str, float, float, float]]:
+    rows: list[tuple[str, float, float, float]] = []
     if isinstance(payload, dict) and isinstance(payload.get("rows"), list):
         for r in payload["rows"]:
             if not isinstance(r, dict):
@@ -49,14 +46,12 @@ def _extract_rows(payload: Any) -> list[tuple[str, float, float, float, float, f
             measured = _f(r.get("measured_value"))
             stat_err = _f(r.get("stat_err"))
             sys_err = _f(r.get("sys_err"))
-            sm_pred = _f(r.get("sm_pred"))
-            salt_pred = _f(r.get("salt_pred"))
-            if obs and None not in (measured, stat_err, sys_err, sm_pred, salt_pred):
-                rows.append((obs, measured, stat_err, sys_err, sm_pred, salt_pred))
+            if obs and None not in (measured, stat_err, sys_err):
+                rows.append((obs, measured, stat_err, sys_err))
     return rows
 
 
-def _real_rows() -> tuple[str, str, str, list[tuple[str, float, float, float, float, float]]]:
+def _real_rows() -> tuple[str, str, str, list[tuple[str, float, float, float]]]:
     local_json = os.environ.get("NUFIT_LOCAL_JSON", "").strip()
     url = os.environ.get("NUFIT_URL", "").strip()
     dataset_id = os.environ.get("NUFIT_DATASET_ID", "nufit-live")
@@ -85,7 +80,7 @@ def _ingest(
     source_url: str,
     version_tag: str,
     quality_flag: str,
-    rows: list[tuple[str, float, float, float, float, float]],
+    rows: list[tuple[str, float, float, float]],
 ) -> None:
     conn = connect_db()
     try:
@@ -100,7 +95,7 @@ def _ingest(
             version_tag=version_tag,
         )
 
-        for observable_id, measured, stat_err, sys_err, sm_pred, salt_pred in rows:
+        for observable_id, measured, stat_err, sys_err in rows:
             upsert_observation(
                 conn,
                 ObservationRecord(
@@ -118,32 +113,6 @@ def _ingest(
                     quality_flag=quality_flag,
                     source_url=source_url,
                 ),
-            )
-            upsert_sm_prediction(
-                conn,
-                PredictionRecord(
-                    observable_id=observable_id,
-                    dataset_id=dataset_id,
-                    x_value=None,
-                    value=sm_pred,
-                    value_err=stat_err,
-                    model_ref="NuFIT-SM-baseline",
-                ),
-            )
-            upsert_salt_prediction(
-                conn,
-                PredictionRecord(
-                    observable_id=observable_id,
-                    dataset_id=dataset_id,
-                    x_value=None,
-                    value=salt_pred,
-                    value_err=stat_err,
-                    model_ref="SALT-micro-template",
-                ),
-                alpha=0.001,
-                beta=0.0005,
-                gamma=0.0,
-                formula_version="micro-v0-template",
             )
         conn.commit()
     finally:
@@ -165,7 +134,7 @@ def main() -> None:
             print(f"ingested: nufit real ({dataset_id}, rows={len(rows)})")
             return
         except Exception as exc:
-            print(f"[warn] nufit real ingest failed; fallback to seed ({exc})")
+            raise SystemExit(f"nufit real ingest failed (no seed fallback in real mode): {exc}") from exc
 
     _ingest(
         source_id="nufit-5.2",

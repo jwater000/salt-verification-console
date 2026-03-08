@@ -1,0 +1,22 @@
+{
+  "rows": [
+    {
+      "observable_id": "nu_theta23",
+      "measured_value": 0.45,
+      "stat_err": 0.019,
+      "sys_err": 0.01
+    },
+    {
+      "observable_id": "nu_dm2_32",
+      "measured_value": 0.00251,
+      "stat_err": 2.7e-05,
+      "sys_err": 1.2e-05
+    },
+    {
+      "observable_id": "nu_theta13",
+      "measured_value": 0.02246,
+      "stat_err": 0.00055,
+      "sys_err": 0.00024
+    }
+  ]
+}

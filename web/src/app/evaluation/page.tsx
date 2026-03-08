@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { loadFrozenManifest } from "@/lib/data";
+import { loadFrozenManifest, loadMicroSnapshot } from "@/lib/data";
 
 const SECTIONS = [
   { href: "/cosmic/overview", title: "Cosmic Evaluation", desc: "ΛCDM vs SALT (frozen dataset)" },
@@ -9,6 +9,13 @@ const SECTIONS = [
 
 export default async function EvaluationPage() {
   const manifest = await loadFrozenManifest();
+  const micro = await loadMicroSnapshot();
+  const status = { insufficient_data: 0, inconclusive: 0, decisive: 0 };
+  for (const run of micro.fit_runs) {
+    if (run.verdict === "insufficient_data") status.insufficient_data += 1;
+    else if (run.verdict === "tie") status.inconclusive += 1;
+    else status.decisive += 1;
+  }
   return (
     <section className="space-y-5">
       <header className="panel p-5">
@@ -21,6 +28,11 @@ export default async function EvaluationPage() {
           dataset_version: {manifest.dataset_version || "missing"} / frozen_created_at:{" "}
           {manifest.created_at_utc || "missing"}
         </p>
+        <div className="mt-3 flex flex-wrap gap-2 text-xs">
+          <span className="badge">insufficient_data {status.insufficient_data}</span>
+          <span className="badge">inconclusive {status.inconclusive}</span>
+          <span className="badge">decisive {status.decisive}</span>
+        </div>
       </header>
 
       <div className="grid gap-3 md:grid-cols-3">
@@ -31,6 +43,15 @@ export default async function EvaluationPage() {
           </Link>
         ))}
       </div>
+
+      <section className="panel p-4 text-sm text-slate-300">
+        <p className="font-semibold text-slate-100">Data Sources</p>
+        <p className="mt-2">Cosmic: GraceDB / GCN / HEASARC</p>
+        <p className="mt-1">Micro: HEPData / PDG / NuFIT</p>
+        <p className="mt-2 text-xs text-slate-400">
+          상세 출처/버전은 <Link href="/audit/sources" className="text-cyan-300 underline">/audit/sources</Link>에서 확인
+        </p>
+      </section>
     </section>
   );
 }

@@ -1,32 +1,252 @@
 [
   {
     "prediction_id": "p1-time-delay-redshift",
-    "event_id": "GW150914",
-    "event_time_utc": "2015-09-14T09:50:45Z",
-    "actual_value": 0.907,
-    "standard_fit": 0.88,
-    "salt_fit": 0.91,
-    "residual_score": 0.03,
-    "flag": "candidate"
-  },
-  {
-    "prediction_id": "p1-time-delay-redshift",
-    "event_id": "GW151226",
-    "event_time_utc": "2015-12-26T03:38:53Z",
-    "actual_value": 0.905,
-    "standard_fit": 0.9,
-    "salt_fit": 0.91,
-    "residual_score": 0.01,
+    "event_id": "8420",
+    "event_time_utc": null,
+    "actual_value": 0.720971,
+    "standard_fit": 0.824007,
+    "salt_fit": 0.821313,
+    "residual_score": -0.100342,
     "flag": "neutral"
   },
   {
     "prediction_id": "p1-time-delay-redshift",
-    "event_id": "GW170104",
-    "event_time_utc": "2017-01-04T10:11:58Z",
-    "actual_value": 0.947,
-    "standard_fit": 0.92,
-    "salt_fit": 0.95,
-    "residual_score": 0.03,
+    "event_id": "7332",
+    "event_time_utc": null,
+    "actual_value": 0.959501,
+    "standard_fit": 1.15441,
+    "salt_fit": 1.125366,
+    "residual_score": -0.165865,
     "flag": "candidate"
+  },
+  {
+    "prediction_id": "p1-time-delay-redshift",
+    "event_id": "4545",
+    "event_time_utc": null,
+    "actual_value": 0.975945,
+    "standard_fit": 1.397672,
+    "salt_fit": 1.280088,
+    "residual_score": -0.304143,
+    "flag": "candidate"
+  },
+  {
+    "prediction_id": "p1-time-delay-redshift",
+    "event_id": "43499",
+    "event_time_utc": null,
+    "actual_value": 0.971658,
+    "standard_fit": 1.286887,
+    "salt_fit": 1.216873,
+    "residual_score": -0.245215,
+    "flag": "candidate"
+  },
+  {
+    "prediction_id": "p1-time-delay-redshift",
+    "event_id": "41691",
+    "event_time_utc": null,
+    "actual_value": 0.848118,
+    "standard_fit": 0.936436,
+    "salt_fit": 0.937073,
+    "residual_score": -0.088955,
+    "flag": "neutral"
+  },
+  {
+    "prediction_id": "p1-time-delay-redshift",
+    "event_id": "41641",
+    "event_time_utc": null,
+    "actual_value": 0.690326,
+    "standard_fit": 0.794975,
+    "salt_fit": 0.788448,
+    "residual_score": -0.098122,
+    "flag": "neutral"
+  },
+  {
+    "prediction_id": "p1-time-delay-redshift",
+    "event_id": "40071",
+    "event_time_utc": null,
+    "actual_value": 0.921286,
+    "standard_fit": 1.030751,
+    "salt_fit": 1.024307,
+    "residual_score": -0.103021,
+    "flag": "neutral"
+  },
+  {
+    "prediction_id": "p1-time-delay-redshift",
+    "event_id": "39887",
+    "event_time_utc": null,
+    "actual_value": 0.676274,
+    "standard_fit": 0.780869,
+    "salt_fit": 0.771121,
+    "residual_score": -0.094847,
+    "flag": "candidate"
+  },
+  {
+    "prediction_id": "p1-time-delay-redshift",
+    "event_id": "33791",
+    "event_time_utc": null,
+    "actual_value": 0.726466,
+    "standard_fit": 0.828985,
+    "salt_fit": 0.826752,
+    "residual_score": -0.100286,
+    "flag": "neutral"
+  },
+  {
+    "prediction_id": "p1-time-delay-redshift",
+    "event_id": "30037",
+    "event_time_utc": null,
+    "actual_value": 0.913988,
+    "standard_fit": 1.017729,
+    "salt_fit": 1.012786,
+    "residual_score": -0.098798,
+    "flag": "neutral"
+  },
+  {
+    "prediction_id": "p1-time-delay-redshift",
+    "event_id": "29033",
+    "event_time_utc": null,
+    "actual_value": 0.72492,
+    "standard_fit": 0.82759,
+    "salt_fit": 0.825232,
+    "residual_score": -0.100312,
+    "flag": "neutral"
+  },
+  {
+    "prediction_id": "p1-time-delay-redshift",
+    "event_id": "2544",
+    "event_time_utc": null,
+    "actual_value": 0.68854,
+    "standard_fit": 0.793207,
+    "salt_fit": 0.786349,
+    "residual_score": -0.097809,
+    "flag": "neutral"
+  },
+  {
+    "prediction_id": "p1-time-delay-redshift",
+    "event_id": "251",
+    "event_time_utc": null,
+    "actual_value": 0.849083,
+    "standard_fit": 0.937384,
+    "salt_fit": 0.937993,
+    "residual_score": -0.08891,
+    "flag": "neutral"
+  },
+  {
+    "prediction_id": "p1-time-delay-redshift",
+    "event_id": "2485",
+    "event_time_utc": null,
+    "actual_value": 0.787953,
+    "standard_fit": 0.882286,
+    "salt_fit": 0.882997,
+    "residual_score": -0.095044,
+    "flag": "neutral"
+  },
+  {
+    "prediction_id": "p1-time-delay-redshift",
+    "event_id": "24715",
+    "event_time_utc": null,
+    "actual_value": 0.896883,
+    "standard_fit": 0.991839,
+    "salt_fit": 0.989383,
+    "residual_score": -0.0925,
+    "flag": "neutral"
+  },
+  {
+    "prediction_id": "p1-time-delay-redshift",
+    "event_id": "24275",
+    "event_time_utc": null,
+    "actual_value": 0.680573,
+    "standard_fit": 0.785228,
+    "salt_fit": 0.776635,
+    "residual_score": -0.096062,
+    "flag": "candidate"
+  },
+  {
+    "prediction_id": "p1-time-delay-redshift",
+    "event_id": "23633",
+    "event_time_utc": null,
+    "actual_value": 0.871739,
+    "standard_fit": 0.961,
+    "salt_fit": 0.96064,
+    "residual_score": -0.088901,
+    "flag": "neutral"
+  },
+  {
+    "prediction_id": "p1-time-delay-redshift",
+    "event_id": "22840",
+    "event_time_utc": null,
+    "actual_value": 0.95553,
+    "standard_fit": 1.131866,
+    "salt_fit": 1.108068,
+    "residual_score": -0.152538,
+    "flag": "candidate"
+  },
+  {
+    "prediction_id": "p1-time-delay-redshift",
+    "event_id": "15452",
+    "event_time_utc": null,
+    "actual_value": 0.856865,
+    "standard_fit": 0.94518,
+    "salt_fit": 0.94553,
+    "residual_score": -0.088665,
+    "flag": "neutral"
+  },
+  {
+    "prediction_id": "p1-time-delay-redshift",
+    "event_id": "14478",
+    "event_time_utc": null,
+    "actual_value": 0.715167,
+    "standard_fit": 0.818683,
+    "salt_fit": 0.815447,
+    "residual_score": -0.10028,
+    "flag": "neutral"
+  },
+  {
+    "prediction_id": "p1-time-delay-redshift",
+    "event_id": "13477",
+    "event_time_utc": null,
+    "actual_value": 0.721868,
+    "standard_fit": 0.824823,
+    "salt_fit": 0.822207,
+    "residual_score": -0.100339,
+    "flag": "neutral"
+  },
+  {
+    "prediction_id": "p1-time-delay-redshift",
+    "event_id": "12642",
+    "event_time_utc": null,
+    "actual_value": 0.849046,
+    "standard_fit": 0.937348,
+    "salt_fit": 0.937958,
+    "residual_score": -0.088912,
+    "flag": "neutral"
+  },
+  {
+    "prediction_id": "p1-time-delay-redshift",
+    "event_id": "1259",
+    "event_time_utc": null,
+    "actual_value": 0.727681,
+    "standard_fit": 0.830078,
+    "salt_fit": 0.82794,
+    "residual_score": -0.100259,
+    "flag": "neutral"
+  },
+  {
+    "prediction_id": "p1-time-delay-redshift",
+    "event_id": "11848",
+    "event_time_utc": null,
+    "actual_value": 0.716501,
+    "standard_fit": 0.819913,
+    "salt_fit": 0.816807,
+    "residual_score": -0.100306,
+    "flag": "neutral"
+  },
+  {
+    "prediction_id": "p1-time-delay-redshift",
+    "event_id": "1091",
+    "event_time_utc": null,
+    "actual_value": 0.885482,
+    "standard_fit": 0.977056,
+    "salt_fit": 0.975722,
+    "residual_score": -0.09024,
+    "flag": "neutral"
   }
 ]

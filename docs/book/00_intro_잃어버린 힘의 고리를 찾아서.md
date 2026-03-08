@@ -1,5 +1,33 @@
 # 00. 잃어버린 힘의 고리를 찾아서
 
+공식 검증 사이트: `https://salt.numverse.org`
+
+## SALT 공식 검증 경로 (운영 고정)
+SALT의 공식 검증 도메인은 다음과 같다. `https://salt.numverse.org`
+- 평가 경로: `/evaluation`
+- 증거 시각화: `/evidence`
+- 감사/재현 경로: `/audit`
+
+## 기준 데이터셋 자료 출처
+- 기준 데이터셋 버전: `frozen-20260308` (`data/frozen/current/manifest.json` 기준)
+- 생성 시각(UTC): `2026-03-08T16:02:02Z`
+
+거시(Cosmic) 평가 입력 출처:
+- GraceDB (LIGO/Virgo/KAGRA): `https://gracedb.ligo.org/apiweb/superevents/`
+- GCN Circular Archive (NASA): `https://gcn.nasa.gov/circulars/archive.json.tar.gz`
+- HEASARC Fermi GBM (NASA): `https://heasarc.gsfc.nasa.gov/xamin/query?table=fermigbrst&ResultMax=200&format=stream`
+
+미시(Micro) 평가 입력 출처:
+- HEPData: `https://www.hepdata.net/`
+- PDG: `https://pdg.lbl.gov/`
+- NuFIT: `https://www.nu-fit.org/`
+
+참조:
+- `data/frozen/current/manifest.json`
+- `data/frozen/current/audit_manifest.json`
+- `docs/sources/CONFIRMED_EVENT_ENDPOINTS.md`
+- `docs/sources/OPEN_DATASETS_API_LIST.md`
+
 ## 읽기 가이드
 
 이 책의 전체 논리 구조는 다음 흐름을 따른다. 먼저 기존 물리학의 모순과 공백을 문제로 제기한다. 이어 중력파·엔트로피·우주 팽창 같은 관측 단서를 모으고, 보셀·적층·위상·시간 해석의 핵심 공리를 세운다. 그 다음 흐름·비틀림·잠금 모드로 중력·전자기력·강력·약력을 재해석하고, 마지막에는 예측·질의응답·부록·기술 문서로 검증 가능성과 정합성을 점검한다.

@@ -132,6 +132,9 @@ export type MicroFitRun = {
   fdr_q?: number | null;
   verdict: string;
   verdict_reason?: string | null;
+  exploratory_verdict?: string | null;
+  exploratory_reason?: string | null;
+  neutrino_family_q?: number | null;
   computed_at_utc: string;
 };
 
@@ -149,7 +152,33 @@ export type AuditManifest = {
   formula_version: string[];
   dataset_version: string[];
   decision_rule_version: string;
+  prediction_lock_sha256?: string;
   rerun_commands: string[];
+};
+
+export type ModelEvalManifest = {
+  generated_at_utc: string;
+  pipeline: string;
+  commands: string[];
+  engine_versions: {
+    cosmic?: string | null;
+    micro?: string | null;
+  };
+  formula_versions: {
+    cosmic_sm?: string | null;
+    cosmic_salt?: string | null;
+    micro_sm?: string | null;
+    micro_salt?: string | null;
+  };
+  prediction_locks: {
+    micro_prediction_lock_sha256?: string | null;
+    micro_sm_prediction_sha256?: string | null;
+    micro_salt_prediction_sha256?: string | null;
+  };
+  frozen: {
+    dataset_version?: string | null;
+    manifest_sha256?: string | null;
+  };
 };
 
 export type FrozenManifest = {
@@ -230,6 +259,24 @@ export function loadAuditManifest(): Promise<AuditManifest> {
   return readJson<AuditManifest>("data/frozen/current/audit_manifest.json", fallback).then((v) => {
     if (!v.generated_at_utc && v.dataset_version.length === 0) {
       return readJson<AuditManifest>("data/processed/audit_manifest.json", fallback);
+    }
+    return v;
+  });
+}
+
+export function loadModelEvalManifest(): Promise<ModelEvalManifest> {
+  const fallback: ModelEvalManifest = {
+    generated_at_utc: "",
+    pipeline: "",
+    commands: [],
+    engine_versions: {},
+    formula_versions: {},
+    prediction_locks: {},
+    frozen: {},
+  };
+  return readJson<ModelEvalManifest>("data/frozen/current/model_eval_manifest.json", fallback).then((v) => {
+    if (!v.generated_at_utc && !v.pipeline) {
+      return readJson<ModelEvalManifest>("data/processed/model_eval_manifest.json", fallback);
     }
     return v;
   });
