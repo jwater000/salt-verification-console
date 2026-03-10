@@ -80,6 +80,9 @@ export default function SiteStructureMap() {
 
         <div className="mt-2 flex flex-wrap items-center gap-3 text-[11px] text-slate-400">
           <span>원칙: 공개 판정은 고정 데이터셋 기준으로만 산출</span>
+          <Link href="/notice" className="text-amber-300 hover:underline">
+            공지
+          </Link>
           <Link href="/audit/sources" className="text-cyan-300 hover:underline">
             출처 공개
           </Link>
