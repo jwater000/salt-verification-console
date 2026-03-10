@@ -132,39 +132,56 @@ export default async function EvaluationPage() {
     <section className="space-y-5">
       <article className="panel p-6 text-slate-200">
         <h1 className="text-2xl font-bold text-white">검증 결과 보고</h1>
-        <p className="mt-2 text-slate-300">
-          이 페이지는 SALT와 표준이론을 같은 데이터로 비교했을 때, 누가 더 잘 맞았는지 한눈에 보여줍니다.
-        </p>
+        <p className="mt-2 text-slate-300">같은 데이터, 같은 규칙으로 SALT와 기준 이론의 오차를 직접 비교합니다.</p>
         <p className="mt-2 text-sm text-slate-400">
-          비교 절차, 해시 검증, 모델식 차이는 재현 방법 페이지에서 확인할 수 있습니다.
+          절차, 해시, 모델식은 재현 방법에서 확인할 수 있습니다.
           <a className="ml-2 text-cyan-300 underline underline-offset-4" href="/audit/reproduce">
             /audit/reproduce
           </a>
         </p>
         <p className="mt-2 text-sm text-slate-400">
-          아직 데이터가 연결되지 않은 검증 대기 가설은
+          아직 채점되지 않은 가설은
           <a className="ml-2 text-cyan-300 underline underline-offset-4" href="/predictions">
             /predictions
           </a>
-          에 따로 모아 두었습니다.
+          에 분리해 두었습니다.
         </p>
         <div className="mt-4 grid gap-3 md:grid-cols-3">
           <div className="rounded-lg border border-cyan-500/40 bg-cyan-950/30 p-4 shadow-[0_0_0_1px_rgba(34,211,238,0.12)]">
-            <p className="text-xs text-slate-400">한 줄 결론</p>
-            <p className="mt-1 text-xl font-bold text-cyan-200">SALT 우세</p>
+            <p className="text-xs text-slate-400">결론</p>
+            <p className="mt-1 text-xl font-bold text-cyan-200">현재 집계 기준 SALT 우세</p>
             <p className="text-sm text-cyan-100">{total.salt} / {totalCount} 승</p>
           </div>
           <div className="rounded-lg border border-emerald-500/35 bg-emerald-950/25 p-4">
-            <p className="text-xs text-slate-400">데이터 기준</p>
+            <p className="text-xs text-slate-400">기준 데이터</p>
             <p className="mt-1 text-sm font-semibold text-emerald-100">
               {frozenManifest.dataset_version || "-"}
             </p>
             <p className="text-xs text-emerald-200/80">{frozenManifest.created_at_utc || "-"}</p>
           </div>
           <div className="rounded-lg border border-sky-500/35 bg-sky-950/25 p-4">
-            <p className="text-xs text-slate-400">다음 단계</p>
-            <p className="mt-1 text-sm font-medium text-sky-100">결과 확인 {"->"} 해석 확인 {"->"} 재현 방법</p>
+            <p className="text-xs text-slate-400">다음</p>
+            <p className="mt-1 text-sm font-medium text-sky-100">결과 읽기 {"->"} 근거 확인 {"->"} 재현</p>
           </div>
+        </div>
+      </article>
+
+      <article className="panel p-6 text-slate-200">
+        <h2 className="text-xl font-semibold text-white">Provenance 바로가기</h2>
+        <p className="mt-2 text-sm text-slate-300">
+          지금 보고 있는 결과가 어떤 snapshot과 어떤 실행 기준으로 만들어졌는지 바로 추적할 수 있습니다.
+        </p>
+        <div className="mt-4 grid gap-3 md:grid-cols-2">
+          <a href="/snapshots" className="rounded-lg border border-cyan-500/30 bg-cyan-950/25 p-4 transition hover:border-cyan-400">
+            <p className="text-xs text-cyan-200/80">Snapshot 기준</p>
+            <p className="mt-1 text-sm font-semibold text-cyan-100">{frozenManifest.dataset_version || "-"}</p>
+            <p className="mt-2 text-xs text-slate-400">dataset_version, manifest hash, linked runs 확인</p>
+          </a>
+          <a href="/runs" className="rounded-lg border border-sky-500/30 bg-sky-950/25 p-4 transition hover:border-sky-400">
+            <p className="text-xs text-sky-200/80">Run provenance</p>
+            <p className="mt-1 text-sm font-semibold text-sky-100">{evalManifest.pipeline || "run_model_eval"}</p>
+            <p className="mt-2 text-xs text-slate-400">실행 명령, verdict, artifact hash 확인</p>
+          </a>
         </div>
       </article>
 
@@ -459,7 +476,9 @@ export default async function EvaluationPage() {
           에서 가설 단계로 따로 공개합니다.
         </div>
       </article>
-      <article className="panel markdown-body p-6 text-slate-300" dangerouslySetInnerHTML={{ __html: html }} />
+      <article className="panel p-6 text-slate-300">
+        <div className="markdown-body" dangerouslySetInnerHTML={{ __html: html }} />
+      </article>
     </section>
   );
 }

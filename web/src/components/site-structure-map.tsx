@@ -83,6 +83,12 @@ export default function SiteStructureMap() {
           <Link href="/notice" className="text-amber-300 hover:underline">
             공지
           </Link>
+          <Link href="/runs" className="text-cyan-300 hover:underline">
+            Runs
+          </Link>
+          <Link href="/snapshots" className="text-cyan-300 hover:underline">
+            Snapshots
+          </Link>
           <Link href="/audit/sources" className="text-cyan-300 hover:underline">
             출처 공개
           </Link>

@@ -52,6 +52,27 @@ export default async function AuditReproducePage() {
         </div>
       </article>
       <article className="panel p-6 text-slate-200">
+        <h2 className="text-xl font-semibold text-white">Provenance 보기</h2>
+        <p className="mt-2 text-sm leading-6 text-slate-300">
+          설명 문서와 함께 현재 공개 snapshot과 연결된 실행 provenance를 바로 따라갈 수 있습니다.
+        </p>
+        <div className="mt-4 grid gap-3 md:grid-cols-2">
+          <a href="/runs" className="rounded-lg border border-cyan-500/30 bg-cyan-950/25 p-4 transition hover:border-cyan-400">
+            <p className="text-xs text-cyan-200/80">Runs</p>
+            <p className="mt-1 text-sm font-semibold text-cyan-100">{evalManifest.pipeline || "run_model_eval"}</p>
+            <p className="mt-2 text-xs text-slate-400">실행 명령, verdict, artifact hash 확인</p>
+          </a>
+          <a
+            href="/snapshots"
+            className="rounded-lg border border-emerald-500/30 bg-emerald-950/25 p-4 transition hover:border-emerald-400"
+          >
+            <p className="text-xs text-emerald-200/80">Snapshots</p>
+            <p className="mt-1 text-sm font-semibold text-emerald-100">{evalManifest.frozen.dataset_version || "-"}</p>
+            <p className="mt-2 text-xs text-slate-400">dataset_version, manifest hash, linked runs 확인</p>
+          </a>
+        </div>
+      </article>
+      <article className="panel p-6 text-slate-200">
         <h2 className="text-xl font-semibold text-white">30초 이해 지도</h2>
         <pre className="mt-4 overflow-x-auto rounded-lg border border-slate-700 bg-slate-950/60 p-4 text-sm leading-6 text-slate-200">
 {`[관측 데이터]
@@ -198,7 +219,9 @@ export default async function AuditReproducePage() {
           에서 검증 대기 가설로 공개하는 편이 맞습니다.
         </p>
       </article>
-      <article className="panel markdown-body p-6 text-slate-300" dangerouslySetInnerHTML={{ __html: html }} />
+      <article className="panel p-6 text-slate-300">
+        <div className="markdown-body" dangerouslySetInnerHTML={{ __html: html }} />
+      </article>
       <article className="panel p-5 text-sm text-slate-300">
         <h2 className="text-lg font-semibold text-slate-100">현재 잠금 해시</h2>
         <ul className="mt-2 list-disc pl-5">

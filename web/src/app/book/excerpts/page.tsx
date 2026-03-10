@@ -30,7 +30,9 @@ export default async function BookExcerptsPage() {
           </div>
         </div>
       </article>
-      <article className="panel markdown-body p-6 text-slate-300" dangerouslySetInnerHTML={{ __html: html }} />
+      <article className="panel p-6 text-slate-300">
+        <div className="markdown-body" dangerouslySetInnerHTML={{ __html: html }} />
+      </article>
     </section>
   );
 }

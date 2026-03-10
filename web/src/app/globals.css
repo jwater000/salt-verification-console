@@ -7,6 +7,11 @@
   --panel-border: #1e293b;
   --accent: #22d3ee;
   --muted: #93c5fd;
+  --hero-glow: rgba(34, 211, 238, 0.12);
+  --hero-glow-2: rgba(14, 165, 233, 0.08);
+  --panel-strong: #0f172a;
+  --panel-soft: #0a1221;
+  --line-soft: rgba(148, 163, 184, 0.16);
 }
 
 @theme inline {
@@ -17,23 +22,46 @@
 }
 
 body {
-  background: var(--background);
+  background:
+    radial-gradient(circle at top left, rgba(8, 145, 178, 0.12), transparent 28%),
+    radial-gradient(circle at top right, rgba(59, 130, 246, 0.08), transparent 24%),
+    linear-gradient(180deg, #020617 0%, #030712 22%, #06101f 100%);
   color: var(--foreground);
   font-family: "Segoe UI", "Pretendard", "Noto Sans KR", sans-serif;
   text-rendering: optimizeLegibility;
+  min-height: 100vh;
 }
 
 a {
   color: #67e8f9;
   text-decoration-thickness: 1px;
   text-underline-offset: 2px;
+  transition: color 140ms ease, text-decoration-color 140ms ease, opacity 140ms ease;
+}
+
+a:hover {
+  color: #b6f2ff;
 }
 
 .panel {
   border: 1px solid var(--panel-border);
-  background: linear-gradient(180deg, #0b1324 0%, #09101d 100%);
+  background:
+    linear-gradient(180deg, rgba(13, 20, 36, 0.96) 0%, rgba(8, 14, 28, 0.98) 100%);
   border-radius: 0.85rem;
-  box-shadow: 0 8px 24px rgba(2, 6, 23, 0.35);
+  box-shadow:
+    0 14px 36px rgba(2, 6, 23, 0.34),
+    inset 0 1px 0 rgba(255, 255, 255, 0.02);
+  position: relative;
+  overflow: clip;
+}
+
+.panel::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, rgba(103, 232, 249, 0.3) 45%, transparent 100%);
+  pointer-events: none;
 }
 
 .badge {
@@ -47,4 +75,81 @@ a {
 
 main {
   line-height: 1.65;
+  position: relative;
+}
+
+main::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto auto 0;
+  width: min(44rem, 72vw);
+  height: 20rem;
+  background: radial-gradient(circle, var(--hero-glow) 0%, var(--hero-glow-2) 35%, transparent 72%);
+  filter: blur(14px);
+  pointer-events: none;
+  opacity: 0.95;
+}
+
+main > section {
+  position: relative;
+  z-index: 1;
+}
+
+main > section > article:first-child {
+  border-color: rgba(34, 211, 238, 0.22);
+  background:
+    linear-gradient(180deg, rgba(9, 28, 44, 0.98) 0%, rgba(7, 17, 31, 0.98) 100%);
+  box-shadow:
+    0 20px 44px rgba(2, 6, 23, 0.42),
+    0 0 0 1px rgba(34, 211, 238, 0.06);
+}
+
+main > section > article:first-child h1 {
+  letter-spacing: -0.03em;
+  line-height: 1.08;
+  text-wrap: balance;
+}
+
+main > section > article:first-child p:first-of-type {
+  max-width: 62ch;
+  color: #e2ecfb;
+  font-size: 1.03rem;
+}
+
+main code {
+  font-family: "JetBrains Mono", "Consolas", monospace;
+}
+
+main table {
+  width: 100%;
+}
+
+main thead th {
+  background: rgba(8, 15, 29, 0.78);
+  backdrop-filter: blur(8px);
+}
+
+main tbody tr {
+  transition: background-color 140ms ease;
+}
+
+main tbody tr:hover {
+  background: rgba(14, 23, 42, 0.52);
+}
+
+main ul li::marker,
+main ol li::marker {
+  color: #7dd3fc;
+}
+
+@media (max-width: 768px) {
+  main::before {
+    width: 100%;
+    height: 14rem;
+    opacity: 0.72;
+  }
+
+  main > section > article:first-child p:first-of-type {
+    font-size: 0.98rem;
+  }
 }
