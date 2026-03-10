@@ -1,7 +1,5 @@
-import EvidenceClient from "./evidence-client";
-import { loadAllResults } from "@/lib/data";
+import { redirect } from "next/navigation";
 
 export default async function EvidencePage() {
-  const rows = await loadAllResults();
-  return <EvidenceClient rows={rows} />;
+  redirect("/evaluation");
 }

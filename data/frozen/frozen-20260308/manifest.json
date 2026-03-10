@@ -1,37 +1,37 @@
 {
   "dataset_version": "frozen-20260308",
-  "created_at_utc": "2026-03-08T16:02:02Z",
+  "created_at_utc": "2026-03-08T23:12:14Z",
   "source_base": "data/processed",
   "notes": "Evaluation uses frozen/current only. Monitoring uses live snapshot.",
   "files": [
     {
       "name": "audit_manifest.json",
-      "sha256": "72f6e2fa8b6e695a41de1313d5dfe39925a8013dc092c47fc247e025acafd777",
-      "bytes": 646
+      "sha256": "626508e2d2d9054f36d7c01a929175ed4300d7fc5127ef3e192838f91f630eee",
+      "bytes": 634
     },
     {
       "name": "model_eval_manifest.json",
-      "sha256": "68fa5242a27abaa9e9b65ca69898ed03cd778f1d90ccca0d3dd6e5875b697adf",
-      "bytes": 1602
+      "sha256": "5f59a1d94a27c3703bdf78e10f6e644aa4142d1ba3291c101a44b1eee4c7c17a",
+      "bytes": 1080
     },
     {
       "name": "cosmic_predictor_manifest.json",
-      "sha256": "aac4ed284582eaa21a3b21e9c5b01379609cafcb874f3ec7a4fe9995b82dc61f",
-      "bytes": 564
+      "sha256": "b6abcbe7b69b573028164a988b8df183a91f302a904bf2aae7d5ebca557e71e6",
+      "bytes": 540
     },
     {
       "name": "micro_predictor_manifest.json",
-      "sha256": "738bbf45b2e7c2125e9d9f32bcf22d1c56c826cecdd4ec7a053dba370dca03ef",
-      "bytes": 465
+      "sha256": "35ed7845f96af49b069137801941b7c99c169e2b5235a73e469b62403fd142f1",
+      "bytes": 441
     },
     {
       "name": "micro_prediction_lock.json",
-      "sha256": "52b910224b8b9f3a1f223858d11e0475733fdf614eff8401f1b1bdd18c8a77c0",
+      "sha256": "1dcd97e37bd9177e484a3452248cd4a219189ece1bd73164613691598fa45a83",
       "bytes": 201
     },
     {
       "name": "micro_snapshot.json",
-      "sha256": "da17a18e71be778c69e51f5b29dc71d1a2779a4dca86413a64825ed4ff976398",
+      "sha256": "dbb3b53dfe35f8e795243b1a4773d8124e0c7a560494aa224aee5475e4057b82",
       "bytes": 41623
     },
     {

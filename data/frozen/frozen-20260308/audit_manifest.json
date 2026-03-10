@@ -1,7 +1,7 @@
 {
-  "generated_at_utc": "2026-03-08T16:02:02Z",
+  "generated_at_utc": "2026-03-08T23:12:14Z",
   "formula_version": [
-    "micro-salt-submission-candidate-v1",
+    "micro-salt-scaffold-v3",
     "micro-v0-template"
   ],
   "dataset_version": [
@@ -16,7 +16,7 @@
     "t2k-2023"
   ],
   "decision_rule_version": "micro-decision-v3",
-  "prediction_lock_sha256": "327bafd8582b8de649b471c6751891691e3836160f19009bde644c901e3d89f2",
+  "prediction_lock_sha256": "3c2be85d7655b887c20be35147a3a06a21b8ecdf4c8a6b3f7db825903566a700",
   "rerun_commands": [
     ".venv/bin/python tools/micro/run_micro_cycle.py",
     ".venv/bin/python tools/realtime/run_realtime_cycle.py"

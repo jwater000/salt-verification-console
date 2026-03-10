@@ -1,4 +1,5 @@
 import { promises as fs } from "node:fs";
+import { createHash } from "node:crypto";
 import path from "node:path";
 
 export type Prediction = {
@@ -202,6 +203,16 @@ async function readJson<T>(relativePath: string, fallback: T): Promise<T> {
   }
 }
 
+async function fileSha256(relativePath: string): Promise<string | null> {
+  try {
+    const full = path.join(root, relativePath);
+    const raw = await fs.readFile(full);
+    return createHash("sha256").update(raw).digest("hex");
+  } catch {
+    return null;
+  }
+}
+
 export function loadPredictions(): Promise<Prediction[]> {
   return readJson<Prediction[]>("data/processed/predictions.json", []);
 }
@@ -274,11 +285,21 @@ export function loadModelEvalManifest(): Promise<ModelEvalManifest> {
     prediction_locks: {},
     frozen: {},
   };
-  return readJson<ModelEvalManifest>("data/frozen/current/model_eval_manifest.json", fallback).then((v) => {
+  return readJson<ModelEvalManifest>("data/frozen/current/model_eval_manifest.json", fallback).then(async (v) => {
+    let modelEval = v;
+    let frozenManifestPath = "data/frozen/current/manifest.json";
     if (!v.generated_at_utc && !v.pipeline) {
-      return readJson<ModelEvalManifest>("data/processed/model_eval_manifest.json", fallback);
+      modelEval = await readJson<ModelEvalManifest>("data/processed/model_eval_manifest.json", fallback);
+      frozenManifestPath = "data/frozen/current/manifest.json";
     }
-    return v;
+    const manifestSha = await fileSha256(frozenManifestPath);
+    return {
+      ...modelEval,
+      frozen: {
+        ...(modelEval.frozen ?? {}),
+        manifest_sha256: manifestSha ?? modelEval.frozen?.manifest_sha256 ?? null,
+      },
+    };
   });
 }
 

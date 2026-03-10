@@ -1,8 +1,8 @@
 {
   "domain": "cosmic",
   "engine_version": "cosmic-predictor-v1",
-  "sm_formula_version": "cosmic-sm-submission-candidate-v1",
-  "salt_formula_version": "cosmic-salt-submission-candidate-v1",
+  "sm_formula_version": "cosmic-sm-scaffold-v3",
+  "salt_formula_version": "cosmic-salt-scaffold-v3",
   "outputs": [
     {
       "path": "data/processed/results_p1-time-delay-redshift.json",

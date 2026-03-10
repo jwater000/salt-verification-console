@@ -1,29 +1,29 @@
 {
-  "generated_at_utc": "2026-03-08T16:02:02Z",
+  "generated_at_utc": "2026-03-08T23:12:14Z",
   "pipeline": "run_model_eval",
   "commands": [
-    "/home/jwater/Development/salt-verification-console/.venv/bin/python3 /home/jwater/Development/salt-verification-console/tools/evaluation/run_cosmic_predictors.py",
-    "/home/jwater/Development/salt-verification-console/.venv/bin/python3 /home/jwater/Development/salt-verification-console/tools/evaluation/expand_cosmic_frozen_samples.py",
-    "/home/jwater/Development/salt-verification-console/.venv/bin/python3 /home/jwater/Development/salt-verification-console/tools/micro/run_micro_predictors.py",
-    "/home/jwater/Development/salt-verification-console/.venv/bin/python3 /home/jwater/Development/salt-verification-console/tools/micro/run_micro_stats.py"
+    ".venv/bin/python tools/evaluation/run_cosmic_predictors.py",
+    ".venv/bin/python tools/evaluation/expand_cosmic_frozen_samples.py",
+    ".venv/bin/python tools/micro/run_micro_predictors.py",
+    ".venv/bin/python tools/micro/run_micro_stats.py"
   ],
   "engine_versions": {
     "cosmic": "cosmic-predictor-v1",
     "micro": "micro-predictor-v1"
   },
   "formula_versions": {
-    "cosmic_sm": "cosmic-sm-submission-candidate-v1",
-    "cosmic_salt": "cosmic-salt-submission-candidate-v1",
-    "micro_sm": "micro-sm-submission-candidate-v1",
-    "micro_salt": "micro-salt-submission-candidate-v1"
+    "cosmic_sm": "cosmic-sm-scaffold-v3",
+    "cosmic_salt": "cosmic-salt-scaffold-v3",
+    "micro_sm": "micro-sm-scaffold-v3",
+    "micro_salt": "micro-salt-scaffold-v3"
   },
   "prediction_locks": {
-    "micro_prediction_lock_sha256": "327bafd8582b8de649b471c6751891691e3836160f19009bde644c901e3d89f2",
-    "micro_sm_prediction_sha256": "a10f12fc8aa5ec74537c69a620512dde95ac8fed224a387353c1fa9acc37433d",
-    "micro_salt_prediction_sha256": "a2adfe5466d451a85f8a7395ec581ae5f9f05773b64661ab127f9716cb3bd257"
+    "micro_prediction_lock_sha256": "3c2be85d7655b887c20be35147a3a06a21b8ecdf4c8a6b3f7db825903566a700",
+    "micro_sm_prediction_sha256": "a06d816d59b80e6e7a0654c49457d765176abb2edd099d96c8ecaf24087983aa",
+    "micro_salt_prediction_sha256": "bdb92f8e41147b65d1df490c3057c466164bcebe482bb2696d29cf3f228d0823"
   },
   "frozen": {
     "dataset_version": "frozen-20260308",
-    "manifest_sha256": "1c36f819961fdea39a80147168de3a430a645ea9ac798e6f2221ae62d458896c"
+    "manifest_sha256": null
   }
 }

@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import "./markdown.css";
 import { loadFrozenManifest } from "@/lib/data";
 import SiteStructureMap from "@/components/site-structure-map";
 
 export const metadata: Metadata = {
-  title: "SALT Verification Console",
+  title: "SALT 검증 리포트",
   description: "SALT vs standard-theory prediction validation with public data, formulas, and reproducible runs.",
 };
 

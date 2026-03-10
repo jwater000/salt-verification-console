@@ -1,7 +1,6 @@
-import EvidenceClient from "@/app/evidence/evidence-client";
-import { loadAllResults } from "@/lib/data";
+import { loadRouteMarkdownHtml } from "@/lib/route-markdown";
 
-export default async function CosmicEvidencePage() {
-  const rows = await loadAllResults();
-  return <EvidenceClient rows={rows} />;
+export default async function Page() {
+  const html = await loadRouteMarkdownHtml("cosmic__evidence.md");
+  return <article className="panel markdown-body p-6 text-slate-300" dangerouslySetInnerHTML={{ __html: html }} />;
 }

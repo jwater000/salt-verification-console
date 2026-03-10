@@ -1,11 +1,11 @@
 {
-  "generated_at_utc": "2026-03-08T16:02:02Z",
+  "generated_at_utc": "2026-03-08T23:12:14Z",
   "domain": "micro",
   "engine_version": "micro-predictor-v1",
-  "sm_formula_version": "micro-sm-submission-candidate-v1",
-  "salt_formula_version": "micro-salt-submission-candidate-v1",
+  "sm_formula_version": "micro-sm-scaffold-v3",
+  "salt_formula_version": "micro-salt-scaffold-v3",
   "quality_mode": "real",
   "rows": 32,
-  "sm_prediction_sha256": "a10f12fc8aa5ec74537c69a620512dde95ac8fed224a387353c1fa9acc37433d",
-  "salt_prediction_sha256": "a2adfe5466d451a85f8a7395ec581ae5f9f05773b64661ab127f9716cb3bd257"
+  "sm_prediction_sha256": "a06d816d59b80e6e7a0654c49457d765176abb2edd099d96c8ecaf24087983aa",
+  "salt_prediction_sha256": "bdb92f8e41147b65d1df490c3057c466164bcebe482bb2696d29cf3f228d0823"
 }

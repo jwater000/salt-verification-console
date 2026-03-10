@@ -5,7 +5,6 @@ Run unified model evaluation pipeline and write model_eval_manifest.json.
 
 from __future__ import annotations
 
-import hashlib
 import json
 import subprocess
 import sys
@@ -42,27 +41,22 @@ def require_nonempty(value: object, field: str) -> str:
     return text
 
 
-def sha256_file(path: Path) -> str:
-    h = hashlib.sha256()
-    with path.open("rb") as f:
-        while True:
-            chunk = f.read(1024 * 1024)
-            if not chunk:
-                break
-            h.update(chunk)
-    return h.hexdigest()
-
-
 def main() -> None:
+    display_commands = [
+        ".venv/bin/python tools/evaluation/run_cosmic_predictors.py",
+        ".venv/bin/python tools/evaluation/expand_cosmic_frozen_samples.py",
+        ".venv/bin/python tools/micro/run_micro_predictors.py",
+        ".venv/bin/python tools/micro/run_micro_stats.py",
+    ]
     commands = [
         [sys.executable, str(ROOT / "tools" / "evaluation" / "run_cosmic_predictors.py")],
         [sys.executable, str(ROOT / "tools" / "evaluation" / "expand_cosmic_frozen_samples.py")],
         [sys.executable, str(ROOT / "tools" / "micro" / "run_micro_predictors.py")],
         [sys.executable, str(ROOT / "tools" / "micro" / "run_micro_stats.py")],
     ]
-    for c in commands:
-        print("[run]", " ".join(c[1:]) if len(c) > 1 else " ".join(c))
-        run(c)
+    for show_cmd, exec_cmd in zip(display_commands, commands):
+        print("[run]", show_cmd)
+        run(exec_cmd)
 
     cosmic = read_json(COSMIC_MANIFEST) if COSMIC_MANIFEST.exists() else {}
     micro = read_json(MICRO_MANIFEST) if MICRO_MANIFEST.exists() else {}
@@ -75,7 +69,7 @@ def main() -> None:
     payload = {
         "generated_at_utc": now_utc(),
         "pipeline": "run_model_eval",
-        "commands": [" ".join(c) for c in commands],
+        "commands": display_commands,
         "engine_versions": {
             "cosmic": cosmic.get("engine_version"),
             "micro": micro.get("engine_version"),
@@ -93,7 +87,10 @@ def main() -> None:
         },
         "frozen": {
             "dataset_version": frozen.get("dataset_version"),
-            "manifest_sha256": sha256_file(FROZEN_MANIFEST) if FROZEN_MANIFEST.exists() else None,
+            # frozen/current/manifest.json also hashes model_eval_manifest.json.
+            # Storing that manifest hash inside model_eval_manifest.json creates
+            # a circular dependency, so this is computed at read-time in web.
+            "manifest_sha256": None,
         },
     }
     MANIFEST_PATH.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")

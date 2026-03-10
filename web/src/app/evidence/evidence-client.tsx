@@ -17,6 +17,13 @@ function winner(row: ResultRow): Winner {
     if (s < t) return "STANDARD";
     return "TIE";
   }
+  if (row.actual_value != null) {
+    const s = Math.abs(row.actual_value - row.standard_fit);
+    const t = Math.abs(row.actual_value - row.salt_fit);
+    if (t < s) return "SALT";
+    if (s < t) return "STANDARD";
+    return "TIE";
+  }
   if (row.residual_score > 0) return "SALT";
   if (row.residual_score < 0) return "STANDARD";
   return "TIE";
@@ -79,8 +86,8 @@ export default function EvidenceClient({ rows }: Props) {
   return (
     <section className="space-y-6">
       <header className="panel p-5">
-        <p className="text-xs uppercase tracking-[0.2em] text-cyan-300">Evidence</p>
-        <h1 className="mt-2 text-2xl font-semibold">실측 vs 표준우주론(ΛCDM) 예측 vs SALT 예측</h1>
+        <p className="text-xs uppercase tracking-[0.2em] text-cyan-300">근거 분석</p>
+        <h2 className="mt-2 text-2xl font-semibold">실측 vs 표준우주론(ΛCDM) 예측 vs SALT 예측</h2>
         <p className="mt-2 text-sm text-slate-300">
           같은 이벤트에 대해 세 값을 동시에 표시하고, 절대오차 기준으로 승패를 판정합니다.
         </p>
@@ -88,13 +95,13 @@ export default function EvidenceClient({ rows }: Props) {
 
       <section className="panel grid gap-3 p-4 md:grid-cols-2">
         <label className="text-sm">
-          Prediction
+          예측 항목
           <select
             className="mt-1 w-full rounded border border-slate-700 bg-slate-900 p-2"
             value={predictionId}
             onChange={(e) => setPredictionId(e.target.value)}
           >
-            <option value="all">All</option>
+            <option value="all">전체</option>
             {predictionIds.map((id) => (
               <option key={id} value={id}>
                 {id}
@@ -103,41 +110,46 @@ export default function EvidenceClient({ rows }: Props) {
           </select>
         </label>
         <label className="text-sm">
-          Winner
+          판정 필터
           <select
             className="mt-1 w-full rounded border border-slate-700 bg-slate-900 p-2"
             value={winnerFilter}
             onChange={(e) => setWinnerFilter(e.target.value)}
           >
-            <option value="all">All</option>
+            <option value="all">전체</option>
             <option value="SALT">SALT</option>
             <option value="STANDARD">ΛCDM</option>
-            <option value="TIE">TIE</option>
+            <option value="TIE">동률</option>
           </select>
         </label>
       </section>
 
-      <section className="grid gap-4 md:grid-cols-4">
-        <article className="panel p-4">
-          <p className="text-xs text-slate-400">Events</p>
-          <p className="mt-2 text-2xl font-semibold">{summary.total}</p>
-        </article>
-        <article className="panel p-4">
-          <p className="text-xs text-slate-400">SALT Wins</p>
-          <p className="mt-2 text-2xl font-semibold text-cyan-300">{summary.saltWins}</p>
-        </article>
-        <article className="panel p-4">
-          <p className="text-xs text-slate-400">ΛCDM Wins</p>
-          <p className="mt-2 text-2xl font-semibold text-rose-300">{summary.standardWins}</p>
-        </article>
-        <article className="panel p-4">
-          <p className="text-xs text-slate-400">Actual Coverage</p>
-          <p className="mt-2 text-2xl font-semibold">{withActual.length}/{filtered.length}</p>
-        </article>
+      <section className="panel p-4 text-sm">
+        <h3 className="mb-2 text-base font-semibold text-slate-100">요약 지표</h3>
+        <div className="overflow-x-auto">
+          <table className="w-full min-w-[480px] border-collapse">
+            <thead>
+              <tr className="border-b border-slate-700 text-left text-xs text-slate-400">
+                <th className="py-2 pr-3 font-medium">이벤트 수</th>
+                <th className="py-2 pr-3 font-medium">SALT 승</th>
+                <th className="py-2 pr-3 font-medium">ΛCDM 승</th>
+                <th className="py-2 pr-3 font-medium">실측 포함 비율</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr className="text-sm text-slate-200">
+                <td className="py-2 pr-3">{summary.total}</td>
+                <td className="py-2 pr-3 text-cyan-300">{summary.saltWins}</td>
+                <td className="py-2 pr-3 text-rose-300">{summary.standardWins}</td>
+                <td className="py-2 pr-3">{withActual.length}/{filtered.length}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </section>
 
       <section className="panel p-4">
-        <h2 className="mb-3 text-lg font-semibold">Triple-Line Comparison</h2>
+        <h2 className="mb-3 text-lg font-semibold">삼중 선 비교</h2>
         <p className="mb-2 text-xs text-slate-400">
           동일 y축 스케일로 표시합니다 (시리즈별 개별 정규화 미사용).
         </p>
@@ -150,14 +162,14 @@ export default function EvidenceClient({ rows }: Props) {
           </svg>
         </div>
         <div className="mt-2 flex gap-3 text-xs text-slate-300">
-          <span>Actual: white</span>
-          <span>ΛCDM: rose</span>
-          <span>SALT: cyan</span>
+          <span>실측값: 흰색</span>
+          <span>ΛCDM: 분홍</span>
+          <span>SALT: 청록</span>
         </div>
       </section>
 
       <section className="panel p-4">
-        <h2 className="mb-3 text-lg font-semibold">Absolute Error by Event</h2>
+        <h2 className="mb-3 text-lg font-semibold">이벤트별 절대 오차</h2>
         <div className="space-y-3">
           {filtered.map((r) => {
             const stdErr = Math.abs(
