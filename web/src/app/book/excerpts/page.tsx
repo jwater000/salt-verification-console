@@ -21,12 +21,12 @@ export default async function BookExcerptsPage() {
             <p className="mt-1 text-sm text-slate-100">시간/양자/입자</p>
           </div>
           <div className="rounded-lg border border-slate-700/70 bg-slate-900/50 p-4">
-            <p className="text-xs text-slate-400">17~24</p>
-            <p className="mt-1 text-sm text-slate-100">응용/질문 정리</p>
+            <p className="text-xs text-slate-400">17~23</p>
+            <p className="mt-1 text-sm text-slate-100">질량/예측/FAQ</p>
           </div>
           <div className="rounded-lg border border-slate-700/70 bg-slate-900/50 p-4">
-            <p className="text-xs text-slate-400">25~32</p>
-            <p className="mt-1 text-sm text-slate-100">통합/검증/감사</p>
+            <p className="text-xs text-slate-400">24~33</p>
+            <p className="mt-1 text-sm text-slate-100">감사/통합/검증</p>
           </div>
         </div>
       </article>

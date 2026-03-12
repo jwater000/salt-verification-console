@@ -351,7 +351,7 @@ export default async function EvaluationPage() {
       <article className="panel p-6 text-slate-200">
         <h2 className="text-xl font-semibold text-white">현재 기술이 이미 기대는 검증 사실</h2>
         <p className="mt-2 text-sm leading-6 text-slate-300">
-          17장의 공학 응용 시나리오 전체가 이미 검증된 것은 아닙니다. 다만 그 바탕이 되는 아래 사실들은 현재 기술과
+          20장의 공학 응용 시나리오 전체가 이미 검증된 것은 아닙니다. 다만 그 바탕이 되는 아래 사실들은 현재 기술과
           실험에서 반복 확인된 축입니다.
         </p>
         <div className="mt-4 grid gap-4 lg:grid-cols-3">

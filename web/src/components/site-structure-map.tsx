@@ -6,7 +6,7 @@ const TOP_LEVEL = [
   { path: "/evaluation", title: "검증 결과 보고", subtitle: "검증 결과 + 근거 통합 보고" },
   { path: "/predictions", title: "예측", subtitle: "검증 대기 가설 + 데이터 공백 공개" },
   { path: "/engineering", title: "Engineering", subtitle: "미래 기술 활용 시나리오" },
-  { path: "/book/excerpts", title: "도서 발췌", subtitle: "g00~g32 이미지/코드/해설" },
+  { path: "/book/excerpts", title: "도서 발췌", subtitle: "g00~g33 이미지/코드/해설" },
   { path: "/audit/reproduce", title: "재현 방법", subtitle: "동일 데이터/동일 식/동일 판정 재실행" },
 ];
 

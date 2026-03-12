@@ -161,7 +161,7 @@ export default function PredictionsPage() {
             한다.
           </li>
           <li>
-            <code>[검증 절차 연결]</code> 관측 판정은 24장 13.2~13.4(샤피로 지연, 적색편이, 렌즈 지연) 기준을
+            <code>[검증 절차 연결]</code> 관측 판정은 25장 13.2~13.4와 27장 프로토콜 기준을
             따른다.
           </li>
         </ul>
@@ -188,7 +188,7 @@ export default function PredictionsPage() {
               <tr>
                 <td className="px-3 py-3">중력렌즈 / 렌즈 지연</td>
                 <td className="px-3 py-3">검증 대기</td>
-                <td className="px-3 py-3">24장 13.2~13.4 기준으로 판정 규칙 연결 필요</td>
+                <td className="px-3 py-3">25장 13.2~13.4 식과 27장 운영 잠금을 연결한 판정 규칙이 더 필요</td>
               </tr>
             </tbody>
           </table>
@@ -209,7 +209,7 @@ export default function PredictionsPage() {
             나와야 한다.
           </li>
           <li>
-            <code>[검증 절차 연결]</code> 관측 판정은 24장 13.2~13.4와 고에너지 충돌의 결속 / 분해 패턴 비교를
+            <code>[검증 절차 연결]</code> 관측 판정은 25장 기술식과 27장 프로토콜, 그리고 고에너지 충돌의 결속 / 분해 패턴 비교를
             함께 따른다.
           </li>
         </ul>
@@ -247,7 +247,8 @@ export default function PredictionsPage() {
         <h2 className="text-xl font-semibold text-white">예측식은 어디까지 제시됐는가</h2>
         <p className="mt-2 text-sm leading-6 text-slate-300">
           SALT는 이미 핵심 변수와 일부 연결식은 제시하고 있습니다. 다만 상대론 채널과 양자 채널 전체를 하나의
-          운영형 예측 파이프라인으로 끝까지 묶는 완결된 식은 아직 일부만 구현된 상태입니다.
+          운영형 예측 파이프라인으로 끝까지 묶는 완결된 식은 아직 일부만 구현된 상태입니다. 현재 책 구조로 보면
+          17장은 양자 코어, 18장은 스피너 확장 조건, 19장은 GR 정합 개요, 25장은 기술식, 27장은 운영 잠금 역할로 분리됩니다.
         </p>
         <div className="mt-4 grid gap-4 lg:grid-cols-2">
           <div className="rounded-lg border border-cyan-500/30 bg-cyan-950/25 p-4">

@@ -163,7 +163,7 @@ export default async function AuditReproducePage() {
       <article className="panel p-6 text-slate-200">
         <h2 className="text-xl font-semibold text-white">아직 웹에서 구현하지 못한 검증 항목</h2>
         <p className="mt-2 text-sm leading-6 text-slate-300">
-          17장의 감도 매트릭스에 나온 항목 가운데, 현재 웹 콘솔이 직접 채점하지 못하는 검증축도 있습니다.
+          20장의 감도 매트릭스와 27장의 차별 예측 프로토콜에 나온 항목 가운데, 현재 웹 콘솔이 직접 채점하지 못하는 검증축도 있습니다.
           이유는 크게 두 가지입니다. 첫째, 공개 데이터가 아직 운영형 입력으로 충분히 정리되지 않았습니다. 둘째,
           예측모델식과 score 규칙이 frozen 파이프라인 수준으로 아직 잠기지 않았습니다.
         </p>
