@@ -12,7 +12,7 @@
 - `/reference/visual-atlas`: 도식, 이미지, 코드, 해설을 함께 보는 참고 자료
 - `/engineering`: 향후 기술 활용 시나리오와 확장 가능성 정리
 - 도서 개정 후 장 매핑 반영: Intro `00`, Problem `01~05`, Clue/Concept `06~11`, Unified Solution `12~16`, Theory Core `17`, Prediction & Closure `18~20`, Appendix `21~28`
-- `도서 발췌`의 g24~g33 도해 번호를 실제 공개 이미지 파일과 다시 일치시킴
+- 도해 자산(g24~g33 포함)의 번호와 실제 공개 이미지 파일을 다시 일치시킴
 
 ## 운영 원칙
 

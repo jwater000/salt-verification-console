@@ -100,6 +100,33 @@ const COLOR_MAP: Record<string, { border: string; iconBg: string; iconText: stri
   amber:  { border: "border-amber-500/20",  iconBg: "bg-amber-500/15",  iconText: "text-amber-300" },
 };
 
+const CUSTOMER_USE_CASES = [
+  {
+    title: "기술 브리핑",
+    body: "기존 기술을 SALT 언어로 다시 읽을 때 어떤 질문이 새로 생기는지 보여준다.",
+    href: "/reference/faq",
+    cta: "FAQ로 연결",
+  },
+  {
+    title: "검증 근거 연결",
+    body: "공학적 해석이 공중에 뜨지 않도록 18장의 고정 채널과 연결해 읽게 만든다.",
+    href: "/verification",
+    cta: "Verification 보기",
+  },
+  {
+    title: "신뢰 확보",
+    body: "아이디어 설명만이 아니라 재현 가능한 결과 체계가 있다는 점까지 함께 제시한다.",
+    href: "/audit",
+    cta: "Audit 보기",
+  },
+] as const;
+
+const PAGE_BOUNDARIES = [
+  "이 페이지는 제품 제안서가 아니라 해석과 기회 영역을 정리한 대화용 페이지다",
+  "여기서 말하는 함의는 Verification에서 잠긴 결과와 분리해서 읽어야 한다",
+  "성숙도 라벨은 현재 검증 수준을 뜻하며 사업성 확정 신호가 아니다",
+];
+
 export default function EngineeringPage() {
   return (
     <section className="space-y-10">
@@ -119,6 +146,31 @@ export default function EngineeringPage() {
         <div className="mt-5 inline-flex items-center gap-2 rounded-lg border border-amber-500/20 bg-amber-950/20 px-4 py-2 text-xs text-amber-200/80">
           <span className="h-1.5 w-1.5 rounded-full bg-amber-400" />
           이 페이지의 내용은 검증된 결과가 아니라 해석 재정렬과 설계 가설이다
+        </div>
+      </div>
+
+      <div className="grid gap-4 lg:grid-cols-3">
+        {CUSTOMER_USE_CASES.map((item) => (
+          <Link
+            key={item.href}
+            href={item.href}
+            className="rounded-2xl border border-emerald-500/20 bg-slate-950/45 p-5 transition hover:border-emerald-400/40"
+          >
+            <h2 className="text-lg font-bold text-white">{item.title}</h2>
+            <p className="mt-2 text-sm leading-relaxed text-slate-400">{item.body}</p>
+            <p className="mt-5 text-sm font-semibold text-emerald-300">{item.cta} →</p>
+          </Link>
+        ))}
+      </div>
+
+      <div className="panel px-6 py-5">
+        <h2 className="mb-4 text-sm font-semibold text-white">이 페이지를 읽는 기준</h2>
+        <div className="grid gap-4 md:grid-cols-3">
+          {PAGE_BOUNDARIES.map((item) => (
+            <div key={item} className="rounded-xl border border-slate-800 bg-slate-950/40 p-4">
+              <p className="text-sm leading-relaxed text-slate-300">{item}</p>
+            </div>
+          ))}
         </div>
       </div>
 
@@ -171,6 +223,19 @@ export default function EngineeringPage() {
                   ))}
                 </ul>
               </div>
+
+              <div className="mt-4 rounded-lg border border-slate-800 bg-slate-900/35 px-4 py-3">
+                <p className="text-[11px] font-semibold uppercase tracking-wider text-slate-500">
+                  고객 대화에서의 의미
+                </p>
+                <p className="mt-2 text-sm text-slate-400">
+                  {domain.maturity === "interpretive"
+                    ? "현재 기술과 실험을 다른 물리 언어로 설명하는 데 유용하다."
+                    : domain.maturity === "speculative"
+                      ? "추가 검증 채널이 생기면 설계 가설로 발전할 수 있지만 지금은 탐색 단계다."
+                      : "장기적 연구 테마로는 의미가 있으나 직접적인 구현 주장으로 읽어서는 안 된다."}
+                </p>
+              </div>
             </div>
           );
         })}
@@ -195,6 +260,21 @@ export default function EngineeringPage() {
             Verification →
           </Link>
         </p>
+      </div>
+
+      <div className="flex flex-wrap gap-3 border-t border-slate-800 pt-5">
+        <Link
+          href="/verification"
+          className="inline-flex items-center gap-2 rounded-lg border border-cyan-500/20 bg-cyan-500/10 px-4 py-2.5 text-sm font-medium text-cyan-300 transition hover:border-cyan-400/40"
+        >
+          18장 검증 채널 보기 →
+        </Link>
+        <Link
+          href="/audit"
+          className="inline-flex items-center gap-2 rounded-lg border border-amber-500/20 bg-amber-500/10 px-4 py-2.5 text-sm font-medium text-amber-300 transition hover:border-amber-400/40"
+        >
+          Audit 허브 →
+        </Link>
       </div>
     </section>
   );

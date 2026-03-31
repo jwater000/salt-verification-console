@@ -27,7 +27,7 @@ const NAV_ITEMS = [
   {
     path: "/reference",
     label: "Reference",
-    desc: "도해 · 용어 · 요약",
+    desc: "도해 · 용어 · FAQ · 구조도",
   },
   {
     path: "/audit",
@@ -51,7 +51,7 @@ export default function SiteStructureMap() {
             <span className="flex h-6 w-6 items-center justify-center rounded bg-cyan-500/20 text-[10px] font-bold text-cyan-300">
               S
             </span>
-            <span>SALT 검증 콘솔</span>
+            <span>SALT 검증 · 설명 콘솔</span>
           </Link>
 
           {/* Desktop nav */}
