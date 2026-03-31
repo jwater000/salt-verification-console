@@ -98,6 +98,30 @@ const STATE_VARIABLE_MAP = [
   },
 ];
 
+const VERIFICATION_LANES = [
+  {
+    href: "/verification/results",
+    title: "Results Board",
+    desc: "현재 frozen 데이터 기준으로 자동 산출된 실제 판정 결과를 본다.",
+    tag: "지금 확인 가능",
+    accent: "cyan",
+  },
+  {
+    href: "/verification/pending",
+    title: "Pending Queue",
+    desc: "가설은 있으나 아직 운영형 관측량과 score가 잠기지 않은 항목을 본다.",
+    tag: "아직 미완성",
+    accent: "amber",
+  },
+  {
+    href: "/audit/reproduce",
+    title: "Audit Trail",
+    desc: "같은 결과가 다시 나오는지 확인하기 위한 snapshot, run, hash, 재현 경로로 이동한다.",
+    tag: "신뢰 검증",
+    accent: "emerald",
+  },
+] as const;
+
 export default async function VerificationPage() {
   const [micro, allResults, frozen] = await Promise.all([
     loadMicroSnapshot(),
@@ -148,6 +172,43 @@ export default async function VerificationPage() {
               {frozen.dataset_version || "—"}
             </p>
           </div>
+        </div>
+      </div>
+
+      <div>
+        <div className="mb-4 flex items-center justify-between">
+          <h2 className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">
+            Verification에서 바로 갈 수 있는 세 갈래
+          </h2>
+          <span className="text-xs text-slate-500">개요 / 결과 / 대기 / 감사</span>
+        </div>
+        <div className="grid gap-4 lg:grid-cols-3">
+          {VERIFICATION_LANES.map((lane) => {
+            const borderMap: Record<string, string> = {
+              cyan: "border-cyan-500/20 hover:border-cyan-400/40",
+              amber: "border-amber-500/20 hover:border-amber-400/40",
+              emerald: "border-emerald-500/20 hover:border-emerald-400/40",
+            };
+            const tagMap: Record<string, string> = {
+              cyan: "bg-cyan-500/10 text-cyan-300",
+              amber: "bg-amber-500/10 text-amber-300",
+              emerald: "bg-emerald-500/10 text-emerald-300",
+            };
+            return (
+              <Link
+                key={lane.href}
+                href={lane.href}
+                className={`group rounded-2xl border bg-slate-950/45 p-5 transition ${borderMap[lane.accent]}`}
+              >
+                <span className={`rounded-full px-2.5 py-1 text-[11px] font-semibold uppercase tracking-[0.16em] ${tagMap[lane.accent]}`}>
+                  {lane.tag}
+                </span>
+                <h2 className="mt-4 text-xl font-bold text-white">{lane.title}</h2>
+                <p className="mt-2 text-sm leading-relaxed text-slate-400">{lane.desc}</p>
+                <p className="mt-5 text-sm font-semibold text-slate-200 group-hover:text-white">열기 →</p>
+              </Link>
+            );
+          })}
         </div>
       </div>
 
@@ -274,6 +335,40 @@ export default async function VerificationPage() {
         </div>
       </div>
 
+      <div className="panel px-6 py-6">
+        <h2 className="mb-5 text-sm font-bold text-white">읽는 순서</h2>
+        <div className="grid gap-4 md:grid-cols-4">
+          {[
+            {
+              step: "01",
+              title: "채널 개요",
+              body: "무엇을 시험하는지와 기각 조건을 먼저 본다.",
+            },
+            {
+              step: "02",
+              title: "결과판",
+              body: "현재 계산 가능한 항목에서 SALT와 기준선의 승패를 확인한다.",
+            },
+            {
+              step: "03",
+              title: "대기판",
+              body: "아직 판정할 수 없는 가설과 필요한 식/데이터를 확인한다.",
+            },
+            {
+              step: "04",
+              title: "감사 경로",
+              body: "snapshot, run, reproduce 경로로 넘어가 결과의 신뢰 구조를 본다.",
+            },
+          ].map((item) => (
+            <div key={item.step} className="rounded-xl border border-slate-800 bg-slate-950/40 p-4">
+              <p className="text-2xl font-bold text-slate-600">{item.step}</p>
+              <p className="mt-2 text-sm font-semibold text-slate-100">{item.title}</p>
+              <p className="mt-1 text-xs leading-relaxed text-slate-500">{item.body}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
       {/* Candidate hypotheses */}
       <div>
         <div className="mb-4 flex items-center justify-between">
@@ -337,7 +432,7 @@ export default async function VerificationPage() {
       </div>
 
       {/* Nav to sub-pages */}
-      <div className="flex flex-wrap gap-3">
+      <div className="flex flex-wrap gap-3 border-t border-slate-800 pt-5">
         <Link
           href="/verification/results"
           className="inline-flex items-center gap-2 rounded-lg border border-cyan-500/25 bg-cyan-500/10 px-4 py-2.5 text-sm font-medium text-cyan-300 transition hover:border-cyan-400/50 hover:bg-cyan-500/15"
@@ -349,6 +444,12 @@ export default async function VerificationPage() {
           className="inline-flex items-center gap-2 rounded-lg border border-amber-500/20 bg-amber-500/10 px-4 py-2.5 text-sm font-medium text-amber-300 transition hover:border-amber-400/40 hover:bg-amber-500/15"
         >
           검증 대기 항목 →
+        </Link>
+        <Link
+          href="/audit/reproduce"
+          className="inline-flex items-center gap-2 rounded-lg border border-emerald-500/20 bg-emerald-500/10 px-4 py-2.5 text-sm font-medium text-emerald-300 transition hover:border-emerald-400/40 hover:bg-emerald-500/15"
+        >
+          재현 방법 →
         </Link>
       </div>
     </section>

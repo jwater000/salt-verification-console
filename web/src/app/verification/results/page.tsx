@@ -94,6 +94,10 @@ export default async function VerificationResultsPage() {
     }, new Map<string, { salt: number; standard: number; tie: number; total: number }>()),
   ).sort((a, b) => b[1].total - a[1].total);
 
+  const decisiveRatio = micro.fit_runs.length > 0
+    ? ((statusCounts.decisive / micro.fit_runs.length) * 100).toFixed(1)
+    : "0.0";
+
   return (
     <section className="space-y-8">
       {/* Hero */}
@@ -137,6 +141,39 @@ export default async function VerificationResultsPage() {
         </div>
       </div>
 
+      <div className="grid gap-4 lg:grid-cols-3">
+        <Link
+          href="/verification"
+          className="rounded-2xl border border-slate-800 bg-slate-950/40 p-5 transition hover:border-slate-600"
+        >
+          <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-slate-500">Overview</p>
+          <h2 className="mt-2 text-lg font-bold text-white">왜 이 결과가 나왔는가</h2>
+          <p className="mt-2 text-sm leading-relaxed text-slate-400">
+            채널 정의, 기각 조건, 상태변수-관측 흔적 관계를 먼저 다시 본다.
+          </p>
+        </Link>
+        <Link
+          href="/verification/pending"
+          className="rounded-2xl border border-amber-500/20 bg-slate-950/40 p-5 transition hover:border-amber-400/40"
+        >
+          <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-amber-300">Pending Queue</p>
+          <h2 className="mt-2 text-lg font-bold text-white">무엇이 아직 계산되지 않았는가</h2>
+          <p className="mt-2 text-sm leading-relaxed text-slate-400">
+            결과판에 없는 항목이 왜 빠져 있는지와 필요한 데이터/식 공백을 확인한다.
+          </p>
+        </Link>
+        <Link
+          href="/audit/reproduce"
+          className="rounded-2xl border border-emerald-500/20 bg-slate-950/40 p-5 transition hover:border-emerald-400/40"
+        >
+          <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-emerald-300">Audit Trail</p>
+          <h2 className="mt-2 text-lg font-bold text-white">같은 결과를 다시 얻는 법</h2>
+          <p className="mt-2 text-sm leading-relaxed text-slate-400">
+            frozen dataset, manifest, run provenance를 따라가며 결과를 재현한다.
+          </p>
+        </Link>
+      </div>
+
       {/* Provenance */}
       <div className="grid gap-3 md:grid-cols-3">
         <div className="rounded-xl border border-slate-700 bg-slate-950/40 p-4">
@@ -154,6 +191,29 @@ export default async function VerificationResultsPage() {
           <p className="mt-1 text-sm font-semibold text-slate-200">{evalManifest.pipeline || "run_model_eval"}</p>
           <p className="mt-0.5 text-xs text-slate-400">verdict · artifact hash</p>
         </Link>
+      </div>
+
+      <div className="panel px-6 py-5">
+        <h2 className="mb-4 text-sm font-semibold text-white">결과를 읽는 기준</h2>
+        <div className="grid gap-4 md:grid-cols-3">
+          <div>
+            <p className="text-xs uppercase tracking-[0.16em] text-slate-500">What this page proves</p>
+            <p className="mt-2 text-sm leading-relaxed text-slate-300">
+              frozen 조건에서 SALT 오차가 기준선보다 작은 채널이 어디인지 보여준다.
+            </p>
+          </div>
+          <div>
+            <p className="text-xs uppercase tracking-[0.16em] text-slate-500">What it does not prove</p>
+            <p className="mt-2 text-sm leading-relaxed text-slate-300">
+              이론 전체의 완결 입증이나 공학 가설의 실현 가능성까지 자동으로 보장하지는 않는다.
+            </p>
+          </div>
+          <div>
+            <p className="text-xs uppercase tracking-[0.16em] text-slate-500">Micro decisive ratio</p>
+            <p className="mt-2 text-2xl font-bold text-violet-300">{decisiveRatio}%</p>
+            <p className="mt-1 text-xs text-slate-500">fit runs 중 decisive 판정 비율</p>
+          </div>
+        </div>
       </div>
 
       {/* Frozen hashes */}
@@ -327,7 +387,7 @@ export default async function VerificationResultsPage() {
           {[
             {
               id: "A",
-              color: "cyan",
+              tone: "text-cyan-300",
               title: "전달 모드 vs 구조 모드",
               body: "빛은 끝까지 전달 모드로 남고, 질량 상태는 임계 잠금이 일어난 구조 모드여야 한다.",
               status: "직접 판정 변수 없음",
@@ -336,7 +396,7 @@ export default async function VerificationResultsPage() {
             },
             {
               id: "B",
-              color: "emerald",
+              tone: "text-emerald-300",
               title: "밀도 구조가 만든 지연",
               body: "고밀도 구간에서 공통 잔차(시간 지연 + 적색편이)가 나타나야 한다.",
               status: "부분 검증 진행 중",
@@ -345,7 +405,7 @@ export default async function VerificationResultsPage() {
             },
             {
               id: "C",
-              color: "sky",
+              tone: "text-sky-300",
               title: "고에너지/정밀 채널 잔차 구조",
               body: "극단 구간에서 표준 기준선과 다른 꼬리 패턴 또는 미시 잔차 개선이 나타나야 한다.",
               status: "부분 검증 진행 중",
@@ -354,7 +414,7 @@ export default async function VerificationResultsPage() {
             },
           ].map((claim) => (
             <div key={claim.id} className="rounded-xl border border-slate-700/50 bg-slate-950/40 p-5">
-              <p className={`text-[11px] font-semibold uppercase tracking-wider text-${claim.color}-300`}>
+              <p className={`text-[11px] font-semibold uppercase tracking-wider ${claim.tone}`}>
                 claim {claim.id}
               </p>
               <h3 className="mt-1 text-base font-bold text-white">{claim.title}</h3>

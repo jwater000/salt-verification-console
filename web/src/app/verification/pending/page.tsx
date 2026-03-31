@@ -113,6 +113,48 @@ export default function VerificationPendingPage() {
         </p>
       </div>
 
+      <div className="grid gap-4 md:grid-cols-3">
+        <div className="rounded-2xl border border-amber-500/20 bg-slate-950/40 p-5">
+          <p className="text-xs uppercase tracking-[0.16em] text-slate-500">Pending Themes</p>
+          <p className="mt-2 text-3xl font-bold text-amber-300">{PENDING_ITEMS.length}</p>
+          <p className="mt-1 text-xs text-slate-500">큰 가설 묶음 단위</p>
+        </div>
+        <div className="rounded-2xl border border-emerald-500/20 bg-slate-950/40 p-5">
+          <p className="text-xs uppercase tracking-[0.16em] text-slate-500">Ready Formulas</p>
+          <p className="mt-2 text-3xl font-bold text-emerald-300">{FORMULAS_READY.length}</p>
+          <p className="mt-1 text-xs text-slate-500">이미 제시된 핵심 식</p>
+        </div>
+        <div className="rounded-2xl border border-slate-800 bg-slate-950/40 p-5">
+          <p className="text-xs uppercase tracking-[0.16em] text-slate-500">Missing Pieces</p>
+          <p className="mt-2 text-3xl font-bold text-slate-200">{FORMULAS_NEEDED.length}</p>
+          <p className="mt-1 text-xs text-slate-500">운영형 매핑/score 공백</p>
+        </div>
+      </div>
+
+      <div className="panel px-6 py-5">
+        <h2 className="mb-4 text-sm font-semibold text-white">대기 상태를 읽는 방법</h2>
+        <div className="grid gap-4 md:grid-cols-3">
+          <div>
+            <p className="text-xs uppercase tracking-[0.16em] text-slate-500">Verified</p>
+            <p className="mt-2 text-sm leading-relaxed text-slate-300">
+              이미 기존 물리에서 검증된 사실. SALT는 이를 다른 언어로 재해석하려고 한다.
+            </p>
+          </div>
+          <div>
+            <p className="text-xs uppercase tracking-[0.16em] text-slate-500">Hypothesis</p>
+            <p className="mt-2 text-sm leading-relaxed text-slate-300">
+              SALT가 제안하는 해석적 연결. 아직 운영형 데이터-식-판정 규칙이 완전히 잠기지 않았다.
+            </p>
+          </div>
+          <div>
+            <p className="text-xs uppercase tracking-[0.16em] text-slate-500">Prediction</p>
+            <p className="mt-2 text-sm leading-relaxed text-slate-300">
+              실제 검증 채널로 바꾸려면 공개 데이터 열과 비교식, score 규칙까지 모두 고정돼야 한다.
+            </p>
+          </div>
+        </div>
+      </div>
+
       {/* Pending items */}
       <div className="space-y-6">
         {PENDING_ITEMS.map((item) => (
@@ -233,7 +275,10 @@ export default function VerificationPendingPage() {
       {/* Nav */}
       <div className="flex items-center justify-between border-t border-slate-800 pt-5">
         <Link href="/verification/results" className="text-sm text-slate-400 hover:text-white">← 판정 결과</Link>
-        <Link href="/verification" className="text-sm text-slate-400 hover:text-white">Verification 개요 →</Link>
+        <div className="flex gap-3">
+          <Link href="/verification" className="text-sm text-slate-400 hover:text-white">Verification 개요 →</Link>
+          <Link href="/audit/reproduce" className="text-sm text-emerald-400 hover:underline">재현 방법 →</Link>
+        </div>
       </div>
     </section>
   );
