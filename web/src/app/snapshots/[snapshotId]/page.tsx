@@ -19,8 +19,8 @@ export default async function SnapshotDetailPage({ params }: { params: Promise<{
             <Link href="/snapshots" className="text-cyan-300 underline underline-offset-4">
               snapshot 목록
             </Link>
-            <Link href="/evaluation" className="text-cyan-300 underline underline-offset-4">
-              결과 보고
+            <Link href="/verification/results" className="text-cyan-300 underline underline-offset-4">
+              판정 결과
             </Link>
           </div>
         </div>

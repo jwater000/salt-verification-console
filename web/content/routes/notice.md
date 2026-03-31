@@ -6,10 +6,10 @@
 
 ## 바뀐 점
 
-- `/evaluation`: 현재 고정 데이터셋 기준으로 자동 산출된 검증 결과 보고
-- `/predictions`: 아직 데이터 연결이 끝나지 않은 검증 대기 가설 공개
+- `/verification/results`: 현재 고정 데이터셋 기준으로 자동 산출된 검증 결과 보고
+- `/verification/pending`: 아직 데이터 연결이 끝나지 않은 검증 대기 가설 공개
 - `/audit/reproduce`: 동일 데이터, 동일 식, 동일 판정 규칙으로 재현하는 방법 정리
-- `/book/excerpts`: 도식, 이미지, 코드, 해설을 함께 보는 참고 자료
+- `/reference/visual-atlas`: 도식, 이미지, 코드, 해설을 함께 보는 참고 자료
 - `/engineering`: 향후 기술 활용 시나리오와 확장 가능성 정리
 - 도서 개정 후 장 매핑 반영: Intro `00`, Problem `01~05`, Clue/Concept `06~11`, Unified Solution `12~16`, Theory Core `17`, Prediction & Closure `18~20`, Appendix `21~28`
 - `도서 발췌`의 g24~g33 도해 번호를 실제 공개 이미지 파일과 다시 일치시킴
@@ -23,11 +23,11 @@
 
 ## 바로 가기
 
-- [검증 결과 보고](/evaluation)
-- [예측](/predictions)
+- [검증 결과 보고](/verification/results)
+- [예측](/verification/pending)
 - [재현 방법](/audit/reproduce)
 - [출처 공개](/audit/sources)
-- [도서 발췌](/book/excerpts)
+- [도해 아틀라스](/reference/visual-atlas)
 
 ## 참고
 

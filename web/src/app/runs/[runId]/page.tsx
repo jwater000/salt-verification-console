@@ -77,8 +77,8 @@ export default async function RunDetailPage({ params }: { params: Promise<{ runI
             >
               linked snapshot
             </Link>
-            <Link href="/evaluation" className="text-cyan-300 underline underline-offset-4">
-              결과 보고
+            <Link href="/verification/results" className="text-cyan-300 underline underline-offset-4">
+              판정 결과
             </Link>
           </div>
         </div>

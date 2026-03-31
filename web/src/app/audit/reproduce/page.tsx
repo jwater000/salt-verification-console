@@ -89,8 +89,8 @@ export default async function AuditReproducePage() {
           [결론 + 재현 검증]`}
         </pre>
         <p className="mt-3 text-sm text-slate-400">
-          결과 자체는 <a className="text-cyan-300 underline underline-offset-4" href="/evaluation">/evaluation</a>에서 보고,
-          여기서는 그 결과가 같은 절차로 다시 나오는지를 확인합니다.
+          결과 자체는 <a className="text-cyan-300 underline underline-offset-4" href="/verification/results">/verification/results</a>
+          에서 보고, 여기서는 그 결과가 같은 절차로 다시 나오는지를 확인합니다.
         </p>
       </article>
       <article className="panel p-6 text-slate-200">
@@ -213,8 +213,8 @@ export default async function AuditReproducePage() {
         <p className="mt-4 text-sm leading-6 text-slate-400">
           요약하면, 위 항목들은 원리상 검증 불가능해서 빠진 것이 아닙니다. 공개 데이터 정규화, 예측모델식의 세밀화,
           그리고 판정 규칙의 운영잠금이 갖춰지면 같은 콘솔 구조 안으로 편입할 수 있습니다. 그 전까지는
-          <a className="ml-1 text-cyan-300 underline underline-offset-4" href="/predictions">
-            /predictions
+          <a className="ml-1 text-cyan-300 underline underline-offset-4" href="/verification/pending">
+            /verification/pending
           </a>
           에서 검증 대기 가설로 공개하는 편이 맞습니다.
         </p>
@@ -231,8 +231,15 @@ export default async function AuditReproducePage() {
           <li>frozen_manifest_sha256: <code>{evalManifest.frozen.manifest_sha256 || "-"}</code></li>
         </ul>
         <p className="mt-4 text-slate-400">
-          결과를 먼저 보고 싶다면 <a className="text-cyan-300 underline underline-offset-4" href="/evaluation">/evaluation</a>,
-          그림으로 먼저 이해하고 싶다면 <a className="text-cyan-300 underline underline-offset-4" href="/book/excerpts">/book/excerpts</a>를 보면 됩니다.
+          결과를 먼저 보고 싶다면{" "}
+          <a className="text-cyan-300 underline underline-offset-4" href="/verification/results">
+            /verification/results
+          </a>
+          , 그림으로 먼저 이해하고 싶다면{" "}
+          <a className="text-cyan-300 underline underline-offset-4" href="/reference/visual-atlas">
+            /reference/visual-atlas
+          </a>
+          를 보면 됩니다.
         </p>
       </article>
     </section>
