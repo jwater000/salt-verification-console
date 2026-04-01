@@ -102,22 +102,22 @@ const VERIFICATION_LANES = [
   {
     href: "/verification/results",
     title: "Results Board",
-    desc: "현재 frozen 데이터 기준으로 자동 산출된 실제 판정 결과를 본다.",
+    desc: "현재 frozen 데이터 기준 집계와 항목별 판정 결과를 확인할 수 있다.",
     tag: "지금 확인 가능",
     accent: "cyan",
   },
   {
     href: "/verification/pending",
     title: "Pending Queue",
-    desc: "가설은 있으나 아직 운영형 관측량과 score가 잠기지 않은 항목을 본다.",
+    desc: "가설은 있으나 아직 운영형 관측량과 score가 잠기지 않은 항목을 확인할 수 있다.",
     tag: "아직 미완성",
     accent: "amber",
   },
   {
     href: "/audit/reproduce",
     title: "Audit Trail",
-    desc: "같은 결과가 다시 나오는지 확인하기 위한 snapshot, run, hash, 재현 경로로 이동한다.",
-    tag: "신뢰 검증",
+    desc: "snapshot, run, hash를 바탕으로 산출 경로를 확인할 수 있다.",
+    tag: "재현 점검",
     accent: "emerald",
   },
 ] as const;
@@ -146,12 +146,11 @@ export default async function VerificationPage() {
           18장 · Verification
         </p>
         <h1 className="mt-3 text-3xl font-bold leading-tight tracking-tight text-white md:text-4xl">
-          SALT는 무엇으로 시험되는가
+          검증 자료는 어떻게 구성되어 있는가
         </h1>
         <p className="mt-4 max-w-2xl text-base leading-relaxed text-slate-300">
-          직접 관측이 아니라 <strong className="text-slate-100">관측 흔적의 정량 비교</strong>.
-          SALT는 3개의 고정된 검증 채널을 통해 시험된다. 판정 규칙과 기각 조건이 먼저 잠기고,
-          데이터는 그 이후에 적용된다.
+          이 섹션은 직접 관측이 아니라 <strong className="text-slate-100">관측 흔적의 정량 비교</strong>를
+          기준으로 정리되어 있다. 현재는 3개의 고정 채널과 검증 대기 항목을 구분해 볼 수 있다.
         </p>
         <div className="mt-6 flex flex-wrap gap-6 text-sm">
           <div>
@@ -357,7 +356,7 @@ export default async function VerificationPage() {
             {
               step: "04",
               title: "감사 경로",
-              body: "snapshot, run, reproduce 경로로 넘어가 결과의 신뢰 구조를 본다.",
+              body: "snapshot, run, reproduce 경로를 따라가며 산출 과정을 확인한다.",
             },
           ].map((item) => (
             <div key={item.step} className="rounded-xl border border-slate-800 bg-slate-950/40 p-4">

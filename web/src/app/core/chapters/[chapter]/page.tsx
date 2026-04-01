@@ -133,7 +133,7 @@ const CHAPTERS: Record<string, ChapterDef> = {
       },
       {
         heading: "판정 규칙의 사전 잠금 원칙",
-        body: "SALT 채널의 신뢰성은 데이터를 먼저 보고 채점 기준을 정하지 않는다는 데 있다. 관측량 정의 → 비교식 고정 → 기각 조건 명시 → frozen 데이터 적용 순서를 지킨다.",
+        body: "이 채널은 데이터를 먼저 보고 채점 기준을 바꾸지 않는다는 원칙 아래 정리된다. 관측량 정의 → 비교식 고정 → 기각 조건 명시 → frozen 데이터 적용 순서를 기준으로 삼는다.",
       },
       {
         heading: "후보 가설 묶음",
@@ -163,7 +163,7 @@ const CHAPTERS: Record<string, ChapterDef> = {
   "19": {
     num: "19",
     title: "공학적 함의",
-    oneLiner: "기존 기술을 SALT 언어로 다시 읽는다 — 해석 재정렬과 장기 공학 가설",
+    oneLiner: "기존 기술에 대한 SALT 해석과 장기 공학 가설을 구분해 정리한다",
     heroGradient: "from-[#031a0f] to-slate-950",
     accentColor: "emerald",
     status: "공학 가설",

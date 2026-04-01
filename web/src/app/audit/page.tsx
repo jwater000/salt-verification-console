@@ -5,27 +5,27 @@ const AUDIT_STEPS = [
   {
     href: "/audit/reproduce",
     title: "Reproduce",
-    body: "같은 코드와 같은 데이터로 실행해 같은 결론이 다시 나오는지 확인한다.",
+    body: "같은 코드와 같은 데이터로 실행했을 때 같은 산출 경로가 나오는지 확인할 수 있다.",
   },
   {
     href: "/snapshots",
     title: "Snapshots",
-    body: "현재 공개 기준이 되는 frozen dataset과 linked run 집계를 확인한다.",
+    body: "현재 공개 기준이 되는 frozen dataset과 linked run 집계를 확인할 수 있다.",
   },
   {
     href: "/runs",
     title: "Runs",
-    body: "실행 명령, verdict, artifact hash를 따라가며 provenance를 점검한다.",
+    body: "실행 명령, verdict, artifact hash를 따라가며 provenance를 점검할 수 있다.",
   },
   {
     href: "/audit/sources",
     title: "Sources",
-    body: "외부 공개 데이터와 참조 문헌의 출처 목록을 확인한다.",
+    body: "외부 공개 데이터와 참조 문헌의 출처 목록을 확인할 수 있다.",
   },
 ] as const;
 
 const PRINCIPLES = [
-  "결과만 보여주지 않고 계산 경로까지 함께 공개한다",
+  "결과와 함께 계산 경로를 같이 확인할 수 있게 정리한다",
   "frozen dataset 기준이 바뀌면 snapshot 버전이 함께 바뀐다",
   "같은 데이터, 같은 식, 같은 판정 규칙이 재현의 최소 조건이다",
   "검증 대기 가설은 결과판에 섞지 않는다",
@@ -39,13 +39,13 @@ export default async function AuditPage() {
       <div className="rounded-3xl border border-amber-500/20 bg-[linear-gradient(135deg,#1d1206_0%,#020617_65%,#111827_100%)] px-8 py-10">
         <p className="text-xs font-semibold uppercase tracking-[0.2em] text-amber-400">Audit</p>
         <h1 className="mt-3 text-3xl font-bold leading-tight tracking-tight text-white md:text-4xl">
-          이 사이트는 결과만이 아니라
+          재현 경로와 감사 자료를
           <br />
-          검증 경로도 함께 공개한다
+          함께 모아 둔 영역
         </h1>
         <p className="mt-4 max-w-2xl text-base leading-relaxed text-slate-300">
-          Audit는 신뢰 확보용 허브다. 누군가 SALT의 주장을 받아들이지 않더라도, 적어도 어떤 데이터와
-          어떤 코드, 어떤 잠금 규칙으로 결과가 나왔는지는 따라갈 수 있어야 한다.
+          Audit 섹션에는 사용된 데이터, 코드, 잠금 규칙, provenance 자료가 함께 정리되어 있다.
+          결과 집계와 별도로 산출 과정을 따라가려는 방문자를 위한 참고 영역이다.
         </p>
       </div>
 
@@ -90,7 +90,7 @@ export default async function AuditPage() {
 
       <div className="grid gap-4 lg:grid-cols-[1.1fr,0.9fr]">
         <div className="rounded-2xl border border-slate-800 bg-slate-950/40 p-6">
-          <h2 className="text-sm font-semibold text-white">이 허브의 운영 원칙</h2>
+          <h2 className="text-sm font-semibold text-white">이 영역의 정리 원칙</h2>
           <ul className="mt-5 space-y-3">
             {PRINCIPLES.map((item) => (
               <li key={item} className="flex gap-3 text-sm text-slate-300">

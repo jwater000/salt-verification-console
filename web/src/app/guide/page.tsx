@@ -4,20 +4,20 @@ const ROUTES = [
   {
     id: "A",
     audience: "처음 보는 방문자",
-    title: "핵심 주장만 빠르게 파악",
-    desc: "책의 전체 서사를 따라가지 않고도 SALT가 무엇을 주장하는지 먼저 이해한다.",
+    title: "주요 개념부터 차례로 살펴보기",
+    desc: "도서 전체를 순서대로 읽기 전에 주요 개념과 검증 구조를 먼저 확인할 수 있다.",
     steps: [
       { href: "/core", label: "Core", note: "상태변수와 논리 지도" },
-      { href: "/reference/visual-atlas", label: "Visual Atlas", note: "도해로 빠르게 압축 이해" },
-      { href: "/verification", label: "Verification", note: "그 주장이 어떻게 시험되는지 확인" },
+      { href: "/reference/visual-atlas", label: "Visual Atlas", note: "도해와 개념 흐름 참고" },
+      { href: "/verification", label: "Verification", note: "어떤 검증 자료가 정리되어 있는지 확인" },
     ],
     accent: "cyan",
   },
   {
     id: "B",
     audience: "검토자 / 투자자 / 평가자",
-    title: "결과와 신뢰 구조부터 확인",
-    desc: "주장의 매력보다 판정 결과와 재현성부터 보려는 경우에 적합하다.",
+    title: "결과와 재현 경로 먼저 확인",
+    desc: "판정 결과, 검증 대기 항목, 감사 자료를 우선해서 볼 때 적합한 경로다.",
     steps: [
       { href: "/verification/results", label: "Results", note: "현재 자동 산출된 판정 결과" },
       { href: "/verification/pending", label: "Pending", note: "아직 채점 전인 가설과 공백" },
@@ -27,13 +27,13 @@ const ROUTES = [
   },
   {
     id: "C",
-    audience: "기술 파트너 / 고객",
-    title: "활용 가능성과 한계를 함께 검토",
-    desc: "기술적 재해석이 어디까지인지, 현재 제품/기술 대화에 어떤 가치가 있는지 본다.",
+    audience: "기술 관심 방문자",
+    title: "기술적 해석과 한계 함께 보기",
+    desc: "기술적 함의가 어떤 층위에서 정리되어 있는지, 검증 결과와 어떻게 구분되는지 살펴볼 수 있다.",
     steps: [
       { href: "/engineering", label: "Engineering", note: "분야별 재해석과 성숙도" },
       { href: "/verification", label: "Verification", note: "근거가 되는 고정 채널" },
-      { href: "/reference/faq", label: "FAQ", note: "자주 생기는 오해 빠르게 정리" },
+      { href: "/reference/faq", label: "FAQ", note: "자주 나오는 질문과 구분점 정리" },
     ],
     accent: "violet",
   },
@@ -43,33 +43,33 @@ const SITE_ROLES = [
   {
     href: "/core",
     title: "Core",
-    body: "책의 핵심 논리만 남겨 이론적 뼈대를 설명한다.",
+    body: "도서의 주요 개념과 이론적 뼈대를 요약해 둔다.",
   },
   {
     href: "/verification",
     title: "Verification",
-    body: "SALT가 실제로 무엇으로 시험되는지와 현재 결과를 보여준다.",
+    body: "검증 채널과 현재 집계 결과를 항목별로 정리한다.",
   },
   {
     href: "/reference",
     title: "Reference",
-    body: "도해, 용어, FAQ, 구조도로 텍스트 이해 비용을 낮춘다.",
+    body: "도해, 용어, FAQ, 구조도를 함께 참고할 수 있게 정리한다.",
   },
   {
     href: "/engineering",
     title: "Engineering",
-    body: "기술적 함의를 검증 결과와 분리해 고객 대화용으로 정리한다.",
+    body: "기술적 해석과 가설을 검증 결과와 구분해 정리한다.",
   },
   {
     href: "/audit",
     title: "Audit",
-    body: "재현성과 provenance를 공개해 신뢰 구조를 확인하게 한다.",
+    body: "재현 경로와 provenance 자료를 확인할 수 있게 정리한다.",
   },
 ] as const;
 
 const DO_NOT_CONFUSE = [
   {
-    wrong: "결과판에 많이 나오면 이론 전체가 입증된 것",
+    wrong: "결과판에 많이 나오면 이론 전체의 타당성이 확정된 것",
     right: "지금은 고정 채널에서 SALT 오차가 기준선보다 작은지 보는 단계",
   },
   {
@@ -88,13 +88,13 @@ export default function GuidePage() {
       <div className="rounded-3xl border border-cyan-500/20 bg-[linear-gradient(135deg,#071827_0%,#020617_60%,#0f172a_100%)] px-8 py-10">
         <p className="text-xs font-semibold uppercase tracking-[0.2em] text-cyan-400">Guide</p>
         <h1 className="mt-3 text-3xl font-bold leading-tight tracking-tight text-white md:text-4xl">
-          책 전체를 읽기 전에
+          읽기 순서를 먼저 정하는
           <br />
-          어떤 경로로 들어올지 먼저 정한다
+          안내 페이지
         </h1>
         <p className="mt-4 max-w-2xl text-base leading-relaxed text-slate-300">
-          이 사이트는 장별 해설 모음이 아니라 핵심 주장, 검증 결과, 신뢰 구조, 기술적 함의를
-          웹에 맞게 다시 분해한 콘솔이다. 목적에 맞는 경로로 들어오면 훨씬 빠르게 파악할 수 있다.
+          이 페이지는 도서의 주요 내용과 검증 자료를 어떤 순서로 살펴보면 좋은지 안내한다.
+          관심사에 따라 개념, 결과, 참고 자료, 감사 자료로 나누어 접근할 수 있다.
         </p>
       </div>
 
@@ -160,24 +160,24 @@ export default function GuidePage() {
         </div>
 
         <div className="rounded-2xl border border-slate-800 bg-slate-950/40 p-6">
-          <h2 className="text-sm font-semibold text-white">빠르게 기억할 3가지</h2>
+          <h2 className="text-sm font-semibold text-white">먼저 확인할 3가지</h2>
           <div className="mt-5 space-y-4">
             <div>
               <p className="text-sm font-semibold text-slate-100">1. 책 전체를 그대로 옮기지 않는다</p>
               <p className="mt-1 text-sm text-slate-400">
-                본문은 요약되고, 웹에서는 비교표, 카드, 도해, 판정 보드로 다시 조직된다.
+                웹에서는 본문 전체 대신 비교표, 카드, 도해, 판정 보드 중심으로 정보를 정리한다.
               </p>
             </div>
             <div>
-              <p className="text-sm font-semibold text-slate-100">2. 결과와 가설을 분리한다</p>
+              <p className="text-sm font-semibold text-slate-100">2. 결과와 가설을 구분해 본다</p>
               <p className="mt-1 text-sm text-slate-400">
-                이미 계산된 것과 아직 검증 대기 중인 것을 같은 언어로 섞지 않는다.
+                이미 집계된 결과와 아직 검증 대기 중인 항목을 같은 층위에서 다루지 않는다.
               </p>
             </div>
             <div>
-              <p className="text-sm font-semibold text-slate-100">3. 설득보다 검증 구조를 먼저 보여준다</p>
+              <p className="text-sm font-semibold text-slate-100">3. 자료 성격을 먼저 확인한다</p>
               <p className="mt-1 text-sm text-slate-400">
-                결과, snapshot, run, reproduce를 한 체계 안에서 따라가게 만든다.
+                결과, snapshot, run, reproduce 자료를 나누어 확인할 수 있다.
               </p>
             </div>
           </div>

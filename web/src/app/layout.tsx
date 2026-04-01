@@ -6,8 +6,9 @@ import { loadFrozenManifest } from "@/lib/data";
 import SiteStructureMap from "@/components/site-structure-map";
 
 export const metadata: Metadata = {
-  title: "SALT 검증 · 설명 콘솔",
-  description: "SALT의 핵심 주장, 검증 결과, 재현 경로, 기술적 함의를 웹에 맞게 재구성한 설명형 콘솔.",
+  title: "물리학에 시공간은 없다 · 안내 사이트",
+  description:
+    "도서 '물리학에 시공간은 없다'의 주요 내용, 검증 자료, 참고 도해, 재현 경로를 차분하게 정리한 안내 사이트.",
 };
 
 export default async function RootLayout({

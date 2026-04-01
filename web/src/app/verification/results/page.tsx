@@ -109,7 +109,7 @@ export default async function VerificationResultsPage() {
           실제 판정 결과
         </h1>
         <p className="mt-3 max-w-2xl text-base leading-relaxed text-slate-300">
-          같은 데이터, 같은 규칙. SALT와 표준 이론의 오차를 frozen 데이터로 자동 산출한 집계다.
+          같은 데이터와 같은 규칙으로 계산한 집계 결과다. frozen 데이터 기준으로 SALT와 기준선의 오차를 비교해 정리했다.
         </p>
 
         {/* Summary row */}
@@ -149,7 +149,7 @@ export default async function VerificationResultsPage() {
           <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-slate-500">Overview</p>
           <h2 className="mt-2 text-lg font-bold text-white">왜 이 결과가 나왔는가</h2>
           <p className="mt-2 text-sm leading-relaxed text-slate-400">
-            채널 정의, 기각 조건, 상태변수-관측 흔적 관계를 먼저 다시 본다.
+            채널 정의, 기각 조건, 상태변수와 관측 흔적의 관계를 다시 확인할 수 있다.
           </p>
         </Link>
         <Link
@@ -159,7 +159,7 @@ export default async function VerificationResultsPage() {
           <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-amber-300">Pending Queue</p>
           <h2 className="mt-2 text-lg font-bold text-white">무엇이 아직 계산되지 않았는가</h2>
           <p className="mt-2 text-sm leading-relaxed text-slate-400">
-            결과판에 없는 항목이 왜 빠져 있는지와 필요한 데이터/식 공백을 확인한다.
+            결과판에 포함되지 않은 항목과 필요한 데이터, 식의 공백을 확인할 수 있다.
           </p>
         </Link>
         <Link
@@ -169,7 +169,7 @@ export default async function VerificationResultsPage() {
           <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-emerald-300">Audit Trail</p>
           <h2 className="mt-2 text-lg font-bold text-white">같은 결과를 다시 얻는 법</h2>
           <p className="mt-2 text-sm leading-relaxed text-slate-400">
-            frozen dataset, manifest, run provenance를 따라가며 결과를 재현한다.
+            frozen dataset, manifest, run provenance를 따라가며 같은 산출 경로를 확인할 수 있다.
           </p>
         </Link>
       </div>
@@ -199,13 +199,13 @@ export default async function VerificationResultsPage() {
           <div>
             <p className="text-xs uppercase tracking-[0.16em] text-slate-500">What this page proves</p>
             <p className="mt-2 text-sm leading-relaxed text-slate-300">
-              frozen 조건에서 SALT 오차가 기준선보다 작은 채널이 어디인지 보여준다.
+              frozen 조건에서 SALT 오차가 기준선보다 작은 채널이 어디인지 정리한다.
             </p>
           </div>
           <div>
             <p className="text-xs uppercase tracking-[0.16em] text-slate-500">What it does not prove</p>
             <p className="mt-2 text-sm leading-relaxed text-slate-300">
-              이론 전체의 완결 입증이나 공학 가설의 실현 가능성까지 자동으로 보장하지는 않는다.
+              이 집계만으로 이론 전체의 완결성이나 공학적 해석의 타당성까지 판단할 수는 없다.
             </p>
           </div>
           <div>
@@ -428,7 +428,7 @@ export default async function VerificationResultsPage() {
 
       {/* Disclaimer */}
       <div className="rounded-lg border border-amber-500/20 bg-amber-950/15 px-5 py-4 text-sm text-amber-100/80">
-        이 페이지는 "홀로그램 원리 자체가 입증됐다"가 아니라, 경계에서 측정한 지연/적색편이/잔차 패턴을
+        이 페이지는 "홀로그램 원리 자체의 타당성이 확정됐다"가 아니라, 경계에서 측정한 지연/적색편이/잔차 패턴을
         대상으로 실제 시험을 돌렸고 그 승패와 미결정 상태를 공개한다는 뜻이다.
       </div>
 

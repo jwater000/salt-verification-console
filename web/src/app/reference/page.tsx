@@ -4,25 +4,25 @@ const SECTIONS = [
   {
     href: "/reference/visual-atlas",
     title: "Visual Atlas",
-    desc: "g00~g33 도해를 의미 단위로 큐레이션해 빠르게 맥락을 잡게 한다.",
+    desc: "g00~g33 도해를 의미 단위로 묶어 맥락을 따라가며 볼 수 있게 정리한다.",
     tag: "시각화",
   },
   {
     href: "/reference/glossary",
     title: "Glossary",
-    desc: "ρ, θ, L, LIV 같은 핵심 용어를 표준 이론과의 관계 속에서 읽게 한다.",
+    desc: "ρ, θ, L, LIV 같은 주요 용어를 표준 이론과의 관계 속에서 정리한다.",
     tag: "개념 사전",
   },
   {
     href: "/reference/faq",
     title: "FAQ",
-    desc: "외부 검토자와 고객이 가장 먼저 묻는 질문을 짧고 방어적으로 정리한다.",
+    desc: "자주 확인하는 질문과 쟁점을 짧은 문답 형식으로 정리한다.",
     tag: "대화 준비",
   },
   {
     href: "/reference/book-map",
     title: "Book Map",
-    desc: "00~28장이 현재 웹 구조 어디에 압축 반영됐는지 연결 관계를 보여준다.",
+    desc: "00~28장이 현재 웹 구조의 어느 페이지와 연결되는지 정리해 둔다.",
     tag: "구조도",
   },
 ] as const;
@@ -38,13 +38,13 @@ const HIGHLIGHTS = [
     href: "/reference/faq",
     src: "/book-graphs/g25_faq_claim_matrix.jpg",
     title: "오해를 먼저 정리",
-    body: "SALT가 무엇을 주장하지 않는지까지 포함해 설명 비용을 줄인다.",
+    body: "자주 나오는 오해와 구분이 필요한 표현을 함께 정리해 둔다.",
   },
   {
     href: "/reference/book-map",
     src: "/book-graphs/g26_unified_phase_portrait.jpg",
     title: "책과 웹의 대응 관계 확인",
-    body: "각 장을 그대로 노출하지 않고 어떤 웹 페이지에서 기능적으로 재구성했는지 보여준다.",
+    body: "각 장이 어떤 웹 페이지와 대응하는지, 기능상 어떤 역할로 배치되어 있는지 정리한다.",
   },
 ] as const;
 
@@ -54,13 +54,13 @@ export default function ReferencePage() {
       <div className="rounded-3xl border border-violet-500/20 bg-[linear-gradient(135deg,#120b22_0%,#020617_60%,#0f172a_100%)] px-8 py-10">
         <p className="text-xs font-semibold uppercase tracking-[0.2em] text-violet-400">Reference</p>
         <h1 className="mt-3 text-3xl font-bold leading-tight tracking-tight text-white md:text-4xl">
-          책을 읽지 않고도
+          도해와 용어를 함께 볼 수 있는
           <br />
-          빠르게 이해하도록 돕는 시각 허브
+          참고 자료 모음
         </h1>
         <p className="mt-4 max-w-2xl text-base leading-relaxed text-slate-300">
-          레퍼런스 섹션은 본문 저장소가 아니다. 도해, 용어, FAQ, 구조도를 통해 이해 속도를 높이고
-          외부와의 대화 비용을 줄이는 보조 허브다.
+          이 섹션에는 본문과 함께 참고할 수 있는 도해, 용어, FAQ, 구조도가 정리되어 있다.
+          각 항목은 내용을 항목별로 찾아볼 수 있도록 별도의 페이지로 나누어 두었다.
         </p>
       </div>
 

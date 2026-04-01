@@ -157,8 +157,8 @@ export default function BookMapPage() {
           책 전체 구조도
         </h1>
         <p className="mt-3 max-w-xl text-base leading-relaxed text-slate-300">
-          00~28장 전체 {totalChapters}개 장의 목적과 웹 경로 연결. 각 장이 어떤 역할인지,
-          웹의 어느 페이지와 연결되는지 한눈에 확인할 수 있다.
+          00~28장 전체 {totalChapters}개 장의 역할과 웹 경로 연결을 정리한 페이지다.
+          각 장이 현재 사이트의 어느 영역과 연결되는지 순서대로 확인할 수 있다.
         </p>
 
         {/* Part index */}

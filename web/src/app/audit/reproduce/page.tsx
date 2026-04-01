@@ -11,7 +11,7 @@ export default async function AuditReproducePage() {
       <article className="panel p-6 text-slate-200">
         <h1 className="text-2xl font-bold text-white">재현 방법</h1>
         <p className="mt-2 text-slate-300">
-          목표는 간단합니다. 같은 데이터와 같은 코드로 실행해서, 같은 결론을 다시 얻는 것입니다.
+          이 페이지는 같은 데이터와 같은 코드로 실행했을 때 같은 산출 경로가 나오는지 확인하는 절차를 정리한다.
         </p>
         <div className="mt-4 grid gap-3 md:grid-cols-3">
           <div className="rounded-lg border border-slate-700/70 bg-slate-900/50 p-4">
@@ -29,7 +29,7 @@ export default async function AuditReproducePage() {
         </div>
         <div className="mt-4 grid gap-3 md:grid-cols-2">
           <div className="rounded-lg border border-cyan-500/30 bg-cyan-950/20 p-4">
-            <p className="text-xs text-cyan-200/80">빠른 성공 기준</p>
+            <p className="text-xs text-cyan-200/80">기본 확인 항목</p>
             <p className="mt-1 text-sm text-cyan-100">3개 명령 실행 + 해시 4종 일치</p>
           </div>
           <div className="rounded-lg border border-emerald-500/30 bg-emerald-950/20 p-4">
@@ -39,10 +39,10 @@ export default async function AuditReproducePage() {
         </div>
       </article>
       <article className="panel p-6 text-slate-200">
-        <h2 className="text-xl font-semibold text-white">왜 이 페이지를 만들었나</h2>
+        <h2 className="text-xl font-semibold text-white">이 페이지의 용도</h2>
         <p className="mt-2 text-sm leading-6 text-slate-300">
-          아주 간단히 말하면, 이 페이지는 SALT가 표준이론보다 실제 관측값에 더 잘 맞는가를 같은 조건으로
-          다시 확인하기 위해 있습니다. 중요한 것은 주장 강도가 아니라 비교 방식입니다.
+          이 페이지는 SALT와 기준선의 비교 결과를 같은 조건에서 다시 따라가 볼 수 있도록 구성되어 있다.
+          핵심은 결론의 강도보다 비교 절차와 잠금 조건의 일치 여부를 확인하는 데 있다.
         </p>
         <div className="mt-4 flex flex-wrap gap-2 text-xs text-slate-300">
           <span className="rounded-full border border-slate-700 bg-slate-900/70 px-3 py-1">같은 데이터</span>
@@ -54,7 +54,7 @@ export default async function AuditReproducePage() {
       <article className="panel p-6 text-slate-200">
         <h2 className="text-xl font-semibold text-white">Provenance 보기</h2>
         <p className="mt-2 text-sm leading-6 text-slate-300">
-          설명 문서와 함께 현재 공개 snapshot과 연결된 실행 provenance를 바로 따라갈 수 있습니다.
+          설명 문서와 함께 현재 공개 snapshot과 연결된 실행 provenance를 바로 따라갈 수 있다.
         </p>
         <div className="mt-4 grid gap-3 md:grid-cols-2">
           <a href="/runs" className="rounded-lg border border-cyan-500/30 bg-cyan-950/25 p-4 transition hover:border-cyan-400">
@@ -90,14 +90,14 @@ export default async function AuditReproducePage() {
         </pre>
         <p className="mt-3 text-sm text-slate-400">
           결과 자체는 <a className="text-cyan-300 underline underline-offset-4" href="/verification/results">/verification/results</a>
-          에서 보고, 여기서는 그 결과가 같은 절차로 다시 나오는지를 확인합니다.
+          에서 확인할 수 있고, 이 페이지에서는 같은 절차로 같은 산출 경로가 나오는지를 살펴볼 수 있다.
         </p>
       </article>
       <article className="panel p-6 text-slate-200">
-        <h2 className="text-xl font-semibold text-white">어떻게 객관성을 지키나</h2>
+        <h2 className="text-xl font-semibold text-white">자료 공개 방식</h2>
         <p className="mt-2 text-sm leading-6 text-slate-300">
-          이 프로젝트는 결론 문장을 세게 쓰기보다 근거를 같이 공개하는 방식을 택합니다. 그래서 누가 다시 돌려도
-          같은 조건인지 먼저 확인할 수 있어야 합니다.
+          이 페이지는 결과 문장보다 근거 자료를 함께 공개하는 방식을 기준으로 한다.
+          따라서 같은 조건인지 먼저 확인할 수 있어야 한다.
         </p>
         <ul className="mt-3 list-disc space-y-1 pl-5 text-sm text-slate-300">
           <li>데이터 출처 공개</li>
@@ -109,8 +109,8 @@ export default async function AuditReproducePage() {
       <article className="panel p-6 text-slate-200">
         <h2 className="text-xl font-semibold text-white">SALT와 표준이론은 무엇이 다른가</h2>
         <p className="mt-2 text-sm leading-6 text-slate-300">
-          두 모델 모두 같은 관측값을 입력으로 받습니다. 다른 점은 입력을 해석하는 함수형입니다. 핵심은 어느 쪽이
-          더 그럴듯해 보이는지가 아니라, 실제 오차가 어느 쪽이 더 작은가입니다.
+          두 모델 모두 같은 관측값을 입력으로 받는다. 다른 점은 입력을 해석하는 함수형이다.
+          이 페이지에서는 인상적 표현보다 실제 오차가 어떻게 비교되는지를 기준으로 본다.
         </p>
         <ul className="mt-3 list-disc space-y-1 pl-5 text-sm text-slate-300">
           <li>표준이론: 기존 문헌 기반 기준식을 중심으로 예측</li>
@@ -211,12 +211,12 @@ export default async function AuditReproducePage() {
           </table>
         </div>
         <p className="mt-4 text-sm leading-6 text-slate-400">
-          요약하면, 위 항목들은 원리상 검증 불가능해서 빠진 것이 아닙니다. 공개 데이터 정규화, 예측모델식의 세밀화,
-          그리고 판정 규칙의 운영잠금이 갖춰지면 같은 콘솔 구조 안으로 편입할 수 있습니다. 그 전까지는
+          요약하면, 위 항목들은 원리상 검증이 불가능해서 빠진 것이 아니다. 공개 데이터 정규화, 예측모델식의 세밀화,
+          그리고 판정 규칙의 운영잠금이 갖춰지면 같은 콘솔 구조 안으로 편입할 수 있다. 그 전까지는
           <a className="ml-1 text-cyan-300 underline underline-offset-4" href="/verification/pending">
             /verification/pending
           </a>
-          에서 검증 대기 가설로 공개하는 편이 맞습니다.
+          에서 검증 대기 가설로 분리해 두는 편이 적절하다.
         </p>
       </article>
       <article className="panel p-6 text-slate-300">
@@ -239,7 +239,7 @@ export default async function AuditReproducePage() {
           <a className="text-cyan-300 underline underline-offset-4" href="/reference/visual-atlas">
             /reference/visual-atlas
           </a>
-          를 보면 됩니다.
+          를 차례로 참고할 수 있다.
         </p>
       </article>
     </section>

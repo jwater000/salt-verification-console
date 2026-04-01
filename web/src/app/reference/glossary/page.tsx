@@ -139,7 +139,7 @@ export default function GlossaryPage() {
         <h1 className="mt-3 text-3xl font-bold leading-tight tracking-tight text-white">용어 사전</h1>
         <p className="mt-3 max-w-xl text-base leading-relaxed text-slate-300">
           SALT 핵심 용어와 표준 이론 용어의 정의 및 대응 관계.
-          각 항목은 표준 이론에서의 의미와 SALT에서의 재해석을 나란히 보여준다.
+          각 항목은 표준 이론에서의 의미와 SALT에서의 해석을 나란히 정리한다.
         </p>
         {/* Category filter index */}
         <div className="mt-5 flex flex-wrap gap-2">

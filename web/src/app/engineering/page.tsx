@@ -103,28 +103,28 @@ const COLOR_MAP: Record<string, { border: string; iconBg: string; iconText: stri
 const CUSTOMER_USE_CASES = [
   {
     title: "기술 브리핑",
-    body: "기존 기술을 SALT 언어로 다시 읽을 때 어떤 질문이 새로 생기는지 보여준다.",
+    body: "기존 기술을 SALT 언어로 읽을 때 어떤 해석 차이가 생기는지 정리한다.",
     href: "/reference/faq",
     cta: "FAQ로 연결",
   },
   {
     title: "검증 근거 연결",
-    body: "공학적 해석이 공중에 뜨지 않도록 18장의 고정 채널과 연결해 읽게 만든다.",
+    body: "공학적 해석을 검증 자료와 함께 볼 수 있도록 18장 관련 페이지로 연결한다.",
     href: "/verification",
     cta: "Verification 보기",
   },
   {
-    title: "신뢰 확보",
-    body: "아이디어 설명만이 아니라 재현 가능한 결과 체계가 있다는 점까지 함께 제시한다.",
+    title: "감사 자료 확인",
+    body: "관련 산출물의 provenance와 재현 경로를 함께 확인할 수 있게 연결한다.",
     href: "/audit",
     cta: "Audit 보기",
   },
 ] as const;
 
 const PAGE_BOUNDARIES = [
-  "이 페이지는 제품 제안서가 아니라 해석과 기회 영역을 정리한 대화용 페이지다",
-  "여기서 말하는 함의는 Verification에서 잠긴 결과와 분리해서 읽어야 한다",
-  "성숙도 라벨은 현재 검증 수준을 뜻하며 사업성 확정 신호가 아니다",
+  "이 페이지는 제품 제안서가 아니라 기술적 해석과 가설의 범위를 정리한 참고 페이지다",
+  "여기서 다루는 함의는 Verification의 집계 결과와 구분해 읽어야 한다",
+  "성숙도 라벨은 현재 검증 수준을 가리키며 실현 가능성의 확정을 뜻하지 않는다",
 ];
 
 export default function EngineeringPage() {
@@ -137,15 +137,15 @@ export default function EngineeringPage() {
           19장 · Engineering
         </p>
         <h1 className="mt-3 text-3xl font-bold leading-tight tracking-tight text-white md:text-4xl">
-          기존 기술을 SALT 언어로 다시 읽는다
+          기술적 함의를 참고용으로 정리한 페이지
         </h1>
         <p className="mt-4 max-w-2xl text-base leading-relaxed text-slate-300">
-          19장은 검증 완료 결과를 담지 않는다. SALT 해석이 맞다면 기존 기술이 어떻게
-          다르게 읽히는지, 그리고 어느 분야가 장기 공학 가설로 열리는지를 정리한다.
+          이 페이지는 검증 완료 결과를 제시하는 곳이 아니다. 도서 19장에서 다루는 기술적
+          해석과 장기 가설을 구분해 참고할 수 있도록 정리한다.
         </p>
         <div className="mt-5 inline-flex items-center gap-2 rounded-lg border border-amber-500/20 bg-amber-950/20 px-4 py-2 text-xs text-amber-200/80">
           <span className="h-1.5 w-1.5 rounded-full bg-amber-400" />
-          이 페이지의 내용은 검증된 결과가 아니라 해석 재정렬과 설계 가설이다
+          이 페이지의 내용은 검증 결과가 아니라 해석 정리와 설계 가설에 해당한다
         </div>
       </div>
 
@@ -226,14 +226,14 @@ export default function EngineeringPage() {
 
               <div className="mt-4 rounded-lg border border-slate-800 bg-slate-900/35 px-4 py-3">
                 <p className="text-[11px] font-semibold uppercase tracking-wider text-slate-500">
-                  고객 대화에서의 의미
+                  참고 메모
                 </p>
                 <p className="mt-2 text-sm text-slate-400">
                   {domain.maturity === "interpretive"
-                    ? "현재 기술과 실험을 다른 물리 언어로 설명하는 데 유용하다."
+                    ? "현재 기술과 실험을 다른 물리 언어로 읽어 보는 참고 해석에 가깝다."
                     : domain.maturity === "speculative"
-                      ? "추가 검증 채널이 생기면 설계 가설로 발전할 수 있지만 지금은 탐색 단계다."
-                      : "장기적 연구 테마로는 의미가 있으나 직접적인 구현 주장으로 읽어서는 안 된다."}
+                      ? "추가 검증 채널이 마련되면 설계 가설로 이어질 수 있으나, 현재는 탐색 단계다."
+                      : "장기적 연구 주제로는 참고할 수 있으나, 직접적인 구현 주장으로 읽기에는 이르다."}
                 </p>
               </div>
             </div>
@@ -243,7 +243,7 @@ export default function EngineeringPage() {
 
       {/* Maturity legend */}
       <div className="panel px-6 py-5">
-        <h2 className="mb-4 text-sm font-bold text-white">공학 함의 성숙도 구분</h2>
+        <h2 className="mb-4 text-sm font-bold text-white">공학 함의의 성숙도 구분</h2>
         <div className="grid gap-4 md:grid-cols-3">
           {(Object.entries(MATURITY_CONFIG) as [MaturityLevel, typeof MATURITY_CONFIG[MaturityLevel]][]).map(
             ([key, val]) => (

@@ -7,32 +7,32 @@ const NAV_ITEMS = [
   {
     path: "/guide",
     label: "Guide",
-    desc: "SALT 입문 허브",
+    desc: "읽기 순서 안내",
   },
   {
     path: "/core",
     label: "Core Ideas",
-    desc: "핵심 논리 · 장별 압축",
+    desc: "주요 개념 정리",
   },
   {
     path: "/verification",
     label: "Verification",
-    desc: "18장 · 검증 채널 · 판정",
+    desc: "검증 자료와 판정",
   },
   {
     path: "/engineering",
     label: "Engineering",
-    desc: "19장 · 기술 재해석",
+    desc: "기술적 해석 정리",
   },
   {
     path: "/reference",
     label: "Reference",
-    desc: "도해 · 용어 · FAQ · 구조도",
+    desc: "도해 · 용어 · FAQ",
   },
   {
     path: "/audit",
     label: "Audit",
-    desc: "재현 · 데이터 · Provenance",
+    desc: "재현 경로와 데이터",
   },
 ];
 
@@ -51,7 +51,7 @@ export default function SiteStructureMap() {
             <span className="flex h-6 w-6 items-center justify-center rounded bg-cyan-500/20 text-[10px] font-bold text-cyan-300">
               S
             </span>
-            <span>SALT 검증 · 설명 콘솔</span>
+            <span>물리학에 시공간은 없다</span>
           </Link>
 
           {/* Desktop nav */}

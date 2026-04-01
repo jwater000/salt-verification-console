@@ -24,22 +24,22 @@ const VISITOR_LANES = [
   {
     href: "/guide",
     eyebrow: "For First-Time Visitors",
-    title: "무엇을 주장하는지부터 이해",
-    body: "책 전체를 읽지 않아도 된다. SALT의 핵심 주장, 검증 구조, 읽는 순서를 먼저 잡는다.",
+    title: "먼저 읽을 경로를 정리",
+    body: "도서의 주요 주제와 사이트 구성, 권장 읽기 순서를 차분히 살펴볼 수 있다.",
     accent: "cyan",
   },
   {
     href: "/verification/results",
     eyebrow: "For Evaluators",
-    title: "지금 판정된 결과부터 확인",
-    body: "frozen 데이터 기준으로 SALT와 기준선 오차를 비교한 실제 결과판으로 바로 들어간다.",
+    title: "검증 결과부터 확인",
+    body: "frozen 데이터 기준 집계와 항목별 판정 결과를 먼저 검토할 수 있다.",
     accent: "emerald",
   },
   {
     href: "/audit",
     eyebrow: "For Reviewers",
-    title: "재현성과 신뢰 구조 점검",
-    body: "어떤 데이터와 규칙으로 계산했는지, 누가 다시 돌려도 같은 결론이 나오는지 확인한다.",
+    title: "재현 경로 확인",
+    body: "사용된 데이터, 규칙, 산출 경로를 따라가며 재현 가능성을 점검할 수 있다.",
     accent: "amber",
   },
 ] as const;
@@ -49,33 +49,33 @@ const CORE_AREAS = [
     href: "/core",
     title: "Core",
     label: "이론 압축",
-    body: "00~17장의 핵심 논리만 추려 공간 밀도, 상태변수, 관측 흔적의 관계를 설명한다.",
+    body: "00~17장의 주요 개념과 상태변수, 관측 흔적의 관계를 요약해 둔 영역이다.",
   },
   {
     href: "/verification",
     title: "Verification",
     label: "검증 엔진",
-    body: "고정된 3개 채널과 판정 규칙, 결과판, 검증 대기 항목을 한 흐름으로 보여준다.",
+    body: "검증 채널, 판정 규칙, 결과 집계, 검증 대기 항목을 항목별로 정리한 영역이다.",
   },
   {
     href: "/reference",
     title: "Reference",
     label: "시각 허브",
-    body: "도해, 용어, FAQ, 책 구조도를 통해 텍스트보다 빠르게 이해하도록 돕는다.",
+    body: "도해, 용어, FAQ, 책 구조도를 통해 본문과 함께 참고할 수 있는 자료를 모아 둔다.",
   },
   {
     href: "/engineering",
     title: "Engineering",
-    label: "고객 대화",
-    body: "기술적 함의를 현재 검증 결과와 분리해, 어디까지가 해석이고 어디부터가 가설인지 구분한다.",
+    label: "기술 해석",
+    body: "기술적 함의를 검증 결과와 구분해 정리하고, 해석과 가설의 범위를 나누어 소개한다.",
   },
 ] as const;
 
 const TRUST_POINTS = [
-  "같은 데이터와 같은 규칙으로 SALT와 기준선을 비교한다",
-  "검증 완료 항목과 검증 대기 항목을 분리해 보여준다",
-  "결과뿐 아니라 snapshot, run, hash까지 함께 공개한다",
-  "책 전체를 옮기지 않고 웹에 맞는 설명 구조로 다시 편집한다",
+  "같은 데이터와 같은 규칙으로 비교한 결과를 기준으로 정리한다",
+  "검증 완료 항목과 검증 대기 항목을 구분해 표시한다",
+  "결과와 함께 snapshot, run, hash 정보를 확인할 수 있다",
+  "도서 본문과 별도로, 웹에서 참고하기 쉬운 형식으로 내용을 나누어 배치한다",
 ];
 
 export default async function HomePage() {
@@ -110,16 +110,16 @@ export default async function HomePage() {
         <div className="relative grid gap-8 lg:grid-cols-[1.4fr,0.9fr]">
           <div>
             <p className="inline-flex items-center gap-2 rounded-full border border-cyan-500/25 bg-cyan-500/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-cyan-300">
-              SALT Verification Console
+              Book Guide and Verification Reference
             </p>
             <h1 className="mt-4 max-w-3xl text-4xl font-bold leading-[1.05] tracking-tight text-white md:text-5xl">
-              책을 그대로 옮기지 않고
+              물리학에 시공간은 없다
               <br />
-              핵심 주장과 검증 구조만 남긴다
+              안내와 참고를 위한 웹사이트
             </h1>
             <p className="mt-5 max-w-2xl text-base leading-relaxed text-slate-300 md:text-lg">
-              이 사이트의 목적은 00~28장을 웹에 맞게 다시 구성하는 것이다. 방문자는 핵심 주장,
-              실제 판정 결과, 재현 가능성, 기술적 함의를 각자 필요한 깊이로 탐색할 수 있다.
+              이 사이트에는 도서의 주요 개념, 검증 관련 자료, 참고 도해, 재현 절차가 항목별로
+              정리되어 있다. 방문자는 관심에 따라 개요, 결과, 용어, 감사 자료를 차례로 살펴볼 수 있다.
             </p>
             <div className="mt-7 flex flex-wrap gap-3">
               <Link
@@ -207,18 +207,18 @@ export default async function HomePage() {
             {[
               {
                 step: "01",
-                title: "주장을 빠르게 이해",
-                body: "Core와 Reference에서 공간 밀도, 상태변수, 관측 흔적만 추려 본다.",
+                title: "개요를 먼저 읽기",
+                body: "Core와 Reference에서 주요 개념과 도해를 먼저 살펴본다.",
               },
               {
                 step: "02",
-                title: "결과와 대기를 분리해 확인",
-                body: "Verification에서 지금 판정된 것과 아직 운영 잠금 전인 항목을 분리해서 본다.",
+                title: "검증 자료를 구분해 확인",
+                body: "Verification에서 집계 결과와 검증 대기 항목을 나누어 확인한다.",
               },
               {
                 step: "03",
-                title: "신뢰 구조를 검증",
-                body: "Audit에서 snapshot, run, manifest hash를 통해 재현 경로를 따라간다.",
+                title: "재현 경로를 확인",
+                body: "Audit에서 snapshot, run, manifest hash를 통해 산출 경로를 따라간다.",
               },
             ].map((item) => (
               <div key={item.step} className="grid gap-3 sm:grid-cols-[auto,1fr]">
@@ -235,7 +235,7 @@ export default async function HomePage() {
         </div>
 
         <div className="rounded-2xl border border-slate-800 bg-slate-950/40 p-6">
-          <h2 className="text-sm font-semibold text-white">신뢰 확보 원칙</h2>
+          <h2 className="text-sm font-semibold text-white">정리 원칙</h2>
           <ul className="mt-5 space-y-3">
             {TRUST_POINTS.map((item) => (
               <li key={item} className="flex gap-3 text-sm text-slate-300">

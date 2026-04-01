@@ -28,8 +28,8 @@ const FAQS: FAQ[] = [
   // 검증 관련
   {
     category: "검증",
-    q: "현재 검증 결과는 SALT가 옳다는 것을 증명하는가?",
-    a: "아니다. 현재 결과는 고정된 3개 채널에서 SALT 오차가 표준 기준선 오차보다 작다는 것을 frozen 데이터로 확인한 것이다. 이것은 SALT 예측 방향과 일치하는 통계적 패턴이지, 이론 전체의 완전한 입증이 아니다. 일부 채널은 아직 insufficient_data 또는 inconclusive 상태다.",
+    q: "현재 검증 결과만으로 SALT의 타당성이 확정되는가?",
+    a: "아니다. 현재 결과는 고정된 3개 채널에서 SALT 오차가 표준 기준선 오차보다 작은 항목이 어떻게 나타나는지를 frozen 데이터 기준으로 집계한 것이다. 이는 일부 채널에서 관찰된 비교 결과이며, 이론 전체의 타당성을 단정하는 자료는 아니다. 일부 채널은 아직 insufficient_data 또는 inconclusive 상태다.",
     links: [
       { href: "/verification", label: "Verification — 판정 상태" },
       { href: "/verification/results", label: "판정 결과 상세" },
@@ -43,7 +43,7 @@ const FAQS: FAQ[] = [
   {
     category: "검증",
     q: "데이터를 보기 전에 판정 규칙을 잠근다는 것이 왜 중요한가?",
-    a: "데이터를 먼저 보고 기각 기준을 조정하면, 어떤 이론도 '통과'시킬 수 있다. SALT의 검증 신뢰성은 관측량 정의 → 비교식 고정 → 기각 조건 명시 → frozen 데이터 적용의 순서를 지키는 데 있다. 이 절차가 지켜졌는지는 manifest hash와 재현 명령으로 검증 가능하다.",
+    a: "데이터를 먼저 보고 기각 기준을 조정하면 결과 해석이 입력 데이터에 따라 흔들릴 수 있다. 이 사이트는 관측량 정의 → 비교식 고정 → 기각 조건 명시 → frozen 데이터 적용의 순서를 기준으로 삼는다. 이 절차가 지켜졌는지는 manifest hash와 재현 명령으로 다시 확인할 수 있다.",
     links: [{ href: "/audit/reproduce", label: "Audit — 재현 방법" }],
   },
   {
@@ -73,7 +73,7 @@ const FAQS: FAQ[] = [
   {
     category: "방법론",
     q: "SALT가 불리할 때도 결과를 공개하는가?",
-    a: "그렇다. 현재 검증 결과에는 SALT가 표준 기준선보다 좋은 항목뿐 아니라 동률(TIE) 및 기준선 우세 항목도 포함된다. insufficient_data나 inconclusive 판정도 그대로 공개한다. 선택적 공개는 검증 신뢰성을 무너뜨리기 때문에 모든 판정 결과를 원칙적으로 공개한다.",
+    a: "그렇다. 현재 검증 결과에는 SALT가 표준 기준선보다 좋은 항목뿐 아니라 동률(TIE) 및 기준선 우세 항목도 포함된다. insufficient_data나 inconclusive 판정도 함께 공개한다. 결과 해석의 폭을 줄이기 위해 집계 가능한 판정은 같은 기준으로 함께 제시한다.",
     links: [{ href: "/verification/results", label: "판정 결과 상세" }],
   },
 ];
@@ -98,7 +98,8 @@ export default function FAQPage() {
           자주 묻는 질문
         </h1>
         <p className="mt-3 max-w-xl text-base leading-relaxed text-slate-300">
-          SALT에 대한 오해나 혼동을 일으키기 쉬운 질문들. 각 답변은 현재 웹 기준의 공식 입장이다.
+          도서와 사이트를 읽을 때 자주 생기는 질문과 구분이 필요한 표현을 정리했다.
+          각 답변은 현재 공개된 자료를 기준으로 이해를 돕기 위한 안내문이다.
         </p>
         <div className="mt-5 flex flex-wrap gap-2">
           {CATEGORIES.map((cat) => (

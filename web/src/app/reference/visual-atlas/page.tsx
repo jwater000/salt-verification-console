@@ -72,7 +72,7 @@ const THEME_GROUPS: ThemeGroup[] = [
     desc: "19장 기술 재해석, 통합 초상, FAQ 매트릭스",
     color: "emerald",
     images: [
-      { id: "g25", src: "/book-graphs/g25_faq_claim_matrix.jpg", caption: "FAQ 주장 매트릭스", chapterRef: "Ch.19" },
+      { id: "g25", src: "/book-graphs/g25_faq_claim_matrix.jpg", caption: "FAQ 질문 매트릭스", chapterRef: "Ch.19" },
       { id: "g26", src: "/book-graphs/g26_unified_phase_portrait.jpg", caption: "통합 위상 초상", chapterRef: "Ch.19" },
       { id: "g27", src: "/book-graphs/g27_glossary_relation_map.jpg", caption: "용어 관계 지도", chapterRef: "Ch.21" },
       { id: "g28", src: "/book-graphs/g28_noether_symmetry_bridge.jpg", caption: "뇌터 대칭 다리", chapterRef: "Ch.22" },
