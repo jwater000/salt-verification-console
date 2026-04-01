@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { loadAllResults, loadFrozenManifest, loadMicroSnapshot } from "@/lib/data";
+import BookstoreLinks from "@/components/bookstore-links";
 
 type WinCounts = { salt: number; standard: number; tie: number; total: number };
 
@@ -266,6 +267,10 @@ export default async function HomePage() {
             </Link>
           ))}
         </div>
+      <BookstoreLinks
+        title="도서 구매처"
+        description="도서를 바로 찾으려는 경우 아래 서점 페이지를 참고할 수 있다."
+      />
       </div>
     </section>
   );

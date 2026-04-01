@@ -1,4 +1,5 @@
 import Link from "next/link";
+import BookstoreLinks from "@/components/bookstore-links";
 
 const ROUTES = [
   {
@@ -200,6 +201,11 @@ export default function GuidePage() {
             </div>
           ))}
         </div>
+      <BookstoreLinks
+        title="도서 구매처 안내"
+        description="읽기 순서를 확인한 뒤 바로 도서를 찾으려는 경우 아래 서점 페이지를 참고할 수 있다."
+        compact
+      />
       </div>
     </section>
   );
