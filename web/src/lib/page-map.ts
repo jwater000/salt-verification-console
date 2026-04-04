@@ -240,6 +240,14 @@ export const SITE_PAGES: SitePage[] = [
     chapters: ["26장", "27장"],
     dependsOn: ["/snapshots"],
   },
+  {
+    path: "/notice",
+    title: "Notice",
+    subtitle: "운영 공지와 안내",
+    section: "home",
+    chapters: ["00장"],
+    dependsOn: ["/"],
+  },
 ];
 
 export const PAGE_INDEX = Object.fromEntries(SITE_PAGES.map((p) => [p.path, p]));

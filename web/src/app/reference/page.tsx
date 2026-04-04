@@ -60,7 +60,8 @@ export default function ReferencePage() {
         </h1>
         <p className="mt-4 max-w-2xl text-base leading-relaxed text-slate-300">
           이 섹션에는 본문과 함께 참고할 수 있는 도해, 용어, FAQ, 구조도가 정리되어 있다.
-          각 항목은 내용을 항목별로 찾아볼 수 있도록 별도의 페이지로 나누어 두었다.
+          Reference는 책과 웹 사이를 왕복하기 위한 참고 허브이며, 검증 판정표나 감사 로그의
+          공식 허브를 대신하지 않는다.
         </p>
       </div>
 

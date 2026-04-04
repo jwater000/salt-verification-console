@@ -50,25 +50,25 @@ const CORE_AREAS = [
     href: "/core",
     title: "Core",
     label: "이론 압축",
-    body: "00~17장의 주요 개념과 상태변수, 관측 흔적의 관계를 요약해 둔 영역이다.",
+    body: "문제의식, 상태변수, 논리 구조를 다루는 이론 허브이며 결과 원표를 중심에 두지 않는다.",
   },
   {
     href: "/verification",
     title: "Verification",
     label: "검증 엔진",
-    body: "검증 채널, 판정 규칙, 결과 집계, 검증 대기 항목을 항목별로 정리한 영역이다.",
+    body: "검증 채널, 판정 규칙, 결과 집계, 검증 대기 항목을 정리하며 이론 전개 자체를 대신하지 않는다.",
   },
   {
     href: "/reference",
     title: "Reference",
     label: "시각 허브",
-    body: "도해, 용어, FAQ, 책 구조도를 통해 본문과 함께 참고할 수 있는 자료를 모아 둔다.",
+    body: "도해, 용어, FAQ, 책-웹 대응표를 모아 두는 참고 허브이며 판정 결과의 공식 허브는 아니다.",
   },
   {
     href: "/engineering",
     title: "Engineering",
     label: "기술 해석",
-    body: "기술적 함의를 검증 결과와 구분해 정리하고, 해석과 가설의 범위를 나누어 소개한다.",
+    body: "공학적 함의와 응용 가능성을 검증 결과와 구분해 정리하고, 해석과 가설의 범위를 나누어 소개한다.",
   },
 ] as const;
 
@@ -119,9 +119,16 @@ export default async function HomePage() {
               안내와 참고를 위한 웹사이트
             </h1>
             <p className="mt-5 max-w-2xl text-base leading-relaxed text-slate-300 md:text-lg">
-              이 사이트에는 도서의 주요 개념, 검증 관련 자료, 참고 도해, 재현 절차가 항목별로
-              정리되어 있다. 방문자는 관심에 따라 개요, 결과, 용어, 감사 자료를 차례로 살펴볼 수 있다.
+              이 사이트에는 도서의 주요 개념, 검증 관련 자료, 참고 도해, 재현 절차가 역할별로
+              나뉘어 정리되어 있다. Home은 전체 흐름만 짧게 안내하고, 세부 이론 설명은 Core,
+              결과 판정은 Verification, 재현 자료는 Audit, 참고 자료는 Reference에서 따로 본다.
             </p>
+            <div className="mt-5 flex flex-wrap gap-2 text-xs text-slate-300">
+              <span className="rounded-full border border-slate-700 bg-slate-900/70 px-3 py-1">Home = 첫 진입 요약</span>
+              <span className="rounded-full border border-slate-700 bg-slate-900/70 px-3 py-1">Core = 이론 구조</span>
+              <span className="rounded-full border border-slate-700 bg-slate-900/70 px-3 py-1">Verification = 판정 결과</span>
+              <span className="rounded-full border border-slate-700 bg-slate-900/70 px-3 py-1">Audit = 재현/감사</span>
+            </div>
             <div className="mt-7 flex flex-wrap gap-3">
               <Link
                 href="/guide"

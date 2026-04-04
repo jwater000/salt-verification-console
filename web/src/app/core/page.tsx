@@ -13,8 +13,17 @@ export default function CorePage() {
         </h1>
         <p className="mt-4 max-w-2xl text-base leading-relaxed text-slate-300">
           SALT는 세 개의 상태변수로 공간 구조를 기술하고, 그 구조가 신호에 남기는 흔적으로
-          이론을 시험한다. 17 · 18 · 19장이 이 논리의 뼈대다.
+          이론을 시험한다. 17 · 18 · 19장이 이 논리의 뼈대다. Core는 이론 구조를 설명하는
+          허브이며, 실제 판정 결과표는 Verification에서 따로 본다.
         </p>
+        <div className="mt-5 flex flex-wrap gap-2 text-xs text-slate-300">
+          <span className="rounded-full border border-slate-700 bg-slate-900/70 px-3 py-1">
+            Problem → Clue → Concept → Solution
+          </span>
+          <span className="rounded-full border border-slate-700 bg-slate-900/70 px-3 py-1">
+            결과 원표는 제외
+          </span>
+        </div>
         <div className="mt-6 flex flex-wrap gap-3">
           <Link
             href="/core/logic-map"

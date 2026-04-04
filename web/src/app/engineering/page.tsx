@@ -142,7 +142,8 @@ export default function EngineeringPage() {
         </h1>
         <p className="mt-4 max-w-2xl text-base leading-relaxed text-slate-300">
           이 페이지는 검증 완료 결과를 제시하는 곳이 아니다. 도서 19장에서 다루는 기술적
-          해석과 장기 가설을 구분해 참고할 수 있도록 정리한다.
+          해석과 장기 가설을 구분해 참고할 수 있도록 정리한다. Engineering은 검증 결과의
+          공식 허브를 대체하지 않고, 응용 가능성과 해석 확장 범위를 보여주는 영역이다.
         </p>
         <div className="mt-5 inline-flex items-center gap-2 rounded-lg border border-amber-500/20 bg-amber-950/20 px-4 py-2 text-xs text-amber-200/80">
           <span className="h-1.5 w-1.5 rounded-full bg-amber-400" />

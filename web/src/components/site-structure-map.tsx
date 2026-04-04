@@ -18,9 +18,11 @@ const NAV_ITEMS = [
   {
     path: "/core",
     label: "Core Ideas",
-    desc: "주요 개념 정리",
+    desc: "이론 구조와 장별 압축",
     links: [
       { href: "/core", label: "Core Overview", note: "핵심 개념 요약" },
+      { href: "/core/logic-map", label: "Logic Map", note: "문제에서 검증까지의 구조" },
+      { href: "/core/chapters", label: "Chapter Index", note: "17·18·19장 허브" },
       { href: "/core/chapters/17", label: "Chapter 17", note: "이론의 토대" },
       { href: "/core/chapters/18", label: "Chapter 18", note: "검증 채널과 판정" },
       { href: "/core/chapters/19", label: "Chapter 19", note: "공학적 함의" },
@@ -32,14 +34,16 @@ const NAV_ITEMS = [
     desc: "검증 자료와 판정",
     links: [
       { href: "/verification", label: "Overview", note: "검증 자료 구성" },
+      { href: "/verification/channels", label: "Channels", note: "고정 채널 인덱스" },
       { href: "/verification/results", label: "Results", note: "집계 결과와 판정" },
       { href: "/verification/pending", label: "Pending", note: "검증 대기 항목" },
+      { href: "/verification/candidate-hypotheses", label: "Candidates", note: "잠금 전 가설 목록" },
     ],
   },
   {
     path: "/engineering",
     label: "Engineering",
-    desc: "기술적 해석 정리",
+    desc: "공학적 함의와 응용 가능성",
     links: [
       { href: "/engineering", label: "Engineering", note: "기술적 해석과 가설" },
       { href: "/verification", label: "Verification", note: "관련 검증 자료" },
@@ -49,7 +53,7 @@ const NAV_ITEMS = [
   {
     path: "/reference",
     label: "Reference",
-    desc: "도해 · 용어 · FAQ",
+    desc: "도해 · 용어 · 책-웹 대응",
     links: [
       { href: "/reference", label: "Reference", note: "참고 자료 모음" },
       { href: "/reference/visual-atlas", label: "Visual Atlas", note: "도해 모음" },
@@ -60,7 +64,7 @@ const NAV_ITEMS = [
   {
     path: "/audit",
     label: "Audit",
-    desc: "재현 경로와 데이터",
+    desc: "재현 경로와 provenance",
     links: [
       { href: "/audit", label: "Audit", note: "감사 자료 개요" },
       { href: "/audit/reproduce", label: "Reproduce", note: "재현 절차" },

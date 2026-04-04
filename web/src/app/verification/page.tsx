@@ -29,6 +29,13 @@ const STATE_VARIABLE_MAP = [
 
 const VERIFICATION_LANES = [
   {
+    href: "/verification/channels",
+    title: "Channels Index",
+    desc: "고정 검증 채널 3종을 같은 기준으로 훑고 개별 채널 페이지로 들어갈 수 있다.",
+    tag: "채널 보기",
+    accent: "sky",
+  },
+  {
     href: "/verification/results",
     title: "Results Board",
     desc: "현재 frozen 데이터 기준 집계와 항목별 판정 결과를 확인할 수 있다.",
@@ -79,8 +86,20 @@ export default async function VerificationPage() {
         </h1>
         <p className="mt-4 max-w-2xl text-base leading-relaxed text-slate-300">
           이 섹션은 직접 관측이 아니라 <strong className="text-slate-100">관측 흔적의 정량 비교</strong>를
-          기준으로 정리되어 있다. 현재는 3개의 고정 채널과 검증 대기 항목을 구분해 볼 수 있다.
+          기준으로 정리되어 있다. Verification은 검증 결과와 채널별 판정 경로를 보여주는 공식
+          허브이며, 이론 설명은 Core에서, 재현 로그와 provenance는 Audit에서 따로 본다.
         </p>
+        <div className="mt-5 flex flex-wrap gap-2 text-xs text-slate-300">
+          <span className="rounded-full border border-slate-700 bg-slate-900/70 px-3 py-1">
+            결과 허브
+          </span>
+          <span className="rounded-full border border-slate-700 bg-slate-900/70 px-3 py-1">
+            이론 설명은 Core
+          </span>
+          <span className="rounded-full border border-slate-700 bg-slate-900/70 px-3 py-1">
+            재현 로그는 Audit
+          </span>
+        </div>
         <div className="mt-6 flex flex-wrap gap-6 text-sm">
           <div>
             <p className="text-xs text-slate-500">고정 채널</p>
@@ -110,15 +129,17 @@ export default async function VerificationPage() {
           </h2>
           <span className="text-xs text-slate-500">개요 / 결과 / 대기 / 감사</span>
         </div>
-        <div className="grid gap-4 lg:grid-cols-3">
+        <div className="grid gap-4 lg:grid-cols-4">
           {VERIFICATION_LANES.map((lane) => {
             const borderMap: Record<string, string> = {
               cyan: "border-cyan-500/20 hover:border-cyan-400/40",
+              sky: "border-sky-500/20 hover:border-sky-400/40",
               amber: "border-amber-500/20 hover:border-amber-400/40",
               emerald: "border-emerald-500/20 hover:border-emerald-400/40",
             };
             const tagMap: Record<string, string> = {
               cyan: "bg-cyan-500/10 text-cyan-300",
+              sky: "bg-sky-500/10 text-sky-300",
               amber: "bg-amber-500/10 text-amber-300",
               emerald: "bg-emerald-500/10 text-emerald-300",
             };

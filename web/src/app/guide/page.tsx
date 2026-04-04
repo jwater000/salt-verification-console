@@ -44,7 +44,7 @@ const SITE_ROLES = [
   {
     href: "/core",
     title: "Core",
-    body: "도서의 주요 개념과 이론적 뼈대를 요약해 둔다.",
+    body: "도서의 주요 개념과 이론적 뼈대를 요약하고 Logic Map과 장별 압축으로 연결한다.",
   },
   {
     href: "/verification",
@@ -54,7 +54,7 @@ const SITE_ROLES = [
   {
     href: "/reference",
     title: "Reference",
-    body: "도해, 용어, FAQ, 구조도를 함께 참고할 수 있게 정리한다.",
+    body: "도해, 용어, FAQ, 구조도를 함께 참고할 수 있게 정리하고 책-웹 대응표를 제공한다.",
   },
   {
     href: "/engineering",
@@ -64,7 +64,7 @@ const SITE_ROLES = [
   {
     href: "/audit",
     title: "Audit",
-    body: "재현 경로와 provenance 자료를 확인할 수 있게 정리한다.",
+    body: "재현 경로와 provenance 자료를 확인할 수 있게 정리하며 일반 입문 설명은 맡지 않는다.",
   },
 ] as const;
 
@@ -95,7 +95,8 @@ export default function GuidePage() {
         </h1>
         <p className="mt-4 max-w-2xl text-base leading-relaxed text-slate-300">
           이 페이지는 도서의 주요 내용과 검증 자료를 어떤 순서로 살펴보면 좋은지 안내한다.
-          관심사에 따라 개념, 결과, 참고 자료, 감사 자료로 나누어 접근할 수 있다.
+          Guide는 길 안내만 담당하고 결과 원표나 감사 로그를 직접 담지 않는다. 관심사에 따라
+          개념, 결과, 참고 자료, 감사 자료로 나누어 접근할 수 있다.
         </p>
       </div>
 

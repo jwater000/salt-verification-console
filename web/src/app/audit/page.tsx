@@ -51,8 +51,20 @@ export default async function AuditPage() {
         </h1>
         <p className="mt-4 max-w-2xl text-base leading-relaxed text-slate-300">
           Audit 섹션에는 사용된 데이터, 코드, 잠금 규칙, provenance 자료가 함께 정리되어 있다.
-          결과 집계와 별도로 산출 과정을 따라가려는 방문자를 위한 참고 영역이다.
+          Audit은 재현 경로와 감사 자료를 위한 허브이며, 결과 집계의 공식 허브를 대신하지 않는다.
+          판정 결과는 Verification에서, 사이트 입문 흐름은 Guide에서 따로 본다.
         </p>
+        <div className="mt-5 flex flex-wrap gap-2 text-xs text-slate-300">
+          <span className="rounded-full border border-slate-700 bg-slate-900/70 px-3 py-1">
+            재현 · provenance 허브
+          </span>
+          <span className="rounded-full border border-slate-700 bg-slate-900/70 px-3 py-1">
+            판정 결과는 Verification
+          </span>
+          <span className="rounded-full border border-slate-700 bg-slate-900/70 px-3 py-1">
+            입문 안내는 Guide
+          </span>
+        </div>
       </div>
 
       <div className="grid gap-4 md:grid-cols-3">
