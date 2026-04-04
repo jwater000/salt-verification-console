@@ -78,6 +78,9 @@ export default async function HomePage() {
   const totalCount = cosmic.total + microCounts.salt + microCounts.standard + microCounts.tie;
   const totalSalt = cosmic.salt + microCounts.salt;
   const saltRate = totalCount > 0 ? ((totalSalt / totalCount) * 100).toFixed(1) : "—";
+  const cosmicRate = cosmic.total > 0 ? ((cosmic.salt / cosmic.total) * 100).toFixed(1) : "—";
+  const microTotal = microCounts.salt + microCounts.standard + microCounts.tie;
+  const microRate = microTotal > 0 ? ((microCounts.salt / microTotal) * 100).toFixed(1) : "—";
 
   return (
     <section className="space-y-10">
@@ -151,8 +154,12 @@ export default async function HomePage() {
                 거시 관측과 미시 실험을 나눠 보면, 현재 공개 데이터에서는 거시 항목에서 SALT 우세가
                 더 많이 나타난다.
               </p>
-              <p className="mt-3 text-sm text-slate-200">거시 SALT 우세 {cosmic.salt}</p>
-              <p className="mt-1 text-sm text-slate-200">미시 SALT 우세 {microCounts.salt}</p>
+              <p className="mt-3 text-sm text-slate-200">
+                거시 비교: {cosmic.total}개 중 {cosmic.salt}개에서 SALT 우세 ({cosmicRate}%)
+              </p>
+              <p className="mt-1 text-sm text-slate-200">
+                미시 비교: {microTotal}개 중 {microCounts.salt}개에서 SALT 우세 ({microRate}%)
+              </p>
             </div>
           </div>
         </div>
