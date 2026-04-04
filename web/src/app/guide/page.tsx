@@ -16,6 +16,18 @@ const ROUTES = [
   },
   {
     id: "B",
+    audience: "구매 의사 방문자",
+    title: "구매 후 탐색 순서를 짧게 정리",
+    desc: "도서를 먼저 확보한 뒤 웹에서 어떤 순서로 참고하면 되는지 빠르게 잡을 수 있는 경로다.",
+    steps: [
+      { href: "#buy-book", label: "Bookstores", note: "서점 링크와 구매 진입" },
+      { href: "/reference/book-map", label: "Book Map", note: "책 장과 웹 구조의 대응 관계" },
+      { href: "/core", label: "Core", note: "읽기 전에 잡아둘 핵심 개념 축" },
+    ],
+    accent: "violet",
+  },
+  {
+    id: "C",
     audience: "검토자 / 투자자 / 평가자",
     title: "결과와 재현 경로 먼저 확인",
     desc: "판정 결과, 검증 대기 항목, 감사 자료를 우선해서 볼 때 적합한 경로다.",
@@ -27,7 +39,7 @@ const ROUTES = [
     accent: "emerald",
   },
   {
-    id: "C",
+    id: "D",
     audience: "기술 관심 방문자",
     title: "기술적 해석과 한계 함께 보기",
     desc: "기술적 함의가 어떤 층위에서 정리되어 있는지, 검증 결과와 어떻게 구분되는지 살펴볼 수 있다.",
@@ -54,7 +66,7 @@ const SITE_ROLES = [
   {
     href: "/reference",
     title: "Reference",
-    body: "도해, 용어, FAQ, 구조도를 함께 참고할 수 있게 정리하고 책-웹 대응표를 제공한다.",
+    body: "도해, 용어, FAQ, 구조도를 함께 참고할 수 있게 정리하고 Book Map을 중심으로 책-웹 대응표를 제공한다.",
   },
   {
     href: "/engineering",
@@ -96,15 +108,26 @@ export default function GuidePage() {
         <p className="mt-4 max-w-2xl text-base leading-relaxed text-slate-300">
           이 페이지는 도서의 주요 내용과 검증 자료를 어떤 순서로 살펴보면 좋은지 안내한다.
           Guide는 길 안내만 담당하고 결과 원표나 감사 로그를 직접 담지 않는다. 관심사에 따라
-          개념, 결과, 참고 자료, 감사 자료로 나누어 접근할 수 있다.
+          개념, 구매, 결과, 참고 자료, 감사 자료로 나누어 접근할 수 있다.
         </p>
+        <div className="mt-5 flex flex-wrap gap-2 text-xs text-slate-300">
+          <span className="rounded-full border border-slate-700 bg-slate-900/70 px-3 py-1">
+            탐색 경로 안내
+          </span>
+          <span className="rounded-full border border-slate-700 bg-slate-900/70 px-3 py-1">
+            구매 경로는 별도 분기
+          </span>
+          <span className="rounded-full border border-slate-700 bg-slate-900/70 px-3 py-1">
+            결과 원표는 Verification
+          </span>
+        </div>
       </div>
 
       <div>
         <h2 className="mb-4 text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">
           목적별 추천 경로
         </h2>
-        <div className="grid gap-4 lg:grid-cols-3">
+        <div className="grid gap-4 lg:grid-cols-2 xl:grid-cols-4">
           {ROUTES.map((route) => {
             const accents: Record<string, string> = {
               cyan: "border-cyan-500/20",
@@ -162,24 +185,24 @@ export default function GuidePage() {
         </div>
 
         <div className="rounded-2xl border border-slate-800 bg-slate-950/40 p-6">
-          <h2 className="text-sm font-semibold text-white">먼저 확인할 3가지</h2>
+          <h2 className="text-sm font-semibold text-white">구매와 탐색을 분리해서 보기</h2>
           <div className="mt-5 space-y-4">
             <div>
-              <p className="text-sm font-semibold text-slate-100">1. 책 전체를 그대로 옮기지 않는다</p>
+              <p className="text-sm font-semibold text-slate-100">1. 구매는 서점 링크에서 바로 처리</p>
               <p className="mt-1 text-sm text-slate-400">
-                웹에서는 본문 전체 대신 비교표, 카드, 도해, 판정 보드 중심으로 정보를 정리한다.
+                도서를 먼저 확보하려는 방문자는 서점 링크로 바로 이동하고, 웹 탐색과 섞어 읽지 않는다.
               </p>
             </div>
             <div>
-              <p className="text-sm font-semibold text-slate-100">2. 결과와 가설을 구분해 본다</p>
+              <p className="text-sm font-semibold text-slate-100">2. 탐색은 Guide와 Core에서 시작</p>
               <p className="mt-1 text-sm text-slate-400">
-                이미 집계된 결과와 아직 검증 대기 중인 항목을 같은 층위에서 다루지 않는다.
+                웹에서는 본문 전체 대신 개념 지도, 카드, 도해, 결과 보드 중심으로 구조를 본다.
               </p>
             </div>
             <div>
-              <p className="text-sm font-semibold text-slate-100">3. 자료 성격을 먼저 확인한다</p>
+              <p className="text-sm font-semibold text-slate-100">3. 결과와 감사는 별도 허브로 이동</p>
               <p className="mt-1 text-sm text-slate-400">
-                결과, snapshot, run, reproduce 자료를 나누어 확인할 수 있다.
+                결과는 Verification, snapshot/run/reproduce 자료는 Audit으로 나누어 확인한다.
               </p>
             </div>
           </div>
@@ -202,11 +225,13 @@ export default function GuidePage() {
             </div>
           ))}
         </div>
-      <BookstoreLinks
-        title="도서 구매처 안내"
-        description="읽기 순서를 확인한 뒤 바로 도서를 찾으려는 경우 아래 서점 페이지를 참고할 수 있다."
-        compact
-      />
+      <div id="buy-book">
+        <BookstoreLinks
+          title="도서 구매처 안내"
+          description="구매 동선은 여기서 끝내고, 읽기 동선은 위의 추천 경로 또는 Book Map에서 이어서 시작하면 된다."
+          compact
+        />
+      </div>
       </div>
     </section>
   );

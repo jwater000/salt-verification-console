@@ -29,6 +29,12 @@ const SECTIONS = [
 
 const HIGHLIGHTS = [
   {
+    href: "/reference/book-map",
+    src: "/book-graphs/g26_unified_phase_portrait.jpg",
+    title: "책과 웹의 대응 관계를 먼저 확인",
+    body: "처음 온 방문자나 구매 후 독자는 Book Map에서 각 장이 웹의 어느 허브와 연결되는지 먼저 잡는 편이 빠르다.",
+  },
+  {
     href: "/reference/visual-atlas",
     src: "/book-graphs/g11_time_dilation_heatmap.jpg",
     title: "검증 채널을 그림으로 이해",
@@ -40,12 +46,6 @@ const HIGHLIGHTS = [
     title: "오해를 먼저 정리",
     body: "자주 나오는 오해와 구분이 필요한 표현을 함께 정리해 둔다.",
   },
-  {
-    href: "/reference/book-map",
-    src: "/book-graphs/g26_unified_phase_portrait.jpg",
-    title: "책과 웹의 대응 관계 확인",
-    body: "각 장이 어떤 웹 페이지와 대응하는지, 기능상 어떤 역할로 배치되어 있는지 정리한다.",
-  },
 ] as const;
 
 export default function ReferencePage() {
@@ -54,15 +54,27 @@ export default function ReferencePage() {
       <div className="rounded-3xl border border-violet-500/20 bg-[linear-gradient(135deg,#120b22_0%,#020617_60%,#0f172a_100%)] px-8 py-10">
         <p className="text-xs font-semibold uppercase tracking-[0.2em] text-violet-400">Reference</p>
         <h1 className="mt-3 text-3xl font-bold leading-tight tracking-tight text-white md:text-4xl">
-          도해와 용어를 함께 볼 수 있는
+          책과 웹의 대응 관계를 중심으로 보는
           <br />
-          참고 자료 모음
+          참고 허브
         </h1>
         <p className="mt-4 max-w-2xl text-base leading-relaxed text-slate-300">
           이 섹션에는 본문과 함께 참고할 수 있는 도해, 용어, FAQ, 구조도가 정리되어 있다.
-          Reference는 책과 웹 사이를 왕복하기 위한 참고 허브이며, 검증 판정표나 감사 로그의
+          특히 Book Map을 중심으로 책 장 구조와 웹 허브의 대응 관계를 먼저 잡을 수 있다.
+          Reference는 책과 웹 사이를 왕복하기 위한 구조 대응 허브이며, 검증 판정표나 감사 로그의
           공식 허브를 대신하지 않는다.
         </p>
+        <div className="mt-5 flex flex-wrap gap-2 text-xs text-slate-300">
+          <span className="rounded-full border border-slate-700 bg-slate-900/70 px-3 py-1">
+            Book Map 중심
+          </span>
+          <span className="rounded-full border border-slate-700 bg-slate-900/70 px-3 py-1">
+            책-웹 대응 허브
+          </span>
+          <span className="rounded-full border border-slate-700 bg-slate-900/70 px-3 py-1">
+            결과 허브 아님
+          </span>
+        </div>
       </div>
 
       <div className="grid gap-4 md:grid-cols-2">

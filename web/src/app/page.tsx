@@ -30,18 +30,25 @@ const VISITOR_LANES = [
     accent: "cyan",
   },
   {
-    href: "/verification/results",
-    eyebrow: "For Evaluators",
-    title: "검증 결과부터 확인",
-    body: "frozen 데이터 기준 집계와 항목별 판정 결과를 먼저 검토할 수 있다.",
-    accent: "emerald",
+    href: "#buy-book",
+    eyebrow: "For Book Buyers",
+    title: "도서 구매부터 바로 이동",
+    body: "사이트 탐색보다 먼저 서점 페이지와 구매 경로를 확인하려는 방문자에게 맞는 진입점이다.",
+    accent: "violet",
   },
   {
-    href: "/audit",
+    href: "/verification/results",
     eyebrow: "For Reviewers",
-    title: "재현 경로 확인",
-    body: "사용된 데이터, 규칙, 산출 경로를 따라가며 재현 가능성을 점검할 수 있다.",
+    title: "결과와 재현 경로 검토",
+    body: "frozen 데이터 기준 판정 결과를 먼저 보고, 이어서 Audit에서 재현 경로를 점검하려는 방문자에게 맞는 진입점이다.",
     accent: "amber",
+  },
+  {
+    href: "/engineering",
+    eyebrow: "For Engineers",
+    title: "기술적 함의부터 보기",
+    body: "공학적 해석, 응용 가능성, 한계와 가설의 층위를 먼저 확인할 수 있다.",
+    accent: "emerald",
   },
 ] as const;
 
@@ -134,14 +141,14 @@ export default async function HomePage() {
                 href="/guide"
                 className="inline-flex items-center gap-2 rounded-lg bg-cyan-500 px-5 py-2.5 text-sm font-semibold text-slate-950 transition hover:bg-cyan-400"
               >
-                어디서 시작할지 보기
+                탐색 경로 보기
               </Link>
-              <Link
-                href="/verification/results"
-                className="inline-flex items-center gap-2 rounded-lg border border-slate-600 px-5 py-2.5 text-sm font-semibold text-slate-100 transition hover:border-slate-400"
+              <a
+                href="#buy-book"
+                className="inline-flex items-center gap-2 rounded-lg border border-violet-500/30 bg-violet-500/10 px-5 py-2.5 text-sm font-semibold text-violet-100 transition hover:border-violet-400/50"
               >
-                실제 판정 결과
-              </Link>
+                도서 구매처 보기
+              </a>
             </div>
           </div>
 
@@ -176,15 +183,17 @@ export default async function HomePage() {
             전체 입문 가이드 →
           </Link>
         </div>
-        <div className="grid gap-4 lg:grid-cols-3">
+        <div className="grid gap-4 lg:grid-cols-4">
           {VISITOR_LANES.map((lane) => {
             const accents: Record<string, string> = {
               cyan: "border-cyan-500/20 hover:border-cyan-400/40",
+              violet: "border-violet-500/20 hover:border-violet-400/40",
               emerald: "border-emerald-500/20 hover:border-emerald-400/40",
               amber: "border-amber-500/20 hover:border-amber-400/40",
             };
             const labels: Record<string, string> = {
               cyan: "text-cyan-300 bg-cyan-500/10",
+              violet: "text-violet-300 bg-violet-500/10",
               emerald: "text-emerald-300 bg-emerald-500/10",
               amber: "text-amber-300 bg-amber-500/10",
             };
@@ -210,7 +219,7 @@ export default async function HomePage() {
 
       <div className="grid gap-4 lg:grid-cols-[1.1fr,0.9fr]">
         <div className="rounded-2xl border border-slate-800 bg-slate-950/40 p-6">
-          <h2 className="text-sm font-semibold text-white">이 사이트에서 할 수 있는 일</h2>
+          <h2 className="text-sm font-semibold text-white">읽기 동선</h2>
           <div className="mt-5 space-y-4">
             {[
               {
@@ -253,6 +262,13 @@ export default async function HomePage() {
             ))}
           </ul>
         </div>
+      </div>
+
+      <div id="buy-book">
+        <BookstoreLinks
+          title="구매 동선"
+          description="도서를 먼저 확보하려는 방문자는 아래 서점 페이지로 바로 이동하고, 탐색은 Guide에서 이어서 시작하면 된다."
+        />
       </div>
 
       <div>
