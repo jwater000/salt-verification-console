@@ -133,6 +133,7 @@ export default async function HomePage() {
                 현재 공개된 비교 항목 {totalCount}개 중 {totalSalt}개에서 SALT가 기준선보다 실제값에
                 더 가깝다.
               </p>
+              <p className="mt-2 text-xs text-slate-400">거시 비교와 미시 비교를 합친 전체 집계다.</p>
               <p className="mt-2 text-xs text-slate-500">
                 이 수치는 이론의 최종 확정을 뜻하지 않고, 지금 공개된 고정 비교 항목의 중간 결과를
                 뜻한다.
@@ -144,8 +145,26 @@ export default async function HomePage() {
                 {frozen.dataset_version || "—"}
               </p>
               <p className="mt-2 text-sm leading-relaxed text-slate-300">
-                아래 검증 결과는 현재 잠긴 공개 데이터 버전을 기준으로 계산됐다.
+                현재 사이트의 비교 결과는 2026-03-08에 고정한 공개 데이터 묶음
+                ({frozen.dataset_version || "frozen-20260308"})을 기준으로 계산됐다.
               </p>
+              <p className="mt-2 text-xs leading-relaxed text-slate-400">
+                이 버전에는 현재 공개된 결과 JSON, micro snapshot, manifest 정보가 함께 묶여 있다.
+              </p>
+              <div className="mt-3 flex flex-wrap gap-2 text-xs">
+                <Link
+                  href="/audit/datasets"
+                  className="rounded-full border border-slate-700 bg-slate-900/70 px-3 py-1 text-slate-300 transition hover:border-cyan-500/40 hover:text-cyan-200"
+                >
+                  데이터 구성 보기
+                </Link>
+                <Link
+                  href="/snapshots"
+                  className="rounded-full border border-slate-700 bg-slate-900/70 px-3 py-1 text-slate-300 transition hover:border-cyan-500/40 hover:text-cyan-200"
+                >
+                  snapshot/manifest 보기
+                </Link>
+              </div>
               <p className="mt-2 text-xs text-slate-500">{frozen.created_at_utc || "—"}</p>
             </div>
             <div className="rounded-2xl border border-sky-500/25 bg-slate-950/45 p-5">
@@ -159,6 +178,9 @@ export default async function HomePage() {
               </p>
               <p className="mt-1 text-sm text-slate-200">
                 미시 비교: {microTotal}개 중 {microCounts.salt}개에서 SALT 우세 ({microRate}%)
+              </p>
+              <p className="mt-2 text-xs text-slate-500">
+                두 영역의 성격이 달라 비율도 따로 읽는 것이 좋다.
               </p>
             </div>
           </div>
