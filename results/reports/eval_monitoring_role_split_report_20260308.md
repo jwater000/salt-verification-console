@@ -3,7 +3,7 @@
 ## 범위
 - 웹 라우트: `/evaluation`, `/monitoring/*`, `/api/live/snapshot`, `/audit/*`
 - 데이터 로더: `web/src/lib/data.ts`
-- 문서 기준: `docs/roadmap/SVC_MVP_PLAN.md`
+- 문서 기준: `docs/roadmap/archive/SVC_MVP_PLAN.md`
 
 ## 검수 근거
 1. Evaluation 페이지는 frozen 입력만 사용

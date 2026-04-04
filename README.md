@@ -2,6 +2,18 @@
 
 검증 목적 웹 콘솔(MVP)입니다. 핵심은 예측-데이터-판정을 재현 가능하게 공개하는 것입니다.
 
+## 문서 진입점
+
+문서가 여러 갈래로 나뉘어 있으므로, 현재 작업 기준은 아래 순서로 봅니다.
+
+- 현재 실행 기준 문서: `docs/roadmap/current/MASTER_EXECUTION_STRUCTURE_PLAN.md`
+
+원칙:
+
+- `docs/roadmap/current/MASTER_EXECUTION_STRUCTURE_PLAN.md`를 현재 실행의 단일 기준으로 사용합니다.
+- `docs/roadmap/reference/*`는 주제별 배경 문서입니다.
+- `docs/roadmap/archive/*`는 기록 보존용이며 현재 실행 기준 문서가 아닙니다.
+
 ## 기준 데이터셋 메타데이터 (현재)
 | 항목 | 내용 |
 |---|---|
@@ -109,10 +121,11 @@ crontab -l | grep -v "run_realtime_cycle.py" | crontab -
 - 실행 로그: `results/reports/repro_run_20260306.txt`
 
 ## 6) 로드맵/프로토콜
-- 로드맵: `docs/roadmap/SVC_MVP_PLAN.md`
-- 실시간 설계: `docs/roadmap/SVC_REALTIME_VALIDATION_PLAN.md`
+- 현재 실행 기준: `docs/roadmap/current/MASTER_EXECUTION_STRUCTURE_PLAN.md`
+- 초기 MVP 계획(아카이브): `docs/roadmap/archive/SVC_MVP_PLAN.md`
+- 실시간 설계: `docs/roadmap/reference/SVC_REALTIME_VALIDATION_PLAN.md`
 - 아키텍처/ERD: `docs/method/ARCHITECTURE_ERD.md`
-- 협업 실행 원칙: `docs/roadmap/COLLAB_EXECUTION_PROTOCOL.md`
+- 협업 실행 원칙: `docs/roadmap/reference/COLLAB_EXECUTION_PROTOCOL.md`
 - 블라인드: `docs/protocols/blind_protocol.md`
 - 통계: `docs/protocols/stats_protocol.md`
 - 예측식 사전고정: `docs/protocols/prereg_prediction_protocol.md`
@@ -120,7 +133,7 @@ crontab -l | grep -v "run_realtime_cycle.py" | crontab -
 - 채널별 식 도출 샘플:
   - `docs/method/formulas/cosmic_time_delay_redshift.md`
   - `docs/method/formulas/micro_muon_g_minus_2.md`
-- 논문 제출 점검표: `docs/roadmap/paper_submission_readiness_checklist.md`
+- 논문 제출 점검표: `docs/roadmap/reference/paper_submission_readiness_checklist.md`
 
 ## 7) Cosmic 제출 모드 준비 (feature sidecar 필수)
 0. 대체 cosmic 후보셋 생성(권장)

@@ -4,7 +4,7 @@
 
 ## 문서
 - `README.md`
-- `docs/roadmap/SVC_MVP_PLAN.md`
+- `docs/roadmap/archive/SVC_MVP_PLAN.md`
 - `docs/protocols/blind_protocol.md`
 - `docs/protocols/stats_protocol.md`
 - `docs/predictions/P-001.md`

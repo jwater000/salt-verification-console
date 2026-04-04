@@ -1,6 +1,6 @@
 # SVC 댓글 · 인증 · DB 확장 계획서
 
-최종 업데이트: `2026-04-01`
+최종 업데이트: `2026-04-03`
 
 ## 1) 목적
 
@@ -53,11 +53,16 @@
 ### 4.2 1차 제외
 
 - 익명 댓글
-- 대댓글
+- 대댓글 UI 노출
 - 좋아요 / 리액션
 - 실시간 알림
 - 이미지 첨부
 - Markdown 전체 허용
+
+운영 메모:
+
+- DB 스키마에는 향후 확장을 위해 대댓글 관계를 선반영할 수 있다.
+- 다만 1차 제품 범위에서는 `페이지 단위 단일 댓글 흐름`만 UI와 API에 노출한다.
 
 ### 4.3 우선 적용 페이지
 
@@ -81,25 +86,31 @@
 
 권장 후보:
 
-1. `Supabase Auth`
-2. `Auth.js / NextAuth + OAuth`
-3. `Clerk`
+1. `Auth.js / NextAuth + OAuth`
+2. `Clerk`
+3. `Supabase Auth`
 
 현재 구조를 고려하면 가장 실용적인 선택지는 아래 둘 중 하나다.
 
-- `Supabase Auth + Supabase Postgres`
 - `Auth.js + Neon Postgres + Prisma`
+- `Auth.js + managed Postgres`
 
 ### 5.2 1차 권장안
 
-`Supabase Auth + Supabase Postgres`
+`Auth.js + Neon Postgres + Prisma`
 
 이유:
 
-- 인증과 DB를 한 번에 붙이기 쉽다.
+- 스키마와 운영 방식을 애플리케이션이 더 직접 통제할 수 있다.
 - Next.js App Router와 잘 맞는다.
-- 운영 초기의 구현 비용이 낮다.
-- RLS(Row Level Security) 정책으로 기본 권한 제어가 가능하다.
+- Neon branching으로 개발/테스트 DB 운영이 편하다.
+- Postgres RLS를 유지하면서도 인증 계층을 앱이 주도한다.
+
+### 5.3 현재 코드 기준 상태
+
+- Prisma datasource는 `Postgres + DATABASE_URL` 기준으로 준비되어 있다.
+- 세션 기반 RLS 주입 보조 함수가 들어와 있다.
+- 다만 실제 `Auth.js` 설정, provider 연결, session callback, Prisma adapter, env 검증은 아직 없다.
 
 ## 6) 데이터 모델
 
@@ -108,37 +119,94 @@
 #### `users`
 
 - `id`
-- `email`
+- `auth_subject`
 - `display_name`
 - `avatar_url`
-- `role` (`user` | `admin` | `moderator`)
+- `primary_provider`
+- `status` (`active` | `restricted` | `suspended` | `deleted`)
 - `created_at`
+- `updated_at`
+- `last_seen_at`
 
-#### `comments`
+#### `user_roles`
 
 - `id`
+- `user_id`
+- `role` (`member` | `moderator` | `admin`)
+- `granted_by`
+- `granted_reason`
+- `created_at`
+
+운영 메모:
+
+- 현재 설계는 `users.role` 단일 컬럼이 아니라 `user_roles` 분리 테이블 방식이다.
+- 권한 정책은 이 테이블을 기준으로 해석하는 것이 맞다.
+
+#### `post_comments`
+
+- `id`
+- `post_id` nullable
 - `page_path`
-- `section_key` nullable
+- `parent_comment_id` nullable
 - `author_id`
 - `body`
 - `status` (`published` | `hidden` | `deleted`)
 - `created_at`
 - `updated_at`
+- `deleted_at`
 
-#### `comment_reports`
+운영 메모:
+
+- 1차 댓글 UX는 `page_path` 기준 댓글만 노출한다.
+- `post_id`와 `parent_comment_id`는 게시판/대댓글 확장을 위한 구조로 보되, 1차 UI에서는 직접 사용하지 않는다.
+
+#### `board_posts`
 
 - `id`
-- `comment_id`
+- `slug`
+- `title`
+- `body`
+- `author_id`
+- `status`
+- `visibility`
+- `board_key`
+- `created_at`
+- `updated_at`
+- `deleted_at`
+
+#### `content_reports`
+
+- `id`
 - `reporter_id`
+- `target_type`
+- `target_id`
+- `reason_code`
+- `reason_detail`
+- `status`
+- `created_at`
+- `reviewed_at`
+- `reviewed_by`
+
+#### `moderation_actions`
+
+- `id`
+- `actor_id`
+- `target_type`
+- `target_id`
+- `action_type`
 - `reason`
+- `metadata`
 - `created_at`
 
-#### `comment_audit_log`
+#### `activity_log`
 
 - `id`
-- `comment_id`
-- `actor_id`
-- `action`
+- `actor_user_id`
+- `event_type`
+- `target_type`
+- `target_id`
+- `ip_hash`
+- `user_agent`
 - `metadata`
 - `created_at`
 
@@ -148,6 +216,16 @@
 - `comment_threads`
 - `comment_mentions`
 - `notifications`
+
+### 6.3 현재 구현 상태 요약
+
+- Prisma 스키마 초안: 있음
+- 세션 컨텍스트 / RLS 보조 함수: 있음
+- 실제 migration / Prisma client wiring: 미확정
+- 댓글 API: 없음
+- 댓글 UI: 없음
+- moderation API: 없음
+- rate limit: 없음
 
 ## 7) UI / UX 설계
 
@@ -233,18 +311,30 @@
 - `POST /api/comments/:id/delete`
 - `POST /api/comments/:id/report`
 
+운영 메모:
+
+- 1차에서는 게시판 API보다 `page_path` 기반 댓글 API를 먼저 구현한다.
+- 게시판은 스키마상 준비하되 실제 라우트는 댓글 기능 이후로 미룰 수 있다.
+
 ## 10) 구현 단계
 
 ### Phase 1
 
-- 인증 솔루션 선택
+- 인증 솔루션 확정
 - 환경변수 설계
 - DB 연결 및 기본 스키마 생성
+- Prisma client / adapter wiring
+
+현재 상태:
+
+- DB 기본 스키마 초안은 작성됨
+- 인증 솔루션의 실제 코드 연결은 아직 없음
 
 ### Phase 2
 
 - 댓글 읽기/작성 API 구현
 - 페이지 하단 댓글 UI 1차 적용
+- `page_path` 기준 목록 조회 / 작성만 우선 구현
 
 ### Phase 3
 
@@ -270,7 +360,10 @@
 
 ## 12) 즉시 다음 액션
 
-- [ ] 인증 방식 확정 (`Supabase` 우선 검토)
-- [ ] DB 스키마 초안 작성
+- [ ] `Auth.js + Neon + Prisma` 실제 연결 확정
+- [x] DB 스키마 초안 작성
 - [ ] 댓글 대상 페이지 목록 확정
-- [ ] API 라우트와 UI 컴포넌트 골격 구현
+- [ ] Prisma client / migration / env 규칙 정리
+- [ ] `GET/POST /api/comments` 골격 구현
+- [ ] 페이지 하단 댓글 UI 컴포넌트 골격 구현
+- [ ] moderation / report / rate limit 2차 범위 분리 문서화
