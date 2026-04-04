@@ -124,20 +124,34 @@ export default async function HomePage() {
 
           <div className="grid gap-3 self-start sm:grid-cols-2 lg:grid-cols-1">
             <div className="rounded-2xl border border-cyan-500/25 bg-slate-950/45 p-5">
-              <p className="text-xs uppercase tracking-[0.18em] text-slate-500">Integrated Result</p>
+              <p className="text-xs uppercase tracking-[0.18em] text-slate-500">전체 비교 결과</p>
               <p className="mt-2 text-4xl font-bold tabular-nums text-cyan-300">{saltRate}%</p>
-              <p className="mt-1 text-sm text-slate-400">SALT wins {totalSalt} / {totalCount}</p>
+              <p className="mt-2 text-sm leading-relaxed text-slate-300">
+                현재 공개된 비교 항목 {totalCount}개 중 {totalSalt}개에서 SALT가 기준선보다 실제값에
+                더 가깝다.
+              </p>
+              <p className="mt-2 text-xs text-slate-500">
+                이 수치는 이론의 최종 확정을 뜻하지 않고, 지금 공개된 고정 비교 항목의 중간 결과를
+                뜻한다.
+              </p>
             </div>
             <div className="rounded-2xl border border-slate-700 bg-slate-950/45 p-5">
-              <p className="text-xs uppercase tracking-[0.18em] text-slate-500">Frozen Dataset</p>
+              <p className="text-xs uppercase tracking-[0.18em] text-slate-500">현재 공개 기준 데이터</p>
               <p className="mt-2 font-mono text-sm font-semibold text-slate-200">
                 {frozen.dataset_version || "—"}
               </p>
-              <p className="mt-1 text-xs text-slate-500">{frozen.created_at_utc || "—"}</p>
+              <p className="mt-2 text-sm leading-relaxed text-slate-300">
+                아래 검증 결과는 현재 잠긴 공개 데이터 버전을 기준으로 계산됐다.
+              </p>
+              <p className="mt-2 text-xs text-slate-500">{frozen.created_at_utc || "—"}</p>
             </div>
             <div className="rounded-2xl border border-sky-500/25 bg-slate-950/45 p-5">
-              <p className="text-xs uppercase tracking-[0.18em] text-slate-500">Cosmic vs Micro</p>
-              <p className="mt-2 text-sm text-slate-200">거시 SALT 우세 {cosmic.salt}</p>
+              <p className="text-xs uppercase tracking-[0.18em] text-slate-500">거시 / 미시 비교</p>
+              <p className="mt-2 text-sm leading-relaxed text-slate-300">
+                거시 관측과 미시 실험을 나눠 보면, 현재 공개 데이터에서는 거시 항목에서 SALT 우세가
+                더 많이 나타난다.
+              </p>
+              <p className="mt-3 text-sm text-slate-200">거시 SALT 우세 {cosmic.salt}</p>
               <p className="mt-1 text-sm text-slate-200">미시 SALT 우세 {microCounts.salt}</p>
             </div>
           </div>
