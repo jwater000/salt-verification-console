@@ -1,34 +1,6 @@
-import Link from "next/link";
 import { loadFrozenManifest, loadModelEvalManifest } from "@/lib/data";
 import CommentsPanel from "@/components/comments-panel";
-
-const AUDIT_STEPS = [
-  {
-    href: "/audit/reproduce",
-    title: "Reproduce",
-    body: "같은 코드와 같은 데이터로 실행했을 때 같은 산출 경로가 나오는지 확인할 수 있다.",
-  },
-  {
-    href: "/snapshots",
-    title: "Snapshots",
-    body: "현재 공개 기준이 되는 frozen dataset과 linked run 집계를 확인할 수 있다.",
-  },
-  {
-    href: "/runs",
-    title: "Runs",
-    body: "실행 명령, verdict, artifact hash를 따라가며 provenance를 점검할 수 있다.",
-  },
-  {
-    href: "/audit/sources",
-    title: "Sources",
-    body: "외부 공개 데이터와 참조 문헌의 출처 목록을 확인할 수 있다.",
-  },
-  {
-    href: "/audit/comments",
-    title: "Moderation",
-    body: "댓글 신고, 최근 댓글, 운영 액션 이력을 운영자 권한으로 확인할 수 있다.",
-  },
-] as const;
+import NextSteps from "@/components/next-steps";
 
 const PRINCIPLES = [
   "결과와 함께 계산 경로를 같이 확인할 수 있게 정리한다",
@@ -88,24 +60,6 @@ export default async function AuditPage() {
         </div>
       </div>
 
-      <div>
-        <h2 className="mb-4 text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">
-          감사 경로
-        </h2>
-        <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
-          {AUDIT_STEPS.map((step) => (
-            <Link
-              key={step.href}
-              href={step.href}
-              className="rounded-2xl border border-amber-500/20 bg-slate-950/45 p-5 transition hover:border-amber-400/40"
-            >
-              <h2 className="text-lg font-bold text-white">{step.title}</h2>
-              <p className="mt-2 text-sm leading-relaxed text-slate-400">{step.body}</p>
-            </Link>
-          ))}
-        </div>
-      </div>
-
       <div className="grid gap-4 lg:grid-cols-[1.1fr,0.9fr]">
         <div className="rounded-2xl border border-slate-800 bg-slate-950/40 p-6">
           <h2 className="text-sm font-semibold text-white">이 영역의 정리 원칙</h2>
@@ -120,20 +74,50 @@ export default async function AuditPage() {
         </div>
 
         <div className="rounded-2xl border border-slate-800 bg-slate-950/40 p-6">
-          <h2 className="text-sm font-semibold text-white">바로 이동</h2>
-          <div className="mt-5 space-y-3 text-sm">
-            <Link href="/verification/results" className="block text-cyan-300 hover:text-cyan-200">
-              판정 결과 보기 →
-            </Link>
-            <Link href="/verification/pending" className="block text-amber-300 hover:text-amber-200">
-              검증 대기 항목 보기 →
-            </Link>
-            <Link href="/guide" className="block text-slate-300 hover:text-white">
-              전체 사이트 가이드 →
-            </Link>
+          <h2 className="text-sm font-semibold text-white">재현에 필요한 3요소</h2>
+          <div className="mt-5 space-y-4">
+            <div>
+              <p className="text-sm font-semibold text-slate-100">1. 잠긴 기준</p>
+              <p className="mt-1 text-sm text-slate-400">
+                어느 frozen dataset과 어떤 판정 규칙을 기준으로 결과가 공개됐는지 먼저 확인한다.
+              </p>
+            </div>
+            <div>
+              <p className="text-sm font-semibold text-slate-100">2. 실행 provenance</p>
+              <p className="mt-1 text-sm text-slate-400">
+                run, snapshot, manifest hash를 따라가며 산출물이 어떤 파이프라인에서 나왔는지 본다.
+              </p>
+            </div>
+            <div>
+              <p className="text-sm font-semibold text-slate-100">3. 입력 출처</p>
+              <p className="mt-1 text-sm text-slate-400">
+                외부 공개 데이터와 참고 문헌의 출처가 결과와 어떤 관계로 연결되는지 확인한다.
+              </p>
+            </div>
           </div>
         </div>
       </div>
+
+      <NextSteps
+        title="감사 자료 더 보기"
+        steps={[
+          {
+            href: "/audit/reproduce",
+            title: "Reproduce",
+            body: "같은 코드와 같은 데이터로 같은 산출 경로가 나오는지 재현 절차를 확인한다.",
+          },
+          {
+            href: "/runs",
+            title: "Runs",
+            body: "실행 단위의 verdict, artifact hash, provenance 상세를 추적한다.",
+          },
+          {
+            href: "/audit/sources",
+            title: "Sources",
+            body: "외부 공개 데이터와 참조 문헌의 계보를 출처 단위로 확인한다.",
+          },
+        ]}
+      />
 
       <CommentsPanel
         pagePath="/audit"

@@ -2,6 +2,7 @@ import Link from "next/link";
 import { loadMicroSnapshot, loadAllResults, loadFrozenManifest } from "@/lib/data";
 import { CANDIDATE_HYPOTHESES, VERIFICATION_CHANNELS } from "@/lib/site-content";
 import CommentsPanel from "@/components/comments-panel";
+import NextSteps from "@/components/next-steps";
 
 const STATE_VARIABLE_MAP = [
   {
@@ -26,37 +27,6 @@ const STATE_VARIABLE_MAP = [
     color: "violet",
   },
 ];
-
-const VERIFICATION_LANES = [
-  {
-    href: "/verification/channels",
-    title: "Channels Index",
-    desc: "고정 검증 채널 3종을 같은 기준으로 훑고 개별 채널 페이지로 들어갈 수 있다.",
-    tag: "채널 보기",
-    accent: "sky",
-  },
-  {
-    href: "/verification/results",
-    title: "Results Board",
-    desc: "현재 frozen 데이터 기준 집계와 항목별 판정 결과를 확인할 수 있다.",
-    tag: "지금 확인 가능",
-    accent: "cyan",
-  },
-  {
-    href: "/verification/pending",
-    title: "Pending Queue",
-    desc: "가설은 있으나 아직 운영형 관측량과 score가 잠기지 않은 항목을 확인할 수 있다.",
-    tag: "아직 미완성",
-    accent: "amber",
-  },
-  {
-    href: "/audit/reproduce",
-    title: "Audit Trail",
-    desc: "snapshot, run, hash를 바탕으로 산출 경로를 확인할 수 있다.",
-    tag: "재현 점검",
-    accent: "emerald",
-  },
-] as const;
 
 export default async function VerificationPage() {
   const [micro, allResults, frozen] = await Promise.all([
@@ -122,42 +92,24 @@ export default async function VerificationPage() {
         </div>
       </div>
 
-      <div>
-        <div className="mb-4 flex items-center justify-between">
-          <h2 className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">
-            Verification에서 바로 갈 수 있는 세 갈래
-          </h2>
-          <span className="text-xs text-slate-500">개요 / 결과 / 대기 / 감사</span>
+      <div className="grid gap-4 md:grid-cols-3">
+        <div className="rounded-2xl border border-cyan-500/20 bg-slate-950/45 p-5">
+          <p className="text-xs uppercase tracking-[0.16em] text-slate-500">결과판</p>
+          <p className="mt-2 text-sm leading-relaxed text-slate-300">
+            현재 잠긴 채널에서 SALT와 기준선의 오차 비교 결과를 본다.
+          </p>
         </div>
-        <div className="grid gap-4 lg:grid-cols-4">
-          {VERIFICATION_LANES.map((lane) => {
-            const borderMap: Record<string, string> = {
-              cyan: "border-cyan-500/20 hover:border-cyan-400/40",
-              sky: "border-sky-500/20 hover:border-sky-400/40",
-              amber: "border-amber-500/20 hover:border-amber-400/40",
-              emerald: "border-emerald-500/20 hover:border-emerald-400/40",
-            };
-            const tagMap: Record<string, string> = {
-              cyan: "bg-cyan-500/10 text-cyan-300",
-              sky: "bg-sky-500/10 text-sky-300",
-              amber: "bg-amber-500/10 text-amber-300",
-              emerald: "bg-emerald-500/10 text-emerald-300",
-            };
-            return (
-              <Link
-                key={lane.href}
-                href={lane.href}
-                className={`group rounded-2xl border bg-slate-950/45 p-5 transition ${borderMap[lane.accent]}`}
-              >
-                <span className={`rounded-full px-2.5 py-1 text-[11px] font-semibold uppercase tracking-[0.16em] ${tagMap[lane.accent]}`}>
-                  {lane.tag}
-                </span>
-                <h2 className="mt-4 text-xl font-bold text-white">{lane.title}</h2>
-                <p className="mt-2 text-sm leading-relaxed text-slate-400">{lane.desc}</p>
-                <p className="mt-5 text-sm font-semibold text-slate-200 group-hover:text-white">열기 →</p>
-              </Link>
-            );
-          })}
+        <div className="rounded-2xl border border-amber-500/20 bg-slate-950/45 p-5">
+          <p className="text-xs uppercase tracking-[0.16em] text-slate-500">대기판</p>
+          <p className="mt-2 text-sm leading-relaxed text-slate-300">
+            형식화는 됐지만 아직 운영형 관측량이나 판정 규칙이 잠기지 않은 가설을 본다.
+          </p>
+        </div>
+        <div className="rounded-2xl border border-emerald-500/20 bg-slate-950/45 p-5">
+          <p className="text-xs uppercase tracking-[0.16em] text-slate-500">감사 연결</p>
+          <p className="mt-2 text-sm leading-relaxed text-slate-300">
+            판정 근거를 따라갈 필요가 있을 때만 Audit의 reproduce, run, hash 자료로 내려간다.
+          </p>
         </div>
       </div>
 
@@ -285,7 +237,7 @@ export default async function VerificationPage() {
       </div>
 
       <div className="panel px-6 py-6">
-        <h2 className="mb-5 text-sm font-bold text-white">읽는 순서</h2>
+        <h2 className="mb-5 text-sm font-bold text-white">검증 자료를 읽는 기준</h2>
         <div className="grid gap-4 md:grid-cols-4">
           {[
             {
@@ -386,33 +338,26 @@ export default async function VerificationPage() {
         </p>
       </div>
 
-      {/* Nav to sub-pages */}
-      <div className="flex flex-wrap gap-3 border-t border-slate-800 pt-5">
-        <Link
-          href="/verification/channels"
-          className="inline-flex items-center gap-2 rounded-lg border border-slate-700 bg-slate-900/50 px-4 py-2.5 text-sm font-medium text-slate-300 transition hover:border-slate-500 hover:text-white"
-        >
-          채널 인덱스 →
-        </Link>
-        <Link
-          href="/verification/results"
-          className="inline-flex items-center gap-2 rounded-lg border border-cyan-500/25 bg-cyan-500/10 px-4 py-2.5 text-sm font-medium text-cyan-300 transition hover:border-cyan-400/50 hover:bg-cyan-500/15"
-        >
-          판정 결과 상세 →
-        </Link>
-        <Link
-          href="/verification/pending"
-          className="inline-flex items-center gap-2 rounded-lg border border-amber-500/20 bg-amber-500/10 px-4 py-2.5 text-sm font-medium text-amber-300 transition hover:border-amber-400/40 hover:bg-amber-500/15"
-        >
-          검증 대기 항목 →
-        </Link>
-        <Link
-          href="/audit/reproduce"
-          className="inline-flex items-center gap-2 rounded-lg border border-emerald-500/20 bg-emerald-500/10 px-4 py-2.5 text-sm font-medium text-emerald-300 transition hover:border-emerald-400/40 hover:bg-emerald-500/15"
-        >
-          재현 방법 →
-        </Link>
-      </div>
+      <NextSteps
+        title="다음으로 볼 곳"
+        steps={[
+          {
+            href: "/verification/channels",
+            title: "Channels",
+            body: "고정 채널 3종을 같은 형식으로 훑고 개별 채널 상세로 들어간다.",
+          },
+          {
+            href: "/verification/candidate-hypotheses",
+            title: "Candidate Hypotheses",
+            body: "아직 잠기지 않은 가설과 다음 형식화 과제를 확인한다.",
+          },
+          {
+            href: "/audit/reproduce",
+            title: "Audit Reproduce",
+            body: "판정 근거를 재현 단계까지 따라가야 할 때만 감사 자료로 이동한다.",
+          },
+        ]}
+      />
 
       <CommentsPanel
         pagePath="/verification"

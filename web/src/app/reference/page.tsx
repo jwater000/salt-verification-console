@@ -1,31 +1,5 @@
 import Link from "next/link";
-
-const SECTIONS = [
-  {
-    href: "/reference/visual-atlas",
-    title: "Visual Atlas",
-    desc: "g00~g33 도해를 의미 단위로 묶어 맥락을 따라가며 볼 수 있게 정리한다.",
-    tag: "시각화",
-  },
-  {
-    href: "/reference/glossary",
-    title: "Glossary",
-    desc: "ρ, θ, L, LIV 같은 주요 용어를 표준 이론과의 관계 속에서 정리한다.",
-    tag: "개념 사전",
-  },
-  {
-    href: "/reference/faq",
-    title: "FAQ",
-    desc: "자주 확인하는 질문과 쟁점을 짧은 문답 형식으로 정리한다.",
-    tag: "대화 준비",
-  },
-  {
-    href: "/reference/book-map",
-    title: "Book Map",
-    desc: "00~28장이 현재 웹 구조의 어느 페이지와 연결되는지 정리해 둔다.",
-    tag: "구조도",
-  },
-] as const;
+import NextSteps from "@/components/next-steps";
 
 const HIGHLIGHTS = [
   {
@@ -45,6 +19,29 @@ const HIGHLIGHTS = [
     src: "/book-graphs/g25_faq_claim_matrix.jpg",
     title: "오해를 먼저 정리",
     body: "자주 나오는 오해와 구분이 필요한 표현을 함께 정리해 둔다.",
+  },
+] as const;
+
+const BOOK_MAP_PREVIEW = [
+  {
+    chapter: "00·21장",
+    web: "Home / Guide / Core",
+    role: "처음 온 방문자가 전체 문제의식과 읽는 순서를 잡는 축",
+  },
+  {
+    chapter: "17장",
+    web: "Core / Logic Map",
+    role: "상태변수와 이론 구조를 압축해 보여주는 중심 축",
+  },
+  {
+    chapter: "18장",
+    web: "Verification",
+    role: "고정 채널, 비교식, 판정 규칙과 결과를 보는 축",
+  },
+  {
+    chapter: "24~27장",
+    web: "Audit",
+    role: "재현, provenance, source, frozen 기준을 점검하는 축",
   },
 ] as const;
 
@@ -77,25 +74,25 @@ export default function ReferencePage() {
         </div>
       </div>
 
-      <div className="grid gap-4 md:grid-cols-2">
-        {SECTIONS.map((section) => (
-          <Link
-            key={section.href}
-            href={section.href}
-            className="group rounded-2xl border border-violet-500/20 bg-slate-950/45 p-6 transition hover:border-violet-400/40 hover:bg-slate-900/55"
-          >
-            <div className="flex items-center justify-between gap-3">
-              <h2 className="text-xl font-bold text-white">{section.title}</h2>
-              <span className="rounded-full bg-violet-500/10 px-2.5 py-1 text-[11px] font-semibold uppercase tracking-[0.16em] text-violet-300">
-                {section.tag}
-              </span>
+      <div className="rounded-2xl border border-violet-500/20 bg-slate-950/45 p-6">
+        <div className="mb-4 flex items-center justify-between gap-3">
+          <h2 className="text-sm font-semibold text-white">Book Map 미리보기</h2>
+          <span className="rounded-full bg-violet-500/10 px-2.5 py-1 text-[11px] font-semibold uppercase tracking-[0.16em] text-violet-300">
+            구조 대응
+          </span>
+        </div>
+        <div className="space-y-3">
+          {BOOK_MAP_PREVIEW.map((item) => (
+            <div
+              key={item.chapter}
+              className="grid gap-2 rounded-xl border border-slate-800 bg-slate-900/40 p-4 md:grid-cols-[0.7fr,0.9fr,1.4fr]"
+            >
+              <p className="text-sm font-semibold text-slate-100">{item.chapter}</p>
+              <p className="text-sm text-violet-200">{item.web}</p>
+              <p className="text-sm leading-relaxed text-slate-400">{item.role}</p>
             </div>
-            <p className="mt-3 text-sm leading-relaxed text-slate-400">{section.desc}</p>
-            <p className="mt-5 text-sm font-semibold text-violet-300 group-hover:text-violet-200">
-              열기 →
-            </p>
-          </Link>
-        ))}
+          ))}
+        </div>
       </div>
 
       <div>
@@ -128,6 +125,27 @@ export default function ReferencePage() {
           ))}
         </div>
       </div>
+
+      <NextSteps
+        title="참고 자료 더 보기"
+        steps={[
+          {
+            href: "/reference/book-map",
+            title: "Book Map",
+            body: "책의 장 구조와 웹 허브의 대응 관계를 전체 표로 확인한다.",
+          },
+          {
+            href: "/reference/glossary",
+            title: "Glossary",
+            body: "ρ, θ, L, LIV 같은 핵심 용어를 표준 이론과의 관계 속에서 읽는다.",
+          },
+          {
+            href: "/reference/visual-atlas",
+            title: "Visual Atlas",
+            body: "도해와 그래프를 중심으로 각 검증 축의 그림 흐름을 먼저 본다.",
+          },
+        ]}
+      />
     </section>
   );
 }

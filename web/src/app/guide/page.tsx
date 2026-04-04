@@ -225,13 +225,13 @@ export default function GuidePage() {
             </div>
           ))}
         </div>
-      <div id="buy-book">
-        <BookstoreLinks
-          title="도서 구매처 안내"
-          description="구매 동선은 여기서 끝내고, 읽기 동선은 위의 추천 경로 또는 Book Map에서 이어서 시작하면 된다."
-          compact
-        />
-      </div>
+        <div id="buy-book" className="mt-6">
+          <BookstoreLinks
+            title="도서 구매처 안내"
+            description="구매 동선은 여기서 끝내고, 읽기 동선은 위의 추천 경로 또는 Book Map에서 이어서 시작하면 된다."
+            compact
+          />
+        </div>
       </div>
     </section>
   );

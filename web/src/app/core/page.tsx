@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { CORE_CHAPTERS, LOGIC_MAP_STAGES } from "@/lib/site-content";
+import NextSteps from "@/components/next-steps";
 
 export default function CorePage() {
   return (
@@ -24,20 +25,6 @@ export default function CorePage() {
             결과 원표는 제외
           </span>
         </div>
-        <div className="mt-6 flex flex-wrap gap-3">
-          <Link
-            href="/core/logic-map"
-            className="rounded-lg border border-sky-400/30 bg-sky-500/10 px-4 py-2 text-sm font-medium text-sky-200 transition hover:border-sky-300/50 hover:bg-sky-500/15"
-          >
-            Logic Map →
-          </Link>
-          <Link
-            href="/core/chapters"
-            className="rounded-lg border border-slate-700 px-4 py-2 text-sm font-medium text-slate-300 transition hover:border-slate-500 hover:text-white"
-          >
-            장별 요약 →
-          </Link>
-        </div>
       </div>
 
       {/* Logic flow */}
@@ -60,6 +47,30 @@ export default function CorePage() {
               </div>
             </div>
           ))}
+        </div>
+      </div>
+
+      <div className="rounded-2xl border border-slate-800 bg-slate-950/40 p-6">
+        <h2 className="text-sm font-semibold text-white">이 페이지에서 바로 읽는 내용</h2>
+        <div className="mt-5 grid gap-4 md:grid-cols-3">
+          <div className="rounded-xl border border-slate-800 bg-slate-900/40 p-4">
+            <p className="text-sm font-semibold text-slate-100">문제의식</p>
+            <p className="mt-2 text-sm leading-relaxed text-slate-400">
+              공간, 질량, 상호작용을 따로 떼지 않고 하나의 구조 문제로 다시 읽는 관점을 압축해 본다.
+            </p>
+          </div>
+          <div className="rounded-xl border border-slate-800 bg-slate-900/40 p-4">
+            <p className="text-sm font-semibold text-slate-100">상태변수 언어</p>
+            <p className="mt-2 text-sm leading-relaxed text-slate-400">
+              ρ, θ, L 세 변수로 공간 구조를 기술하고 관측 흔적으로 연결하는 방식을 본다.
+            </p>
+          </div>
+          <div className="rounded-xl border border-slate-800 bg-slate-900/40 p-4">
+            <p className="text-sm font-semibold text-slate-100">검증으로의 연결</p>
+            <p className="mt-2 text-sm leading-relaxed text-slate-400">
+              이론 설명이 어디서 끝나고 실제 판정 구조가 어디서 시작되는지 경계를 확인한다.
+            </p>
+          </div>
         </div>
       </div>
 
@@ -148,6 +159,26 @@ export default function CorePage() {
           </div>
         </div>
       </div>
+
+      <NextSteps
+        steps={[
+          {
+            href: "/core/logic-map",
+            title: "Logic Map",
+            body: "문제에서 검증으로 넘어가는 논리 중간층을 한 번에 본다.",
+          },
+          {
+            href: "/core/chapters",
+            title: "Chapter Index",
+            body: "17·18·19장 요약을 장 단위로 이어서 읽는다.",
+          },
+          {
+            href: "/verification",
+            title: "Verification",
+            body: "이론 설명 다음에 실제 판정 구조와 채널 비교로 넘어간다.",
+          },
+        ]}
+      />
     </section>
   );
 }

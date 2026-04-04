@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { loadAllResults, loadFrozenManifest, loadMicroSnapshot } from "@/lib/data";
 import BookstoreLinks from "@/components/bookstore-links";
+import NextSteps from "@/components/next-steps";
 
 type WinCounts = { salt: number; standard: number; tie: number; total: number };
 
@@ -20,37 +21,6 @@ function winnerCounts(
   }
   return { salt, standard, tie, total: salt + standard + tie };
 }
-
-const VISITOR_LANES = [
-  {
-    href: "/guide",
-    eyebrow: "For First-Time Visitors",
-    title: "먼저 읽을 경로를 정리",
-    body: "도서의 주요 주제와 사이트 구성, 권장 읽기 순서를 차분히 살펴볼 수 있다.",
-    accent: "cyan",
-  },
-  {
-    href: "#buy-book",
-    eyebrow: "For Book Buyers",
-    title: "도서 구매부터 바로 이동",
-    body: "사이트 탐색보다 먼저 서점 페이지와 구매 경로를 확인하려는 방문자에게 맞는 진입점이다.",
-    accent: "violet",
-  },
-  {
-    href: "/verification/results",
-    eyebrow: "For Reviewers",
-    title: "결과와 재현 경로 검토",
-    body: "frozen 데이터 기준 판정 결과를 먼저 보고, 이어서 Audit에서 재현 경로를 점검하려는 방문자에게 맞는 진입점이다.",
-    accent: "amber",
-  },
-  {
-    href: "/engineering",
-    eyebrow: "For Engineers",
-    title: "기술적 함의부터 보기",
-    body: "공학적 해석, 응용 가능성, 한계와 가설의 층위를 먼저 확인할 수 있다.",
-    accent: "emerald",
-  },
-] as const;
 
 const CORE_AREAS = [
   {
@@ -174,68 +144,25 @@ export default async function HomePage() {
         </div>
       </div>
 
-      <div>
-        <div className="mb-4 flex items-center justify-between">
-          <h2 className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">
-            방문자별 진입 경로
-          </h2>
-          <Link href="/guide" className="text-xs text-cyan-400 hover:underline">
-            전체 입문 가이드 →
-          </Link>
-        </div>
-        <div className="grid gap-4 lg:grid-cols-4">
-          {VISITOR_LANES.map((lane) => {
-            const accents: Record<string, string> = {
-              cyan: "border-cyan-500/20 hover:border-cyan-400/40",
-              violet: "border-violet-500/20 hover:border-violet-400/40",
-              emerald: "border-emerald-500/20 hover:border-emerald-400/40",
-              amber: "border-amber-500/20 hover:border-amber-400/40",
-            };
-            const labels: Record<string, string> = {
-              cyan: "text-cyan-300 bg-cyan-500/10",
-              violet: "text-violet-300 bg-violet-500/10",
-              emerald: "text-emerald-300 bg-emerald-500/10",
-              amber: "text-amber-300 bg-amber-500/10",
-            };
-            return (
-              <Link
-                key={lane.href}
-                href={lane.href}
-                className={`group rounded-2xl border bg-slate-950/45 p-6 transition ${accents[lane.accent]}`}
-              >
-                <span className={`rounded-full px-2.5 py-1 text-[11px] font-semibold uppercase tracking-[0.16em] ${labels[lane.accent]}`}>
-                  {lane.eyebrow}
-                </span>
-                <h3 className="mt-4 text-xl font-bold text-white">{lane.title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-slate-400">{lane.body}</p>
-                <p className="mt-5 text-sm font-semibold text-slate-200 group-hover:text-white">
-                  들어가기 →
-                </p>
-              </Link>
-            );
-          })}
-        </div>
-      </div>
-
       <div className="grid gap-4 lg:grid-cols-[1.1fr,0.9fr]">
         <div className="rounded-2xl border border-slate-800 bg-slate-950/40 p-6">
-          <h2 className="text-sm font-semibold text-white">읽기 동선</h2>
+          <h2 className="text-sm font-semibold text-white">지금 이 사이트에서 바로 확인 가능한 것</h2>
           <div className="mt-5 space-y-4">
             {[
               {
                 step: "01",
-                title: "개요를 먼저 읽기",
-                body: "Core와 Reference에서 주요 개념과 도해를 먼저 살펴본다.",
+                title: "이론 구조의 압축본",
+                body: "Core에서 문제의식, 상태변수, 논리 지도를 본문 압축 형태로 바로 확인할 수 있다.",
               },
               {
                 step: "02",
-                title: "검증 자료를 구분해 확인",
-                body: "Verification에서 집계 결과와 검증 대기 항목을 나누어 확인한다.",
+                title: "현재 검증 상태",
+                body: "Verification에서 고정 채널별 판정과 검증 대기 가설을 같은 기준으로 나누어 볼 수 있다.",
               },
               {
                 step: "03",
-                title: "재현 경로를 확인",
-                body: "Audit에서 snapshot, run, manifest hash를 통해 산출 경로를 따라간다.",
+                title: "재현과 provenance",
+                body: "Audit에서 snapshot, run, manifest hash를 따라가며 산출 경로를 점검할 수 있다.",
               },
             ].map((item) => (
               <div key={item.step} className="grid gap-3 sm:grid-cols-[auto,1fr]">
@@ -271,30 +198,43 @@ export default async function HomePage() {
         />
       </div>
 
-      <div>
-        <h2 className="mb-4 text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">
-          사이트 역할
-        </h2>
-        <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+      <div className="rounded-2xl border border-slate-800 bg-slate-950/40 p-6">
+        <h2 className="text-sm font-semibold text-white">섹션별 내용 차이</h2>
+        <div className="mt-5 grid gap-3 md:grid-cols-2 xl:grid-cols-4">
           {CORE_AREAS.map((area) => (
-            <Link
+            <div
               key={area.href}
-              href={area.href}
-              className="rounded-2xl border border-slate-800 bg-slate-950/40 p-5 transition hover:border-slate-600 hover:bg-slate-900/50"
+              className="rounded-xl border border-slate-800 bg-slate-900/40 p-4"
             >
               <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-slate-500">
                 {area.label}
               </p>
               <h3 className="mt-2 text-lg font-bold text-white">{area.title}</h3>
               <p className="mt-2 text-sm leading-relaxed text-slate-400">{area.body}</p>
-            </Link>
+            </div>
           ))}
         </div>
-      <BookstoreLinks
-        title="도서 구매처"
-        description="도서를 바로 찾으려는 경우 아래 서점 페이지를 참고할 수 있다."
-      />
       </div>
+
+      <NextSteps
+        steps={[
+          {
+            href: "/guide",
+            title: "Guide",
+            body: "방문자 유형별 읽기 순서를 보고 어디서 시작할지 정한다.",
+          },
+          {
+            href: "/verification/results",
+            title: "Verification Results",
+            body: "현재 고정 채널 기준 판정 결과를 먼저 확인한다.",
+          },
+          {
+            href: "/reference/book-map",
+            title: "Book Map",
+            body: "책의 각 장이 웹의 어느 허브와 대응하는지 먼저 본다.",
+          },
+        ]}
+      />
     </section>
   );
 }
