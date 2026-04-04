@@ -30,6 +30,10 @@
 - `docs/roadmap/archive/EXECUTION_PLAN_20260331_20260401.md`
 - `docs/roadmap/archive/WEB_STRUCTURE_OPTIMIZATION_PLAN_20260401.md`
 
+관련 참조 문서:
+
+- `docs/roadmap/reference/SVC_SITE_SIMPLIFICATION_REENGINEERING_PLAN.md`
+
 목적은 두 가지다.
 
 - `무엇을 했고 무엇이 남았는지`를 한 문서에서 확인한다.
@@ -502,10 +506,27 @@ UI/UX 최적화는 시각 미감이 아니라 `탐색 효율`과 `맥락 전달`
 | `page-map 동기화` | `not_started` | 실제 라우트 대비 반영 범위가 좁음 | 전체 공개 라우트 목록 기준으로 `page-map.ts` 재작성 | 실제 라우트 목록 확정 |
 | `콘텐츠 모델 정리` | `not_started` | 페이지 내부 상수와 lib 데이터가 분산됨 | `site_section`, `book_chapter_summary`, `erd_stage`, `verification_channel`, `reference_asset` 초안 타입 정의 | IA 고정 |
 | `Audit / provenance 모델` | `in_progress` | `runs`, `snapshots`, `v2-data` 계층이 이미 존재 | 콘텐츠 메타 계층과 분리 원칙 문서화 | 없음 |
+| `하네스 엔지니어링` | `not_started` | 작업 기준 문서와 수동 `lint`/`build` 검증은 있으나, 에이전트 실수 재발 방지용 자동 강제 구조는 약함 | 운영 규칙 문서, 자동 검증 훅, 재발 방지 체크리스트를 구조로 고정 | 공통 개발 워크플로 |
 | `커뮤니티 스키마` | `in_progress` | Prisma 스키마와 세션 보조 함수 존재 | 인증 공급자, env, migration 전략 확정 | DB 환경 |
 | `댓글 API / UI` | `not_started` | API 라우트와 UI 컴포넌트 없음 | `GET/POST /api/comments`와 페이지 하단 댓글 섹션 골격 구현 | Auth, Prisma client |
 | `moderation / rate limit` | `not_started` | 정책만 있고 구현 없음 | 관리자 액션 API, 신고 API, 작성 제한 규칙 추가 | 댓글 API |
 | `기존 라우트 호환` | `not_started` | 리다이렉트/alias 정책 문서 없음 | 과거 경로와 새 경로 매핑표 작성 | 최종 IA 확정 |
+
+운영 TODO:
+
+- 배포 로그인 전환 시 `localhost` OAuth callback만 쓰지 말고 실제 배포 도메인 callback을 함께 등록한다.
+- 현재 공개 도메인이 `salt.numverse.org`이면 아래 callback URL을 Google/GitHub OAuth 설정에 추가한다.
+  - `https://salt.numverse.org/api/auth/callback/google`
+  - `https://salt.numverse.org/api/auth/callback/github`
+- 로컬 개발용 `http://localhost:3000/...` callback은 삭제하지 말고 병행 유지한다.
+- 배포 환경에도 동일한 provider ID/secret, `AUTH_SECRET`, host 관련 env가 설정됐는지 함께 점검한다.
+
+하네스 TODO:
+
+- 에이전트가 항상 먼저 읽는 운영 규칙 문서(`CLAUDE.md` 또는 동등 문서) 도입 여부를 결정한다.
+- `lint`, `build`, 핵심 smoke test를 커밋 전 자동으로 강제할지 결정하고, 선택 시 훅으로 고정한다.
+- 한 번 발생한 실수는 `프롬프트 주의`가 아니라 `문서 규칙 / 자동 검사 / 구조 변경` 중 하나로 재발 방지 장치로 승격한다.
+- 문서와 실제 코드 불일치, 미사용 라우트, 오래된 링크를 주기적으로 점검하는 청소 루프를 설계한다.
 
 ### 8.1 핵심 페이지 와이어프레임 원칙
 
