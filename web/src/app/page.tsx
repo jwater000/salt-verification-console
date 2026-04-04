@@ -1,5 +1,10 @@
 import Link from "next/link";
-import { loadAllResults, loadFrozenManifest, loadMicroSnapshot } from "@/lib/frozen-data";
+import {
+  loadAllResults,
+  loadFrozenManifest,
+  loadMicroSnapshot,
+  loadModelEvalManifest,
+} from "@/lib/frozen-data";
 import BookstoreLinks from "@/components/bookstore-links";
 import NextSteps from "@/components/next-steps";
 
@@ -57,10 +62,11 @@ const TRUST_POINTS = [
 ];
 
 export default async function HomePage() {
-  const [allResults, micro, frozen] = await Promise.all([
+  const [allResults, micro, frozen, modelEval] = await Promise.all([
     loadAllResults(),
     loadMicroSnapshot(),
     loadFrozenManifest(),
+    loadModelEvalManifest(),
   ]);
 
   const cosmic = winnerCounts(allResults);
@@ -81,6 +87,7 @@ export default async function HomePage() {
   const cosmicRate = cosmic.total > 0 ? ((cosmic.salt / cosmic.total) * 100).toFixed(1) : "—";
   const microTotal = microCounts.salt + microCounts.standard + microCounts.tie;
   const microRate = microTotal > 0 ? ((microCounts.salt / microTotal) * 100).toFixed(1) : "—";
+  const microProviders = Array.from(new Set(micro.sources.map((source) => source.provider).filter(Boolean)));
 
   return (
     <section className="space-y-10">
@@ -145,11 +152,18 @@ export default async function HomePage() {
                 {frozen.dataset_version || "—"}
               </p>
               <p className="mt-2 text-sm leading-relaxed text-slate-300">
-                현재 사이트의 비교 결과는 2026-03-08에 고정한 공개 데이터 묶음
-                ({frozen.dataset_version || "frozen-20260308"})을 기준으로 계산됐다.
+                현재 사이트의 비교 결과는 이 사이트의 공개 평가 파이프라인
+                ({modelEval.pipeline || "run_model_eval"})이 {frozen.source_base || "data/processed"}의
+                공개 원자료를 2026-03-08 기준으로 고정해 만든 데이터 묶음(
+                {frozen.dataset_version || "frozen-20260308"})을 기준으로 계산됐다.
               </p>
               <p className="mt-2 text-xs leading-relaxed text-slate-400">
-                이 버전에는 현재 공개된 결과 JSON, micro snapshot, manifest 정보가 함께 묶여 있다.
+                이 버전에는 거시 결과 JSON, micro snapshot, predictor manifest, prediction lock을 포함한{" "}
+                {frozen.files.length}개 파일의 해시가 함께 묶여 있다.
+              </p>
+              <p className="mt-2 text-xs leading-relaxed text-slate-400">
+                미시 비교는 {microProviders.join(", ")} 등 {microProviders.length}개 공개 출처를 모아 계산하고,
+                생성 절차는 {modelEval.commands.length}개 공개 명령으로 남겨 둔다.
               </p>
               <div className="mt-3 flex flex-wrap gap-2 text-xs">
                 <Link
