@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { loadMicroSnapshot, loadAllResults, loadFrozenManifest } from "@/lib/data";
+import { loadMicroSnapshot, loadAllResults, loadFrozenManifest } from "@/lib/frozen-data";
 import { CANDIDATE_HYPOTHESES, VERIFICATION_CHANNELS } from "@/lib/site-content";
 import CommentsPanel from "@/components/comments-panel";
 import NextSteps from "@/components/next-steps";

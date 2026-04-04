@@ -5,6 +5,8 @@ import {
   loadFrozenManifest,
   loadMicroSnapshot,
   loadModelEvalManifest,
+} from "@/lib/frozen-data";
+import {
   loadPredictions,
 } from "@/lib/data";
 

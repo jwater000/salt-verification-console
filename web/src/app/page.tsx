@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { loadAllResults, loadFrozenManifest, loadMicroSnapshot } from "@/lib/data";
+import { loadAllResults, loadFrozenManifest, loadMicroSnapshot } from "@/lib/frozen-data";
 import BookstoreLinks from "@/components/bookstore-links";
 import NextSteps from "@/components/next-steps";
 

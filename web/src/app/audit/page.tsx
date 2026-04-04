@@ -1,4 +1,4 @@
-import { loadFrozenManifest, loadModelEvalManifest } from "@/lib/data";
+import { loadFrozenManifest, loadModelEvalManifest } from "@/lib/frozen-data";
 import CommentsPanel from "@/components/comments-panel";
 import NextSteps from "@/components/next-steps";
 

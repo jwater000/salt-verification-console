@@ -20,6 +20,7 @@ export default function CommentsSection({
   viewer = null,
 }: CommentsSectionProps) {
   const [comments, setComments] = useState<PublicComment[]>([]);
+  const [viewerState, setViewerState] = useState<AppViewerSession | null>(viewer);
   const [state, setState] = useState<LoadState>("idle");
   const [error, setError] = useState<string | null>(null);
   const [draft, setDraft] = useState("");
@@ -59,8 +60,52 @@ export default function CommentsSection({
     };
   }, [pagePath]);
 
+  useEffect(() => {
+    if (viewer) {
+      setViewerState(viewer);
+      return;
+    }
+
+    let active = true;
+    const controller = new AbortController();
+
+    async function loadViewer() {
+      try {
+        const res = await fetch("/api/auth/session", {
+          method: "GET",
+          signal: controller.signal,
+        });
+        if (!res.ok) return;
+        const data = (await res.json()) as {
+          user?: {
+            id?: string;
+            name?: string | null;
+            role?: "member" | "moderator" | "admin";
+            status?: "active" | "restricted" | "suspended" | "deleted";
+          };
+        };
+        if (!active || !data.user?.id) return;
+        if (data.user.status && data.user.status !== "active") return;
+        setViewerState({
+          userId: data.user.id,
+          displayName: data.user.name || "Member",
+          role: data.user.role || "member",
+          status: data.user.status || "active",
+        });
+      } catch {
+        // Ignore session fetch failure and keep viewer null.
+      }
+    }
+
+    void loadViewer();
+    return () => {
+      active = false;
+      controller.abort();
+    };
+  }, [viewer]);
+
   async function handleSubmit() {
-    if (!viewer) return;
+    if (!viewerState) return;
     const trimmed = draft.trim();
     if (trimmed.length < 2) {
       setSubmitError("댓글은 두 글자 이상이어야 합니다.");
@@ -93,7 +138,7 @@ export default function CommentsSection({
   }
 
   async function handleReport(commentId: string) {
-    if (!viewer) return;
+    if (!viewerState) return;
     const reason = window.prompt("신고 사유를 짧게 입력해 주세요.");
     if (!reason) return;
 
@@ -117,7 +162,7 @@ export default function CommentsSection({
   }
 
   async function handleModeration(commentId: string, action: "hide" | "delete") {
-    if (!viewer || (viewer.role !== "moderator" && viewer.role !== "admin")) return;
+    if (!viewerState || (viewerState.role !== "moderator" && viewerState.role !== "admin")) return;
     const reason = window.prompt(
       action === "hide" ? "숨김 사유를 입력해 주세요." : "삭제 사유를 입력해 주세요.",
     );
@@ -154,7 +199,7 @@ export default function CommentsSection({
         </span>
       </div>
 
-      {!viewer ? (
+      {!viewerState ? (
         <div className="mt-5 rounded-xl border border-amber-500/15 bg-amber-950/10 p-4">
           <p className="text-sm text-amber-100/90">댓글 작성은 로그인한 활성 사용자에게만 열립니다.</p>
           <div className="mt-3 flex flex-wrap gap-2">
@@ -175,7 +220,7 @@ export default function CommentsSection({
       ) : (
         <div className="mt-5 rounded-xl border border-emerald-500/15 bg-emerald-950/10 p-4">
           <p className="text-sm text-emerald-100/90">
-            {viewer.displayName} 계정으로 댓글을 작성할 수 있습니다.
+            {viewerState.displayName} 계정으로 댓글을 작성할 수 있습니다.
           </p>
         </div>
       )}
@@ -186,11 +231,11 @@ export default function CommentsSection({
         </label>
         <textarea
           rows={4}
-          disabled={!viewer || submitState === "submitting"}
+          disabled={!viewerState || submitState === "submitting"}
           value={draft}
           onChange={(event) => setDraft(event.target.value)}
           placeholder={
-            viewer
+            viewerState
               ? "이 페이지의 설명에서 모호한 점이나 검증 질문을 남겨 주세요."
               : "로그인 후 댓글 작성이 열립니다."
           }
@@ -200,11 +245,11 @@ export default function CommentsSection({
           <div className="text-xs text-rose-300/90">{submitError}</div>
           <button
             type="button"
-            disabled={!viewer || submitState === "submitting"}
+            disabled={!viewerState || submitState === "submitting"}
             onClick={() => void handleSubmit()}
             className="rounded-lg border border-slate-700 px-4 py-2 text-sm text-slate-200 transition hover:border-slate-500 hover:text-white disabled:text-slate-500"
           >
-            {submitState === "submitting" ? "저장 중..." : viewer ? "댓글 작성" : "로그인 후 댓글 작성"}
+            {submitState === "submitting" ? "저장 중..." : viewerState ? "댓글 작성" : "로그인 후 댓글 작성"}
           </button>
         </div>
       </div>
@@ -251,7 +296,7 @@ export default function CommentsSection({
                   {comment.body}
                 </p>
                 <div className="mt-4 flex flex-wrap gap-2">
-                  {viewer && (
+                  {viewerState && (
                     <button
                       type="button"
                       disabled={busyCommentId === comment.id}
@@ -261,7 +306,7 @@ export default function CommentsSection({
                       신고
                     </button>
                   )}
-                  {viewer && (viewer.role === "moderator" || viewer.role === "admin") && (
+                  {viewerState && (viewerState.role === "moderator" || viewerState.role === "admin") && (
                     <>
                       <button
                         type="button"

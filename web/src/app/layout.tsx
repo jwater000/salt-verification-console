@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import "./globals.css";
 import "./markdown.css";
-import { loadFrozenManifest } from "@/lib/data";
+import { loadFrozenManifest } from "@/lib/frozen-data";
 import { isAuthConfigured } from "@/lib/auth/config";
 import SiteStructureMap from "@/components/site-structure-map";
 

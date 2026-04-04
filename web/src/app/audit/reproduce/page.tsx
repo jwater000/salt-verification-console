@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { loadPageMarkdown, markdownToHtml } from "@/lib/markdown";
-import { loadModelEvalManifest } from "@/lib/data";
+import { loadModelEvalManifest } from "@/lib/frozen-data";
 
 export default async function AuditReproducePage() {
   const md = await loadPageMarkdown("02_재현_방법.md");
