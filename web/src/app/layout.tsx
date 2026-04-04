@@ -3,6 +3,7 @@ import Link from "next/link";
 import "./globals.css";
 import "./markdown.css";
 import { loadFrozenManifest } from "@/lib/data";
+import { getAppViewerSession, isAuthConfigured } from "@/lib/auth/session";
 import SiteStructureMap from "@/components/site-structure-map";
 
 export const metadata: Metadata = {
@@ -16,7 +17,10 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const frozen = await loadFrozenManifest();
+  const [frozen, viewer] = await Promise.all([
+    loadFrozenManifest(),
+    getAppViewerSession(),
+  ]);
 
   return (
     <html lang="en">
@@ -34,7 +38,7 @@ export default async function RootLayout({
             </Link>
           </div>
         </div>
-        <SiteStructureMap />
+        <SiteStructureMap viewer={viewer} authConfigured={isAuthConfigured()} />
         <main className="mx-auto w-full max-w-6xl px-6 py-8">{children}</main>
       </body>
     </html>

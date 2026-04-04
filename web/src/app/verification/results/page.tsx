@@ -1,4 +1,5 @@
 import Link from "next/link";
+import CommentsPanel from "@/components/comments-panel";
 import {
   loadAllResults,
   loadFrozenManifest,
@@ -380,8 +381,8 @@ export default async function VerificationResultsPage() {
           질량화 가설 — 검증 항목 분해
         </h2>
         <p className="mb-4 text-sm text-slate-400">
-          "전달 모드에서 구조 고착 모드로 전환되며 질량이 생긴다"는 설명은 현재 frozen 파이프라인에서
-          직접 채점된 결과가 아니다. 아래처럼 평가 가능한 명제로 분해해 다룬다.
+          &quot;전달 모드에서 구조 고착 모드로 전환되며 질량이 생긴다&quot;는 설명은 현재 frozen
+          파이프라인에서 직접 채점된 결과가 아니다. 아래처럼 평가 가능한 명제로 분해해 다룬다.
         </p>
         <div className="grid gap-4 lg:grid-cols-3">
           {[
@@ -428,8 +429,8 @@ export default async function VerificationResultsPage() {
 
       {/* Disclaimer */}
       <div className="rounded-lg border border-amber-500/20 bg-amber-950/15 px-5 py-4 text-sm text-amber-100/80">
-        이 페이지는 "홀로그램 원리 자체의 타당성이 확정됐다"가 아니라, 경계에서 측정한 지연/적색편이/잔차 패턴을
-        대상으로 실제 시험을 돌렸고 그 승패와 미결정 상태를 공개한다는 뜻이다.
+        이 페이지는 &quot;홀로그램 원리 자체의 타당성이 확정됐다&quot;가 아니라, 경계에서 측정한
+        지연/적색편이/잔차 패턴을 대상으로 실제 시험을 돌렸고 그 승패와 미결정 상태를 공개한다는 뜻이다.
       </div>
 
       {/* Nav */}
@@ -440,6 +441,11 @@ export default async function VerificationResultsPage() {
           <Link href="/audit/reproduce" className="text-sm text-slate-400 hover:text-white">재현 방법 →</Link>
         </div>
       </div>
+
+      <CommentsPanel
+        pagePath="/verification/results"
+        description="집계 방식, 판정 해석, 결과 표에서 설명이 더 필요한 부분을 남길 수 있도록 준비 중입니다."
+      />
     </section>
   );
 }

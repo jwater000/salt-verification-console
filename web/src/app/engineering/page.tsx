@@ -1,4 +1,5 @@
 import Link from "next/link";
+import CommentsPanel from "@/components/comments-panel";
 
 type MaturityLevel = "interpretive" | "speculative" | "long-term";
 
@@ -276,6 +277,11 @@ export default function EngineeringPage() {
           Audit 허브 →
         </Link>
       </div>
+
+      <CommentsPanel
+        pagePath="/engineering"
+        description="기술적 해석과 장기 가설을 읽는 과정에서 설명 보강이 필요한 부분을 남길 수 있도록 준비 중입니다."
+      />
     </section>
   );
 }

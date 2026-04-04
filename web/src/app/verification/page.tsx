@@ -1,78 +1,7 @@
 import Link from "next/link";
 import { loadMicroSnapshot, loadAllResults, loadFrozenManifest } from "@/lib/data";
-
-const CHANNELS = [
-  {
-    slug: "liv",
-    title: "LIV",
-    fullTitle: "Lorentz Invariance Violation",
-    tag: "고정 채널 1",
-    status: "locked" as const,
-    what: "빛의 속도가 에너지에 따라 달라지는가",
-    baseline: "Lorentz 불변 — 빛 속도는 에너지 무관",
-    saltPrediction: "고밀도 경로를 지난 고에너지 광자가 저에너지 광자보다 미세하게 늦게 도달",
-    datasets: ["GRB 시간 구조 데이터", "IceCube 고에너지 중성미자"],
-    parameter: "ξ (LIV 파라미터)",
-    falsification: "ξ ≤ 0 (에너지 무관 도달) → SALT LIV 항 기각",
-    href: "/verification/channels/liv",
-  },
-  {
-    slug: "gravity-delay",
-    title: "강중력장 추가 지연",
-    fullTitle: "Gravitational Path Delay Residual",
-    tag: "고정 채널 2",
-    status: "locked" as const,
-    what: "강중력장을 통과한 신호에 표준 기준선 이상의 지연 잔차가 있는가",
-    baseline: "Shapiro 지연 — GR 기준 예측값",
-    saltPrediction: "고밀도 구간의 ρ 구조가 GR 예측 외 추가 지연을 만든다",
-    datasets: ["강중력장 통과 GW 이벤트", "중력렌즈 시간 지연"],
-    parameter: "Δτ_SALT (추가 지연 잔차)",
-    falsification: "SALT 오차 ≥ GR 기준 오차 → 추가 지연 기각",
-    href: "/verification/channels/gravity-delay",
-  },
-  {
-    slug: "hf-gw",
-    title: "초고주파 GW 꼬리",
-    fullTitle: "High-Frequency Gravitational Wave Tail",
-    tag: "고정 채널 3",
-    status: "locked" as const,
-    what: "병합 이후 잔차에 GR 예측 외 고주파 구조가 있는가",
-    baseline: "GR 수치 상대론 — 병합 후 ringdown",
-    saltPrediction: "병합 후 매질 복원 과정이 GR 예측 외 고주파 꼬리를 남긴다",
-    datasets: ["LIGO/Virgo 병합 이벤트 ringdown 구간"],
-    parameter: "f_tail (초고주파 잔차 강도)",
-    falsification: "고주파 꼬리 구조 부재 → SALT 매질 복원 항 기각",
-    href: "/verification/channels/hf-gw",
-  },
-];
-
-const CANDIDATE_HYPOTHESES = [
-  {
-    title: "중성미자 질량 구조",
-    body: "세대별 질량 격차가 SALT 상태 전환 에너지와 대응하는가",
-    status: "pending" as const,
-  },
-  {
-    title: "암흑 물질 밀도 프로파일",
-    body: "은하 회전 곡선 잔차가 ρ 구조 없이 설명되는가",
-    status: "pending" as const,
-  },
-  {
-    title: "허블 긴장 (H₀)",
-    body: "근거리/원거리 H₀ 측정 차이에 경로 의존 보정이 기여하는가",
-    status: "pending" as const,
-  },
-  {
-    title: "중력-강력 연결",
-    body: "핵밀도 구간의 강력 결합 상수가 SALT ρ 보정을 요구하는가",
-    status: "pending" as const,
-  },
-  {
-    title: "세대 문제",
-    body: "3세대 쿼크/렙톤 구조가 상태 고착 계층과 대응하는가",
-    status: "pending" as const,
-  },
-];
+import { CANDIDATE_HYPOTHESES, VERIFICATION_CHANNELS } from "@/lib/site-content";
+import CommentsPanel from "@/components/comments-panel";
 
 const STATE_VARIABLE_MAP = [
   {
@@ -270,7 +199,7 @@ export default async function VerificationPage() {
           <span className="badge-verified">판정 규칙 고정</span>
         </div>
         <div className="space-y-4">
-          {CHANNELS.map((ch) => (
+          {VERIFICATION_CHANNELS.map((ch) => (
             <div
               key={ch.slug}
               className="rounded-xl border border-cyan-500/15 bg-slate-950/50 p-6 transition hover:border-cyan-500/30"
@@ -392,9 +321,15 @@ export default async function VerificationPage() {
                   <span className="badge-pending shrink-0">대기</span>
                 </div>
                 <p className="mt-2 text-xs leading-relaxed text-slate-400">{h.body}</p>
+                <p className="mt-3 text-[11px] text-slate-500">다음 단계: {h.nextStep}</p>
               </div>
             ))}
           </div>
+        </div>
+        <div className="mt-4">
+          <Link href="/verification/candidate-hypotheses" className="text-sm text-amber-300 hover:text-amber-200">
+            후보 가설 전체 보기 →
+          </Link>
         </div>
       </div>
 
@@ -433,6 +368,12 @@ export default async function VerificationPage() {
       {/* Nav to sub-pages */}
       <div className="flex flex-wrap gap-3 border-t border-slate-800 pt-5">
         <Link
+          href="/verification/channels"
+          className="inline-flex items-center gap-2 rounded-lg border border-slate-700 bg-slate-900/50 px-4 py-2.5 text-sm font-medium text-slate-300 transition hover:border-slate-500 hover:text-white"
+        >
+          채널 인덱스 →
+        </Link>
+        <Link
           href="/verification/results"
           className="inline-flex items-center gap-2 rounded-lg border border-cyan-500/25 bg-cyan-500/10 px-4 py-2.5 text-sm font-medium text-cyan-300 transition hover:border-cyan-400/50 hover:bg-cyan-500/15"
         >
@@ -451,6 +392,11 @@ export default async function VerificationPage() {
           재현 방법 →
         </Link>
       </div>
+
+      <CommentsPanel
+        pagePath="/verification"
+        description="검증 구조, 채널 분류, 읽는 순서에서 모호한 점이나 보강이 필요한 지점을 남길 수 있도록 준비 중입니다."
+      />
     </section>
   );
 }

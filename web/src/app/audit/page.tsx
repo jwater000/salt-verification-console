@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { loadFrozenManifest, loadModelEvalManifest } from "@/lib/data";
+import CommentsPanel from "@/components/comments-panel";
 
 const AUDIT_STEPS = [
   {
@@ -21,6 +22,11 @@ const AUDIT_STEPS = [
     href: "/audit/sources",
     title: "Sources",
     body: "외부 공개 데이터와 참조 문헌의 출처 목록을 확인할 수 있다.",
+  },
+  {
+    href: "/audit/comments",
+    title: "Moderation",
+    body: "댓글 신고, 최근 댓글, 운영 액션 이력을 운영자 권한으로 확인할 수 있다.",
   },
 ] as const;
 
@@ -116,6 +122,11 @@ export default async function AuditPage() {
           </div>
         </div>
       </div>
+
+      <CommentsPanel
+        pagePath="/audit"
+        description="재현 경로, provenance, frozen 기준에서 더 확인이 필요한 지점을 남길 수 있도록 준비 중입니다."
+      />
     </section>
   );
 }

@@ -1,0 +1,204 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum UserStatus {
+  active
+  restricted
+  suspended
+  deleted
+}
+
+enum UserRoleName {
+  member
+  moderator
+  admin
+}
+
+enum ContentStatus {
+  published
+  hidden
+  deleted
+}
+
+enum Visibility {
+  public
+  members_only
+}
+
+enum ReportStatus {
+  open
+  reviewing
+  resolved
+  dismissed
+}
+
+enum ReportReasonCode {
+  spam
+  abuse
+  privacy
+  impersonation
+  other
+}
+
+enum ModerationTargetType {
+  board_post
+  post_comment
+  user_role
+  user_status
+}
+
+enum ModerationActionType {
+  hide
+  restore
+  soft_delete
+  restrict_user
+  suspend_user
+  reinstate_user
+  grant_role
+  revoke_role
+}
+
+enum ActivityEventType {
+  user_created
+  login_completed
+  post_created
+  post_updated
+  post_deleted
+  comment_created
+  comment_updated
+  comment_deleted
+  report_created
+  moderation_action
+}
+
+enum ActivityTargetType {
+  user
+  board_post
+  post_comment
+  report
+  moderation_action
+}
+
+model User {
+  id              String             @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  authSubject     String             @unique @map("auth_subject")
+  displayName     String             @map("display_name")
+  avatarUrl       String?            @map("avatar_url")
+  primaryProvider String?            @map("primary_provider")
+  status          UserStatus         @default(active)
+  createdAt       DateTime           @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt       DateTime           @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
+  lastSeenAt      DateTime?          @map("last_seen_at") @db.Timestamptz(6)
+  roles           UserRole[]
+  posts           BoardPost[]
+  comments        PostComment[]
+  reports         ContentReport[]    @relation("ReportReporter")
+  reviewedReports ContentReport[]    @relation("ReportReviewer")
+  moderationActs  ModerationAction[] @relation("ModerationActor")
+  activityLogs    ActivityLog[]
+
+  @@map("users")
+}
+
+model UserRole {
+  id            String       @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  userId        String       @map("user_id") @db.Uuid
+  role          UserRoleName
+  grantedBy     String?      @map("granted_by") @db.Uuid
+  grantedReason String?      @map("granted_reason")
+  createdAt     DateTime     @default(now()) @map("created_at") @db.Timestamptz(6)
+  user          User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, role])
+  @@map("user_roles")
+}
+
+model BoardPost {
+  id        String        @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  slug      String        @unique
+  title     String
+  body      String
+  authorId  String        @map("author_id") @db.Uuid
+  status    ContentStatus @default(published)
+  visibility Visibility   @default(public)
+  boardKey  String        @default("general") @map("board_key")
+  createdAt DateTime      @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt DateTime      @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
+  deletedAt DateTime?     @map("deleted_at") @db.Timestamptz(6)
+  author    User          @relation(fields: [authorId], references: [id], onDelete: Restrict)
+  comments  PostComment[]
+
+  @@map("board_posts")
+}
+
+model PostComment {
+  id              String         @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  postId          String?        @map("post_id") @db.Uuid
+  pagePath        String?        @map("page_path")
+  parentCommentId String?        @map("parent_comment_id") @db.Uuid
+  authorId        String         @map("author_id") @db.Uuid
+  body            String
+  status          ContentStatus  @default(published)
+  createdAt       DateTime       @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt       DateTime       @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
+  deletedAt       DateTime?      @map("deleted_at") @db.Timestamptz(6)
+  post            BoardPost?     @relation(fields: [postId], references: [id], onDelete: Cascade)
+  author          User           @relation(fields: [authorId], references: [id], onDelete: Restrict)
+  parentComment   PostComment?   @relation("CommentThread", fields: [parentCommentId], references: [id], onDelete: Cascade)
+  replies         PostComment[]  @relation("CommentThread")
+
+  @@map("post_comments")
+}
+
+model ContentReport {
+  id           String           @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  reporterId   String           @map("reporter_id") @db.Uuid
+  targetType   String           @map("target_type")
+  targetId     String           @map("target_id") @db.Uuid
+  reasonCode   ReportReasonCode @map("reason_code")
+  reasonDetail String?          @map("reason_detail")
+  status       ReportStatus     @default(open)
+  createdAt    DateTime         @default(now()) @map("created_at") @db.Timestamptz(6)
+  reviewedAt   DateTime?        @map("reviewed_at") @db.Timestamptz(6)
+  reviewedBy   String?          @map("reviewed_by") @db.Uuid
+  reporter     User             @relation("ReportReporter", fields: [reporterId], references: [id], onDelete: Restrict)
+  reviewer     User?            @relation("ReportReviewer", fields: [reviewedBy], references: [id], onDelete: SetNull)
+
+  @@map("content_reports")
+}
+
+model ModerationAction {
+  id          String               @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  actorUserId String               @map("actor_user_id") @db.Uuid
+  targetType  ModerationTargetType @map("target_type")
+  targetId    String               @map("target_id") @db.Uuid
+  actionType  ModerationActionType @map("action_type")
+  reason      String?
+  metadata    Json                 @default("{}")
+  createdAt   DateTime             @default(now()) @map("created_at") @db.Timestamptz(6)
+  actor       User                 @relation("ModerationActor", fields: [actorUserId], references: [id], onDelete: Restrict)
+
+  @@map("moderation_actions")
+}
+
+model ActivityLog {
+  id          String             @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  actorUserId String?            @map("actor_user_id") @db.Uuid
+  eventType   ActivityEventType  @map("event_type")
+  targetType  ActivityTargetType? @map("target_type")
+  targetId    String?            @map("target_id") @db.Uuid
+  ipHash      String?            @map("ip_hash")
+  userAgent   String?            @map("user_agent")
+  metadata    Json               @default("{}")
+  createdAt   DateTime           @default(now()) @map("created_at") @db.Timestamptz(6)
+  actor       User?              @relation(fields: [actorUserId], references: [id], onDelete: SetNull)
+
+  @@map("activity_log")
+}
+

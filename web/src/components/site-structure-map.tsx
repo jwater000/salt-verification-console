@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import type { AppViewerSession } from "@/lib/auth/session";
 
 const NAV_ITEMS = [
   {
@@ -63,13 +64,19 @@ const NAV_ITEMS = [
     links: [
       { href: "/audit", label: "Audit", note: "감사 자료 개요" },
       { href: "/audit/reproduce", label: "Reproduce", note: "재현 절차" },
+      { href: "/audit/comments", label: "Moderation", note: "댓글 운영 관리" },
       { href: "/runs", label: "Runs", note: "실행 provenance" },
       { href: "/snapshots", label: "Snapshots", note: "dataset snapshot" },
     ],
   },
 ] as const;
 
-export default function SiteStructureMap() {
+type SiteStructureMapProps = {
+  viewer: AppViewerSession | null;
+  authConfigured: boolean;
+};
+
+export default function SiteStructureMap({ viewer, authConfigured }: SiteStructureMapProps) {
   const pathname = usePathname();
 
   return (
@@ -125,7 +132,33 @@ export default function SiteStructureMap() {
             })}
           </nav>
 
-          <span className="hidden text-xs text-slate-500 lg:block">{pathname}</span>
+          <div className="hidden items-center gap-3 lg:flex">
+            {authConfigured ? (
+              viewer ? (
+                <>
+                  <span className="max-w-[220px] truncate text-xs text-slate-400">
+                    {viewer.displayName} · {viewer.role}
+                  </span>
+                  <a
+                    href={`/api/auth/signout?callbackUrl=${encodeURIComponent(pathname || "/")}`}
+                    className="rounded-md border border-slate-700 px-2.5 py-1 text-xs text-slate-300 transition hover:border-slate-500 hover:text-white"
+                  >
+                    로그아웃
+                  </a>
+                </>
+              ) : (
+                <a
+                  href={`/api/auth/signin?callbackUrl=${encodeURIComponent(pathname || "/")}`}
+                  className="rounded-md border border-slate-700 px-2.5 py-1 text-xs text-slate-300 transition hover:border-slate-500 hover:text-white"
+                >
+                  로그인
+                </a>
+              )
+            ) : (
+              <span className="text-xs text-slate-500">auth not configured</span>
+            )}
+            <span className="text-xs text-slate-500">{pathname}</span>
+          </div>
         </div>
 
         <nav className="flex gap-1 overflow-x-auto pb-2 md:hidden">

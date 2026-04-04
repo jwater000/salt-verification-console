@@ -1,4 +1,5 @@
 import Link from "next/link";
+import CommentsPanel from "@/components/comments-panel";
 
 type FAQ = {
   q: string;
@@ -153,6 +154,11 @@ export default function FAQPage() {
           ← Reference 허브
         </Link>
       </div>
+
+      <CommentsPanel
+        pagePath="/reference/faq"
+        description="FAQ 답변 중 더 풀어 써야 할 부분이나 새로 추가해야 할 질문을 남길 수 있도록 준비 중입니다."
+      />
     </section>
   );
 }

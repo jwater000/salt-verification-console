@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { loadMicroSnapshot, loadAllResults } from "@/lib/data";
 
 type ChannelDef = {
   slug: string;
@@ -117,14 +116,6 @@ export default async function ChannelPage({ params }: { params: Promise<{ channe
   const { channel } = await params;
   const def = CHANNEL_DATA[channel];
   if (!def) notFound();
-
-  const [micro, allResults] = await Promise.all([
-    loadMicroSnapshot(),
-    loadAllResults(),
-  ]);
-
-  // Pull any relevant micro fit runs for context
-  const relevantRuns = micro.fit_runs.slice(0, 3);
 
   return (
     <section className="space-y-8">

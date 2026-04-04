@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { loadPageMarkdown, markdownToHtml } from "@/lib/markdown";
 import { loadModelEvalManifest } from "@/lib/data";
 
@@ -57,19 +58,22 @@ export default async function AuditReproducePage() {
           설명 문서와 함께 현재 공개 snapshot과 연결된 실행 provenance를 바로 따라갈 수 있다.
         </p>
         <div className="mt-4 grid gap-3 md:grid-cols-2">
-          <a href="/runs" className="rounded-lg border border-cyan-500/30 bg-cyan-950/25 p-4 transition hover:border-cyan-400">
+          <Link
+            href="/runs"
+            className="rounded-lg border border-cyan-500/30 bg-cyan-950/25 p-4 transition hover:border-cyan-400"
+          >
             <p className="text-xs text-cyan-200/80">Runs</p>
             <p className="mt-1 text-sm font-semibold text-cyan-100">{evalManifest.pipeline || "run_model_eval"}</p>
             <p className="mt-2 text-xs text-slate-400">실행 명령, verdict, artifact hash 확인</p>
-          </a>
-          <a
+          </Link>
+          <Link
             href="/snapshots"
             className="rounded-lg border border-emerald-500/30 bg-emerald-950/25 p-4 transition hover:border-emerald-400"
           >
             <p className="text-xs text-emerald-200/80">Snapshots</p>
             <p className="mt-1 text-sm font-semibold text-emerald-100">{evalManifest.frozen.dataset_version || "-"}</p>
             <p className="mt-2 text-xs text-slate-400">dataset_version, manifest hash, linked runs 확인</p>
-          </a>
+          </Link>
         </div>
       </article>
       <article className="panel p-6 text-slate-200">
@@ -89,7 +93,10 @@ export default async function AuditReproducePage() {
           [결론 + 재현 검증]`}
         </pre>
         <p className="mt-3 text-sm text-slate-400">
-          결과 자체는 <a className="text-cyan-300 underline underline-offset-4" href="/verification/results">/verification/results</a>
+          결과 자체는{" "}
+          <Link className="text-cyan-300 underline underline-offset-4" href="/verification/results">
+            /verification/results
+          </Link>
           에서 확인할 수 있고, 이 페이지에서는 같은 절차로 같은 산출 경로가 나오는지를 살펴볼 수 있다.
         </p>
       </article>

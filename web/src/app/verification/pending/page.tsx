@@ -1,4 +1,5 @@
 import Link from "next/link";
+import CommentsPanel from "@/components/comments-panel";
 
 const PENDING_ITEMS = [
   {
@@ -280,6 +281,11 @@ export default function VerificationPendingPage() {
           <Link href="/audit/reproduce" className="text-sm text-emerald-400 hover:underline">재현 방법 →</Link>
         </div>
       </div>
+
+      <CommentsPanel
+        pagePath="/verification/pending"
+        description="어떤 가설이 아직 대기 상태인지, 어떤 식과 데이터가 더 필요한지에 대한 질문을 남길 수 있도록 준비 중입니다."
+      />
     </section>
   );
 }
