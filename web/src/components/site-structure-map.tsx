@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import type { AppViewerSession } from "@/lib/auth/session";
 
 const NAV_ITEMS = [
   {
@@ -76,11 +75,10 @@ const NAV_ITEMS = [
 ] as const;
 
 type SiteStructureMapProps = {
-  viewer: AppViewerSession | null;
   authConfigured: boolean;
 };
 
-export default function SiteStructureMap({ viewer, authConfigured }: SiteStructureMapProps) {
+export default function SiteStructureMap({ authConfigured }: SiteStructureMapProps) {
   const pathname = usePathname();
 
   return (
@@ -138,26 +136,12 @@ export default function SiteStructureMap({ viewer, authConfigured }: SiteStructu
 
           <div className="hidden items-center gap-3 lg:flex">
             {authConfigured ? (
-              viewer ? (
-                <>
-                  <span className="max-w-[220px] truncate text-xs text-slate-400">
-                    {viewer.displayName} · {viewer.role}
-                  </span>
-                  <a
-                    href={`/api/auth/signout?callbackUrl=${encodeURIComponent(pathname || "/")}`}
-                    className="rounded-md border border-slate-700 px-2.5 py-1 text-xs text-slate-300 transition hover:border-slate-500 hover:text-white"
-                  >
-                    로그아웃
-                  </a>
-                </>
-              ) : (
-                <a
-                  href={`/api/auth/signin?callbackUrl=${encodeURIComponent(pathname || "/")}`}
-                  className="rounded-md border border-slate-700 px-2.5 py-1 text-xs text-slate-300 transition hover:border-slate-500 hover:text-white"
-                >
-                  로그인
-                </a>
-              )
+              <a
+                href={`/api/auth/signin?callbackUrl=${encodeURIComponent(pathname || "/")}`}
+                className="rounded-md border border-slate-700 px-2.5 py-1 text-xs text-slate-300 transition hover:border-slate-500 hover:text-white"
+              >
+                로그인
+              </a>
             ) : (
               <span className="text-xs text-slate-500">auth not configured</span>
             )}

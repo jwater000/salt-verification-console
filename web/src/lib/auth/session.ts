@@ -1,5 +1,6 @@
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth/options";
+export { isAuthConfigured } from "@/lib/auth/config";
 
 export type AppViewerSession = {
   userId: string;
@@ -61,12 +62,4 @@ export async function getModeratorSession(): Promise<ModeratorSession | null> {
     displayName: viewer.displayName,
     role: viewer.role,
   };
-}
-
-export function isAuthConfigured(): boolean {
-  return Boolean(
-    process.env.AUTH_SECRET &&
-      ((process.env.AUTH_GOOGLE_ID && process.env.AUTH_GOOGLE_SECRET) ||
-        (process.env.AUTH_GITHUB_ID && process.env.AUTH_GITHUB_SECRET)),
-  );
 }
