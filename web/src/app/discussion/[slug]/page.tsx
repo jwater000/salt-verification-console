@@ -3,14 +3,15 @@ import { notFound } from "next/navigation";
 import { getPublicBoardPostBySlug, getCommunityRuntimeStatus } from "@/lib/community";
 import CommentsPanel from "@/components/comments-panel";
 
-type DiscussionDetailPageProps = {
+type PageProps = {
   params: Promise<{ slug: string }>;
 };
 
-export default async function DiscussionDetailPage({ params }: DiscussionDetailPageProps) {
+export default async function Page({ params }: PageProps) {
   const { slug } = await params;
+  const decodedSlug = decodeURIComponent(slug);
   const runtime = getCommunityRuntimeStatus();
-  const post = await getPublicBoardPostBySlug(slug);
+  const post = await getPublicBoardPostBySlug(decodedSlug);
 
   if (!post) {
     notFound();
@@ -25,10 +26,6 @@ export default async function DiscussionDetailPage({ params }: DiscussionDetailP
         </h1>
         <p className="mt-4 text-sm text-slate-400">
           {post.authorLabel} · {post.boardKey} · {new Date(post.createdAt).toLocaleString()}
-        </p>
-        <p className="mt-4 max-w-3xl text-base leading-relaxed text-slate-300">
-          이 글은 짧은 댓글 하나로는 담기지 않는 질문과 반론, 독서 메모를 담기 위한 게시판 글이다.
-          SALT를 읽는 과정에서 생긴 생각을 한 사람의 긴 호흡으로 따라가며 읽을 수 있다.
         </p>
       </div>
 

@@ -1,9 +1,9 @@
 import { promises as fs } from "node:fs";
 import path from "node:path";
 import type { FrozenManifest, ModelEvalManifest, MicroSnapshot, ResultRow } from "@/lib/data";
+import { runtimePaths } from "@/lib/runtime-paths";
 
-const root = path.resolve(process.cwd(), "..");
-const currentFrozenDir = path.join(root, "data", "frozen", "current");
+const currentFrozenDir = runtimePaths.frozenCurrentDir;
 
 async function readJson<T>(fullPath: string, fallback: T): Promise<T> {
   try {

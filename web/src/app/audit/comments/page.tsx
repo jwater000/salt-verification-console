@@ -1,9 +1,12 @@
 import Link from "next/link";
 import { getModeratorSession } from "@/lib/auth/session";
 import { listModerationOverview } from "@/lib/comments";
+import { getCommunityRuntimeStatus, listRecentBoardPostsForModeration } from "@/lib/community";
+import BoardPostsAdminPanel from "@/components/board-posts-admin-panel";
 
 export default async function AuditCommentsPage() {
   const moderator = await getModeratorSession();
+  const runtime = getCommunityRuntimeStatus();
 
   if (!moderator) {
     return (
@@ -25,6 +28,7 @@ export default async function AuditCommentsPage() {
   }
 
   const overview = await listModerationOverview();
+  const boardPosts = await listRecentBoardPostsForModeration();
 
   return (
     <section className="space-y-10">
@@ -54,6 +58,36 @@ export default async function AuditCommentsPage() {
           <p className="text-xs uppercase tracking-[0.16em] text-slate-500">운영 액션</p>
           <p className="mt-2 text-3xl font-bold text-rose-300">{overview.actions.length}</p>
         </div>
+        <div className="rounded-2xl border border-emerald-500/20 bg-slate-950/45 p-5">
+          <p className="text-xs uppercase tracking-[0.16em] text-slate-500">게시판 글</p>
+          <p className="mt-2 text-3xl font-bold text-emerald-300">{boardPosts.length}</p>
+        </div>
+      </div>
+
+      <div className="rounded-2xl border border-slate-800 bg-slate-950/45 p-6">
+        <h2 className="text-sm font-semibold text-white">현재 커뮤니티 런타임 상태</h2>
+        <div className="mt-4 grid gap-3 md:grid-cols-3">
+          <div className="rounded-xl border border-slate-800 bg-slate-900/50 p-4">
+            <p className="text-xs text-slate-500">인증</p>
+            <p className="mt-1 text-sm text-slate-200">
+              {runtime.authConfigured ? "OAuth 로그인 설정됨" : "OAuth 로그인 미설정"}
+            </p>
+          </div>
+          <div className="rounded-xl border border-slate-800 bg-slate-900/50 p-4">
+            <p className="text-xs text-slate-500">저장소</p>
+            <p className="mt-1 text-sm text-slate-200">
+              {runtime.databaseConfigured ? "Neon/Postgres 연결 모드" : "로컬 파일 fallback 모드"}
+            </p>
+          </div>
+          <div className="rounded-xl border border-slate-800 bg-slate-900/50 p-4">
+            <p className="text-xs text-slate-500">방문자 게시판</p>
+            <p className="mt-1 text-sm text-slate-200">공개 UI 연결됨, moderation 일부 연결됨</p>
+          </div>
+        </div>
+        <p className="mt-4 text-sm leading-relaxed text-slate-400">
+          현재는 페이지 하단 댓글과 별도 게시판 공개면이 모두 존재합니다. 다만 게시판 moderation은 아직
+          읽기 현황 중심이며, 숨김/삭제 같은 운영 액션은 댓글 계층에 먼저 연결돼 있습니다.
+        </p>
       </div>
 
       <div className="grid gap-6 xl:grid-cols-3">
@@ -114,6 +148,8 @@ export default async function AuditCommentsPage() {
           </div>
         </div>
       </div>
+
+      <BoardPostsAdminPanel posts={boardPosts} />
 
       <div className="rounded-2xl border border-slate-800 bg-slate-950/45 p-6">
         <div className="flex items-center justify-between gap-3">

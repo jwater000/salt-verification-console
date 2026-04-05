@@ -30,7 +30,7 @@ export default async function DiscussionPage() {
           <div className="rounded-xl border border-slate-800 bg-slate-900/50 p-4">
             <p className="text-xs text-slate-500">저장소</p>
             <p className="mt-1 text-sm text-slate-200">
-              {runtime.databaseConfigured ? "Neon/Postgres 연결 모드" : "로컬 fallback 상태"}
+              {runtime.databaseConfigured ? "Neon/Postgres 연결 모드" : "로컬 fallback 저장 모드"}
             </p>
           </div>
           <div className="rounded-xl border border-slate-800 bg-slate-900/50 p-4">
@@ -67,7 +67,7 @@ export default async function DiscussionPage() {
             아직 공개 게시글이 없습니다. 현재 환경에서는
             {runtime.databaseConfigured
               ? " `board_posts`에 게시글이 없거나 마이그레이션 이후 데이터가 들어오지 않은 상태입니다."
-              : " `DATABASE_URL`이 없어 Neon 게시판을 읽지 못하고 있습니다."}
+              : " fallback 저장소에는 아직 첫 게시글이 올라오지 않았습니다."}
           </div>
         ) : (
           <div className="space-y-3">

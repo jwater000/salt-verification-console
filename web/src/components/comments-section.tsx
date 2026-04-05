@@ -3,12 +3,14 @@
 import { useEffect, useState } from "react";
 import type { PublicComment } from "@/lib/comments";
 import type { AppViewerSession } from "@/lib/auth/session";
+import type { CommunityRuntimeStatus } from "@/lib/community";
 
 type CommentsSectionProps = {
   pagePath: string;
   heading?: string;
   description?: string;
   viewer?: AppViewerSession | null;
+  runtime: CommunityRuntimeStatus;
 };
 
 type LoadState = "idle" | "loading" | "ready" | "error";
@@ -18,6 +20,7 @@ export default function CommentsSection({
   heading = "댓글",
   description = "이 페이지의 설명에서 모호한 점이나 검증 질문을 남길 수 있도록 준비 중입니다.",
   viewer = null,
+  runtime,
 }: CommentsSectionProps) {
   const [comments, setComments] = useState<PublicComment[]>([]);
   const [viewerState, setViewerState] = useState<AppViewerSession | null>(viewer);
@@ -199,7 +202,17 @@ export default function CommentsSection({
         </span>
       </div>
 
-      {!viewerState ? (
+      {!runtime.authConfigured ? (
+        <div className="mt-5 rounded-xl border border-amber-500/15 bg-amber-950/10 p-4">
+          <p className="text-sm text-amber-100/90">
+            현재 배포에는 OAuth 로그인 설정이 연결되지 않아 방문자 댓글 작성이 열리지 않습니다.
+          </p>
+          <p className="mt-2 text-xs leading-relaxed text-amber-200/70">
+            공개 댓글 읽기는 유지되지만, 쓰기 기능을 열려면 `AUTH_SECRET`과 Google 또는 GitHub
+            provider 환경변수가 함께 설정되어야 합니다.
+          </p>
+        </div>
+      ) : !viewerState ? (
         <div className="mt-5 rounded-xl border border-amber-500/15 bg-amber-950/10 p-4">
           <p className="text-sm text-amber-100/90">댓글 작성은 로그인한 활성 사용자에게만 열립니다.</p>
           <div className="mt-3 flex flex-wrap gap-2">
@@ -225,17 +238,46 @@ export default function CommentsSection({
         </div>
       )}
 
+      <div className="mt-5 rounded-xl border border-slate-800 bg-slate-950/40 p-4">
+        <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">커뮤니티 런타임 상태</p>
+        <div className="mt-3 grid gap-3 md:grid-cols-2">
+          <div className="rounded-xl border border-slate-800 bg-slate-900/50 p-3">
+            <p className="text-xs text-slate-500">인증</p>
+            <p className="mt-1 text-sm text-slate-200">
+              {runtime.authConfigured ? "OAuth 로그인 설정됨" : "OAuth 로그인 미설정"}
+            </p>
+          </div>
+          <div className="rounded-xl border border-slate-800 bg-slate-900/50 p-3">
+            <p className="text-xs text-slate-500">저장소</p>
+            <p className="mt-1 text-sm text-slate-200">
+              {runtime.storageMode === "database"
+                ? "Neon/Postgres 우선"
+                : "로컬 파일 fallback"}
+            </p>
+          </div>
+        </div>
+        {!runtime.databaseConfigured && (
+          <p className="mt-3 text-xs leading-relaxed text-slate-500">
+            `DATABASE_URL`이 없어 현재 댓글은 Neon DB가 아니라 로컬 파일 저장소를 기준으로 동작합니다.
+            배포 환경에서 같은 내용이 안 보이면 DB 동기화 문제가 아니라 애초에 DB가 연결되지 않은 상태일
+            가능성이 큽니다.
+          </p>
+        )}
+      </div>
+
       <div className="mt-5 rounded-xl border border-slate-800 bg-slate-950/60 p-4">
         <label className="block text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">
           댓글 작성
         </label>
         <textarea
           rows={4}
-          disabled={!viewerState || submitState === "submitting"}
+          disabled={!runtime.authConfigured || !viewerState || submitState === "submitting"}
           value={draft}
           onChange={(event) => setDraft(event.target.value)}
           placeholder={
-            viewerState
+            !runtime.authConfigured
+              ? "운영 환경에 OAuth 설정이 필요합니다."
+              : viewerState
               ? "이 페이지의 설명에서 모호한 점이나 검증 질문을 남겨 주세요."
               : "로그인 후 댓글 작성이 열립니다."
           }
@@ -245,11 +287,17 @@ export default function CommentsSection({
           <div className="text-xs text-rose-300/90">{submitError}</div>
           <button
             type="button"
-            disabled={!viewerState || submitState === "submitting"}
+            disabled={!runtime.authConfigured || !viewerState || submitState === "submitting"}
             onClick={() => void handleSubmit()}
             className="rounded-lg border border-slate-700 px-4 py-2 text-sm text-slate-200 transition hover:border-slate-500 hover:text-white disabled:text-slate-500"
           >
-            {submitState === "submitting" ? "저장 중..." : viewerState ? "댓글 작성" : "로그인 후 댓글 작성"}
+            {submitState === "submitting"
+              ? "저장 중..."
+              : !runtime.authConfigured
+              ? "OAuth 설정 필요"
+              : viewerState
+              ? "댓글 작성"
+              : "로그인 후 댓글 작성"}
           </button>
         </div>
       </div>

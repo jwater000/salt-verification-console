@@ -1,12 +1,12 @@
 # Master Execution and Structure Plan
 
-기준일: `2026-04-03`
+기준일: `2026-04-06`
 
-현재 상태: `current source of truth`
+현재 상태: `legacy master plan; public IA has since shifted to five-nav`
 
-이 문서는 현재 실행의 기준 문서다.
+이 문서는 기존 실행의 기준 문서다.
 
-- 지금 무엇을 먼저 할지 판단할 때 이 문서를 먼저 본다.
+- 현재 공개면 구조 판단은 `FIVE_NAV_*` 문서를 우선 본다.
 - 이 저장소에서 `지금 무엇을 기준으로 읽고 작업해야 하는지`를 한 번에 정리한 문서다.
 - `docs/roadmap/reference/*`는 주제별 배경 문서다.
 - `docs/roadmap/archive/*`는 과거 판단과 이력 보존용 문서다.
@@ -19,11 +19,20 @@
 - 단계별 우선순위
 - 바로 다음 실행 순서
 
+상태 메모:
+
+- 원래 상위 구조는 `Home / Guide / Core / Verification / Engineering / Reference / Audit` 기준으로 정리돼 있다.
+- 현재 공개 웹의 실제 노출 구조는 `소개 / 핵심 아이디어 / 내용 검증 / 참고자료 / 게시판` 5축으로 상당 부분 이동했다.
+- 따라서 이 문서는 배경 판단과 이전 구조를 읽는 용도로는 유효하지만, 현재 공개면 구현 상태를 판정할 때는 최신 기준 문서가 아니다.
+
 문서를 읽는 기본 순서는 아래처럼 본다.
 
-1. 이 문서
-2. 필요한 경우에만 `docs/roadmap/reference/*`
-3. 과거 판단이 필요할 때만 `docs/roadmap/archive/*`
+1. `docs/roadmap/current/FIVE_NAV_IMPLEMENTATION_WORKBOARD.md`
+2. `docs/roadmap/current/FIVE_NAV_STORY_REENGINEERING_MASTER_PLAN.md`
+3. `docs/roadmap/current/FIVE_NAV_STORY_WIREFRAMES.md`
+4. 이 문서
+5. 필요한 경우에만 `docs/roadmap/reference/*`
+6. 과거 판단이 필요할 때만 `docs/roadmap/archive/*`
 
 이 문서는 아래 두 문서를 작업 순서에 맞춰 통합한 마스터 계획안이다.
 
@@ -101,39 +110,37 @@
 
 ### 3.1 완료된 축
 
-- 최상위 IA를 `Guide / Core / Verification / Engineering / Reference / Audit`로 재편
-- 홈을 독자용 진입 허브로 전환
-- `Verification` 결과와 대기 항목 분리 강화
-- `Engineering`을 검증 페이지와 구분되는 독립 허브로 정리
-- `Reference` 하위 페이지 신설
-- 공개면 문체를 방문자 관점의 차분한 안내문으로 조정
-- 홈과 Guide에 도서 구매처 링크 추가
-- 상단 내비에 hover dropdown 추가
+- 공개 상단 내비를 `소개 / 핵심 아이디어 / 내용 검증 / 참고자료 / 게시판` 5축으로 재정렬
+- 홈과 `/guide`를 사실상 `소개` 축으로 통합
+- 주요 허브와 세부 페이지의 메타성 설명을 걷어내고 독자용 설명 카피로 재작성
+- `Verification`, `Audit`, `Runs`, `Snapshots`를 `내용 검증` 후면 계층으로 재정렬
+- `Reference` 하위 페이지를 `이해 보조` 성격으로 정리
+- 공개 게시판 `/discussion` 목록/상세/UI/API 추가
+- Prisma/Neon/Auth 연결 코드와 운영 체크 스크립트 정비
 
 ### 3.2 부분 완료된 축
 
-- 장별 압축 페이지는 `17/18/19장` 중심으로만 구현됨
-- 검증 채널 구조는 개요와 개별 채널 페이지는 있으나 인덱스는 비어 있음
-- 공학 구조는 단일 허브까지만 구현됨
-- 책 구조와 웹 구조 대응은 `Book Map`에 일부 반영됐으나 전체 구조에 충분히 연결되지는 않음
+- `Core`에서 `Problem -> Clue -> Concept -> Solution -> Bridge` 흐름은 반영됐지만 시각적 강조는 아직 약함
+- 장별 압축 페이지는 여전히 `17/18/19장` 중심 구현에 머물러 있음
+- `Engineering`은 보조 허브로 정리됐지만 상위 5축 바깥의 잔여 구조 흔적이 남아 있음
+- `Book Map`과 전체 읽기 동선 연결은 좋아졌지만 완전히 닫히지는 않았음
+- 게시판과 페이지 댓글의 CTA 관계는 아직 더 다듬을 여지가 있음
 
 ### 3.3 미완료 축
 
-- `/core/logic-map`
-- `/core/chapters`
-- `/verification/channels`
-- `/verification/candidate-hypotheses`
-- `page-map.ts` 전면 동기화
+- 실제 운영 검증 완료
+- 게시판/댓글의 실사용 moderation 검증
+- `page-map.ts`와 roadmap 문서의 최종 정합화
 - 페이지 내부 상수 데이터의 공통 모델 분리
-- 토론 게시판, 댓글, Auth, DB 실제 구현
-- 기존 라우트 호환 정책 검증
+- `MASTER_EXECUTION_STRUCTURE_PLAN.md` 본문 전체를 최신 5축 기준으로 완전 재작성할지 여부 결정
+- 기존 라우트 호환 정책 최종 검증
 
 ### 3.4 코드 기준 추가 확인 사항
 
-- `page-map.ts`는 아직 `/guide`, `/audit`, `/audit/datasets`, `/audit/formulas`, `/audit/sources`, `/audit/runs`, `/runs`, `/runs/[runId]`, `/snapshots`, `/snapshots/[snapshotId]`, `/reference/book-map`, `/reference/faq`, `/reference/glossary`, `/reference/visual-atlas`, `/verification/channels/[channel]`를 반영하지 못했다.
-- 검증 채널 상세 페이지는 존재하지만 채널 인덱스 페이지는 없다.
-- 댓글/Auth 영역은 Prisma 스키마와 세션 보조 함수까지는 들어왔지만 API, UI, moderation, rate limit은 아직 없다.
-- `runs` / `snapshots` 계열은 별도 provenance 데이터 계층으로 이미 존재하므로, 일반 콘텐츠 메타 모델과 분리해서 관리하는 편이 맞다.
+- `page-map.ts`는 현재 5축 story metadata를 반영하지만 문서 설명과 완전히 일치하도록 마지막 점검이 더 필요하다.
+- 검증 채널 인덱스와 상세는 모두 존재한다.
+- 댓글/Auth/게시판 영역은 Prisma 스키마, API, UI, moderation, rate limit까지 구현됐고 남은 것은 실제 운영 검증이다.
+- `runs` / `snapshots` 계열은 별도 provenance 데이터 계층으로 유지하는 편이 맞다.
 
 ## 4. 현재 구조 평가
 
@@ -188,45 +195,43 @@
 
 ## 7. 목표 구조
 
-### 7.1 유지할 최상위 구조
+### 7.1 현재 공개 최상위 구조
 
-- `Home`
-- `Guide`
-- `Core`
-- `Verification`
-- `Engineering`
-- `Reference`
-- `Audit`
+- `소개`
+- `핵심 아이디어`
+- `내용 검증`
+- `참고자료`
+- `게시판`
 
-이 상위 구조는 유지한다.
+현재 공개 웹에서 독자가 직접 보는 최상위 구조는 위 5축이다.
 
-단, 역할의 무게중심은 아래처럼 해석한다.
+내부 라우트 계층은 여전히 `Home / Guide / Core / Verification / Engineering / Reference / Audit`를 포함하지만,
+이들은 독자 노출 기준의 최상위 IA가 아니라 구현상 하위 축 또는 세부 허브로 해석한다.
 
-- `Home`, `Guide`, `Core`는 `SALT의 문제의식과 이론적 위상`을 먼저 제시하는 설득 축이다.
-- `Verification`, `Audit`는 그 이론이 검증 가능성과 재현 가능성을 가진다는 점을 뒷받침하는 증거 축이다.
-- `Reference`는 독자가 위 두 축 사이를 왕복할 수 있게 하는 번역/보조 축이다.
+역할의 무게중심은 아래처럼 읽는다.
+
+- `소개`, `핵심 아이디어`는 `SALT의 문제의식과 이론적 위상`을 먼저 제시하는 전면 축이다.
+- `내용 검증`은 결과, 대기 항목, 감사 자료를 묶는 후면 증거 축이다.
+- `참고자료`는 독자가 앞선 설명을 안정적으로 이해하도록 돕는 보조 축이다.
+- `게시판`은 질문과 해석을 공개적으로 축적하는 참여 축이다.
 
 ### 7.1.1 최상위 섹션 역할/경계/포함 페이지 표
 
 | 섹션 | 역할 | 포함 페이지 | 제외 페이지 | 대표 데이터 |
 | --- | --- | --- | --- | --- |
-| `Home` | 사이트 전체의 첫 진입 허브. 도서 소개, 읽기 흐름, 검증 사이트 성격을 가장 짧게 요약한다. | `/` | 세부 검증 채널 설명, 감사용 세부 로그, 장별 상세 압축 페이지 | `site_section`, 주요 CTA 링크, 핵심 섹션 요약 |
-| `Guide` | 처음 온 방문자에게 사이트 읽는 법과 이동 경로를 안내하는 페이지. 방문자 유형별 동선을 분기한다. | `/guide` | 장별 개념 상세, 검증 결과 원표, 감사용 재현 데이터 | `site_section`, 방문자 경로 정의, 읽기 순서 요약 |
-| `Core` | 책의 핵심 논리 구조와 장별 압축 요약을 다루는 이론 허브. `Problem -> Clue -> Concept -> Solution -> Bridge to Verification` 흐름을 드러낸다. | `/core`, `/core/logic-map`, `/core/chapters`, `/core/chapters/[chapter]` | 실측 검증 결과표, 후보 가설 운영 목록, 감사 로그, 단순 참고 자료 모음 | `erd_stage`, `book_chapter_summary`, `site_section` |
-| `Verification` | SALT 검증 결과, 대기 항목, 채널별 판정 경로를 보여주는 검증 허브. | `/verification`, `/verification/results`, `/verification/pending`, `/verification/channels`, `/verification/channels/[channel]`, `/verification/candidate-hypotheses` | 이론 설명 중심 장 요약, 공학적 확장 해석, 감사용 실행 로그 원문 | `verification_channel`, 결과 요약 데이터, 대기 항목 정의 |
-| `Engineering` | 검증 결과와 분리된 공학적 함의, 설계 해석, 응용 가능성 정리 허브. | `/engineering` | 검증 승패 판정표, 책 구조 대응표, 감사 재현 절차 | `site_section`, engineering concept 요약 |
-| `Reference` | 독자가 책과 웹의 대응 관계를 찾아보거나 용어/도해/FAQ를 확인하는 참고 허브. | `/reference`, `/reference/book-map`, `/reference/faq`, `/reference/glossary`, `/reference/visual-atlas` | 검증 채널 승패 판정, 감사용 명령/manifest, 관리자 운영 기능 | `reference_asset`, `book_chapter_summary`, 용어/FAQ 데이터 |
-| `Audit` | 재현 절차, 데이터셋, 공식 버전, 실행 단위 provenance를 확인하는 감사 허브. | `/audit`, `/audit/reproduce`, `/audit/datasets`, `/audit/formulas`, `/audit/sources`, `/audit/runs`, `/runs`, `/runs/[runId]`, `/snapshots`, `/snapshots/[snapshotId]` | 방문자용 입문 설명, 책 흐름 해설, 구매 동선, 일반 참고용 FAQ | `frozen_manifest`, `model_eval_manifest`, 실행/스냅샷 provenance 데이터 |
+| `소개` | 사이트 첫 진입 허브. SALT의 한 줄 정의와 읽기 순서를 제시한다. | `/`, `/guide` | 세부 검증 채널, 감사 로그, 장별 상세 페이지 | `site_section`, 주요 CTA 링크, 핵심 요약 |
+| `핵심 아이디어` | SALT의 문제의식과 개념 전환을 설명하는 중심 허브다. | `/core`, `/core/logic-map`, `/core/chapters`, `/core/chapters/[chapter]`, `/engineering` | 검증 원표, 감사용 provenance, 운영 기능 | `erd_stage`, `book_chapter_summary`, `site_section` |
+| `내용 검증` | 결과, 대기 항목, 재현/감사 경로를 묶는 검증 허브다. | `/verification`, `/verification/results`, `/verification/pending`, `/verification/channels`, `/verification/channels/[channel]`, `/verification/candidate-hypotheses`, `/audit`, `/audit/*`, `/runs*`, `/snapshots*` | 전면 이론 설명, 참고용 glossary/FAQ, 공개 게시판 운영 설명 | `verification_channel`, `frozen_manifest`, `model_eval_manifest`, provenance 데이터 |
+| `참고자료` | 이해를 안정화하는 보조 허브다. | `/reference`, `/reference/book-map`, `/reference/faq`, `/reference/glossary`, `/reference/visual-atlas` | 검증 판정 원표, moderation 기능 | `reference_asset`, `book_chapter_summary`, 용어/FAQ 데이터 |
+| `게시판` | 질문과 해석을 공개적으로 축적하는 커뮤니티 허브다. | `/discussion`, `/discussion/[slug]`, 페이지 하단 댓글, `/audit/comments` 운영층 | 핵심 이론 허브를 대체하는 설명, 검증 결과의 공식 판정 기능 | `board_posts`, `post_comments`, `user_roles`, moderation 데이터 |
 
 최상위 섹션 경계는 아래처럼 해석한다.
 
-- `Home`은 요약만 담당하고 세부 허브 역할을 대신하지 않는다.
-- `Guide`는 안내를 담당하고 원자료를 직접 담지 않는다.
-- `Core`는 이론과 논리 구조를 담당하고 검증 판정의 원표를 직접 중심에 두지 않는다.
-- `Verification`은 검증 판정과 채널 구조를 담당하고 이론 전개의 주 설명자가 되지 않는다.
-- `Engineering`은 검증과 분리된 함의를 담당하고 결과 판정의 공식 허브를 대체하지 않는다.
-- `Reference`는 대응과 참고를 담당하고 검증 또는 감사의 운영 허브가 되지 않는다.
-- `Audit`는 재현성과 provenance를 담당하고 일반 독자 안내 허브가 되지 않는다.
+- `소개`는 요약과 읽기 순서만 담당하고 세부 허브 역할을 대신하지 않는다.
+- `핵심 아이디어`는 이론과 논리 구조를 담당하고 검증 원표의 주 설명자가 되지 않는다.
+- `내용 검증`은 비교 결과와 provenance를 담당하고 이론 전개의 주 설명자가 되지 않는다.
+- `참고자료`는 대응과 보조 설명을 담당하고 판정/운영 허브가 되지 않는다.
+- `게시판`은 질문과 토론을 담당하고 이론 또는 검증의 공식 허브를 대체하지 않는다.
 
 또한 구조의 우선순위는 아래 순서를 따른다.
 
@@ -235,7 +240,7 @@
 3. `어떻게 검증 가능한가`
 4. `어떻게 재현하고 감사할 수 있는가`
 
-이 순서가 홈, Guide, Core, Logic Map, Verification, Audit 전반에 유지되어야 한다.
+이 순서가 `소개`, `핵심 아이디어`, `내용 검증`, `참고자료`, `게시판` 전반에 유지되어야 한다.
 
 ### 7.2 보강할 중간층
 
@@ -279,138 +284,53 @@
 
 운영 원칙은 아래를 따른다.
 
-- `콘텐츠 메타 계층`은 Home, Guide, Core, Verification, Reference의 안내/설명 구조를 정렬하는 데 쓴다.
-- `감사 / provenance 계층`은 Audit, Runs, Snapshots의 실행 근거와 재현 경로를 정렬하는 데 쓴다.
+- `콘텐츠 메타 계층`은 `소개 / 핵심 아이디어 / 내용 검증 / 참고자료 / 게시판`의 안내/설명 구조를 정렬하는 데 쓴다.
+- `감사 / provenance 계층`은 `Audit / Runs / Snapshots`의 실행 근거와 재현 경로를 정렬하는 데 쓴다.
 - 두 계층은 링크될 수 있지만 같은 파일 구조나 같은 타입 집합으로 무리하게 합치지 않는다.
 
-### 7.3.1 `00~28장` 선별 및 반영 기준
+### 7.3.1 장 반영 원칙
 
-`00~28장` 전체를 웹에 그대로 옮기지 않고, 아래 기준으로 선별한다.
+`00~28장` 전체를 웹에 그대로 복사하지 않는다. 웹은 원고의 사본이 아니라 `독자 탐색용 번역 계층`이다.
 
-| 분류 | 기준 | 반영 위치 | 예시 |
-| --- | --- | --- | --- |
-| `web_core` | 방문자가 책의 핵심 논리와 흐름을 이해하는 데 직접 필요한 내용 | `Home`, `Guide`, `Core` | `00`, `17`, `18`, `19`, `21`의 핵심 설명 |
-| `web_reference` | 읽는 도중 찾아보는 것이 유리한 용어, 도해, FAQ, 책-웹 대응 정보 | `Reference` | `22`, `23`, `24`, `Book Map`, glossary, visual atlas |
-| `web_verification` | 검증 채널, 결과, 대기 항목, 판정 기준 이해에 직접 필요한 내용 | `Verification` | `18`, `20`, `26`, `27`의 검증 관련 요약 |
-| `web_audit` | 재현성, provenance, 감사, 데이터셋/공식/실행 로그 확인에 필요한 내용 | `Audit` | `24`, `25`, `26`, `27`, 실행/manifest 정보 |
-| `manuscript_only` | 책 원고로는 중요하지만 웹 탐색 흐름에는 직접 노출하지 않아도 되는 상세 본문 | 원고에 유지, 필요 시 요약만 반영 | 장별 세부 서술, 장문의 논증, 부록 세부 본문 |
+- 홈과 소개 축에는 첫 진입에 필요한 문제의식과 전체 그림만 남긴다.
+- 핵심 아이디어 축에는 장 전체보다 `핵심 질문`, `핵심 문장`, `핵심 도해`를 압축 반영한다.
+- 내용 검증 축에는 검증과 직접 연결되는 주장만 남기고, 긴 배경 서술은 원고에 둔다.
+- 참고자료 축에는 FAQ, glossary, book map, visual atlas처럼 독자가 중간에 다시 찾을 자산만 배치한다.
+- 감사와 provenance 정보는 설명 콘텐츠와 분리해 `Audit / Runs / Snapshots`에 둔다.
 
-선별 원칙은 아래를 따른다.
+현재 운영상 가장 직접적인 장 연결축은 아래처럼 본다.
 
-- 웹은 `원고 전체의 사본`이 아니라 `탐색과 검증을 위한 번역 계층`이다.
-- 한 장의 모든 내용을 한 페이지에 옮기지 않는다.
-- 장 핵심 문장은 웹용으로 압축하되, 출처 장과 연결은 유지한다.
-- 상세 증명, 장문의 논증, 긴 배경 설명은 원고에 남기고 웹에는 요약/링크만 둔다.
-- 하나의 장이 여러 웹 섹션에 분산 반영될 수 있다.
+- `17장`: 핵심 논리와 구조 허브
+- `18장`: 검증 가능성과 채널 해석
+- `19장`: 공학적 함의와 확장 읽기
+- `20~28장`: 질문, 대응, 감사, 참고자료로 재배치되는 보조 자원
 
-### 7.3.2 `ERD -> 장 -> 웹` 변환 구조 원칙
+### 7.3.2 시각 자산 활용 원칙
 
-웹 변환 구조는 아래 순서로 해석한다.
-
-1. `ERD stage`
-2. `관련 장 묶음`
-3. `웹 섹션`
-4. `대표 라우트`
-5. `페이지 내 요약 블록`
-
-변환표는 최소 아래 컬럼을 가져야 한다.
-
-- `ERD stage`
-- `관련 장`
-- `핵심 질문`
-- `웹 섹션`
-- `대표 페이지`
-- `반영 방식`
-- `원고 유지 여부`
-
-`반영 방식`은 아래 중 하나로 고정한다.
-
-- `direct_summary`
-- `hub_intro`
-- `reference_bridge`
-- `verification_bridge`
-- `audit_bridge`
-- `manuscript_only`
-
-예시 해석:
-
-- `Concept` 단계가 `12, 17장`과 강하게 연결되면 `Core`의 논리 구조 블록으로 직접 요약한다.
-- `Verify` 단계가 `18, 26, 27장`과 연결되면 `Verification` 또는 `Audit` 허브로 분기한다.
-- FAQ성 질문은 장 출처가 있더라도 `Reference`에서 재조직할 수 있다.
-
-### 7.3.3 `00~28장` 1차 웹 반영 분류표
-
-아래 표는 현재 제목과 구조를 기준으로 만든 1차 반영 초안이다. 이후 세부 내용 검토에 따라 조정할 수 있다.
-
-| 장 | 1차 분류 | 대표 웹 섹션 | 반영 방식 | 메모 |
-| --- | --- | --- | --- | --- |
-| `00_Author` | `manuscript_only` | `Guide` 또는 별도 author 영역 | `reference_bridge` | 저자 소개는 별도 author/profile 정보로 축약 반영 |
-| `00_도입` | `web_core` | `Home`, `Guide` | `hub_intro` | 첫 진입 맥락용 핵심 서론 |
-| `01` | `web_core` | `Core` | `direct_summary` | 문제 제기 축 |
-| `02` | `web_core` | `Core` | `direct_summary` | 중력 재해석 초입 |
-| `03` | `web_core` | `Core` | `direct_summary` | 질량 기원 축 |
-| `04` | `web_core` | `Core` | `direct_summary` | 물질 형성 논리 |
-| `05` | `web_core` | `Core` | `verification_bridge` | 중력파 논점과 검증 연결 가능 |
-| `06` | `web_core` | `Core` | `direct_summary` | 우주 기원 논리 |
-| `07` | `web_core` | `Core` | `direct_summary` | 시간/밀도 해석 축 |
-| `08` | `web_core` | `Core` | `direct_summary` | 양자 확률 해석 |
-| `09` | `web_core` | `Core` | `direct_summary` | 양자-상대론 갈등 맥락 |
-| `10` | `web_core` | `Core` | `direct_summary` | 중력 약함 문제 |
-| `11` | `web_core` | `Core` | `direct_summary` | 에너지-물질 변환 |
-| `12` | `web_core` | `Core` | `direct_summary` | 통일장 중심 개념 |
-| `13` | `web_core` | `Core` | `direct_summary` | 중력 흐름 해석 심화 |
-| `14` | `web_core` | `Core` | `direct_summary` | 전자기력 위상 해석 |
-| `15` | `web_core` | `Core` | `direct_summary` | 쿼크 구속 논리 |
-| `16` | `web_core` | `Core` | `direct_summary` | 입자 변환 메커니즘 |
-| `17` | `web_core` | `Core`, `/core/logic-map` | `direct_summary` | 핵심 논리 허브의 중심 장 |
-| `18` | `web_verification` | `Verification` | `verification_bridge` | 검증 구조의 중심 장 |
-| `19` | `web_core` | `Engineering` | `hub_intro` | 공학적 함의 허브 중심 |
-| `20` | `web_reference` | `Reference`, `Verification Pending` | `reference_bridge` | 질문형 재구성에 적합 |
-| `21` | `web_core` | `Home`, `Guide`, `Core` | `hub_intro` | 결론/전체 그림 압축용 |
-| `22` | `web_reference` | `Reference` | `reference_bridge` | 용어/참고 자료 허브 |
-| `23` | `web_reference` | `Reference` | `reference_bridge` | 기존 이론과의 대응 |
-| `24` | `web_reference` | `Reference`, `Audit` | `audit_bridge` | 수학 골격은 요약+감사 연결 |
-| `25` | `web_audit` | `Audit` | `audit_bridge` | ADM 감사와 자유도 점검 |
-| `26` | `web_audit` | `Audit`, `Verification` | `audit_bridge` | 운영 프로토콜과 검증 브리지 |
-| `27` | `web_audit` | `Audit`, `Verification` | `audit_bridge` | 제출용 논문과 검증 정리 |
-| `28` | `web_reference` | `Reference` | `reference_bridge` | 현대 물리학자 접점 정보 |
-
-운영 메모:
-
-- `17`, `18`, `19`는 현재 웹 구조의 직접 중심축으로 유지한다.
-- `20~28`은 부록이라도 웹에서는 `Reference`, `Audit`, `Verification`으로 재배치될 수 있다.
-- `24`, `26`, `27`은 내용에 따라 `Reference`와 `Audit`을 가로지르는 교차 자원으로 다룬다.
-- 실제 페이지 반영 시에는 장 전체가 아니라 장의 핵심 질문, 핵심 문장, 핵심 도해 단위로 분해한다.
-
-### 7.3.4 시각 자산 활용 원칙
-
-시각 자산은 아래 두 계층으로 구분한다.
+시각 자산은 현재 아래 두 계층으로 구분한다.
 
 - `graph`
-  - 장/논리/검증 구조를 직접 설명하는 도해 자산
-  - 현재 웹에서는 `Visual Atlas`, `Core chapter pages`, `Verification channel pages`에 실제로 연결되어 있다
-  - 따라서 웹의 기본 설명 자산으로 유지한다
+  - 장, 논리, 검증 구조를 직접 설명하는 도해 자산
+  - `Visual Atlas`, 장 요약, 검증 채널 상세에 실제 연결되는 기본 설명 자산
 - `public`
-  - 책 본문 또는 홍보성 이해 보조 이미지 자산
-  - 현재 웹 라우트에서는 직접 활용하지 않는다
-  - 당분간 웹 구조 계획의 기본 범위에서 제외한다
+  - 홍보성 또는 독립 이미지 자산
+  - 현재 공개 라우트의 기본 정보구조는 이 계층에 의존하지 않는다
 
-운영 원칙은 아래를 따른다.
+운영 원칙은 단순하다.
 
-- 웹 정보구조와 직접 연결된 설명 자산은 `graph` 계열을 우선 사용한다.
-- `public` 계열은 별도 활용 계획이 생기기 전까지 라우트 설계, page-map, 허브 와이어프레임의 기본 전제로 삼지 않는다.
-- 이후 `public` 계열을 다시 도입할 경우에는 `어느 페이지에서 어떤 이해 보조 역할을 하는지`를 문서에 먼저 정의한 뒤 반영한다.
+- 논리 설명과 검증 설명은 `graph`를 우선 사용한다.
+- `public` 자산은 별도 목적이 정의되기 전까지 상위 IA를 결정하는 기준으로 쓰지 않는다.
 
 ### 7.4 커뮤니티 기능 원칙
 
-커뮤니티 기능은 `읽기 공개, 쓰기 인증` 원칙으로 설계한다.
+커뮤니티 기능은 현재 `읽기 공개, 쓰기 인증, 운영 분리` 원칙으로 정리한다.
 
-- 게시판 글 읽기와 댓글 읽기는 공개 허용
-- 게시판 글 작성과 댓글 작성은 인증 회원만 허용
-- 인증 방식은 `Google Auth`와 `GitHub Auth`를 우선 지원
-- 관리자는 회원 활동, 게시글, 댓글, 신고, 제재 이력을 DB 기준으로 조회하고 통제할 수 있어야 한다
+- 게시판 글과 댓글 읽기는 공개 허용
+- 게시판 글과 댓글 쓰기는 인증 회원만 허용
+- 인증 공급자는 `Google`, `GitHub`를 우선 사용
+- 관리자 권한은 일반 회원과 분리하고, 운영 조치는 감사 가능한 로그를 남긴다
 
-초기 범위에서 필요한 핵심 객체는 아래와 같다.
+현재 코드/운영 기준 핵심 객체는 아래와 같다.
 
 - `users`
 - `user_roles`
@@ -420,489 +340,73 @@
 - `moderation_actions`
 - `activity_log`
 
-### 7.5 UI/UX 최적화 점검 기준
+운영 전환 관점에서는 `Neon Postgres + Prisma + Auth.js` 조합이 기본안이며, 로컬 미설정 환경에서는 `file_fallback`이 보조 동작을 맡는다.
 
-UI/UX 최적화는 시각 미감이 아니라 `탐색 효율`과 `맥락 전달` 기준으로 판단한다.
+## 8. 현재 실행 상태
 
-필수 점검 항목은 아래와 같다.
+### 8.1 이미 완료된 것
 
-| 항목 | 점검 질문 | 목표 상태 |
-| --- | --- | --- |
-| `첫 화면 명확성` | 사용자가 첫 화면 10초 안에 사이트 목적을 이해할 수 있는가 | 사이트 목적, 책 성격, 검증 사이트 성격이 동시에 보임 |
-| `클릭 깊이` | 주요 목적지까지 과도한 클릭이 필요한가 | 핵심 허브는 1~2단계 안에 도달 |
-| `내비게이션 일관성` | 상단 내비, 허브 카드, 본문 CTA가 서로 다른 구조를 말하는가 | 같은 섹션 구조를 반복해서 강화 |
-| `허브 역할 분리` | 허브 페이지들이 서로 비슷해 보여 역할이 흐려지는가 | 각 허브가 한 문장으로 구분 가능 |
-| `페이지 내 다음 이동` | 페이지를 읽은 뒤 다음 행동이 명확한가 | 다음 섹션/관련 허브 CTA가 있음 |
-| `스캔 가능성` | 긴 문단 때문에 방문자가 핵심을 놓치는가 | 제목, 리드, 카드, 표, 리스트로 핵심이 먼저 보임 |
-| `CTA 충돌` | 구매, 읽기, 검증, 재현 CTA가 서로 경쟁하는가 | 페이지 목적별 CTA 우선순위가 명확함 |
-| `모바일 가독성` | 카드/표/내비가 모바일에서 과밀해지는가 | 핵심 흐름이 모바일에서도 유지됨 |
+- 공개 상단 IA를 `소개 / 핵심 아이디어 / 내용 검증 / 참고자료 / 게시판` 5축으로 재정렬
+- `/`와 `/guide`를 사실상 하나의 소개 축으로 통합
+- 주요 허브와 상세 페이지의 메타/운영자 설명을 걷어내고 독자용 설명 카피로 재작성
+- `/core/logic-map`, `/core/chapters`, `/verification/channels` 등 핵심 허브와 인덱스 반영
+- `Reference`, `Verification`, `Audit`, `Runs`, `Snapshots`의 역할 분리 강화
+- `/discussion` 목록/상세/작성 흐름 구현
+- Neon/Postgres, Prisma migration, Auth 설정, 관리자 권한 부여까지 로컬 운영 경로 확인
+- dev 모드 계측 버그 우회와 한글 slug 상세 라우트 문제 수정
 
-운영 원칙은 아래를 따른다.
+### 8.2 부분 완료된 것
 
-- 허브 페이지는 `설명 + 선택지` 구조를 가진다.
-- 상세 페이지는 `현재 위치 + 핵심 내용 + 다음 이동` 구조를 가진다.
-- CTA는 페이지 목적에 맞는 것만 남기고, 한 화면에 과도하게 중복하지 않는다.
-- `좋아 보이는 디자인`보다 `어디로 가야 하는지 바로 이해되는 구조`를 우선한다.
+- `page-map.ts`와 설명 문서의 마지막 정합화
+- 페이지 내부 상수와 lib 데이터의 공통 모델화
+- `Core` 안에서 `Problem -> Clue -> Concept -> Solution -> Bridge to Verification`의 시각 강조
+- 게시판과 페이지 댓글, `/audit/comments` 사이의 운영 동선 정리
+- 기존 구형 라우트/별칭의 최종 호환 정책 문서화
 
-### 7.6 리모델링 실행 원칙
+### 8.3 아직 남은 것
 
-기존 웹사이트를 이 계획에 맞게 리모델링할 때는 아래 순서를 따른다.
+- 게시판 글 작성, 댓글 작성, 신고, 숨김, 삭제를 실제 운영 경로로 한 바퀴 끝까지 검증
+- `/audit/comments`에서 관리자 moderation을 실제 데이터 기준으로 점검
+- `web/OPERATIONS_CHECKLIST.md`와 roadmap 문서 체크 상태를 운영 결과에 맞게 최종 업데이트
+- 필요 시 `page-map.ts`와 공통 콘텐츠 타입 정리
 
-1. `목적 선언`을 먼저 고정하고
-2. `내용 선별`과 `ERD -> 장 -> 웹 변환 구조`를 확정한 뒤
-3. `와이어프레임`으로 정보구조를 재배치하고
-4. 그 다음에야 `디자인 시스템`과 `스타일`을 수정한다
+## 9. 현재 실행 보드
 
-즉, 리모델링은 `디자인 손질`이 아니라 `논리 구조 재배치 + 화면 언어 재정의` 작업으로 본다.
+| 작업 묶음 | 상태 | 현재 상태 | 다음 액션 |
+| --- | --- | --- | --- |
+| `5축 정보구조` | `mostly_done` | 공개면 기준 구조와 주요 허브는 반영 완료 | 세부 CTA와 잔여 구형 문구만 점검 |
+| `독자용 카피 정리` | `mostly_done` | 주요 허브와 상세 카피는 대부분 독자용 톤으로 전환 | 남은 문서형 콘텐츠와 잔여 라벨 정리 |
+| `page-map / 문서 동기화` | `in_progress` | 코드와 문서가 대체로 맞지만 마지막 불일치 가능성 존재 | `page-map.ts`, roadmap 문서, 운영 체크리스트 교차 점검 |
+| `콘텐츠 모델 정리` | `in_progress` | 데이터가 여러 파일에 흩어져 있음 | 공통 타입과 상수 위치를 축별로 정리 |
+| `게시판 / 댓글` | `in_progress` | DB/Auth/관리자 부여까지 준비됨. 기본 글 작성 흐름도 동작 | 댓글, 신고, moderation까지 운영 시나리오 전체 검증 |
+| `운영 하네스` | `in_progress` | `lint`, `build`, `runtime:check`는 확보됨 | smoke test와 운영 재발 방지 규칙 보강 |
 
-## 8. 통합 실행계획
+## 10. 바로 다음 실행 순서
 
-### 8.0 리모델링 실행 체크리스트
+이 문서 기준에서 지금 바로 이어야 할 순서는 아래다.
 
-기존 웹사이트를 실제로 개편할 때는 아래 체크리스트를 따른다.
+1. `/discussion`에서 로그인 사용자 글 작성과 목록 반영을 실제 운영 기준으로 재확인
+2. 페이지 댓글 작성과 읽기/쓰기 권한을 실제 세션 기준으로 검증
+3. 신고, 숨김, 삭제, 관리자 moderation을 `/audit/comments` 포함 경로에서 한 바퀴 점검
+4. `web/OPERATIONS_CHECKLIST.md`를 실제 운영 검증 결과로 갱신
+5. `FIVE_NAV_IMPLEMENTATION_WORKBOARD.md`, `FIVE_NAV_STORY_REENGINEERING_MASTER_PLAN.md`, `FIVE_NAV_STORY_WIREFRAMES.md`의 체크 상태를 현재 코드 기준으로 닫기
+6. 마지막으로 `page-map.ts`와 이 문서의 문장 기준이 어긋나지 않는지 정리
 
-1. 목적 정렬
-- 홈 첫 화면에서 `SALT의 이론적 위상 제시`가 우선인지 확인
-- `안내 사이트`, `검증 콘솔`, `레퍼런스 사이트` 중 무엇이 주 역할인지 한 문장으로 고정
+## 11. 이 문서의 역할
 
-2. 내용 선별
-- `00~28장`을 `web_core / web_reference / web_verification / web_audit / manuscript_only`로 분류
-- 장별 핵심 질문, 핵심 문장, 대표 도해를 추출
+이 문서는 이제 `현재 공개면의 최종 설계 명세`라기보다 아래 역할을 맡는다.
 
-3. 구조 변환
-- `ERD -> 장 -> 웹 섹션 -> 대표 라우트 -> 페이지 블록` 변환표 작성
-- `Core`, `Verification`, `Reference`, `Audit`에 무엇을 두고 무엇을 두지 않는지 재확인
+- 왜 구조가 5축으로 이동했는지 설명하는 배경 문서
+- 무엇이 이미 완료됐고 무엇이 운영 검증만 남았는지 요약하는 상태 문서
+- `FIVE_NAV_*` 문서를 읽기 전에 큰 그림을 잡는 보조 문서
 
-4. 와이어프레임
-- `Home`, `Guide`, `Core`, `Logic Map`, `Verification`, `Audit`에 대해 텍스트 와이어프레임 작성
-- CTA, 카드, 다음 이동 경로를 페이지마다 고정
+현재 공개면의 실제 구현 판단과 세부 체크는 아래 문서를 우선한다.
 
-5. 공통 쉘 개편
-- 상단 내비, 허브 카드, 섹션 헤더, CTA 컴포넌트를 먼저 정리
-- 공통 UI 규칙을 만든 뒤 개별 페이지로 내려감
-
-6. 페이지 리모델링
-- `Home -> Guide -> Core -> Logic Map -> Verification -> Reference -> Audit` 순서로 반영
-- 페이지별 카피, 카드, 흐름, 링크를 새 구조에 맞게 교체
-
-7. 스타일 재설계
-- 색상, 타이포, 패널, 표, 카드, 모바일 규칙을 새 목적에 맞게 조정
-- 대시보드 톤보다 출판형/논증형 인터페이스에 가깝게 정리
-
-8. 검증
-- 내비 일치
-- CTA 충돌 여부
-- 클릭 깊이
-- 모바일 가독성
-- `Core -> Verification -> Audit` 흐름 유지 여부
-
-### 8.0.1 현재 기준 실행 보드
-
-아래 보드는 `2026-04-03` 기준 현재 코드 상태를 반영한 작업 보드다.
-
-| 작업 묶음 | 상태 | 현재 상태 | 다음 액션 | 의존성 |
-| --- | --- | --- | --- | --- |
-| `정보구조` | `in_progress` | 상위 IA와 핵심 허브는 반영됨. `logic-map`, `chapters index`, `channels index`, `candidate-hypotheses`는 미구현 | 누락 라우트 4개를 만들고 각 허브의 CTA 연결 정리 | 장 요약 데이터 정리 |
-| `page-map 동기화` | `not_started` | 실제 라우트 대비 반영 범위가 좁음 | 전체 공개 라우트 목록 기준으로 `page-map.ts` 재작성 | 실제 라우트 목록 확정 |
-| `콘텐츠 모델 정리` | `not_started` | 페이지 내부 상수와 lib 데이터가 분산됨 | `site_section`, `book_chapter_summary`, `erd_stage`, `verification_channel`, `reference_asset` 초안 타입 정의 | IA 고정 |
-| `Audit / provenance 모델` | `in_progress` | `runs`, `snapshots`, `v2-data` 계층이 이미 존재 | 콘텐츠 메타 계층과 분리 원칙 문서화 | 없음 |
-| `하네스 엔지니어링` | `not_started` | 작업 기준 문서와 수동 `lint`/`build` 검증은 있으나, 에이전트 실수 재발 방지용 자동 강제 구조는 약함 | 운영 규칙 문서, 자동 검증 훅, 재발 방지 체크리스트를 구조로 고정 | 공통 개발 워크플로 |
-| `커뮤니티 스키마` | `in_progress` | Prisma 스키마와 세션 보조 함수 존재 | 인증 공급자, env, migration 전략 확정 | DB 환경 |
-| `댓글 API / UI` | `not_started` | API 라우트와 UI 컴포넌트 없음 | `GET/POST /api/comments`와 페이지 하단 댓글 섹션 골격 구현 | Auth, Prisma client |
-| `moderation / rate limit` | `not_started` | 정책만 있고 구현 없음 | 관리자 액션 API, 신고 API, 작성 제한 규칙 추가 | 댓글 API |
-| `기존 라우트 호환` | `not_started` | 리다이렉트/alias 정책 문서 없음 | 과거 경로와 새 경로 매핑표 작성 | 최종 IA 확정 |
-
-운영 TODO:
-
-- 배포 로그인 전환 시 `localhost` OAuth callback만 쓰지 말고 실제 배포 도메인 callback을 함께 등록한다.
-- 현재 공개 도메인이 `salt.numverse.org`이면 아래 callback URL을 Google/GitHub OAuth 설정에 추가한다.
-  - `https://salt.numverse.org/api/auth/callback/google`
-  - `https://salt.numverse.org/api/auth/callback/github`
-- 로컬 개발용 `http://localhost:3000/...` callback은 삭제하지 말고 병행 유지한다.
-- 배포 환경에도 동일한 provider ID/secret, `AUTH_SECRET`, host 관련 env가 설정됐는지 함께 점검한다.
-
-하네스 TODO:
-
-- 에이전트가 항상 먼저 읽는 운영 규칙 문서(`CLAUDE.md` 또는 동등 문서) 도입 여부를 결정한다.
-- `lint`, `build`, 핵심 smoke test를 커밋 전 자동으로 강제할지 결정하고, 선택 시 훅으로 고정한다.
-- 한 번 발생한 실수는 `프롬프트 주의`가 아니라 `문서 규칙 / 자동 검사 / 구조 변경` 중 하나로 재발 방지 장치로 승격한다.
-- 문서와 실제 코드 불일치, 미사용 라우트, 오래된 링크를 주기적으로 점검하는 청소 루프를 설계한다.
-
-### 8.1 핵심 페이지 와이어프레임 원칙
-
-아래 페이지는 리모델링 시 우선 설계 대상으로 본다.
-
-#### Home
-
-- 첫 문장: `SALT가 무엇을 새롭게 제안하는가`
-- 두 번째 층: `왜 통일장 문제와 연결되는가`
-- 세 번째 층: `어떻게 검증되는가`
-- 네 번째 층: `어떻게 재현/감사 가능한가`
-- 하단: 방문자 유형별 진입 경로
-
-#### Guide
-
-- 사이트 읽는 순서
-- 독자/검토자/기술 관심 방문자별 경로
-- 각 섹션이 무엇을 해결하는지 요약
-
-#### Core
-
-- 문제 제기
-- 핵심 개념
-- 통일장적 의미
-- 장별 연결
-- Logic Map으로 이동
-
-#### Logic Map
-
-- `Problem -> Clue -> Concept -> Solution -> Verify`
-- 각 단계의 핵심 질문
-- 관련 장
-- 관련 웹 페이지
-- Verification으로 넘어가는 다리
-
-#### Verification
-
-- 검증이 무엇을 시험하는지
-- 채널 구조
-- 결과 / pending 분기
-- Audit으로 이어지는 근거 링크
-
-#### Audit
-
-- 데이터셋
-- 공식 버전
-- run / snapshot provenance
-- 재현 절차
-
-이 와이어프레임은 이후 실제 UI 시안의 평가 기준으로 사용한다.
-
-### 8.2 핵심 4개 페이지 텍스트 와이어프레임 초안
-
-#### Home 초안
-
-1. Hero
-- 제목: `SALT는 공간, 질량, 상호작용을 하나의 구조로 다시 읽으려는 새로운 통일장적 아이디어다`
-- 부제: `이 사이트는 그 이론의 핵심 논리, 검증 가능성, 재현 경로를 함께 보여준다`
-- CTA 1: `핵심 논리부터 보기`
-- CTA 2: `검증 결과 보기`
-
-2. 문제 제기 블록
-- 기존 물리학에서 SALT가 묶어 보려는 문제 3~4개 제시
-- 예: 중력의 위치, 질량의 기원, 미시-거시 연결, 상호작용의 통합 설명
-
-3. SALT 핵심 제안 블록
-- `공간은 비어 있지 않다`
-- `상태변수와 구조 흐름으로 현상을 읽는다`
-- `통일장 문제를 단일 힘이 아니라 구조적 연결로 다시 본다`
-
-4. 왜 통일장 문제와 연결되는가
-- 기존 이론의 공백
-- SALT가 제시하는 연결 방식
-- 책과 Logic Map으로 이어지는 링크
-
-5. 검증/감사 브리지
-- `이 아이디어는 검증 가능성을 가진다`
-- `Verification`으로 이동
-- `Audit`으로 이동
-
-6. 방문자별 경로
-- 처음 읽는 독자
-- 검증만 보려는 검토자
-- 기술적 함의를 보려는 방문자
-
-#### Guide 초안
-
-1. 페이지 목적 선언
-- `이 사이트를 어떤 순서로 읽으면 되는가`
-
-2. 방문자 유형별 읽기 경로
-- `처음 온 독자`
-- `책 구매 전 검토자`
-- `검증 중심 방문자`
-- `기술/이론 관심 방문자`
-
-3. 섹션 설명
-- `Core`: 핵심 논리
-- `Verification`: 검증 채널과 결과
-- `Reference`: 용어/도해/FAQ
-- `Audit`: 재현과 provenance
-
-4. 권장 읽기 순서
-- `Home -> Guide -> Core -> Logic Map -> Verification -> Audit`
-
-5. 책과 웹의 관계
-- 웹은 책 전체의 사본이 아니라, 논리와 검증을 더 빨리 탐색하기 위한 구조라는 점을 명시
-
-#### Core 초안
-
-1. 페이지 목적 선언
-- `SALT의 핵심 논리와 통일장적 의미를 압축해서 보여주는 허브`
-
-2. 핵심 질문 블록
-- SALT는 무엇을 설명하려 하는가
-- 왜 기존 설명으로는 부족하다고 보는가
-- 어떤 구조적 아이디어를 제시하는가
-
-3. 핵심 개념 블록
-- 핵심 상태변수
-- 공간 구조
-- 미시-거시 연결
-- 상호작용 통합의 실마리
-
-4. 장 연결 블록
-- `17장`: 이론의 핵심 구조
-- `18장`: 검증 가능성
-- `19장`: 기술적 함의
-
-5. 통일장적 의미 블록
-- SALT가 왜 단순 해석이 아니라 통일장적 시도인지 설명
-
-6. 다음 이동
-- `Logic Map`
-- `Verification`
-- `Reference / Book Map`
-
-#### Logic Map 초안
-
-1. 페이지 목적 선언
-- `SALT의 논리 구조를 가장 압축적으로 보여주는 대표 설명 페이지`
-
-2. 단계 흐름
-- `Problem`
-- `Clue`
-- `Concept`
-- `Solution`
-- `Verify`
-
-3. 단계별 구성
-- 핵심 질문
-- 핵심 주장
-- 관련 장
-- 연결되는 웹 페이지
-
-4. 검증으로 넘어가는 다리
-- 어떤 주장이 검증 항목으로 번역되는지 설명
-- `Verification` 링크 제공
-
-5. 독자용 요약
-- 긴 설명 없이도 SALT의 전체 구조를 1페이지에서 파악할 수 있게 마무리 요약 제공
-
-운영 메모:
-
-- 실제 구현 시 위 초안은 `카피 초안 + 섹션 배치 기준`으로 사용한다.
-- 시각 디자인은 이 구조를 고정한 뒤에 조정한다.
-
-### Phase 0. 구조 결정 산출물 고정
-
-우선순위: `P0`
-
-할 일:
-
-- 최상위 섹션별 `역할 / 포함 페이지 / 제외 페이지 / 대표 데이터`를 표로 확정
-- `Guide`, `Core`, `Verification`, `Engineering`, `Reference`, `Audit`의 경계 조건을 문장으로 고정
-- `Book Map`, `Logic Map`, `page-map`의 역할 차이를 정의
-
-완료 기준:
-
-- 각 최상위 섹션에 대해 `무엇을 담고 무엇을 담지 않는지`가 한 줄 정의로 확정됨
-- `Book Map`, `Logic Map`, `page-map`이 각각 어떤 질문에 답하는 문서인지 구분됨
-- 이후 페이지 추가 시 어느 섹션에 속하는지 판단 가능한 기준이 생김
-
-현재 상태:
-
-- `7.1.1 최상위 섹션 역할/경계/포함 페이지 표` 작성 완료
-- 섹션 경계 문장 작성 완료
-- 이후 변경 시 이 표를 기준 source of truth로 사용
-
-### Phase 1. 구조 기준의 화면/문서 반영
-
-우선순위: `P0`
-
-할 일:
-
-- `7.1.1`에서 확정한 섹션 역할 문장을 홈, Guide, 각 허브 페이지에 반영
-- `Core`를 `논리 구조 허브`로 읽히게 하는 카피와 구조를 실제 페이지에 반영
-- `Book Map`과 `Logic Map`의 기능 차이를 화면과 문서에 동일하게 반영
-
-완료 기준:
-
-- 상위 섹션 역할 문장이 홈, Guide, 각 허브 페이지에서 같은 의미로 노출됨
-- `Core`의 정체성이 페이지 카피와 허브 구성에서 `논리 구조 허브`로 읽힘
-- `Book Map`과 `Logic Map`이 사용자 시점에서도 구분 가능함
-
-### Phase 2. 빠진 라우트 마감
-
-우선순위: `P0`
-
-할 일:
-
-- `/core/logic-map` 추가
-- `/core/chapters` 인덱스 추가
-- `/verification/channels` 인덱스 추가
-- `/verification/candidate-hypotheses` 추가 여부 결정 및 반영
-- 상단 드롭다운과 실제 라우트 구조를 일치시킴
-
-완료 기준:
-
-- 계획서에 적힌 필수 라우트가 실제 파일 구조에 존재함
-- 상단 드롭다운에서 보이는 항목과 접근 가능한 라우트가 일치함
-- `candidate-hypotheses`는 `추가` 또는 `보류/폐기` 중 하나로 결정되어 문서에 반영됨
-
-### Phase 3. 페이지 맵과 콘텐츠 모델 정리
-
-우선순위: `P1`
-
-할 일:
-
-- `web/src/lib/page-map.ts` 전면 동기화
-- 페이지 내부 상수 데이터를 `lib/data` 또는 `content` 계층으로 이동
-- 검증 데이터 모델과 사이트 IA용 콘텐츠 모델의 책임을 분리
-- `00~28장` 핵심 내용 선별 기준 수립
-- 장, ERD 단계, 웹 섹션 대응표 작성
-- `ERD -> 장 요약 -> 웹 섹션 -> 실제 라우트` 변환표 작성
-
-완료 기준:
-
-- `page-map.ts`가 현재 공개 라우트와 허브 구조를 빠짐없이 반영함
-- `site_section`, `book_chapter_summary`, `erd_stage`, `verification_channel`, `reference_asset`의 정의 위치가 고정됨
-- 페이지 컴포넌트가 중복 설명 상수를 직접 소유하지 않고 공통 계층을 참조함
-- `00~28장` 중 웹에 올릴 핵심과 원고에만 남길 핵심이 구분됨
-- `ERD -> 장 -> 웹` 변환 구조가 문서상 추적 가능함
-
-### Phase 3.5. 마이그레이션 및 호환 정책
-
-우선순위: `P1`
-
-할 일:
-
-- 기존 라우트 유지, redirect, 제거 대상을 목록화
-- 내부 링크 수정 범위를 식별하고 우선순위를 매김
-- 구경로 404 허용 기준과 호환 유지 기준을 정의
-
-완료 기준:
-
-- 주요 구경로별 처리 방식이 `유지 / redirect / 제거` 중 하나로 명시됨
-- 링크 수정이 필요한 페이지와 컴포넌트 범위가 식별됨
-- 구조 개편 이후 예상 가능한 링크 단절 지점이 문서상 관리됨
-
-### Phase 4. 방문자 동선 미세조정
-
-우선순위: `P1`
-
-할 일:
-
-- 홈과 Guide에서 방문자 유형별 경로를 더 명확히 분리
-- `Reference`를 단순 참고 허브가 아니라 `책-웹 대응 허브`로 강화
-- 구매 동선과 읽기 동선의 역할을 정리
-- 내비게이션, 허브 카드, CTA, 페이지 내 다음 이동 경로를 하나의 흐름으로 정리
-- 웹 자체의 UI/UX 밀도, 가독성, 스캔 흐름을 점검하고 우선순위별 개선안을 확정
-
-완료 기준:
-
-- 처음 온 독자, 구매 의사 방문자, 검토자, 기술 관심 방문자의 첫 이동 경로가 홈 또는 Guide에서 분기됨
-- `Reference`가 단순 링크 묶음이 아니라 구조 대응 허브로 읽힘
-- 구매 CTA와 탐색 CTA가 서로 역할 충돌 없이 분리됨
-- 상단 내비, 허브 카드, 본문 CTA가 같은 이동 논리를 따름
-- UI/UX 수정이 단순 미감이 아니라 탐색 효율 기준으로 설명 가능함
-
-### Phase 4.5. 커뮤니티 기능 설계 및 구현 계획
-
-우선순위: `P1`
-
-권장 결정:
-
-- 인증/DB는 `Auth.js + Neon Postgres`를 기본안으로 채택
-- OAuth provider는 `Google`, `GitHub`를 우선 연결
-- 공개면은 읽기 공개, 쓰기 인증, 관리 기능은 관리자 권한 분리 원칙으로 설계
-
-할 일:
-
-- 인증 정책 확정
-  - `Google Auth`, `GitHub Auth` 로그인 플로우 정의
-  - 신규 회원 기본 권한을 `member`로 고정
-  - 관리자 권한 부여/회수 기준 정의
-- DB 스키마 초안 작성
-  - `users`, `user_roles`
-  - `board_posts`, `post_comments`
-  - `content_reports`
-  - `moderation_actions`
-  - `activity_log`
-- 기능 범위 확정
-  - 게시판 목록/상세/작성/수정/삭제 권한 정의
-  - 페이지 단위 댓글 작성/수정/삭제 권한 정의
-  - 신고, 숨김, 삭제, 계정 제한, rate limit 기준 정의
-- 관리자 운영면 정의
-  - 회원별 활동내역 조회 기준 정의
-  - 게시글/댓글/신고/제재 이력 조회 화면 요구사항 정의
-  - 관리자 액션 로그를 DB에 남기는 규칙 정의
-- 구현 연결 지점 확정
-  - 게시판 허브 라우트 위치 결정
-  - 댓글 슬롯을 붙일 핵심 페이지 결정
-
-완료 기준:
-
-- `Google` 또는 `GitHub`로 로그인한 회원만 게시글/댓글 작성 가능
-- 비로그인 방문자는 게시글/댓글 읽기만 가능
-- 관리자는 DB 기준으로 회원 활동내역, 신고 내역, 제재 내역을 조회 가능
-- 관리자 숨김/삭제/제한 조치가 감사 가능한 로그로 남음
-- 커뮤니티 기능이 현재 IA를 깨지 않도록 라우트 위치와 권한 모델이 고정됨
-
-### Phase 5. 유지보수 구조 확정
-
-우선순위: `P2`
-
-할 일:
-
-- ERD 문서 갱신 시 어떤 웹 섹션이 영향을 받는지 규칙화
-- 원고 변경과 웹 요약 변경의 동기화 지점 정의
-- 이후 커뮤니티 기능 확장 연결 지점 정의
-- 커뮤니티 기능 변경 시 어떤 권한/DB/운영 화면이 함께 점검돼야 하는지 규칙화
-
-완료 기준:
-
-- 원고, ERD, 웹 요약 중 하나가 바뀌었을 때 같이 점검할 파일/페이지 집합이 정의됨
-- 후속 기능 확장 시 IA를 깨지 않고 연결할 삽입 지점이 문서화됨
-- 유지보수 담당자가 구조 변경 영향을 추적할 수 있음
-- 인증 또는 moderation 정책 변경 시 영향 범위를 추적할 수 있음
-
-### Phase 6. 검증 및 종료 게이트
-
-성격: `Exit Gate`
-
-할 일:
-
-- 링크 무결성 검사 기준 정의
-- 상단 내비, 허브 페이지, `page-map`, `Book Map`, `Logic Map` 상호 일치 여부 점검
-- 주요 공개 페이지 smoke test 목록 작성
-- 인증 사용자 쓰기 경로와 관리자 통제 경로 smoke test 목록 작성
-- 구조 변경 후 체크할 회귀 항목을 체크리스트화
-
-완료 기준:
-
-- 필수 허브 페이지와 인덱스 페이지가 모두 정상 렌더링됨
-- 내비게이션, 라우트, 페이지 맵, 구조 설명 문서 사이의 불일치가 해소됨
-- 로그인, 글쓰기, 댓글쓰기, 신고, 관리자 조치의 핵심 경로가 점검 가능함
-- 최종적으로 `무엇을 추가했고 무엇을 보류했는지`를 문서만 보고 추적 가능함
-
-## 9. 바로 다음 우선순위
-
-지금 바로 손대는 순서는 아래가 적절하다.
-
-1. `7.1.1` 기준을 홈, Guide, 각 허브 페이지 카피에 반영
-2. `/core/logic-map` 추가
-3. `/core/chapters` 추가
-4. `/verification/channels` 인덱스 추가
-5. `page-map.ts` 및 콘텐츠 모델 동기화
-6. `00~28장` 핵심 선별 기준과 `ERD -> 장 -> 웹` 변환표 작성
-7. 커뮤니티 기능의 라우트 위치, 권한 모델, DB 스키마 초안 확정
-
-## 10. 문서 운영 원칙
+- [FIVE_NAV_IMPLEMENTATION_WORKBOARD.md](/home/jwater/Development/salt-verification-console/docs/roadmap/current/FIVE_NAV_IMPLEMENTATION_WORKBOARD.md)
+- [FIVE_NAV_STORY_REENGINEERING_MASTER_PLAN.md](/home/jwater/Development/salt-verification-console/docs/roadmap/current/FIVE_NAV_STORY_REENGINEERING_MASTER_PLAN.md)
+- [FIVE_NAV_STORY_WIREFRAMES.md](/home/jwater/Development/salt-verification-console/docs/roadmap/current/FIVE_NAV_STORY_WIREFRAMES.md)
 
 기존 문서는 기록용으로 유지한다.
 
 - [EXECUTION_PLAN_20260331_20260401.md](/home/jwater/Development/salt-verification-console/docs/roadmap/archive/EXECUTION_PLAN_20260331_20260401.md)
 - [WEB_STRUCTURE_OPTIMIZATION_PLAN_20260401.md](/home/jwater/Development/salt-verification-console/docs/roadmap/archive/WEB_STRUCTURE_OPTIMIZATION_PLAN_20260401.md)
-
-앞으로는 이 문서를 통합 기준 문서로 삼고, 구조와 실행 순서를 여기서 함께 갱신한다.

@@ -5,6 +5,7 @@ import "./markdown.css";
 import { loadFrozenManifest } from "@/lib/frozen-data";
 import { isAuthConfigured } from "@/lib/auth/config";
 import SiteStructureMap from "@/components/site-structure-map";
+import DevPerformanceGuard from "@/components/dev-performance-guard";
 
 export const metadata: Metadata = {
   title: "물리학에 시공간은 없다 · 안내 사이트",
@@ -22,6 +23,7 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body className="antialiased">
+        <DevPerformanceGuard />
         {/* Frozen dataset micro-bar */}
         <div className="border-b border-slate-800/60 bg-slate-950/80 px-6 py-1 text-[11px] text-slate-500">
           <div className="mx-auto flex w-full max-w-6xl items-center justify-between gap-4">

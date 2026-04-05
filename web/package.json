@@ -4,10 +4,11 @@
   "private": true,
   "scripts": {
     "predev": "bash -lc 'fuser -k 3000/tcp 2>/dev/null || true'",
-    "dev": "next dev -p 3000",
+    "dev": "next dev -p 3000 --webpack",
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
+    "runtime:check": "node scripts/check-runtime.mjs",
     "prisma:generate": "prisma generate --schema prisma/schema.prisma",
     "prisma:migrate:deploy": "prisma migrate deploy --schema prisma/schema.prisma",
     "prisma:migrate:status": "prisma migrate status --schema prisma/schema.prisma",

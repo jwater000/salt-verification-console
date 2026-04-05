@@ -1,6 +1,7 @@
 import { promises as fs } from "node:fs";
 import path from "node:path";
 import { prisma } from "@/lib/db";
+import { runtimePaths } from "@/lib/runtime-paths";
 
 export type CommentRecord = {
   id: string;
@@ -72,9 +73,9 @@ type ModerationRecord = {
   createdAt: string;
 };
 
-const commentsFile = path.join(process.cwd(), "data", "comments.json");
-const reportsFile = path.join(process.cwd(), "data", "comment-reports.json");
-const moderationFile = path.join(process.cwd(), "data", "comment-moderation.json");
+const commentsFile = path.join(runtimePaths.dataRoot, "comments.json");
+const reportsFile = path.join(runtimePaths.dataRoot, "comment-reports.json");
+const moderationFile = path.join(runtimePaths.dataRoot, "comment-moderation.json");
 
 function canUseDatabase(): boolean {
   return Boolean(process.env.DATABASE_URL);

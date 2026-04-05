@@ -1,4 +1,5 @@
 import CommentsSection from "@/components/comments-section";
+import { getCommunityRuntimeStatus } from "@/lib/community";
 
 type CommentsPanelProps = {
   pagePath: string;
@@ -7,5 +8,6 @@ type CommentsPanelProps = {
 };
 
 export default function CommentsPanel(props: CommentsPanelProps) {
-  return <CommentsSection {...props} />;
+  const runtime = getCommunityRuntimeStatus();
+  return <CommentsSection {...props} runtime={runtime} />;
 }

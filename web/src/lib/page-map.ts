@@ -5,8 +5,8 @@ export type SitePage = {
   section: "home" | "core" | "verification" | "engineering" | "reference" | "audit";
   chapters: string[];
   dependsOn: SitePage["path"][];
-  storyOrder?: 1 | 2 | 3 | 4;
-  storyLabel?: "소개" | "핵심 아이디어" | "참고자료" | "내용 검증";
+  storyOrder?: 1 | 2 | 3 | 4 | 5;
+  storyLabel?: "소개" | "핵심 아이디어" | "내용 검증" | "참고자료" | "게시판";
 };
 
 export const SITE_PAGES: SitePage[] = [
@@ -67,7 +67,7 @@ export const SITE_PAGES: SitePage[] = [
     section: "verification",
     chapters: ["18장", "27장"],
     dependsOn: ["/", "/core"],
-    storyOrder: 4,
+    storyOrder: 3,
     storyLabel: "내용 검증",
   },
   {
@@ -77,7 +77,7 @@ export const SITE_PAGES: SitePage[] = [
     section: "verification",
     chapters: ["18장", "26장"],
     dependsOn: ["/verification"],
-    storyOrder: 4,
+    storyOrder: 3,
     storyLabel: "내용 검증",
   },
   {
@@ -87,7 +87,7 @@ export const SITE_PAGES: SitePage[] = [
     section: "verification",
     chapters: ["18장", "26장"],
     dependsOn: ["/verification/channels"],
-    storyOrder: 4,
+    storyOrder: 3,
     storyLabel: "내용 검증",
   },
   {
@@ -97,7 +97,7 @@ export const SITE_PAGES: SitePage[] = [
     section: "verification",
     chapters: ["18장", "27장"],
     dependsOn: ["/verification"],
-    storyOrder: 4,
+    storyOrder: 3,
     storyLabel: "내용 검증",
   },
   {
@@ -107,7 +107,7 @@ export const SITE_PAGES: SitePage[] = [
     section: "verification",
     chapters: ["20장", "27장"],
     dependsOn: ["/verification"],
-    storyOrder: 4,
+    storyOrder: 3,
     storyLabel: "내용 검증",
   },
   {
@@ -117,7 +117,7 @@ export const SITE_PAGES: SitePage[] = [
     section: "verification",
     chapters: ["20장", "27장"],
     dependsOn: ["/verification"],
-    storyOrder: 4,
+    storyOrder: 3,
     storyLabel: "내용 검증",
   },
   {
@@ -137,7 +137,7 @@ export const SITE_PAGES: SitePage[] = [
     section: "reference",
     chapters: ["21장", "24장", "28장"],
     dependsOn: ["/", "/core", "/verification"],
-    storyOrder: 3,
+    storyOrder: 4,
     storyLabel: "참고자료",
   },
   {
@@ -147,7 +147,7 @@ export const SITE_PAGES: SitePage[] = [
     section: "reference",
     chapters: ["00장", "17장", "18장", "19장", "21장", "28장"],
     dependsOn: ["/reference"],
-    storyOrder: 3,
+    storyOrder: 4,
     storyLabel: "참고자료",
   },
   {
@@ -157,7 +157,7 @@ export const SITE_PAGES: SitePage[] = [
     section: "reference",
     chapters: ["20장", "21장"],
     dependsOn: ["/reference"],
-    storyOrder: 3,
+    storyOrder: 4,
     storyLabel: "참고자료",
   },
   {
@@ -167,7 +167,7 @@ export const SITE_PAGES: SitePage[] = [
     section: "reference",
     chapters: ["12장", "17장", "22장"],
     dependsOn: ["/reference"],
-    storyOrder: 3,
+    storyOrder: 4,
     storyLabel: "참고자료",
   },
   {
@@ -177,7 +177,7 @@ export const SITE_PAGES: SitePage[] = [
     section: "reference",
     chapters: ["17장", "18장", "19장", "21장"],
     dependsOn: ["/reference"],
-    storyOrder: 3,
+    storyOrder: 4,
     storyLabel: "참고자료",
   },
   {
@@ -187,8 +187,8 @@ export const SITE_PAGES: SitePage[] = [
     section: "reference",
     chapters: ["21장"],
     dependsOn: ["/"],
-    storyOrder: 1,
-    storyLabel: "소개",
+    storyOrder: 5,
+    storyLabel: "게시판",
   },
   {
     path: "/audit",
@@ -197,7 +197,7 @@ export const SITE_PAGES: SitePage[] = [
     section: "audit",
     chapters: ["24장", "25장", "26장", "27장"],
     dependsOn: ["/verification"],
-    storyOrder: 4,
+    storyOrder: 3,
     storyLabel: "내용 검증",
   },
   {
@@ -207,7 +207,7 @@ export const SITE_PAGES: SitePage[] = [
     section: "audit",
     chapters: ["26장", "27장", "28장"],
     dependsOn: ["/verification/results"],
-    storyOrder: 4,
+    storyOrder: 3,
     storyLabel: "내용 검증",
   },
   {
@@ -217,7 +217,7 @@ export const SITE_PAGES: SitePage[] = [
     section: "audit",
     chapters: ["18장", "19장"],
     dependsOn: ["/audit"],
-    storyOrder: 4,
+    storyOrder: 3,
     storyLabel: "내용 검증",
   },
   {
@@ -227,7 +227,7 @@ export const SITE_PAGES: SitePage[] = [
     section: "audit",
     chapters: ["26장", "27장"],
     dependsOn: ["/audit"],
-    storyOrder: 4,
+    storyOrder: 3,
     storyLabel: "내용 검증",
   },
   {
@@ -237,7 +237,7 @@ export const SITE_PAGES: SitePage[] = [
     section: "audit",
     chapters: ["24장", "26장"],
     dependsOn: ["/audit"],
-    storyOrder: 4,
+    storyOrder: 3,
     storyLabel: "내용 검증",
   },
   {
@@ -247,7 +247,7 @@ export const SITE_PAGES: SitePage[] = [
     section: "audit",
     chapters: ["24장", "27장"],
     dependsOn: ["/audit"],
-    storyOrder: 4,
+    storyOrder: 3,
     storyLabel: "내용 검증",
   },
   {
@@ -257,7 +257,7 @@ export const SITE_PAGES: SitePage[] = [
     section: "audit",
     chapters: ["26장", "27장"],
     dependsOn: ["/audit"],
-    storyOrder: 4,
+    storyOrder: 3,
     storyLabel: "내용 검증",
   },
   {
@@ -267,7 +267,7 @@ export const SITE_PAGES: SitePage[] = [
     section: "audit",
     chapters: ["26장", "27장"],
     dependsOn: ["/audit/runs"],
-    storyOrder: 4,
+    storyOrder: 3,
     storyLabel: "내용 검증",
   },
   {
@@ -285,7 +285,7 @@ export const SITE_PAGES: SitePage[] = [
     section: "audit",
     chapters: ["26장", "27장"],
     dependsOn: ["/audit"],
-    storyOrder: 4,
+    storyOrder: 3,
     storyLabel: "내용 검증",
   },
   {

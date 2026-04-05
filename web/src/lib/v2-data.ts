@@ -2,6 +2,7 @@ import { promises as fs } from "node:fs";
 import { createHash } from "node:crypto";
 import path from "node:path";
 import type { FrozenManifest, ModelEvalManifest, MicroSnapshot, ResultRow } from "@/lib/data";
+import { runtimePaths } from "@/lib/runtime-paths";
 
 export type SnapshotStatus = "draft" | "candidate" | "published" | "archived";
 export type RunStatus = "running" | "passed" | "failed";
@@ -58,8 +59,8 @@ export type SnapshotDetail = SnapshotSummary & {
   };
 };
 
-const root = path.resolve(process.cwd(), "..");
-const frozenRoot = path.join(root, "data", "frozen");
+const root = runtimePaths.repoRoot;
+const frozenRoot = runtimePaths.frozenRoot;
 
 async function readJson<T>(fullPath: string, fallback: T): Promise<T> {
   try {

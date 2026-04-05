@@ -66,14 +66,19 @@ const SECTION_GUIDE = [
     body: "SALT가 기존 설명에서 무엇을 문제 삼고 어떤 개념으로 전환하는지 압축해서 본다.",
   },
   {
+    href: "/verification",
+    title: "내용 검증",
+    body: "공개된 채널에서 표준 기준선과 SALT를 어떻게 비교했고 현재 어떤 결과가 나왔는지 확인한다.",
+  },
+  {
     href: "/reference",
     title: "참고자료",
     body: "용어, 도해, FAQ, 책-웹 대응표를 통해 개념 사이 관계를 더 촘촘하게 확인한다.",
   },
   {
-    href: "/verification",
-    title: "내용 검증",
-    body: "공개된 채널에서 표준 기준선과 SALT를 어떻게 비교했고 현재 어떤 결과가 나왔는지 확인한다.",
+    href: "/discussion",
+    title: "게시판",
+    body: "읽는 동안 생긴 질문, 반론, 독서 메모를 글로 남기고 다른 독자의 해석과 함께 읽는다.",
   },
   {
     href: "/audit",

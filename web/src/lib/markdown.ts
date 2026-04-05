@@ -1,8 +1,9 @@
 import { promises as fs } from "node:fs";
 import path from "node:path";
 import { cache } from "react";
+import { runtimePaths } from "@/lib/runtime-paths";
 
-const contentRoot = path.resolve(process.cwd(), "content", "pages");
+const contentRoot = path.join(runtimePaths.webContentRoot, "pages");
 const codeBase =
   process.env.NEXT_PUBLIC_CODE_LINK_BASE ??
   "https://github.com/jwater000/salt-verification-console/blob/main";

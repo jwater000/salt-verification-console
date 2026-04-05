@@ -1,6 +1,7 @@
 import { promises as fs } from "node:fs";
 import { createHash } from "node:crypto";
 import path from "node:path";
+import { runtimePaths } from "@/lib/runtime-paths";
 
 export type Prediction = {
   id: string;
@@ -190,8 +191,8 @@ export type FrozenManifest = {
   files: Array<{ name: string; sha256: string; bytes: number }>;
 };
 
-const root = path.resolve(process.cwd(), "..");
-const frozenCurrentDir = path.join(root, "data", "frozen", "current");
+const root = runtimePaths.repoRoot;
+const frozenCurrentDir = runtimePaths.frozenCurrentDir;
 
 async function readJson<T>(relativePath: string, fallback: T): Promise<T> {
   try {

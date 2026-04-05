@@ -5,8 +5,10 @@
 현재 포함된 운영 기능:
 
 - 공개 읽기 페이지
+- 공개 게시판 `/discussion`
 - Google / GitHub OAuth 로그인
 - 댓글 작성
+- 게시판 글 작성
 - 댓글 신고
 - moderator/admin 숨김 · 삭제
 - 운영자용 댓글 관리 화면 `/audit/comments`
@@ -30,7 +32,9 @@ AUTH_TRUST_HOST=true
 
 운영 메모:
 
-- `DATABASE_URL`이 없으면 댓글은 파일 fallback으로 내려가고, Prisma 기반 운영 기능은 제한된다.
+- `DATABASE_URL`이 없으면 댓글과 게시판 글은 로컬 파일 fallback 저장소로 동작한다.
+- 운영 환경에서 여러 인스턴스가 같은 게시판 목록을 공유하려면 `DATABASE_URL` 기반 Postgres가 필요하다. 이 프로젝트에서는 Neon이 가장 쉬운 선택이다.
+- moderator/admin용 DB 기반 운영 기록은 `DATABASE_URL`이 있을 때 가장 완전하게 동작한다.
 - OAuth provider가 하나도 설정되지 않으면 상단에 `auth not configured`가 표시된다.
 
 ## 2. 개발 실행
@@ -59,6 +63,13 @@ npm run prisma:migrate:deploy
 ```bash
 cd web
 npm run prisma:migrate:status
+```
+
+현재 런타임 모드 확인:
+
+```bash
+cd web
+npm run runtime:check
 ```
 
 ## 4. 첫 관리자 계정 만들기
@@ -99,21 +110,27 @@ DATABASE_URL=... npm run grant-role -- --user-id "uuid" --role moderator
 
 - `POST /api/comments/[id]/hide`
 - `POST /api/comments/[id]/delete`
+- `POST /api/board-posts/[id]/hide`
+- `POST /api/board-posts/[id]/delete`
 
 로그인 사용자면 가능한 API:
 
 - `POST /api/comments`
 - `POST /api/comments/[id]/report`
+- `POST /api/board-posts`
 
 ## 6. 현재 1차 범위
 
 완료:
 
 - 공개 댓글 조회
+- 공개 게시판 목록/상세 조회
 - 인증 댓글 작성
+- 인증 게시판 글 작성
 - 작성 rate limit
 - 댓글 신고
 - moderator/admin 숨김 · 삭제
+- 게시판 hide/delete moderation API
 - 운영자 관리 페이지
 
 아직 남은 것:
@@ -122,12 +139,48 @@ DATABASE_URL=... npm run grant-role -- --user-id "uuid" --role moderator
 - 신고 상태 변경 UI
 - 관리자 일괄 처리 화면
 - comment reactions / threads / notifications
+- board post report / restore / bulk actions
 
-## 7. 점검 명령
+## 7. 실제 운영 전환 순서
+
+```bash
+cd web
+cp .env.example .env.local
+```
+
+그 다음 아래를 순서대로 채운다.
+
+1. `DATABASE_URL`
+2. `AUTH_SECRET`
+3. Google 또는 GitHub OAuth env 최소 1세트
+4. 필요 시 둘 다 연결
+
+실행 순서:
+
+```bash
+cd web
+npm run runtime:check
+npm run prisma:generate
+npm run prisma:migrate:deploy
+npm run prisma:migrate:status
+```
+
+첫 운영 검증 순서:
+
+1. OAuth 로그인 1회
+2. `/discussion`에서 게시글 작성 1회
+3. 페이지 댓글 작성 1회
+4. `grant-role`로 moderator 또는 admin 부여
+5. `/audit/comments`에서 게시판 글 hide/delete 1회
+6. `/audit/comments`에서 댓글 hide/delete 1회
+
+## 8. 점검 명령
 
 ```bash
 cd web
 npm run lint
+npm run runtime:check
 ./node_modules/.bin/tsc --noEmit --pretty false
 node --check scripts/grant-role.mjs
+node --check scripts/check-runtime.mjs
 ```

@@ -11,7 +11,7 @@ const NAV_ITEMS = [
     links: [
       { href: "/", label: "소개", note: "SALT의 기본 관점과 검증 개요" },
       { href: "/core", label: "핵심 아이디어", note: "상태변수와 논리 전환" },
-      { href: "/discussion", label: "토론 게시판", note: "방문자 질문과 메모 읽기" },
+      { href: "/verification", label: "내용 검증", note: "공개 비교 결과와 채널 읽기" },
     ],
   },
   {
@@ -26,18 +26,6 @@ const NAV_ITEMS = [
     ],
   },
   {
-    path: "/reference",
-    label: "참고자료",
-    desc: "책-웹 대응, 용어, FAQ, 도해로 이해를 안정화하는 보조 허브",
-    links: [
-      { href: "/reference", label: "참고자료 개요", note: "이해 보조 허브" },
-      { href: "/reference/book-map", label: "책-웹 대응표", note: "책과 웹 구조 대응" },
-      { href: "/reference/glossary", label: "용어집", note: "용어 정리" },
-      { href: "/reference/faq", label: "FAQ", note: "자주 생기는 오해 정리" },
-      { href: "/reference/visual-atlas", label: "시각 자료", note: "도해와 그래프 흐름" },
-    ],
-  },
-  {
     path: "/verification",
     label: "내용 검증",
     desc: "무엇이 어떻게 비교되었는지, 그리고 어디까지 재현 가능한지 확인하는 후면 허브",
@@ -47,6 +35,18 @@ const NAV_ITEMS = [
       { href: "/verification/pending", label: "검증 대기", note: "아직 잠기지 않은 항목" },
       { href: "/audit", label: "감사 자료", note: "재현 절차와 provenance" },
       { href: "/runs", label: "실행 이력", note: "run provenance" },
+    ],
+  },
+  {
+    path: "/reference",
+    label: "참고자료",
+    desc: "책-웹 대응, 용어, FAQ, 도해로 이해를 안정화하는 보조 허브",
+    links: [
+      { href: "/reference", label: "참고자료 개요", note: "이해 보조 허브" },
+      { href: "/reference/book-map", label: "책-웹 대응표", note: "책과 웹 구조 대응" },
+      { href: "/reference/glossary", label: "용어집", note: "용어 정리" },
+      { href: "/reference/faq", label: "FAQ", note: "자주 생기는 오해 정리" },
+      { href: "/reference/visual-atlas", label: "시각 자료", note: "도해와 그래프 흐름" },
     ],
   },
   {
