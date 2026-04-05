@@ -231,7 +231,8 @@
 
 - `.env.local` 기준으로 DB/Auth/OAuth 설정과 Prisma migration은 확인 완료
 - 첫 OAuth 로그인, 관리자 권한 부여, 첫 게시글 작성까지 확인 완료
-- 남은 것은 페이지 댓글, 신고, 숨김/삭제, `/audit/comments` moderation까지 포함한 운영 시나리오 전체 검증이다
+- 페이지 댓글, 신고, 숨김/삭제, `/audit/comments` moderation까지 포함한 운영 시나리오 검증도 완료
+- 남은 것은 CTA 관계와 일부 시각 흐름, 홈 첫 화면 우선순위 같은 UI 미세조정이다
 
 ## 3. 작업 순서
 
@@ -308,7 +309,7 @@
 - [ ] 홈 결과 카드 비중과 첫 CTA 우선순위 미세조정
 - [ ] 장별 인덱스의 후반 참고 블록화
 - [ ] `Problem -> Clue -> Concept -> Solution -> Bridge` 시각 흐름 보강
-- [ ] 페이지 댓글, 신고, 숨김/삭제, moderation 운영 검증
+- [x] 페이지 댓글, 신고, 숨김/삭제, moderation 운영 검증
 
 ## 6. 완료 기준
 

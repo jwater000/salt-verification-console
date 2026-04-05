@@ -365,10 +365,8 @@
 
 ### 8.3 아직 남은 것
 
-- 게시판 글 작성, 댓글 작성, 신고, 숨김, 삭제를 실제 운영 경로로 한 바퀴 끝까지 검증
-- `/audit/comments`에서 관리자 moderation을 실제 데이터 기준으로 점검
-- `web/OPERATIONS_CHECKLIST.md`와 roadmap 문서 체크 상태를 운영 결과에 맞게 최종 업데이트
 - 필요 시 `page-map.ts`와 공통 콘텐츠 타입 정리
+- CTA 관계, 홈 첫 화면 우선순위, 시각 흐름 같은 UI 미세조정
 
 ## 9. 현재 실행 보드
 
@@ -386,11 +384,10 @@
 이 문서 기준에서 지금 바로 이어야 할 순서는 아래다.
 
 1. `/discussion`에서 로그인 사용자 글 작성과 목록 반영을 실제 운영 기준으로 재확인
-2. 페이지 댓글 작성과 읽기/쓰기 권한을 실제 세션 기준으로 검증
-3. 신고, 숨김, 삭제, 관리자 moderation을 `/audit/comments` 포함 경로에서 한 바퀴 점검
-4. `web/OPERATIONS_CHECKLIST.md`를 실제 운영 검증 결과로 갱신
-5. `FIVE_NAV_IMPLEMENTATION_WORKBOARD.md`, `FIVE_NAV_STORY_REENGINEERING_MASTER_PLAN.md`, `FIVE_NAV_STORY_WIREFRAMES.md`의 체크 상태를 현재 코드 기준으로 닫기
-6. 마지막으로 `page-map.ts`와 이 문서의 문장 기준이 어긋나지 않는지 정리
+2. 홈 첫 화면 CTA 우선순위와 결과 카드 비중을 조정
+3. `Core`와 `Logic Map`의 시각 흐름을 더 명시화
+4. 페이지 댓글과 게시판 CTA 관계를 더 자연스럽게 정리
+5. 마지막으로 `page-map.ts`와 이 문서의 문장 기준이 어긋나지 않는지 정리
 
 ## 11. 이 문서의 역할
 

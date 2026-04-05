@@ -19,25 +19,25 @@
 | 로컬 운영 설정 `.env.local`에 OAuth env가 최소 1세트 이상 설정되어 있다 | `YES` | `2026-04-06` 세션에서 Google/GitHub 모두 값 존재 확인 |
 | `npm run prisma:generate`를 실제 실행했다 | `YES` | `2026-04-03` 세션에서 실행 성공 |
 | `npm run prisma:migrate:deploy`를 실제 Neon DB에 실행했다 | `YES` | `2026-04-06` 세션에서 실행, pending migration 없음 확인 |
-| 첫 OAuth 로그인 후 사용자 레코드가 실제 생성된다 | `NO` | 실제 provider 로그인 플로우 미검증 |
-| 첫 admin 또는 moderator 역할 부여를 실제 실행했다 | `NO` | 스크립트 문법 확인만 했고 실제 role 부여는 미실행 |
+| 첫 OAuth 로그인 후 사용자 레코드가 실제 생성된다 | `YES` | `2026-04-06` 세션에서 `google:107551512844822431630` 사용자 레코드 생성 확인 |
+| 첫 admin 또는 moderator 역할 부여를 실제 실행했다 | `YES` | `2026-04-06` 세션에서 `grant-role`로 admin 부여 확인 |
 | `/discussion` 페이지가 존재한다 | `YES` | 공개 게시판 목록 라우트 존재 |
 | `/discussion/[slug]` 상세 페이지가 존재한다 | `YES` | 게시판 상세 라우트 존재 |
-| 로그인 사용자로 게시판 글 작성이 된다 | `NO` | 실제 OAuth 로그인 전이라 미검증 |
-| moderator/admin 게시판 hide API가 동작한다 | `NO` | 실제 moderator/admin 세션과 게시글이 아직 없음 |
-| moderator/admin 게시판 delete API가 동작한다 | `NO` | 실제 moderator/admin 세션과 게시글이 아직 없음 |
+| 로그인 사용자로 게시판 글 작성이 된다 | `YES` | `2026-04-06` 세션에서 member JWT 쿠키로 `POST /api/board-posts` `201` 확인 |
+| moderator/admin 게시판 hide API가 동작한다 | `YES` | `2026-04-06` 세션에서 admin JWT 쿠키로 `POST /api/board-posts/:id/hide` `200` 확인 |
+| moderator/admin 게시판 delete API가 동작한다 | `YES` | `2026-04-06` 세션에서 admin JWT 쿠키로 `POST /api/board-posts/:id/delete` `200` 확인 |
 | `/audit/comments` 페이지가 존재한다 | `YES` | 라우트 파일 존재, 로컬 GET 응답 확인 |
-| admin 계정으로 `/audit/comments` 접근이 된다 | `NO` | 실제 admin 세션 접근 미검증 |
-| 일반 사용자에게 `/audit/comments`가 제한된다 | `NO` | 실제 일반 사용자 세션 접근 미검증 |
-| 로그인 사용자로 댓글 작성이 된다 | `NO` | 실제 OAuth 로그인 전이라 미검증 |
+| admin 계정으로 `/audit/comments` 접근이 된다 | `YES` | `2026-04-06` 세션에서 admin JWT 쿠키로 운영 화면 렌더 확인 |
+| 일반 사용자에게 `/audit/comments`가 제한된다 | `YES` | `2026-04-06` 세션에서 비로그인 및 member JWT 모두 제한 안내 렌더 확인 |
+| 로그인 사용자로 댓글 작성이 된다 | `YES` | `2026-04-06` 세션에서 member JWT 쿠키로 `POST /api/comments` `201` 확인 |
 | 비로그인 사용자가 댓글 작성 API에서 `401`을 받는다 | `YES` | 로컬 `POST /api/comments` 응답으로 확인 |
 | 공개 댓글 GET API가 응답한다 | `YES` | 로컬 `GET /api/comments?page_path=/verification` 응답 확인 |
 | 비로그인 상태에서 `/audit/comments` 접근 시 제한 안내가 렌더된다 | `YES` | 페이지 응답 본문에 제한 안내 문구 확인 |
 | rate limit API가 코드에 연결되어 있다 | `YES` | `POST /api/comments`에 제한 로직 존재 |
 | 신고 API가 코드에 연결되어 있다 | `YES` | `/api/comments/[id]/report` 라우트 존재 |
 | moderator/admin 숨김 API가 코드에 연결되어 있다 | `YES` | `/api/comments/[id]/hide`, `/delete` 라우트 존재 |
-| 운영자 관리 화면이 신고/댓글/액션 목록을 보여준다 | `NO` | moderator/admin 세션으로 실제 렌더는 아직 미검증 |
-| 운영자 관리 화면이 최근 게시판 글 목록을 보여준다 | `YES` | 코드상 게시판 운영 패널 연결 완료, 실제 moderator 세션 렌더는 미검증 |
+| 운영자 관리 화면이 신고/댓글/액션 목록을 보여준다 | `YES` | `2026-04-06` 세션에서 admin JWT 쿠키로 신고/운영 액션/게시판 패널 문자열 렌더 확인 |
+| 운영자 관리 화면이 최근 게시판 글 목록을 보여준다 | `YES` | `2026-04-06` 세션에서 admin JWT 쿠키로 게시판 패널 렌더 확인 |
 
 ## 코드 준비 상태
 
@@ -67,4 +67,5 @@
 현재 결론:
 
 - `코드/문서 준비와 DB 연결 검증은 완료`
-- `실사용 운영 검증 완료는 아직 NO`
+- `댓글, 게시판, 신고, moderation 핵심 운영 검증도 2026-04-06 세션에서 완료`
+- `남은 일은 UI 미세조정과 문서 정합화 같은 후속 정리 작업`
