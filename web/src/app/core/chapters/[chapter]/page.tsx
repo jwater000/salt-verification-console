@@ -267,7 +267,7 @@ export default async function ChapterPage({ params }: { params: Promise<{ chapte
 
       {/* Key questions */}
       <div className={`rounded-xl border bg-slate-950/50 p-6 ${accentBorder[def.accentColor]}`}>
-        <h2 className="mb-4 text-sm font-bold text-white">이 장이 묻는 핵심 질문</h2>
+        <h2 className="mb-4 text-sm font-bold text-white">이 장에서 붙잡아야 할 질문</h2>
         <ul className="space-y-2">
           {def.keyQuestions.map((q, i) => (
             <li key={i} className="flex items-start gap-3">
@@ -281,7 +281,7 @@ export default async function ChapterPage({ params }: { params: Promise<{ chapte
       {/* Key concepts */}
       <div>
         <h2 className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">
-          핵심 개념
+          장을 떠받치는 핵심 개념
         </h2>
         <div className="grid gap-3 md:grid-cols-2">
           {def.keyConcepts.map((c) => (
@@ -318,7 +318,7 @@ export default async function ChapterPage({ params }: { params: Promise<{ chapte
 
       {/* Takeaways */}
       <div className="panel px-6 py-6">
-        <h2 className="mb-4 text-sm font-bold text-white">이 장에서 가져가야 할 것</h2>
+        <h2 className="mb-4 text-sm font-bold text-white">읽고 나서 남겨야 할 것</h2>
         <ul className="space-y-2">
           {def.takeaways.map((t, i) => (
             <li key={i} className="flex items-start gap-3">
@@ -333,7 +333,7 @@ export default async function ChapterPage({ params }: { params: Promise<{ chapte
       {def.relatedImages.length > 0 && (
         <div>
           <h2 className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">
-            관련 도해
+            함께 보면 더 빨리 잡히는 도해
           </h2>
           <div className="grid grid-cols-2 gap-3 md:grid-cols-3">
             {def.relatedImages.map((img) => (
@@ -358,7 +358,7 @@ export default async function ChapterPage({ params }: { params: Promise<{ chapte
       {/* Chapter navigation */}
       <div className="flex flex-wrap items-center justify-between gap-4 border-t border-slate-800 pt-5">
         <Link href="/core" className="text-sm text-slate-400 hover:text-white">
-          ← Core Ideas 전체
+          ← 핵심 아이디어 전체
         </Link>
         <div className="flex flex-wrap gap-3">
           {def.nextLinks.map((l) => (

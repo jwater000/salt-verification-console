@@ -109,10 +109,14 @@ export default async function VerificationResultsPage() {
           Verification · Live Results
         </p>
         <h1 className="mt-3 text-3xl font-bold leading-tight tracking-tight text-white">
-          실제 판정 결과
+          무엇을 비교했고
+          <br />
+          지금 어디에서 더 잘 맞는가
         </h1>
-        <p className="mt-3 max-w-2xl text-base leading-relaxed text-slate-300">
-          같은 데이터와 같은 규칙으로 계산한 집계 결과다. frozen 데이터 기준으로 SALT와 기준선의 오차를 비교해 정리했다.
+        <p className="mt-3 max-w-3xl text-base leading-relaxed text-slate-300">
+          여기의 숫자는 선언문이 아니라 성적표에 가깝다. 같은 데이터와 같은 규칙 아래에서 SALT와 기준선을
+          나란히 세웠을 때, 실제값에 누가 더 가까운지 보여 준다. 중요한 것은 승률 자체보다 어떤 채널에서
+          SALT의 해석이 힘을 얻고, 어떤 영역은 아직 비어 있는지를 읽는 일이다.
         </p>
 
         {/* Summary row */}
@@ -141,6 +145,27 @@ export default async function VerificationResultsPage() {
             <p className="mt-1 text-2xl font-bold text-violet-200">{statusCounts.decisive}</p>
             <p className="text-xs text-slate-400">inconclusive {statusCounts.inconclusive}</p>
           </div>
+        </div>
+      </div>
+
+      <div className="grid gap-4 md:grid-cols-3">
+        <div className="rounded-2xl border border-slate-800 bg-slate-950/40 p-5">
+          <p className="text-xs uppercase tracking-[0.16em] text-slate-500">1. 숫자를 본다</p>
+          <p className="mt-2 text-sm leading-relaxed text-slate-300">
+            SALT와 기준선이 실제값에서 얼마나 벗어나는지, 같은 채널과 같은 규칙으로 비교한 결과를 본다.
+          </p>
+        </div>
+        <div className="rounded-2xl border border-cyan-500/20 bg-slate-950/40 p-5">
+          <p className="text-xs uppercase tracking-[0.16em] text-slate-500">2. 패턴을 읽는다</p>
+          <p className="mt-2 text-sm leading-relaxed text-slate-300">
+            어떤 채널과 예측군에서 SALT 오차가 더 작아지는지, 어디서 아직 우세를 만들지 못하는지 함께 읽는다.
+          </p>
+        </div>
+        <div className="rounded-2xl border border-emerald-500/20 bg-slate-950/40 p-5">
+          <p className="text-xs uppercase tracking-[0.16em] text-slate-500">3. 근거를 따라간다</p>
+          <p className="mt-2 text-sm leading-relaxed text-slate-300">
+            더 확인이 필요하면 pending, audit, runs, snapshots로 내려가 같은 기준과 산출 경로를 따라간다.
+          </p>
         </div>
       </div>
 
@@ -197,22 +222,22 @@ export default async function VerificationResultsPage() {
       </div>
 
       <div className="panel px-6 py-5">
-        <h2 className="mb-4 text-sm font-semibold text-white">결과를 읽는 기준</h2>
+        <h2 className="mb-4 text-sm font-semibold text-white">이 숫자를 읽을 때 기억할 점</h2>
         <div className="grid gap-4 md:grid-cols-3">
           <div>
-            <p className="text-xs uppercase tracking-[0.16em] text-slate-500">What this page proves</p>
+            <p className="text-xs uppercase tracking-[0.16em] text-slate-500">이 페이지가 말해 주는 것</p>
             <p className="mt-2 text-sm leading-relaxed text-slate-300">
               frozen 조건에서 SALT 오차가 기준선보다 작은 채널이 어디인지 정리한다.
             </p>
           </div>
           <div>
-            <p className="text-xs uppercase tracking-[0.16em] text-slate-500">What it does not prove</p>
+            <p className="text-xs uppercase tracking-[0.16em] text-slate-500">이 페이지가 말해 주지 않는 것</p>
             <p className="mt-2 text-sm leading-relaxed text-slate-300">
               이 집계만으로 이론 전체의 완결성이나 공학적 해석의 타당성까지 판단할 수는 없다.
             </p>
           </div>
           <div>
-            <p className="text-xs uppercase tracking-[0.16em] text-slate-500">Micro decisive ratio</p>
+            <p className="text-xs uppercase tracking-[0.16em] text-slate-500">미시 decisive 비율</p>
             <p className="mt-2 text-2xl font-bold text-violet-300">{decisiveRatio}%</p>
             <p className="mt-1 text-xs text-slate-500">fit runs 중 decisive 판정 비율</p>
           </div>

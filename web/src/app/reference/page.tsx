@@ -5,28 +5,28 @@ const HIGHLIGHTS = [
   {
     href: "/reference/book-map",
     src: "/book-graphs/g26_unified_phase_portrait.jpg",
-    title: "책과 웹의 대응 관계를 먼저 확인",
-    body: "처음 온 방문자나 구매 후 독자는 Book Map에서 각 장이 웹의 어느 허브와 연결되는지 먼저 잡는 편이 빠르다.",
+    title: "개념이 책에서 어디로 뻗는지 한눈에 보기",
+    body: "Book Map은 SALT의 주요 생각이 책의 어느 장에서 시작해 웹의 어느 페이지로 이어지는지 보여 준다.",
   },
   {
     href: "/reference/visual-atlas",
     src: "/book-graphs/g11_time_dilation_heatmap.jpg",
-    title: "검증 채널을 그림으로 이해",
-    body: "시간 지연, 중력파, 민감도 지도를 먼저 보고 들어가면 텍스트 부담이 크게 줄어든다.",
+    title: "그림으로 먼저 이해하기",
+    body: "시간 지연, 중력파, 민감도 지도 같은 시각 자료를 먼저 보면 SALT의 논리가 훨씬 빨리 붙는다.",
   },
   {
     href: "/reference/faq",
     src: "/book-graphs/g25_faq_claim_matrix.jpg",
-    title: "오해를 먼저 정리",
-    body: "자주 나오는 오해와 구분이 필요한 표현을 함께 정리해 둔다.",
+    title: "헷갈리는 질문을 바로 풀기",
+    body: "자주 나오는 오해와 표현의 함정을 먼저 정리하면, 뒤에서 같은 지점에 다시 걸리지 않는다.",
   },
 ] as const;
 
 const BOOK_MAP_PREVIEW = [
   {
     chapter: "00·21장",
-    web: "Home / Guide / Core",
-    role: "처음 온 방문자가 전체 문제의식과 읽는 순서를 잡는 축",
+    web: "Home / Core",
+    role: "처음 온 방문자가 전체 문제의식과 핵심 개념 축을 잡는 영역",
   },
   {
     chapter: "17장",
@@ -51,26 +51,20 @@ export default function ReferencePage() {
       <div className="rounded-3xl border border-violet-500/20 bg-[linear-gradient(135deg,#120b22_0%,#020617_60%,#0f172a_100%)] px-8 py-10">
         <p className="text-xs font-semibold uppercase tracking-[0.2em] text-violet-400">Reference</p>
         <h1 className="mt-3 text-3xl font-bold leading-tight tracking-tight text-white md:text-4xl">
-          책과 웹의 대응 관계를 중심으로 보는
+          SALT를 읽다가 손에서 미끄러지는 순간마다
           <br />
-          참고 허브
+          다시 붙잡게 해 주는 자료들
         </h1>
         <p className="mt-4 max-w-2xl text-base leading-relaxed text-slate-300">
-          이 섹션에는 본문과 함께 참고할 수 있는 도해, 용어, FAQ, 구조도가 정리되어 있다.
-          특히 Book Map을 중심으로 책 장 구조와 웹 허브의 대응 관계를 먼저 잡을 수 있다.
-          Reference는 책과 웹 사이를 왕복하기 위한 구조 대응 허브이며, 검증 판정표나 감사 로그의
-          공식 허브를 대신하지 않는다.
+          어떤 독자는 문장보다 그림에서 더 빨리 이해하고, 어떤 독자는 용어 정의가 있어야 안심하고
+          앞으로 나아간다. 이곳은 그런 순간을 위해 준비된 영역이다. 개념의 위치를 확인하고, 용어를
+          붙잡고, 자주 생기는 오해를 걷어내며 SALT의 흐름을 더 또렷하게 만든다.
         </p>
         <div className="mt-5 flex flex-wrap gap-2 text-xs text-slate-300">
-          <span className="rounded-full border border-slate-700 bg-slate-900/70 px-3 py-1">
-            Book Map 중심
-          </span>
-          <span className="rounded-full border border-slate-700 bg-slate-900/70 px-3 py-1">
-            책-웹 대응 허브
-          </span>
-          <span className="rounded-full border border-slate-700 bg-slate-900/70 px-3 py-1">
-            결과 허브 아님
-          </span>
+          <span className="rounded-full border border-slate-700 bg-slate-900/70 px-3 py-1">Book Map</span>
+          <span className="rounded-full border border-slate-700 bg-slate-900/70 px-3 py-1">Glossary</span>
+          <span className="rounded-full border border-slate-700 bg-slate-900/70 px-3 py-1">FAQ</span>
+          <span className="rounded-full border border-slate-700 bg-slate-900/70 px-3 py-1">Visual Atlas</span>
         </div>
       </div>
 
@@ -98,10 +92,10 @@ export default function ReferencePage() {
       <div>
         <div className="mb-4 flex items-center justify-between">
           <h2 className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">
-            추천 시작점
+            먼저 집어 들기 좋은 자료
           </h2>
-          <Link href="/guide" className="text-xs text-cyan-400 hover:underline">
-            입문 가이드 →
+          <Link href="/" className="text-xs text-cyan-400 hover:underline">
+            소개 페이지 →
           </Link>
         </div>
         <div className="grid gap-4 lg:grid-cols-3">
@@ -127,7 +121,7 @@ export default function ReferencePage() {
       </div>
 
       <NextSteps
-        title="참고 자료 더 보기"
+        title="더 펼쳐 보기"
         steps={[
           {
             href: "/reference/book-map",

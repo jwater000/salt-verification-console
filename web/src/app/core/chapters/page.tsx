@@ -9,11 +9,12 @@ export default function CoreChaptersIndexPage() {
         <h1 className="mt-3 text-3xl font-bold leading-tight tracking-tight text-white md:text-4xl">
           핵심 장 세 개로 읽는
           <br />
-          SALT 구조
+          SALT의 뼈대
         </h1>
         <p className="mt-4 max-w-2xl text-base leading-relaxed text-slate-300">
-          Core는 모든 장을 그대로 옮기지 않는다. 현재 웹에서는 17장으로 개념의 중심을 세우고,
-          18장으로 검증으로 넘어가며, 19장으로 공학적 해석까지 이어지는 흐름을 먼저 보여준다.
+          이 세 장만 따라가도 SALT의 큰 윤곽은 잡힌다. 17장은 공간과 상태변수의 언어를 세우고,
+          18장은 그 언어가 실제 비교로 내려오는 방식을 보여 주며, 19장은 그 해석이 기술적 상상력으로
+          어떻게 번져 가는지 보여 준다.
         </p>
       </div>
 
@@ -54,12 +55,12 @@ export default function CoreChaptersIndexPage() {
       </div>
 
       <div className="panel px-6 py-6">
-        <h2 className="mb-5 text-sm font-bold text-white">권장 읽기 순서</h2>
+        <h2 className="mb-5 text-sm font-bold text-white">세 장을 따라가는 흐름</h2>
         <div className="grid gap-4 md:grid-cols-3">
           {[
-            { step: "01", title: "17장", body: "공간 구조와 상태변수 ρ, θ, L의 의미를 먼저 잡는다." },
-            { step: "02", title: "18장", body: "그 구조가 어떤 채널에서 시험되는지와 기각 조건을 본다." },
-            { step: "03", title: "19장", body: "검증이 통과할 경우 어떤 공학적 해석으로 이어지는지 본다." },
+            { step: "01", title: "17장", body: "공간이 왜 빈 배경이 아니며 ρ, θ, L이 왜 필요한지 이해한다." },
+            { step: "02", title: "18장", body: "그 개념이 실제 데이터 비교와 기각 조건으로 어떻게 변하는지 본다." },
+            { step: "03", title: "19장", body: "이 해석이 기술과 실험을 어떻게 새롭게 바라보게 만드는지 본다." },
           ].map((item) => (
             <div key={item.step} className="rounded-xl border border-slate-800 bg-slate-950/40 p-4">
               <p className="text-2xl font-bold text-slate-600">{item.step}</p>

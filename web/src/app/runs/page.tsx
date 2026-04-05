@@ -10,21 +10,22 @@ export default async function RunsPage() {
   return (
     <section className="space-y-5">
       <article className="panel p-6 text-slate-200">
-        <h1 className="text-2xl font-bold text-white">Runs</h1>
+        <h1 className="text-2xl font-bold text-white">실행 기록</h1>
         <p className="mt-2 text-slate-300">
-          이 페이지는 현재 공개 snapshot을 만든 실행 단위와 검증 단위를 provenance 관점에서 읽기 위한 목록입니다.
+          한 번의 결과는 한 번의 실행에서 나온다. 이 페이지는 공개 snapshot이 어떤 실행 단위들로 만들어졌고,
+          각 실행이 통과했는지 실패했는지, 어떤 판정을 남겼는지를 시간 순서대로 보여 준다.
         </p>
         <div className="mt-4 grid gap-3 md:grid-cols-3">
           <div className="rounded-lg border border-cyan-500/30 bg-cyan-950/25 p-4">
-            <p className="text-xs text-cyan-200/80">Latest Snapshot</p>
+            <p className="text-xs text-cyan-200/80">최신 공개 스냅샷</p>
             <p className="mt-1 text-sm text-cyan-100">{latest?.dataset_version || "-"}</p>
           </div>
           <div className="rounded-lg border border-emerald-500/30 bg-emerald-950/25 p-4">
-            <p className="text-xs text-emerald-200/80">Passed</p>
+            <p className="text-xs text-emerald-200/80">통과</p>
             <p className="mt-1 text-sm text-emerald-100">{passedCount}</p>
           </div>
           <div className="rounded-lg border border-rose-500/30 bg-rose-950/25 p-4">
-            <p className="text-xs text-rose-200/80">Failed</p>
+            <p className="text-xs text-rose-200/80">실패</p>
             <p className="mt-1 text-sm text-rose-100">{failedCount}</p>
           </div>
         </div>
@@ -33,11 +34,11 @@ export default async function RunsPage() {
       <article className="panel p-6 text-slate-200">
         <div className="flex items-center justify-between gap-4">
           <div>
-            <h2 className="text-xl font-semibold text-white">Run List</h2>
-            <p className="mt-1 text-sm text-slate-400">현재 adapter는 published snapshot 기준 최신 run provenance를 노출합니다.</p>
+            <h2 className="text-xl font-semibold text-white">실행 목록</h2>
+            <p className="mt-1 text-sm text-slate-400">각 행은 하나의 계산 또는 검증 실행을 뜻한다.</p>
           </div>
           <Link href="/snapshots" className="text-sm text-cyan-300 underline underline-offset-4">
-            snapshots 보기
+            스냅샷 보기
           </Link>
         </div>
         <div className="mt-4 overflow-x-auto">

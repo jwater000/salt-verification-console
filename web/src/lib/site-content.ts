@@ -95,7 +95,7 @@ export const LOGIC_MAP_STAGES: LogicMapStage[] = [
       "SALT는 중력의 위치, 질량의 기원, 미시-거시 연결을 각각 따로 두지 않고 하나의 구조 문제로 다시 묶는다.",
     chapters: ["00", "01~11", "21"],
     links: [
-      { href: "/guide", label: "Guide" },
+      { href: "/", label: "Introduction" },
       { href: "/reference/book-map", label: "Book Map" },
     ],
   },

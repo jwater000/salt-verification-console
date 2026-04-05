@@ -15,24 +15,24 @@ export default async function SnapshotsPage() {
   return (
     <section className="space-y-5">
       <article className="panel p-6 text-slate-200">
-        <h1 className="text-2xl font-bold text-white">Dataset Snapshots</h1>
+        <h1 className="text-2xl font-bold text-white">데이터 스냅샷</h1>
         <p className="mt-2 text-slate-300">
-          이 페이지는 공개 결과가 어떤 dataset snapshot 기준으로 계산되었는지, 그 snapshot이 어떤
-          파일 묶음과 파이프라인으로 만들어졌는지를 버전 단위로 보여줍니다.
+          공개 결과는 떠다니는 데이터 위에서 계산되지 않는다. 특정 시점의 파일 묶음이 잠기고, 그 위에서
+          파이프라인이 돌아가며, 그 결과가 하나의 snapshot으로 남는다. 이 페이지는 그 버전들을 보여 준다.
         </p>
         <div className="mt-4 grid gap-3 md:grid-cols-3">
           <div className="rounded-lg border border-cyan-500/30 bg-cyan-950/25 p-4">
-            <p className="text-xs text-cyan-200/80">Published</p>
+            <p className="text-xs text-cyan-200/80">현재 공개본</p>
             <p className="mt-1 text-sm text-cyan-100">{published?.dataset_version || "-"}</p>
           </div>
           <div className="rounded-lg border border-emerald-500/30 bg-emerald-950/25 p-4">
-            <p className="text-xs text-emerald-200/80">Snapshot Count</p>
+            <p className="text-xs text-emerald-200/80">스냅샷 수</p>
             <p className="mt-1 text-sm text-emerald-100">{snapshots.length}</p>
           </div>
           <div className="rounded-lg border border-slate-700 bg-slate-900/50 p-4">
-            <p className="text-xs text-slate-400">Companion</p>
+            <p className="text-xs text-slate-400">함께 보기</p>
             <Link href="/runs" className="mt-1 block text-sm text-cyan-300 underline underline-offset-4">
-              run provenance 보기
+              실행 기록 보기
             </Link>
           </div>
         </div>
@@ -58,9 +58,9 @@ export default async function SnapshotsPage() {
       </article>
 
       <article className="panel p-6 text-slate-200">
-        <h2 className="text-xl font-semibold text-white">Snapshot List</h2>
+        <h2 className="text-xl font-semibold text-white">스냅샷 목록</h2>
         <p className="mt-2 text-sm text-slate-400">
-          각 snapshot에서 dataset version, manifest hash, 연결 run 수를 함께 확인할 수 있습니다.
+          각 스냅샷에서 dataset version, manifest hash, 연결된 실행 수를 함께 확인할 수 있다.
         </p>
         <div className="mt-4 overflow-x-auto">
           <table className="min-w-full border-collapse text-left text-sm text-slate-300">

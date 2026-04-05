@@ -144,8 +144,6 @@ const PART_COLOR: Record<string, { dot: string; border: string; tag: string }> =
 };
 
 export default function BookMapPage() {
-  const totalChapters = BOOK_PARTS.reduce((s, p) => s + p.chapters.length, 0);
-
   return (
     <section className="space-y-10">
       {/* Hero */}
@@ -154,11 +152,14 @@ export default function BookMapPage() {
           Reference · Book Map
         </p>
         <h1 className="mt-3 text-3xl font-bold leading-tight tracking-tight text-white">
-          책 전체 구조도
+          책의 흐름이 웹에서
+          <br />
+          어디로 이어지는지 보는 지도
         </h1>
-        <p className="mt-3 max-w-xl text-base leading-relaxed text-slate-300">
-          00~28장 전체 {totalChapters}개 장의 역할과 웹 경로 연결을 정리한 페이지다.
-          각 장이 현재 사이트의 어느 영역과 연결되는지 순서대로 확인할 수 있다.
+        <p className="mt-3 max-w-2xl text-base leading-relaxed text-slate-300">
+          책을 읽다 보면 어떤 장은 개념의 중심이고, 어떤 장은 검증의 문턱이며, 어떤 장은 부록처럼 보이지만
+          사실 전체 구조를 떠받친다. 이 지도는 각 장이 웹에서 어디로 이어지고 어떤 역할을 하는지 한눈에
+          보여 준다.
         </p>
 
         {/* Part index */}
@@ -175,6 +176,27 @@ export default function BookMapPage() {
               </a>
             );
           })}
+        </div>
+      </div>
+
+      <div className="grid gap-4 md:grid-cols-3">
+        <div className="rounded-2xl border border-violet-500/20 bg-slate-950/40 p-5">
+          <p className="text-xs uppercase tracking-[0.16em] text-slate-500">처음 읽는 독자</p>
+          <p className="mt-2 text-sm leading-relaxed text-slate-300">
+            `00`, `17`, `18`, `21`을 먼저 잡으면 책의 문제의식, 핵심 개념, 검증 축, 용어 체계가 빠르게 선다.
+          </p>
+        </div>
+        <div className="rounded-2xl border border-slate-800 bg-slate-950/40 p-5">
+          <p className="text-xs uppercase tracking-[0.16em] text-slate-500">웹이 이어받는 역할</p>
+          <p className="mt-2 text-sm leading-relaxed text-slate-300">
+            웹은 책 전체를 복제하기보다, 각 장의 핵심 질문과 전환점을 독자가 바로 붙잡게 하는 쪽에 집중한다.
+          </p>
+        </div>
+        <div className="rounded-2xl border border-cyan-500/20 bg-slate-950/40 p-5">
+          <p className="text-xs uppercase tracking-[0.16em] text-slate-500">막힐 때 건너가는 다리</p>
+          <p className="mt-2 text-sm leading-relaxed text-slate-300">
+            책을 읽다 막히면 참고자료로 오고, 개념이 잡히면 다시 핵심 아이디어나 내용 검증으로 돌아가면 된다.
+          </p>
         </div>
       </div>
 
@@ -234,7 +256,7 @@ export default function BookMapPage() {
 
       {/* Legend */}
       <div className="rounded-xl border border-slate-800 bg-slate-950/40 px-6 py-5">
-        <h2 className="mb-4 text-sm font-bold text-white">범례</h2>
+        <h2 className="mb-4 text-sm font-bold text-white">장 성격 한눈에 보기</h2>
         <div className="flex flex-wrap gap-3">
           {Object.entries(STATUS_BADGE).map(([key, val]) => (
             <span key={key} className={`rounded-full px-2.5 py-0.5 text-xs font-medium ${val.cls}`}>

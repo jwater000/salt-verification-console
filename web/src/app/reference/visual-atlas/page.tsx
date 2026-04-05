@@ -113,11 +113,14 @@ export default function VisualAtlasPage() {
               Reference · Visual Atlas
             </p>
             <h1 className="mt-3 text-3xl font-bold leading-tight tracking-tight text-white">
-              도해 아틀라스
+              SALT를 그림으로 먼저 붙잡는
+              <br />
+              시각 아틀라스
             </h1>
-            <p className="mt-3 max-w-xl text-base leading-relaxed text-slate-300">
-              g00~g33 전체 34점을 번호 순서가 아닌 <strong className="text-slate-100">의미 묶음</strong>으로
-              재구성했다. 각 이미지는 어떤 장의 무엇을 설명하는지 캡션으로 명시된다.
+            <p className="mt-3 max-w-2xl text-base leading-relaxed text-slate-300">
+              SALT는 문장만으로 읽기엔 조금 거친 이론이다. 어떤 그림은 문제의식을 압축하고, 어떤 그림은
+              상태변수의 관계를 한 번에 보여 주며, 어떤 그림은 검증 채널의 감각을 잡게 해 준다. 그래서
+              이곳에서는 도해를 번호가 아니라 의미의 흐름으로 다시 묶었다.
             </p>
           </div>
           <Link
@@ -142,6 +145,30 @@ export default function VisualAtlasPage() {
               </a>
             );
           })}
+        </div>
+      </div>
+
+      <div className="grid gap-4 md:grid-cols-3">
+        <div className="rounded-2xl border border-slate-800 bg-slate-950/40 p-5">
+          <p className="text-xs uppercase tracking-[0.16em] text-slate-500">처음 보는 독자</p>
+          <p className="mt-2 text-sm leading-relaxed text-slate-300">
+            <code className="rounded bg-slate-900 px-1.5 py-0.5 text-xs text-slate-200">
+              문제 제기 → 개념 전환 → 통합 구조
+            </code>
+            {" "}순으로 보면 SALT의 이야기 전체가 가장 자연스럽게 들어온다.
+          </p>
+        </div>
+        <div className="rounded-2xl border border-violet-500/20 bg-slate-950/40 p-5">
+          <p className="text-xs uppercase tracking-[0.16em] text-slate-500">개념을 읽은 뒤 다시 보면</p>
+          <p className="mt-2 text-sm leading-relaxed text-slate-300">
+            Logic Map이나 Core를 보고 난 뒤 오면, 상태변수와 검증 채널의 연결이 훨씬 또렷하게 보인다.
+          </p>
+        </div>
+        <div className="rounded-2xl border border-cyan-500/20 bg-slate-950/40 p-5">
+          <p className="text-xs uppercase tracking-[0.16em] text-slate-500">검증으로 들어가기 전</p>
+          <p className="mt-2 text-sm leading-relaxed text-slate-300">
+            채널 그림을 먼저 보고 들어가면 결과판의 숫자와 용어가 훨씬 덜 차갑게 느껴진다.
+          </p>
         </div>
       </div>
 

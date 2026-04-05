@@ -52,23 +52,19 @@ export default async function VerificationPage() {
           18장 · Verification
         </p>
         <h1 className="mt-3 text-3xl font-bold leading-tight tracking-tight text-white md:text-4xl">
-          검증 자료는 어떻게 구성되어 있는가
+          SALT가 얼마나 설득력 있는지
+          <br />
+          숫자로 확인하는 자리
         </h1>
-        <p className="mt-4 max-w-2xl text-base leading-relaxed text-slate-300">
-          이 섹션은 직접 관측이 아니라 <strong className="text-slate-100">관측 흔적의 정량 비교</strong>를
-          기준으로 정리되어 있다. Verification은 검증 결과와 채널별 판정 경로를 보여주는 공식
-          허브이며, 이론 설명은 Core에서, 재현 로그와 provenance는 Audit에서 따로 본다.
+        <p className="mt-4 max-w-3xl text-base leading-relaxed text-slate-300">
+          이곳에서는 선언보다 숫자가 앞선다. 관측 흔적을 기준으로 표준 기준선과 SALT를 같은 판정 규칙 위에
+          올려놓고, 실제값에 누가 더 가까운지 비교한다. 중요한 것은 &quot;얼마나 멋진 설명인가&quot;가 아니라
+          &quot;어디에서 더 잘 맞고, 어디에서 아직 비어 있는가&quot;다.
         </p>
         <div className="mt-5 flex flex-wrap gap-2 text-xs text-slate-300">
-          <span className="rounded-full border border-slate-700 bg-slate-900/70 px-3 py-1">
-            결과 허브
-          </span>
-          <span className="rounded-full border border-slate-700 bg-slate-900/70 px-3 py-1">
-            이론 설명은 Core
-          </span>
-          <span className="rounded-full border border-slate-700 bg-slate-900/70 px-3 py-1">
-            재현 로그는 Audit
-          </span>
+          <span className="rounded-full border border-slate-700 bg-slate-900/70 px-3 py-1">고정 채널 비교</span>
+          <span className="rounded-full border border-slate-700 bg-slate-900/70 px-3 py-1">실제 오차 중심</span>
+          <span className="rounded-full border border-slate-700 bg-slate-900/70 px-3 py-1">승패보다 패턴 읽기</span>
         </div>
         <div className="mt-6 flex flex-wrap gap-6 text-sm">
           <div>
@@ -94,21 +90,21 @@ export default async function VerificationPage() {
 
       <div className="grid gap-4 md:grid-cols-3">
         <div className="rounded-2xl border border-cyan-500/20 bg-slate-950/45 p-5">
-          <p className="text-xs uppercase tracking-[0.16em] text-slate-500">결과판</p>
+          <p className="text-xs uppercase tracking-[0.16em] text-slate-500">무엇이 맞는가</p>
           <p className="mt-2 text-sm leading-relaxed text-slate-300">
-            현재 잠긴 채널에서 SALT와 기준선의 오차 비교 결과를 본다.
+            현재 잠긴 채널에서 SALT와 기준선이 실제값에 얼마나 가까운지 본다.
           </p>
         </div>
         <div className="rounded-2xl border border-amber-500/20 bg-slate-950/45 p-5">
-          <p className="text-xs uppercase tracking-[0.16em] text-slate-500">대기판</p>
+          <p className="text-xs uppercase tracking-[0.16em] text-slate-500">무엇이 아직 비어 있는가</p>
           <p className="mt-2 text-sm leading-relaxed text-slate-300">
-            형식화는 됐지만 아직 운영형 관측량이나 판정 규칙이 잠기지 않은 가설을 본다.
+            아이디어는 있지만 아직 판정 규칙과 데이터 잠금이 끝나지 않은 가설을 본다.
           </p>
         </div>
         <div className="rounded-2xl border border-emerald-500/20 bg-slate-950/45 p-5">
-          <p className="text-xs uppercase tracking-[0.16em] text-slate-500">감사 연결</p>
+          <p className="text-xs uppercase tracking-[0.16em] text-slate-500">근거는 어디까지 따라갈 수 있는가</p>
           <p className="mt-2 text-sm leading-relaxed text-slate-300">
-            판정 근거를 따라갈 필요가 있을 때만 Audit의 reproduce, run, hash 자료로 내려간다.
+            필요하면 reproduce, run, hash 자료까지 내려가며 계산 경로를 끝까지 따라갈 수 있다.
           </p>
         </div>
       </div>
@@ -116,7 +112,7 @@ export default async function VerificationPage() {
       {/* State variable → trace map */}
       <div>
         <h2 className="mb-4 text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">
-          상태변수 → 관측 흔적 매핑
+          상태변수에서 관측 흔적으로
         </h2>
         <div className="grid gap-4 md:grid-cols-3">
           {STATE_VARIABLE_MAP.map((sv) => {
@@ -167,7 +163,7 @@ export default async function VerificationPage() {
       <div>
         <div className="mb-4 flex items-center justify-between">
           <h2 className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">
-            고정 검증 채널 3종
+            지금 열려 있는 검증 채널
           </h2>
           <span className="badge-verified">판정 규칙 고정</span>
         </div>
@@ -237,7 +233,7 @@ export default async function VerificationPage() {
       </div>
 
       <div className="panel px-6 py-6">
-        <h2 className="mb-5 text-sm font-bold text-white">검증 자료를 읽는 기준</h2>
+        <h2 className="mb-5 text-sm font-bold text-white">결과를 읽는 순서</h2>
         <div className="grid gap-4 md:grid-cols-4">
           {[
             {
@@ -264,9 +260,9 @@ export default async function VerificationPage() {
             <div key={item.step} className="rounded-xl border border-slate-800 bg-slate-950/40 p-4">
               <p className="text-2xl font-bold text-slate-600">{item.step}</p>
               <p className="mt-2 text-sm font-semibold text-slate-100">{item.title}</p>
-              <p className="mt-1 text-xs leading-relaxed text-slate-500">{item.body}</p>
-            </div>
-          ))}
+                <p className="mt-1 text-xs leading-relaxed text-slate-500">{item.body}</p>
+              </div>
+            ))}
         </div>
       </div>
 
@@ -274,14 +270,14 @@ export default async function VerificationPage() {
       <div>
         <div className="mb-4 flex items-center justify-between">
           <h2 className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">
-            후보 가설 묶음
+            아직 시험대에 오르는 중인 가설
           </h2>
           <span className="badge-pending">검증 대기</span>
         </div>
         <div className="rounded-xl border border-amber-500/15 bg-amber-950/10 p-5">
           <p className="mb-4 text-xs text-amber-200/60">
-            아래 항목은 고정 채널과 달리 아직 판정 규칙이 잠기지 않았다. 형식화 완료 또는 데이터
-            집계 중인 검증 예정 가설이다.
+            아래 항목은 아직 채점표를 완성하는 중이다. 생각은 선명하지만, 판정 규칙과 데이터 묶음이
+            완전히 잠기기 전까지는 결과가 아니라 준비 중인 질문으로 읽는 편이 맞다.
           </p>
           <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
             {CANDIDATE_HYPOTHESES.map((h) => (
@@ -308,7 +304,7 @@ export default async function VerificationPage() {
 
       {/* Verification flow timeline */}
       <div className="panel px-6 py-6">
-        <h2 className="mb-5 text-sm font-bold text-white">검증 경로 — 4단계 절차</h2>
+        <h2 className="mb-5 text-sm font-bold text-white">검증이 만들어지는 절차</h2>
         <div className="flex flex-col gap-0 md:flex-row">
           {[
             { step: "01", label: "관측량 고정", desc: "무엇을 측정할지 데이터 기준 잠금" },

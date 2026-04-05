@@ -14,12 +14,12 @@ export default async function RunDetailPage({ params }: { params: Promise<{ runI
           <div>
             <h1 className="text-2xl font-bold text-white">{run.run_id}</h1>
             <p className="mt-2 text-slate-300">
-              snapshot <code>{run.dataset_version}</code>에 연결된 실행 provenance 상세입니다.
+              이 실행은 snapshot <code>{run.dataset_version}</code>을 만드는 과정에서 남은 하나의 발자국이다.
             </p>
           </div>
           <div className="flex flex-wrap items-center gap-3 text-sm">
             <Link href="/runs" className="text-cyan-300 underline underline-offset-4">
-              run 목록
+              실행 목록
             </Link>
             <Link href="/audit/reproduce" className="text-cyan-300 underline underline-offset-4">
               재현 방법
@@ -47,7 +47,7 @@ export default async function RunDetailPage({ params }: { params: Promise<{ runI
       </article>
 
       <article className="panel p-6 text-slate-200">
-        <h2 className="text-xl font-semibold text-white">Execution</h2>
+        <h2 className="text-xl font-semibold text-white">무엇이 실행되었는가</h2>
         <ul className="mt-3 list-disc space-y-2 pl-5 text-sm text-slate-300">
           <li>
             command: <code>{run.command}</code>
@@ -69,13 +69,13 @@ export default async function RunDetailPage({ params }: { params: Promise<{ runI
 
       <article className="panel p-6 text-slate-200">
         <div className="flex items-center justify-between gap-4">
-          <h2 className="text-xl font-semibold text-white">Artifacts</h2>
+          <h2 className="text-xl font-semibold text-white">이 실행이 남긴 산출물</h2>
           <div className="flex flex-wrap items-center gap-3 text-sm">
             <Link
               href={`/snapshots/${encodeURIComponent(run.snapshot_id)}`}
               className="text-cyan-300 underline underline-offset-4"
             >
-              linked snapshot
+              연결된 스냅샷
             </Link>
             <Link href="/verification/results" className="text-cyan-300 underline underline-offset-4">
               판정 결과

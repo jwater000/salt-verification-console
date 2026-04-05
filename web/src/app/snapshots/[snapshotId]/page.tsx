@@ -20,11 +20,11 @@ export default async function SnapshotDetailPage({ params }: { params: Promise<{
         <div className="flex flex-wrap items-center justify-between gap-3">
           <div>
             <h1 className="text-2xl font-bold text-white">{snapshot.dataset_version}</h1>
-            <p className="mt-2 text-slate-300">snapshot 단위의 공개 기준, 연결 run, 요약 집계를 보여줍니다.</p>
+            <p className="mt-2 text-slate-300">이 스냅샷이 어떤 기준으로 잠겼고 어떤 실행들과 연결되는지 보여 준다.</p>
           </div>
           <div className="flex flex-wrap items-center gap-3 text-sm">
             <Link href="/snapshots" className="text-cyan-300 underline underline-offset-4">
-              snapshot 목록
+              스냅샷 목록
             </Link>
             <Link href="/verification/results" className="text-cyan-300 underline underline-offset-4">
               판정 결과
@@ -53,7 +53,7 @@ export default async function SnapshotDetailPage({ params }: { params: Promise<{
 
       {snapshot.status === "published" ? (
         <article className="panel p-6 text-slate-200">
-          <h2 className="text-xl font-semibold text-white">Dataset 구성과 출처</h2>
+          <h2 className="text-xl font-semibold text-white">이 스냅샷을 이루는 데이터와 출처</h2>
           <div className="mt-4 grid gap-3 md:grid-cols-3">
             <div className="rounded-lg border border-slate-700 bg-slate-900/50 p-4">
               <p className="text-xs text-slate-400">Source Base</p>
@@ -69,8 +69,8 @@ export default async function SnapshotDetailPage({ params }: { params: Promise<{
             </div>
           </div>
           <p className="mt-4 text-sm text-slate-300">
-            이 snapshot은 공개 원자료를 고정한 manifest와 평가 파이프라인 기록을 함께 보여줍니다.
-            미시 비교 출처는 {microProviders.join(", ")} 등을 포함합니다.
+            이 스냅샷은 공개 원자료를 고정한 manifest와 평가 파이프라인 기록을 함께 보여 준다.
+            미시 비교 출처는 {microProviders.join(", ")} 등을 포함한다.
           </p>
           <div className="mt-4 overflow-x-auto">
             <table className="min-w-full border-collapse text-left text-sm text-slate-300">
@@ -97,7 +97,7 @@ export default async function SnapshotDetailPage({ params }: { params: Promise<{
 
       {snapshot.result_summary ? (
         <article className="panel p-6 text-slate-200">
-          <h2 className="text-xl font-semibold text-white">Result Summary</h2>
+          <h2 className="text-xl font-semibold text-white">이 스냅샷의 결과 요약</h2>
           <div className="mt-4 grid gap-3 md:grid-cols-3">
             <div className="rounded-lg border border-cyan-500/30 bg-cyan-950/25 p-4">
               <p className="text-xs text-cyan-200/80">SALT</p>
@@ -116,7 +116,7 @@ export default async function SnapshotDetailPage({ params }: { params: Promise<{
       ) : null}
 
       <article className="panel p-6 text-slate-200">
-        <h2 className="text-xl font-semibold text-white">Versions</h2>
+        <h2 className="text-xl font-semibold text-white">이 스냅샷에 잠긴 버전</h2>
         <ul className="mt-3 list-disc space-y-2 pl-5 text-sm text-slate-300">
           <li>formula_versions: <code>{snapshot.formula_versions.join(", ") || "-"}</code></li>
           <li>decision_rule_versions: <code>{snapshot.decision_rule_versions.join(", ") || "-"}</code></li>
@@ -126,10 +126,10 @@ export default async function SnapshotDetailPage({ params }: { params: Promise<{
 
       <article className="panel p-6 text-slate-200">
         <div className="flex items-center justify-between gap-4">
-          <h2 className="text-xl font-semibold text-white">Linked Runs</h2>
+          <h2 className="text-xl font-semibold text-white">연결된 실행</h2>
           <div className="flex flex-wrap items-center gap-3 text-sm">
             <Link href="/runs" className="text-cyan-300 underline underline-offset-4">
-              run 목록
+              실행 목록
             </Link>
             <Link href="/audit/reproduce" className="text-cyan-300 underline underline-offset-4">
               재현 방법
@@ -166,7 +166,7 @@ export default async function SnapshotDetailPage({ params }: { params: Promise<{
             </table>
           </div>
         ) : (
-          <p className="mt-4 text-sm text-slate-400">이 snapshot은 archived adapter 항목이라 linked run이 없습니다.</p>
+          <p className="mt-4 text-sm text-slate-400">이 스냅샷은 archived adapter 항목이라 연결된 실행이 없다.</p>
         )}
       </article>
     </section>

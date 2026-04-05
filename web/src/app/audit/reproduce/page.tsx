@@ -12,7 +12,8 @@ export default async function AuditReproducePage() {
       <article className="panel p-6 text-slate-200">
         <h1 className="text-2xl font-bold text-white">재현 방법</h1>
         <p className="mt-2 text-slate-300">
-          이 페이지는 같은 데이터와 같은 코드로 실행했을 때 같은 산출 경로가 나오는지 확인하는 절차를 정리한다.
+          좋은 결과는 다시 만들어질 수 있어야 한다. 이 페이지는 같은 데이터와 같은 코드, 같은 판정 규칙으로
+          다시 실행했을 때 같은 산출 경로에 도달하는지 확인하는 절차를 정리한다.
         </p>
         <div className="mt-4 grid gap-3 md:grid-cols-3">
           <div className="rounded-lg border border-slate-700/70 bg-slate-900/50 p-4">
@@ -40,10 +41,11 @@ export default async function AuditReproducePage() {
         </div>
       </article>
       <article className="panel p-6 text-slate-200">
-        <h2 className="text-xl font-semibold text-white">이 페이지의 용도</h2>
+        <h2 className="text-xl font-semibold text-white">재현이 중요한 이유</h2>
         <p className="mt-2 text-sm leading-6 text-slate-300">
-          이 페이지는 SALT와 기준선의 비교 결과를 같은 조건에서 다시 따라가 볼 수 있도록 구성되어 있다.
-          핵심은 결론의 강도보다 비교 절차와 잠금 조건의 일치 여부를 확인하는 데 있다.
+          SALT와 기준선의 비교 결과는 숫자만 보는 순간 설득력을 얻지 못한다. 어떤 절차와 어떤 잠금 조건에서
+          그 숫자가 나왔는지, 그리고 같은 조건에서 다시 같은 결과가 나오는지를 확인할 때 비로소 읽을 만한
+          결과가 된다.
         </p>
         <div className="mt-4 flex flex-wrap gap-2 text-xs text-slate-300">
           <span className="rounded-full border border-slate-700 bg-slate-900/70 px-3 py-1">같은 데이터</span>
@@ -53,7 +55,7 @@ export default async function AuditReproducePage() {
         </div>
       </article>
       <article className="panel p-6 text-slate-200">
-        <h2 className="text-xl font-semibold text-white">Provenance 보기</h2>
+        <h2 className="text-xl font-semibold text-white">실행 기록과 함께 보기</h2>
         <p className="mt-2 text-sm leading-6 text-slate-300">
           설명 문서와 함께 현재 공개 snapshot과 연결된 실행 provenance를 바로 따라갈 수 있다.
         </p>
@@ -77,7 +79,7 @@ export default async function AuditReproducePage() {
         </div>
       </article>
       <article className="panel p-6 text-slate-200">
-        <h2 className="text-xl font-semibold text-white">30초 이해 지도</h2>
+        <h2 className="text-xl font-semibold text-white">30초 흐름도</h2>
         <pre className="mt-4 overflow-x-auto rounded-lg border border-slate-700 bg-slate-950/60 p-4 text-sm leading-6 text-slate-200">
 {`[관측 데이터]
       |
@@ -101,7 +103,7 @@ export default async function AuditReproducePage() {
         </p>
       </article>
       <article className="panel p-6 text-slate-200">
-        <h2 className="text-xl font-semibold text-white">자료 공개 방식</h2>
+        <h2 className="text-xl font-semibold text-white">공개 방식의 원칙</h2>
         <p className="mt-2 text-sm leading-6 text-slate-300">
           이 페이지는 결과 문장보다 근거 자료를 함께 공개하는 방식을 기준으로 한다.
           따라서 같은 조건인지 먼저 확인할 수 있어야 한다.
@@ -114,10 +116,10 @@ export default async function AuditReproducePage() {
         </ul>
       </article>
       <article className="panel p-6 text-slate-200">
-        <h2 className="text-xl font-semibold text-white">SALT와 표준이론은 무엇이 다른가</h2>
+        <h2 className="text-xl font-semibold text-white">SALT와 기준선이 갈라지는 자리</h2>
         <p className="mt-2 text-sm leading-6 text-slate-300">
-          두 모델 모두 같은 관측값을 입력으로 받는다. 다른 점은 입력을 해석하는 함수형이다.
-          이 페이지에서는 인상적 표현보다 실제 오차가 어떻게 비교되는지를 기준으로 본다.
+          두 모델은 같은 관측값을 입력으로 받는다. 갈라지는 것은 해석의 함수형이다. 이 페이지에서는
+          인상적인 문장보다 실제 오차가 어떤 가정 아래 비교되는지를 기준으로 본다.
         </p>
         <ul className="mt-3 list-disc space-y-1 pl-5 text-sm text-slate-300">
           <li>표준이론: 기존 문헌 기반 기준식을 중심으로 예측</li>
@@ -125,8 +127,8 @@ export default async function AuditReproducePage() {
         </ul>
         <p className="mt-3 text-sm leading-6 text-slate-400">
           표준측 기준선은 PDG, NuFIT, T2K, NOvA, IceCube, Super-K, Daya Bay 등과 muon g-2 분해합 문헌
-          (Aoyama et al., 2020, doi:10.1016/j.physrep.2020.07.006)에 기반합니다. SALT 보정항은 새 변수를
-          무한정 늘리기보다 잔차 패턴이 체계적으로 줄어드는지 시험하는 최소 추가 가정입니다.
+          (Aoyama et al., 2020, doi:10.1016/j.physrep.2020.07.006)에 기반한다. SALT 보정항은 새 변수를
+          무한정 늘리기보다 잔차 패턴이 체계적으로 줄어드는지 시험하는 최소 추가 가정이다.
         </p>
         <div className="mt-4 overflow-x-auto">
           <table className="min-w-full border-collapse text-sm text-slate-300">
@@ -168,11 +170,11 @@ export default async function AuditReproducePage() {
         </div>
       </article>
       <article className="panel p-6 text-slate-200">
-        <h2 className="text-xl font-semibold text-white">아직 웹에서 구현하지 못한 검증 항목</h2>
+        <h2 className="text-xl font-semibold text-white">아직 콘솔 안으로 들어오지 못한 검증축</h2>
         <p className="mt-2 text-sm leading-6 text-slate-300">
-          20장의 감도 매트릭스와 27장의 차별 예측 프로토콜에 나온 항목 가운데, 현재 웹 콘솔이 직접 채점하지 못하는 검증축도 있습니다.
-          이유는 크게 두 가지입니다. 첫째, 공개 데이터가 아직 운영형 입력으로 충분히 정리되지 않았습니다. 둘째,
-          예측모델식과 score 규칙이 frozen 파이프라인 수준으로 아직 잠기지 않았습니다.
+          20장의 감도 매트릭스와 27장의 차별 예측 프로토콜에 나온 항목 가운데, 현재 웹 콘솔이 직접 채점하지 못하는
+          검증축도 있다. 이유는 크게 두 가지다. 공개 데이터가 아직 운영형 입력으로 충분히 정리되지 않았거나,
+          예측모델식과 score 규칙이 frozen 파이프라인 수준으로 아직 잠기지 않았기 때문이다.
         </p>
         <div className="mt-4 overflow-x-auto">
           <table className="min-w-full border-collapse text-sm text-slate-300">

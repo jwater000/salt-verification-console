@@ -138,16 +138,39 @@ export default function EngineeringPage() {
           19장 · Engineering
         </p>
         <h1 className="mt-3 text-3xl font-bold leading-tight tracking-tight text-white md:text-4xl">
-          기술적 함의를 참고용으로 정리한 페이지
+          SALT를 기술의 언어로 다시 읽으면
+          <br />
+          어떤 상상이 열리는가
         </h1>
-        <p className="mt-4 max-w-2xl text-base leading-relaxed text-slate-300">
-          이 페이지는 검증 완료 결과를 제시하는 곳이 아니다. 도서 19장에서 다루는 기술적
-          해석과 장기 가설을 구분해 참고할 수 있도록 정리한다. Engineering은 검증 결과의
-          공식 허브를 대체하지 않고, 응용 가능성과 해석 확장 범위를 보여주는 영역이다.
+        <p className="mt-4 max-w-3xl text-base leading-relaxed text-slate-300">
+          어떤 이론은 설명에서 멈추고, 어떤 이론은 기술적 상상력을 자극한다. SALT는 후자에 가깝다.
+          중력, 반도체, 핵반응, 중성미자, 양자 제어를 다시 바라보게 만들며
+          &quot;이미 있는 기술을 다르게 이해하는 길&quot;과 &quot;아직 먼 가설&quot;을 동시에 펼쳐 보인다.
         </p>
         <div className="mt-5 inline-flex items-center gap-2 rounded-lg border border-amber-500/20 bg-amber-950/20 px-4 py-2 text-xs text-amber-200/80">
           <span className="h-1.5 w-1.5 rounded-full bg-amber-400" />
-          이 페이지의 내용은 검증 결과가 아니라 해석 정리와 설계 가설에 해당한다
+          이곳의 핵심은 구현 주장보다 해석의 방향과 가설의 성숙도 구분이다
+        </div>
+      </div>
+
+      <div className="grid gap-4 md:grid-cols-3">
+        <div className="rounded-2xl border border-slate-800 bg-slate-950/40 p-5">
+          <p className="text-xs uppercase tracking-[0.16em] text-slate-500">1. 익숙한 기술을 낯설게 보기</p>
+          <p className="mt-2 text-sm leading-relaxed text-slate-300">
+            이미 존재하는 기술과 실험을 SALT 언어로 다시 읽을 때 어떤 의미 변화가 생기는지 본다.
+          </p>
+        </div>
+        <div className="rounded-2xl border border-amber-500/20 bg-slate-950/40 p-5">
+          <p className="text-xs uppercase tracking-[0.16em] text-slate-500">2. 어디까지가 해석이고 어디부터가 가설인가</p>
+          <p className="mt-2 text-sm leading-relaxed text-slate-300">
+            기술 재해석과 설계 가설, 장기 예측을 한데 섞지 않도록 성숙도 라벨을 함께 본다.
+          </p>
+        </div>
+        <div className="rounded-2xl border border-cyan-500/20 bg-slate-950/40 p-5">
+          <p className="text-xs uppercase tracking-[0.16em] text-slate-500">3. 무엇이 이미 근거를 가지고 있는가</p>
+          <p className="mt-2 text-sm leading-relaxed text-slate-300">
+            이 해석이 기대는 비교 근거는 내용 검증에서 다시 확인하고, 여기서는 아이디어의 방향과 범위를 본다.
+          </p>
         </div>
       </div>
 
@@ -158,7 +181,7 @@ export default function EngineeringPage() {
             href={item.href}
             className="rounded-2xl border border-emerald-500/20 bg-slate-950/45 p-5 transition hover:border-emerald-400/40"
           >
-            <h2 className="text-lg font-bold text-white">{item.title}</h2>
+          <h2 className="text-lg font-bold text-white">{item.title}</h2>
             <p className="mt-2 text-sm leading-relaxed text-slate-400">{item.body}</p>
             <p className="mt-5 text-sm font-semibold text-emerald-300">{item.cta} →</p>
           </Link>
@@ -166,7 +189,7 @@ export default function EngineeringPage() {
       </div>
 
       <div className="panel px-6 py-5">
-        <h2 className="mb-4 text-sm font-semibold text-white">이 페이지를 읽는 기준</h2>
+        <h2 className="mb-4 text-sm font-semibold text-white">읽으면서 기억하면 좋은 기준</h2>
         <div className="grid gap-4 md:grid-cols-3">
           {PAGE_BOUNDARIES.map((item) => (
             <div key={item} className="rounded-xl border border-slate-800 bg-slate-950/40 p-4">

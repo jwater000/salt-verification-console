@@ -7,12 +7,36 @@ export default function VerificationChannelsPage() {
       <div className="rounded-3xl border border-cyan-500/20 bg-[linear-gradient(135deg,#071828_0%,#020617_60%,#0f172a_100%)] px-8 py-10">
         <p className="text-xs font-semibold uppercase tracking-[0.2em] text-cyan-400">Verification Channels</p>
         <h1 className="mt-3 text-3xl font-bold leading-tight tracking-tight text-white md:text-4xl">
-          고정 검증 채널 인덱스
+          어떤 채널이 현재
+          <br />
+          SALT를 시험하고 있는가
         </h1>
-        <p className="mt-4 max-w-2xl text-base leading-relaxed text-slate-300">
-          이 페이지는 현재 운영 중인 세 고정 채널을 한 번에 보는 허브다. 각 채널은 관측량,
-          기준 모델, SALT 예측, 기각 조건이 데이터 보기 전에 잠긴 항목만 포함한다.
+        <p className="mt-4 max-w-3xl text-base leading-relaxed text-slate-300">
+          아무 현상이나 끌어와 SALT를 검증했다고 말할 수는 없다. 여기 모인 세 채널은 관측량, 기준 모델,
+          SALT 예측, 기각 조건이 함께 정리되어 실제로 비교가 가능한 항목들이다. 말하자면 SALT가 지금
+          가장 또렷하게 시험받는 무대들이다.
         </p>
+      </div>
+
+      <div className="grid gap-4 md:grid-cols-3">
+        <div className="rounded-2xl border border-slate-800 bg-slate-950/40 p-5">
+          <p className="text-xs uppercase tracking-[0.16em] text-slate-500">1. 무엇을 볼지 정해졌다</p>
+          <p className="mt-2 text-sm leading-relaxed text-slate-300">
+            무엇을 측정할지와 어떤 데이터를 볼지가 먼저 고정된 채널만 여기에 들어온다.
+          </p>
+        </div>
+        <div className="rounded-2xl border border-cyan-500/20 bg-slate-950/40 p-5">
+          <p className="text-xs uppercase tracking-[0.16em] text-slate-500">2. 어떻게 비교할지 정해졌다</p>
+          <p className="mt-2 text-sm leading-relaxed text-slate-300">
+            기준 모델과 SALT 예측이 같은 규칙으로 비교될 수 있어야 공개 채널이 된다.
+          </p>
+        </div>
+        <div className="rounded-2xl border border-rose-500/20 bg-slate-950/40 p-5">
+          <p className="text-xs uppercase tracking-[0.16em] text-slate-500">3. 언제 틀렸다고 할지 정해졌다</p>
+          <p className="mt-2 text-sm leading-relaxed text-slate-300">
+            어떤 조건에서 SALT가 실패했다고 볼지까지 정리돼야 비로소 공정한 채널이 된다.
+          </p>
+        </div>
       </div>
 
       <div className="space-y-4">

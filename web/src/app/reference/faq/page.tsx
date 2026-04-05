@@ -96,11 +96,14 @@ export default function FAQPage() {
           Reference · FAQ
         </p>
         <h1 className="mt-3 text-3xl font-bold leading-tight tracking-tight text-white">
-          자주 묻는 질문
+          읽다가 가장 자주 걸리는 오해를
+          <br />
+          먼저 걷어내는 질문들
         </h1>
-        <p className="mt-3 max-w-xl text-base leading-relaxed text-slate-300">
-          도서와 사이트를 읽을 때 자주 생기는 질문과 구분이 필요한 표현을 정리했다.
-          각 답변은 현재 공개된 자료를 기준으로 이해를 돕기 위한 안내문이다.
+        <p className="mt-3 max-w-2xl text-base leading-relaxed text-slate-300">
+          SALT를 읽을 때 막히는 지점은 대체로 비슷하다. GR을 부정하는지, 검증 결과가 어디까지 말해 주는지,
+          공학적 상상이 곧바로 기술 주장인지 같은 질문들이다. 이곳은 그런 오해를 미리 풀어 독해의 마찰을
+          줄이는 페이지다.
         </p>
         <div className="mt-5 flex flex-wrap gap-2">
           {CATEGORIES.map((cat) => (
@@ -112,6 +115,27 @@ export default function FAQPage() {
               {cat} ({FAQS.filter((f) => f.category === cat).length})
             </a>
           ))}
+        </div>
+      </div>
+
+      <div className="grid gap-4 md:grid-cols-3">
+        <div className="rounded-2xl border border-violet-500/20 bg-slate-950/40 p-5">
+          <p className="text-xs uppercase tracking-[0.16em] text-slate-500">이론에서 자주 걸리는 질문</p>
+          <p className="mt-2 text-sm leading-relaxed text-slate-300">
+            SALT가 GR이나 표준 모형을 부정하는지처럼 가장 먼저 생기는 오해를 푼다.
+          </p>
+        </div>
+        <div className="rounded-2xl border border-cyan-500/20 bg-slate-950/40 p-5">
+          <p className="text-xs uppercase tracking-[0.16em] text-slate-500">검증에서 자주 생기는 착각</p>
+          <p className="mt-2 text-sm leading-relaxed text-slate-300">
+            일부 결과가 전체 이론 확정을 뜻하는지, 왜 채널 수가 제한되는지 같은 질문을 정리한다.
+          </p>
+        </div>
+        <div className="rounded-2xl border border-amber-500/20 bg-slate-950/40 p-5">
+          <p className="text-xs uppercase tracking-[0.16em] text-slate-500">방법론에서 헷갈리는 부분</p>
+          <p className="mt-2 text-sm leading-relaxed text-slate-300">
+            frozen 데이터셋, 판정 규칙 잠금, 공개 실패 사례 같은 운영 원칙을 해설한다.
+          </p>
         </div>
       </div>
 

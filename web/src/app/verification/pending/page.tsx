@@ -103,15 +103,39 @@ export default function VerificationPendingPage() {
           <span className="badge-pending">검증 대기</span>
         </div>
         <h1 className="mt-3 text-3xl font-bold leading-tight tracking-tight text-white">
-          검증 대기 항목
+          아직 계산되지 않은 이유를
+          <br />
+          드러내는 질문들
         </h1>
-        <p className="mt-3 max-w-2xl text-base leading-relaxed text-slate-300">
-          가설은 있으나 관측량 매핑, 판정식, 데이터 열이 아직 연결되지 않아 채점할 수 없는 예측들.
-          이미 채점된 결과는{" "}
+        <p className="mt-3 max-w-3xl text-base leading-relaxed text-slate-300">
+          결과가 없다는 말은 때로 공백처럼 들리지만, 사실은 가장 솔직한 상태이기도 하다. 여기 있는 항목들은
+          아이디어는 선명하지만 아직 관측량 매핑, 판정식, 데이터 열이 하나의 운영 규칙으로 잠기지 않았다.
+          그래서 지금은 승패보다 부족한 조각이 무엇인지 먼저 보여 준다. 이미 채점된 결과는{" "}
           <Link href="/verification/results" className="text-cyan-400 hover:underline">
             판정 결과
           </Link>에서 확인한다.
         </p>
+      </div>
+
+      <div className="grid gap-4 md:grid-cols-3">
+        <div className="rounded-2xl border border-slate-800 bg-slate-950/40 p-5">
+          <p className="text-xs uppercase tracking-[0.16em] text-slate-500">1. 생각은 선명하다</p>
+          <p className="mt-2 text-sm leading-relaxed text-slate-300">
+            책과 이론 안에서는 방향이 제시돼 있지만, 아직 운영형 검증 채널로는 완전히 잠기지 않았다.
+          </p>
+        </div>
+        <div className="rounded-2xl border border-amber-500/20 bg-slate-950/40 p-5">
+          <p className="text-xs uppercase tracking-[0.16em] text-slate-500">2. 시험대가 아직 덜 만들어졌다</p>
+          <p className="mt-2 text-sm leading-relaxed text-slate-300">
+            공개 데이터 열, 비교식, score 규칙, 상태변수 매핑 중 하나 이상이 아직 비어 있다.
+          </p>
+        </div>
+        <div className="rounded-2xl border border-cyan-500/20 bg-slate-950/40 p-5">
+          <p className="text-xs uppercase tracking-[0.16em] text-slate-500">3. 잠기면 결과로 넘어간다</p>
+          <p className="mt-2 text-sm leading-relaxed text-slate-300">
+            필요한 조각이 잠기면 이 항목은 pending에서 results 또는 channels 축으로 이동한다.
+          </p>
+        </div>
       </div>
 
       <div className="grid gap-4 md:grid-cols-3">
@@ -138,22 +162,22 @@ export default function VerificationPendingPage() {
           <div>
             <p className="text-xs uppercase tracking-[0.16em] text-slate-500">Verified</p>
             <p className="mt-2 text-sm leading-relaxed text-slate-300">
-              이미 기존 물리에서 검증된 사실. SALT는 이를 다른 언어로 재해석하려고 한다.
+              기존 물리에서 이미 굳어진 사실이다. SALT는 이 사실을 다른 언어로 다시 설명하려 한다.
             </p>
           </div>
           <div>
             <p className="text-xs uppercase tracking-[0.16em] text-slate-500">Hypothesis</p>
             <p className="mt-2 text-sm leading-relaxed text-slate-300">
-              SALT가 제안하는 해석적 연결. 아직 운영형 데이터-식-판정 규칙이 완전히 잠기지 않았다.
+              SALT가 제안하는 연결 방식이다. 하지만 아직 데이터와 식과 판정 규칙이 하나로 고정되지는 않았다.
             </p>
           </div>
           <div>
             <p className="text-xs uppercase tracking-[0.16em] text-slate-500">Prediction</p>
             <p className="mt-2 text-sm leading-relaxed text-slate-300">
-              실제 검증 채널로 바꾸려면 공개 데이터 열과 비교식, score 규칙까지 모두 고정돼야 한다.
-            </p>
-          </div>
+              실제 채널이 되려면 공개 데이터 열과 비교식, score 규칙까지 모두 닫혀야 한다.
+          </p>
         </div>
+      </div>
       </div>
 
       {/* Pending items */}
@@ -215,7 +239,7 @@ export default function VerificationPendingPage() {
       {/* Formula status */}
       <div className="grid gap-4 md:grid-cols-2">
         <div className="rounded-xl border border-emerald-500/20 bg-slate-950/40 p-5">
-          <h2 className="mb-4 text-sm font-bold text-white">이미 제시된 식</h2>
+          <h2 className="mb-4 text-sm font-bold text-white">이미 손에 쥔 식</h2>
           <ul className="space-y-2">
             {FORMULAS_READY.map((f) => (
               <li key={f.formula} className="flex items-start gap-3">
@@ -228,7 +252,7 @@ export default function VerificationPendingPage() {
           </ul>
         </div>
         <div className="rounded-xl border border-amber-500/15 bg-slate-950/40 p-5">
-          <h2 className="mb-4 text-sm font-bold text-white">아직 필요한 식</h2>
+          <h2 className="mb-4 text-sm font-bold text-white">아직 비어 있는 식</h2>
           <ul className="space-y-2">
             {FORMULAS_NEEDED.map((f, i) => (
               <li key={i} className="flex items-start gap-2 text-xs text-slate-400">

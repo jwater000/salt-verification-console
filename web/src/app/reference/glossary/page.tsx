@@ -136,10 +136,15 @@ export default function GlossaryPage() {
         <p className="text-xs font-semibold uppercase tracking-[0.2em] text-violet-400">
           Reference · Glossary
         </p>
-        <h1 className="mt-3 text-3xl font-bold leading-tight tracking-tight text-white">용어 사전</h1>
-        <p className="mt-3 max-w-xl text-base leading-relaxed text-slate-300">
-          SALT 핵심 용어와 표준 이론 용어의 정의 및 대응 관계.
-          각 항목은 표준 이론에서의 의미와 SALT에서의 해석을 나란히 정리한다.
+        <h1 className="mt-3 text-3xl font-bold leading-tight tracking-tight text-white">
+          낯선 용어를 사전처럼 찾기보다
+          <br />
+          이야기 속에서 다시 붙잡는 용어집
+        </h1>
+        <p className="mt-3 max-w-2xl text-base leading-relaxed text-slate-300">
+          SALT는 익숙한 단어도 다르게 쓰고, 낯선 기호도 자주 등장한다. 그래서 이 용어집은 단순 정의보다
+          비교에 가깝다. 같은 말을 표준 이론은 어떻게 쓰는지, SALT는 어떻게 다시 읽는지를 나란히 놓아
+          의미의 차이를 바로 느끼게 한다.
         </p>
         {/* Category filter index */}
         <div className="mt-5 flex flex-wrap gap-2">
@@ -152,6 +157,27 @@ export default function GlossaryPage() {
               {cat}
             </a>
           ))}
+        </div>
+      </div>
+
+      <div className="grid gap-4 md:grid-cols-3">
+        <div className="rounded-2xl border border-violet-500/20 bg-slate-950/40 p-5">
+          <p className="text-xs uppercase tracking-[0.16em] text-slate-500">개념이 흐려질 때</p>
+          <p className="mt-2 text-sm leading-relaxed text-slate-300">
+            `ρ`, `θ`, `L` 같은 상태변수가 머릿속에서 흐려질 때 가장 먼저 다시 보면 좋다.
+          </p>
+        </div>
+        <div className="rounded-2xl border border-cyan-500/20 bg-slate-950/40 p-5">
+          <p className="text-xs uppercase tracking-[0.16em] text-slate-500">검증 숫자가 낯설 때</p>
+          <p className="mt-2 text-sm leading-relaxed text-slate-300">
+            `ξ`, `Δτ_SALT`, `f_tail`, frozen dataset 같은 검증 용어가 정확히 무엇을 뜻하는지 다시 확인한다.
+          </p>
+        </div>
+        <div className="rounded-2xl border border-amber-500/20 bg-slate-950/40 p-5">
+          <p className="text-xs uppercase tracking-[0.16em] text-slate-500">확장 해석이 궁금할 때</p>
+          <p className="mt-2 text-sm leading-relaxed text-slate-300">
+            해석 재정렬, 설계 가설, ADM 분해 같은 보조 개념을 다시 붙잡는 데 쓴다.
+          </p>
         </div>
       </div>
 

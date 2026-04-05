@@ -10,26 +10,28 @@ export default function CorePage() {
         <div className="pointer-events-none absolute right-0 top-0 h-48 w-48 rounded-full bg-sky-500/8 blur-3xl" />
         <p className="text-xs font-semibold uppercase tracking-[0.2em] text-sky-400">Core Ideas</p>
         <h1 className="mt-3 text-3xl font-bold leading-tight tracking-tight text-white md:text-4xl">
-          책의 핵심 논리 구조
+          SALT의 핵심 아이디어가
+          <br />
+          왜 하나의 이야기처럼 이어지는가
         </h1>
         <p className="mt-4 max-w-2xl text-base leading-relaxed text-slate-300">
-          SALT는 세 개의 상태변수로 공간 구조를 기술하고, 그 구조가 신호에 남기는 흔적으로
-          이론을 시험한다. 17 · 18 · 19장이 이 논리의 뼈대다. Core는 이론 구조를 설명하는
-          허브이며, 실제 판정 결과표는 Verification에서 따로 본다.
+          여기서는 장 번호보다 먼저 전환점을 본다. 왜 기존 설명에서는 공간, 질량, 상호작용이 서로
+          따로 놀아 보이는지, SALT가 그것들을 어떤 상태변수 언어로 다시 묶는지, 그리고 그 해석이 왜
+          결국 검증으로 내려가야 하는지를 한 줄의 흐름으로 따라간다.
         </p>
         <div className="mt-5 flex flex-wrap gap-2 text-xs text-slate-300">
           <span className="rounded-full border border-slate-700 bg-slate-900/70 px-3 py-1">
             Problem → Clue → Concept → Solution
           </span>
           <span className="rounded-full border border-slate-700 bg-slate-900/70 px-3 py-1">
-            결과 원표는 제외
+            장 요약보다 흐름 우선
           </span>
         </div>
       </div>
 
       {/* Logic flow */}
       <div className="panel px-6 py-6">
-        <h2 className="mb-5 text-sm font-bold text-white">논리 흐름</h2>
+          <h2 className="mb-5 text-sm font-bold text-white">한 줄로 이어 보는 논리 흐름</h2>
         <div className="relative space-y-0">
           {LOGIC_MAP_STAGES.map((step, i) => (
             <div key={step.id} className="flex gap-4">
@@ -51,34 +53,32 @@ export default function CorePage() {
       </div>
 
       <div className="rounded-2xl border border-slate-800 bg-slate-950/40 p-6">
-        <h2 className="text-sm font-semibold text-white">이 페이지에서 바로 읽는 내용</h2>
+        <h2 className="text-sm font-semibold text-white">핵심 장면 세 가지</h2>
         <div className="mt-5 grid gap-4 md:grid-cols-3">
           <div className="rounded-xl border border-slate-800 bg-slate-900/40 p-4">
-            <p className="text-sm font-semibold text-slate-100">문제의식</p>
-            <p className="mt-2 text-sm leading-relaxed text-slate-400">
-              공간, 질량, 상호작용을 따로 떼지 않고 하나의 구조 문제로 다시 읽는 관점을 압축해 본다.
-            </p>
-          </div>
+              <p className="text-sm font-semibold text-slate-100">문제의식</p>
+              <p className="mt-2 text-sm leading-relaxed text-slate-400">
+              지금의 물리 설명이 어디에서 끊겨 보이는지, 왜 하나의 구조 문제로 다시 읽어야 하는지 본다.
+              </p>
+            </div>
           <div className="rounded-xl border border-slate-800 bg-slate-900/40 p-4">
-            <p className="text-sm font-semibold text-slate-100">상태변수 언어</p>
-            <p className="mt-2 text-sm leading-relaxed text-slate-400">
-              ρ, θ, L 세 변수로 공간 구조를 기술하고 관측 흔적으로 연결하는 방식을 본다.
-            </p>
-          </div>
+              <p className="text-sm font-semibold text-slate-100">상태변수 언어</p>
+              <p className="mt-2 text-sm leading-relaxed text-slate-400">
+              ρ, θ, L이 단순 기호가 아니라 공간의 상태와 관측 흔적을 잇는 문법이라는 점을 본다.
+              </p>
+            </div>
           <div className="rounded-xl border border-slate-800 bg-slate-900/40 p-4">
-            <p className="text-sm font-semibold text-slate-100">검증으로의 연결</p>
-            <p className="mt-2 text-sm leading-relaxed text-slate-400">
-              이론 설명이 어디서 끝나고 실제 판정 구조가 어디서 시작되는지 경계를 확인한다.
-            </p>
+              <p className="text-sm font-semibold text-slate-100">검증으로의 연결</p>
+              <p className="mt-2 text-sm leading-relaxed text-slate-400">
+              좋은 설명이 결국 어떤 시험대로 내려가야 하는지, 이론과 판정의 경계가 어디인지 확인한다.
+              </p>
+            </div>
           </div>
-        </div>
       </div>
 
       {/* Chapter cards */}
       <div>
-        <h2 className="mb-4 text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">
-          장별 핵심 요약
-        </h2>
+        <h2 className="mb-4 text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">장별 핵심 요약</h2>
         <div className="space-y-4">
           {CORE_CHAPTERS.map((ch) => {
             const statusStyles = {
@@ -139,7 +139,7 @@ export default function CorePage() {
 
       {/* Status legend */}
       <div className="rounded-xl border border-slate-800 bg-slate-950/40 px-6 py-5">
-        <h2 className="mb-4 text-sm font-bold text-white">콘텐츠 구분 범례</h2>
+        <h2 className="mb-4 text-sm font-bold text-white">읽으면서 붙잡으면 좋은 구분</h2>
         <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
           <div className="flex items-start gap-3">
             <span className="badge-verified mt-0.5">검증 완료</span>

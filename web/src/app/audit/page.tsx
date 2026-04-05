@@ -17,25 +17,41 @@ export default async function AuditPage() {
       <div className="rounded-3xl border border-amber-500/20 bg-[linear-gradient(135deg,#1d1206_0%,#020617_65%,#111827_100%)] px-8 py-10">
         <p className="text-xs font-semibold uppercase tracking-[0.2em] text-amber-400">Audit</p>
         <h1 className="mt-3 text-3xl font-bold leading-tight tracking-tight text-white md:text-4xl">
-          재현 경로와 감사 자료를
+          SALT의 결과가
           <br />
-          함께 모아 둔 영역
+          어떤 발자국을 남기며 나왔는지 보는 곳
         </h1>
-        <p className="mt-4 max-w-2xl text-base leading-relaxed text-slate-300">
-          Audit 섹션에는 사용된 데이터, 코드, 잠금 규칙, provenance 자료가 함께 정리되어 있다.
-          Audit은 재현 경로와 감사 자료를 위한 허브이며, 결과 집계의 공식 허브를 대신하지 않는다.
-          판정 결과는 Verification에서, 사이트 입문 흐름은 Guide에서 따로 본다.
+        <p className="mt-4 max-w-3xl text-base leading-relaxed text-slate-300">
+          숫자는 혼자 생기지 않는다. 어떤 데이터가 잠겼는지, 어떤 파이프라인이 돌았는지, 어떤 해시가
+          결과를 묶고 있는지까지 따라가야 비로소 한 번의 판정이 온전해진다. 이곳은 SALT의 공개 결과가
+          남긴 발자국을 역추적하는 페이지다.
         </p>
         <div className="mt-5 flex flex-wrap gap-2 text-xs text-slate-300">
-          <span className="rounded-full border border-slate-700 bg-slate-900/70 px-3 py-1">
-            재현 · provenance 허브
-          </span>
-          <span className="rounded-full border border-slate-700 bg-slate-900/70 px-3 py-1">
-            판정 결과는 Verification
-          </span>
-          <span className="rounded-full border border-slate-700 bg-slate-900/70 px-3 py-1">
-            입문 안내는 Guide
-          </span>
+          <span className="rounded-full border border-slate-700 bg-slate-900/70 px-3 py-1">frozen dataset</span>
+          <span className="rounded-full border border-slate-700 bg-slate-900/70 px-3 py-1">pipeline</span>
+          <span className="rounded-full border border-slate-700 bg-slate-900/70 px-3 py-1">manifest hash</span>
+          <span className="rounded-full border border-slate-700 bg-slate-900/70 px-3 py-1">reproduce</span>
+        </div>
+      </div>
+
+      <div className="grid gap-4 md:grid-cols-3">
+        <div className="rounded-2xl border border-slate-800 bg-slate-950/40 p-5">
+          <p className="text-xs uppercase tracking-[0.16em] text-slate-500">1. 어떤 기준으로 채점했는가</p>
+          <p className="mt-2 text-sm leading-relaxed text-slate-300">
+            어떤 frozen dataset과 어떤 판정 규칙을 기준으로 현재 결과가 공개됐는지 먼저 확인한다.
+          </p>
+        </div>
+        <div className="rounded-2xl border border-amber-500/20 bg-slate-950/40 p-5">
+          <p className="text-xs uppercase tracking-[0.16em] text-slate-500">2. 어떤 경로를 거쳐 나왔는가</p>
+          <p className="mt-2 text-sm leading-relaxed text-slate-300">
+            manifest, run, snapshot, formula version을 따라가며 같은 산출 경로를 추적한다.
+          </p>
+        </div>
+        <div className="rounded-2xl border border-cyan-500/20 bg-slate-950/40 p-5">
+          <p className="text-xs uppercase tracking-[0.16em] text-slate-500">3. 원자료는 어디에서 왔는가</p>
+          <p className="mt-2 text-sm leading-relaxed text-slate-300">
+            외부 공개 데이터와 참고 문헌, 재현 절차는 이 섹션 하위에서 출처 단위로 다시 확인한다.
+          </p>
         </div>
       </div>
 
@@ -62,7 +78,7 @@ export default async function AuditPage() {
 
       <div className="grid gap-4 lg:grid-cols-[1.1fr,0.9fr]">
         <div className="rounded-2xl border border-slate-800 bg-slate-950/40 p-6">
-          <h2 className="text-sm font-semibold text-white">이 영역의 정리 원칙</h2>
+          <h2 className="text-sm font-semibold text-white">이 영역에서 확인하는 원칙</h2>
           <ul className="mt-5 space-y-3">
             {PRINCIPLES.map((item) => (
               <li key={item} className="flex gap-3 text-sm text-slate-300">
@@ -74,7 +90,7 @@ export default async function AuditPage() {
         </div>
 
         <div className="rounded-2xl border border-slate-800 bg-slate-950/40 p-6">
-          <h2 className="text-sm font-semibold text-white">재현에 필요한 3요소</h2>
+          <h2 className="text-sm font-semibold text-white">재현에 필요한 세 가지</h2>
           <div className="mt-5 space-y-4">
             <div>
               <p className="text-sm font-semibold text-slate-100">1. 잠긴 기준</p>

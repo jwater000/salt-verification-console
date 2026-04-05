@@ -131,12 +131,12 @@ export default async function ChannelPage({ params }: { params: Promise<{ channe
           <span className="badge-verified">판정 규칙 고정</span>
         </div>
         <p className="mt-1 text-sm text-slate-500">{def.fullTitle}</p>
-        <p className="mt-4 max-w-2xl text-base leading-relaxed text-slate-300">{def.what}</p>
+        <p className="mt-4 max-w-3xl text-base leading-relaxed text-slate-300">{def.what}</p>
       </div>
 
       {/* Why this channel */}
       <div className="panel px-6 py-6">
-        <h2 className="mb-3 text-sm font-bold text-white">왜 이 채널이 SALT를 시험하는가</h2>
+        <h2 className="mb-3 text-sm font-bold text-white">왜 이 채널이 중요한가</h2>
         <p className="text-sm leading-relaxed text-slate-300">{def.why}</p>
       </div>
 
@@ -147,7 +147,7 @@ export default async function ChannelPage({ params }: { params: Promise<{ channe
           <p className="text-sm leading-relaxed text-slate-200">{def.baseline}</p>
         </div>
         <div className="rounded-xl border border-cyan-500/15 bg-slate-950/40 p-5">
-          <p className="mb-2 text-[11px] font-semibold uppercase tracking-wider text-slate-500">SALT 메커니즘</p>
+          <p className="mb-2 text-[11px] font-semibold uppercase tracking-wider text-slate-500">SALT가 보는 차이</p>
           <p className="text-sm leading-relaxed text-slate-200">{def.saltMechanism}</p>
         </div>
         <div className="rounded-xl border border-slate-700/50 bg-slate-900/40 p-5">
@@ -156,7 +156,7 @@ export default async function ChannelPage({ params }: { params: Promise<{ channe
           <p className="mt-2 text-xs leading-relaxed text-slate-400">{def.parameterDesc}</p>
         </div>
         <div className="rounded-xl border border-rose-500/15 bg-rose-950/10 p-5">
-          <p className="mb-2 text-[11px] font-semibold uppercase tracking-wider text-slate-500">기각 조건</p>
+          <p className="mb-2 text-[11px] font-semibold uppercase tracking-wider text-slate-500">언제 실패로 읽는가</p>
           <p className="text-sm leading-relaxed text-rose-200/90">{def.falsification}</p>
         </div>
       </div>
@@ -164,7 +164,7 @@ export default async function ChannelPage({ params }: { params: Promise<{ channe
       {/* Datasets */}
       <div>
         <h2 className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">
-          핵심 데이터셋
+          이 채널을 떠받치는 데이터
         </h2>
         <div className="space-y-2">
           {def.datasets.map((ds) => (
@@ -194,7 +194,7 @@ export default async function ChannelPage({ params }: { params: Promise<{ channe
       {def.relatedImages.length > 0 && (
         <div>
           <h2 className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">
-            관련 도해
+            같이 보면 좋은 도해
           </h2>
           <div className="grid grid-cols-2 gap-3 md:grid-cols-3">
             {def.relatedImages.map((img) => (
@@ -219,11 +219,7 @@ export default async function ChannelPage({ params }: { params: Promise<{ channe
       {/* Navigation */}
       <div className="flex items-center justify-between border-t border-slate-800 pt-4">
         {def.links.map((l) => (
-          <Link
-            key={l.href}
-            href={l.href}
-            className="text-sm text-slate-400 transition hover:text-white"
-          >
+          <Link key={l.href} href={l.href} className="text-sm text-slate-400 transition hover:text-white">
             {l.label}
           </Link>
         ))}
